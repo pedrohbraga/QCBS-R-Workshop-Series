@@ -16,301 +16,141 @@ output:
 ---
 
 
-## R Markdown
+# Using R as a calculator
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Addition, substraction, etc.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+- Additions and Substractions
 
-<small>This sentence will appear smaller.</small>
+```{r}
+	1+1
+  10-1
+```
 
-# Section Title Slide
+- Multiplications and Divisions
 
-## Vertical Slide with Incremental Bullets
+```{r]
+	2*2
+  8/2
+```
 
-> - Bullet 1
-> - Bullet 2
-> - Bullet 3
+- Exponents
 
-### Begins a new header within a slide
+```{r}
+	2^3
+```
 
-## Vertical Slide with Incremental Bullets
-> - Level 1 item
->      * Level 2 item
->      * Level 2 item
-> - Level 1 item
+## Challenge 2
 
-## Vertical Slide with Normal Text and Small Text
+Use R to calculate the following skill testing question:
 
-This is a normal text.
+$$
+2+16*24-56
+$$
 
-<small>This sentence will appear smaller.</small>
+<small>Hints: The `*` symbol is used to multiply</small>
 
-## Vertical Slide with Text Aligned to the Right
+## Challenge 2: Solution
+
+## Challenge 2: Solution
+
+- Question
+
+$$
+2+16*24-56
+$$
+
+- Solution
+
+```{r}
+	2+16*24-56
+```
+
+## Challenge 3
+
+Use R to calculate the following skill testing question:
+
+$$
+2+16*24-56 / (2+1)-457
+$$
+
+<small>Hints: Think about the order of the operation.</small>
+
+## Challenge 3: Solution
+
+- Question
+
+$$
+2+16*24-56 / (2+1)-457
+$$
+
+- Solution
+
+```{r}
+	2+16*24-56/(2+1)-457
+```
+
+Note that R follows the order of the operations
+
+## R command line tip
+
+Use the "Up" and "Down" arrow keys to reproduce previous commands.
+
+Give it a try!
+
+## Challenge 4
 
 <div id="right">
 
-- You can place two graphs on a slide
-- Or two columns of text
-- These are all created with div elements
+
+```{r echo = F, fig.width=5, fig.height=5}
+	plot(c(-1, 1), c(-1, 1), type = "n", ann = F, axes = F, asp = 1)
+	lines(x = radius * cos(theta), y = radius * sin(theta))
+	arrows(0, 0, x1 = 1, length = 0)
+	text(.5, .1, "radius = 5 cm", cex = .8)
+```
 
 </div>
-
-## Vertical Slide with Text Aligned to the Left
 
 <div id="left">
 
-- You can place two graphs on a slide
-- Or two columns of text
-- These are all created with div elements
+What is the area of this circle, with a radius of $5\ cm$?
 
 </div>
 
-## Vertical Slide with Quote Text
+## Challenge 4: Solution
 
-> R Markdown is amazing!
+- Question
 
-## Vertical Slide with Images
+What is the area of a circle, with a radius of $5\ cm$?
 
-[Caption for the picture.](/images/logo_text.png)
-
-# Code Section
-
-## Slide with R Code and Output
+- Solution
 
 ```{r}
-summary(cars)
+  3.1416*5^2
 ```
 
-## Slide with Plot
+Tip: Note that `R` has some built-in constant such as $\pi$, so you can write:
 
-```{r, echo=FALSE}
-plot(cars)
+```{r}
+  pi*5^2
 ```
 
-## Slide with R Code and No Output
+# Objects and indexing
 
-```{r, eval = FALSE}
-summary(cars)
+## Objects
+
+- One of the most useful concept in `R`!
+- You can store values as named objects using the assignement operator `<-`
+
+```{r, eval = F}
+  object name <- assigned value
 ```
 
-## Slide with a ggplot2 plot
+The value on the **right** is assigned to the name on the **left** with the assignement operator `<-`
 
+ <small>It is also possible to use the `=` sign, but it is better to **avoid it** as it is also used for other purposes.</small>
+ 
+## Objects names
 
-```{r, echo = TRUE}
-library(ggplot2)
-data(diamonds)
-diamonds <- diamonds[sample(1:nrow(diamonds),2000),]
-
-ggplot(diamonds, 
-       aes(carat, price)) +
-  geom_point(color="firebrick")
-```
-
-## Use a zoom transition, ggplot and plotly! {data-transition="zoom"}
-
-_It is interactive!!!_
-
-
-```{r plotly, message = FALSE, echo = FALSE}
-library(ggplot2)
-library(plotly)
-g <- ggplot(mpg, 
-            aes(x = -cty, 
-                y = hwy, 
-                colour = as.factor(cyl))) +
-  geom_point()
-ggplotly(g)
-```
-
-## Use a faster speed {data-transition-speed="fast"}
-
-This slide has a figure caption.
-
-```{r,echo = FALSE, warning = FALSE,message=FALSE, fig.cap= "Cars"}
-
-library(ggplot2)
-data(mtcars)
-g <- ggplot(mpg, aes(class))
-g <- g + geom_bar()
-
-print(g)
-
-```
-
-## Incrementaly reveal code
-
-```{r cache=F,echo=F}
-s0 <- knitr::knit_hooks$get('source')
-o0 <- knitr::knit_hooks$get('output')
-
-knitr::knit_hooks$set(
-  list(
-    source=function(x,options){
-      if (is.null(options$class)) s0(x, options)
-      else
-        paste0(
-          paste0("<div class='", options$class, "'><pre><code>")
-          ,x
-          ,'</code></pre>\n'
-        )
-    }
-    ,output = function(x,options){
-      if (is.null(options$class)) o0(x, options)
-      else 
-        paste0(
-          "<pre><code>"
-          ,x
-          ,'</code></pre></div>\n'
-        )
-    }
-  )
-)
-```
-
-What is the `mean(1:3)`?
-
-```{r class="fragment"}
-mean(1:3)
-```
-
-<div class="fragment">
-  This works fine! The `div` does not appear until you click forward in the deck. But you cannot put the `div` tags around a code fragment!
-</div>
-
-<div class="fragment">
-What do we type to get the mean from a vector that goes from 1 to 5?
-</div>
-
-```{r class="fragment"}
-mean(1:5)
-```
-
-## Incrementaly reveal plots
-
-```{r cache=F,echo=F}
-c0 <- knitr::knit_hooks$get('chunk')
-
-knitr::knit_hooks$set(
-  list(
-    chunk=function(x,options){
-      if(is.null(options$class) & is.null(options$fragIndex)){
-        c0(x, options)
-      } else if(is.null(options$fragIndex)) {
-        classidx <- which(names(options)=="class")
-        paste0(
-          paste0("<span class='", options$class, "'>"),
-          c0(x, options[-classidx]),
-          '</span>\n'
-        )
-      }
-      else if(length(options$fragIndex)==1) {
-        classidx <- which(names(options)%in%c("class", "fragIndex"))
-        str_replace(
-          paste0(
-            paste0("<span class='", options$class, "' data-fragment-index=", options$fragIndex,">"),
-            c0(x, options[-classidx]),
-            '</span>\n'
-          ),
-          "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
-          "\\2"
-        )
-      } else {
-        classidx <- which(names(options)%in%c("class", "fragIndex"))
-        str_replace(
-          paste0(
-            paste0("<span class='", options$class, " fade-in' data-fragment-index=", options$fragIndex[1],">"),
-            paste0(
-              paste0("<span class='", options$class, " fade-out' data-fragment-index=", options$fragIndex[2],">"),
-              c0(x, options[-classidx]),
-              '</span>\n'
-              ),
-            '</span>\n'
-            ),
-          "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
-          "\\2"
-        )
-        
-      }
-        
-    }
-  )
-)
-```
-
-## Slides with Equations
-
-With *equations*:
-
-$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
-
-## More equations
-
-Inline equation, just like this $equation$, and...
-
-Display equation:
-
-$$ equation $$
-
-# Special Transitions and Color Effects
-
-## Fade in, Slide out {data-transition="slide-in fade-out"}
-
-## Horizontal Rule / Page Break
-
-Three or more asterisks or dashes:
-
-******
-
-Result in this
-
-------
-
-## Tables
-
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
-
-## Reference Style Links and Images
-
-### Links
-
-A [linked phrase][id].
-At the bottom of the document:
-
-[id]: http://example.com/ "Title"
-
-### Images
-![QCBSLOGO][logo-qcbs]
-
-At the bottom of the document:
-
-[logo-qcbs]: /images/logo_text.png "QCBS Logo"
-
-## Slide in, Fade out {data-transition="fade-in slide-out"}
-
-## CSS color background {data-background=#ff0000}
-
-## CSS color background {data-background=#D3D3D3}
-
-## CSS color background {data-background=#EBF5FB}
-
-Refer to HEX codes in [HTML Color Codes](http://htmlcolorcodes.com/) for other colors.
-
-## Full size image background {data-background="https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png"}
-
-## Video embeded
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen></iframe>
-
-## {data-background-iframe="http://qcbs.ca/wiki/r"}
-
-# Extra information
-
-## Next Steps {#nextsteps .emphasized}
-
-<span class="emphasized">Pay attention to this!</span>
-
-
+test 2

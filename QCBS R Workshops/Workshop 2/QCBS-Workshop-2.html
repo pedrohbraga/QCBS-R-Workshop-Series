@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Québec Centre for Biodiversity Science" />
+  <title>QCBS R Workshop 2: Loading and Manipulating Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="QCBS-Workshop-2_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+
+<link rel="stylesheet" href="QCBS-Workshop-2_files/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="custom-qcbs.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">QCBS R Workshop 2: Loading and Manipulating Data</h1>
+    <h2 class="author">Québec Centre for Biodiversity Science</h2>
+</section>
+
+<section id="quebec-centre-for-biodiversity-science" class="slide level2">
+<h1>Quebec Centre for Biodiversity Science</h1>
+<p>R Workshop Series Workshop 2: Loading and manipulating data</p>
+<p>Website: <a href="http://qcbs.ca/wiki/r/workshop2" class="uri">http://qcbs.ca/wiki/r/workshop2</a></p>
+</section>
+<section id="learning-objectives" class="slide level2">
+<h1>Learning Objectives</h1>
+<ul>
+<li><ol type="1">
+<li>Writing a script</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Loading, exploring and saving data</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>Fixing a broken data frame</li>
+</ol></li>
+</ul>
+</section>
+<section id="r-scripts" class="slide level2">
+<h1>R Scripts</h1>
+<ul>
+<li><p>What is this? A text file that contains all of the commands that you will use</p></li>
+<li><p>Once written and saved, your script file allows you to make changes and re-run analyses with minimal effort! Just highlight text and click “run” or press command+enter (Mac) or ctrl+enter (PC)</p></li>
+</ul>
+</section>
+<section id="create-an-r-script" class="slide level2">
+<h1>Create an R script</h1>
+<p>IMAGE</p>
+</section>
+<section id="create-an-r-script-1" class="slide level2">
+<h1>Create an R script</h1>
+<p>IMAGE</p>
+</section>
+<section id="commands-comments" class="slide level2">
+<h1>Commands &amp; comments</h1>
+<p>The ‘#’ symbol in a script tells R to ignore anything remaining on this line of the script when running commands</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This is a comment not a command</span></code></pre></div>
+<h3 id="section"></h3>
+<h3 id="commenting-documenting">commenting / documenting</h3>
+<ul>
+<li>annotating someone’s script is a good way to learn</li>
+<li>remember what you did</li>
+<li>tell collaborators what you did</li>
+<li>good step towards reproducible science</li>
+</ul>
+</section>
+<section id="header" class="slide level2">
+<h1>Header</h1>
+<p>It is recommended that you start your script with a header using comments:</p>
+<p>IMAGE</p>
+</section>
+<section id="section-headings" class="slide level2">
+<h1>Section Headings</h1>
+<p>You can make a section heading in R Studio four # signs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#### Heading name ####</code></pre></div>
+<p>Allows you to move quickly between sections and hide sections</p>
+<p>IMAGE</p>
+</section>
+<section id="housekeeping" class="slide level2">
+<h1>Housekeeping</h1>
+<p>The first command at the top of all scripts should be: rm(list = ls()). This:</p>
+<ul>
+<li>Clears R memory</li>
+<li>Prevents errors such as use of older data</li>
+</ul>
+<h3 id="section-1"></h3>
+<h3 id="clearing-the-workspace">Clearing the workspace</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clear the R workspace</span>
+<span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
+?rm
+?ls</code></pre></div>
+</section>
+<section id="housekeeping-1" class="slide level2">
+<h1>Housekeeping</h1>
+<p>Demo – add some test data to R and then see how rm(list=ls()) removes it commenting/documenting</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A &lt;-<span class="st"> &quot;Test&quot;</span>
+A</code></pre></div>
+<pre><code>## [1] &quot;Test&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
+A</code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;A&#39; not found</code></pre>
+<h3 id="section-2"></h3>
+<h3 id="remember">Remember</h3>
+<ul>
+<li>R is ready for commands when you see the chevron ‘&gt;’ in the console. If you don’t see it, press ESC</li>
+<li>R is case sensitive!</li>
+</ul>
+</section>
+<section id="loading-exploring-and-saving-data" class="slide level2">
+<h1>Loading, exploring and saving data</h1>
+</section>
+<section id="download-todays-data" class="slide level2">
+<h1>Download today’s data</h1>
+<p>You can download the data &amp; script from:</p>
+<p><a href="http://qcbs.ca/wiki/r/workshop2" class="uri">http://qcbs.ca/wiki/r/workshop2</a></p>
+<p>Save the files somewhere convenient on your computer and remember the path to the directory that contains the files.</p>
+</section>
+<section id="working-directory" class="slide level2">
+<h1>Working Directory</h1>
+<p>Tells R where your scripts and data are. You need to set the right working directory to load a data file. Type in the console to see your working directory:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()</code></pre></div>
+<p>When you load a script, RStudio automatically sets the directory to the folder containing the script.</p>
+<p>a “/” separates folders and file</p>
+</section>
+<section id="setting-working-directory" class="slide level2">
+<h1>Setting working directory</h1>
+<p>(Apple Image)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;/Users/vincentfugere/Desktop/QCBS_R&#39;</span>)</code></pre></div>
+<p>(Windows Image)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;C:/Users/Johanna/Documents/PhD/R_Workshop2&#39;</span>)</code></pre></div>
+<p>Alternatively:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="kw">choose.dir</span>())</code></pre></div>
+<p>This gives you a pop up to navigate to appropriate directory (might not work on a mac).</p>
+<p>You can also set your working directory by clicking on session / set working directory / choose directory</p>
+</section>
+<section id="display-contents-of-the-directory" class="slide level2">
+<h1>Display contents of the directory</h1>
+<p>You can display contents of the working directory using dir().</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir</span>()</code></pre></div>
+<p>It helps to:</p>
+<ul>
+<li>Check that the file you plan to open is present in the folder that R is currently working in</li>
+<li>Check for correct spelling (e.g. “co2_good.csv” instead of “CO2_good.csv”)</li>
+</ul>
+</section>
+<section id="importing-data" class="slide level2">
+<h1>Importing Data</h1>
+<p>Import data into R using read.csv:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;co2_good.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p>New object in R File name within quotation marks (‘file’ or “file”) Tells R that first line contains column names not data</p>
+<p>Recall: to find out what arguments the function requires, use help “?”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?read.csv2</code></pre></div>
+<p>Important: if your operating system or CSV editor (e.g. Excel) is in French, then use read.csv2</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?read.csv2</code></pre></div>
+</section>
+<section id="importing-data-1" class="slide level2">
+<h1>Importing Data</h1>
+<p>IMAGE</p>
+<p>Notice that R-Studio now provides information on the CO2 data in your workspace</p>
+<p>The workspace refers to all the objects that you create during an R session.</p>
+</section>
+<section id="looking-at-data" class="slide level2">
+<h1>Looking at Data</h1>
+<table>
+<thead>
+<tr class="header">
+<th>R code</th>
+<th>action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CO2</td>
+<td>look at the whole dataframe</td>
+</tr>
+<tr class="even">
+<td>head(CO2)</td>
+<td>look at the first few rows</td>
+</tr>
+<tr class="odd">
+<td>names(CO2)</td>
+<td>names of the columns in the dataframe</td>
+</tr>
+<tr class="even">
+<td>attributes(CO2)</td>
+<td>attributes of the dataframe</td>
+</tr>
+<tr class="odd">
+<td>ncol(CO2)</td>
+<td>number of columns</td>
+</tr>
+<tr class="even">
+<td>nrow(CO2)</td>
+<td>number of rows</td>
+</tr>
+<tr class="odd">
+<td>summary(CO2)</td>
+<td>summary statistics</td>
+</tr>
+</tbody>
+</table>
+<p>Note: the CO2 dataset includes repeated measurements of CO2 uptake from six plants from Quebec and six plants from Mississippi at several levels of ambient CO2 concentration. Half the plants of each type were chilled overnight before the experiment was conducted.</p>
+</section>
+<section id="looking-at-data-1" class="slide level2">
+<h1>Looking at Data</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(CO2)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    84 obs. of  5 variables:
+##  $ Plant    : Factor w/ 12 levels &quot;Mc1&quot;,&quot;Mc2&quot;,&quot;Mc3&quot;,..: 10 10 10 10 10 10 10 11 11 11 ...
+##  $ Type     : Factor w/ 2 levels &quot;Mississippi&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Treatment: Factor w/ 2 levels &quot;chilled&quot;,&quot;nonchilled&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ conc     : int  95 175 250 350 500 675 1000 95 175 250 ...
+##  $ uptake   : num  16 30.4 34.8 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...</code></pre>
+<p>This shows the structure of the dataframe.</p>
+<p>Very useful to check data type (mode) of all columns to make sure R loaded data properly.</p>
+<p><strong>Common problems:</strong></p>
+<ul>
+<li>Factors loaded as text (character) or vice versa</li>
+<li>Factor includes too many levels because of typo</li>
+<li>Data (integer or numeric) is loaded as character because of typo (e.g. a space or a “,” instead of a “.” for decimal numbers)</li>
+</ul>
+</section>
+<section id="looking-at-data-2" class="slide level2">
+<h1>Looking at Data</h1>
+<p>data(), head(), str(), names(), attributes(), summary(), ncol(), nrow()</p>
+<p>Load the data with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;CO2_good.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Check data types with str() again. What is wrong here?</p>
+<p><em>(Don’t forget to re-load data with</em> <strong>header = T</strong> <em>afterward)</em></p>
+</section>
+<section id="reminder-from-workshop-1-accessing-data" class="slide level2">
+<h1>Reminder from Workshop 1: Accessing data</h1>
+<p>A data frame called <em>mydata</em></p>
+<p>IMAGE</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata[<span class="dv">1</span>,]</code></pre></div>
+<p>Extracts the first row</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata[<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<p>Extracts the content of row 2 / column 3</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata[,<span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata$Variable1</code></pre></div>
+<p>Both extract the first column</p>
+</section>
+<section id="data-exploration" class="slide level2">
+<h1>Data exploration</h1>
+<p>Plot of all variable combinations (very useful!)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(CO2)</code></pre></div>
+<p>Want to see if one of your variable is normally distributed? Try hist()</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(CO2$uptake)</code></pre></div>
+<p>*Recall from workshop 1 that the dollar sign is used to extract a column from a data frame.</p>
+</section>
+<section id="data-exploration-1" class="slide level2">
+<h1>Data exploration</h1>
+<p>Calculate and save the mean of one of your columns</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">conc_mean &lt;-<span class="st"> </span><span class="kw">mean</span>(CO2$conc)</code></pre></div>
+<p>New object (name) Function Data frame (name) Column (name)</p>
+<p>Run object name to see output</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">conc_mean</code></pre></div>
+<pre><code>## [1] 435</code></pre>
+<p>Try with standard deviation as well:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(CO2$conc)</code></pre></div>
+<pre><code>## [1] 295.9241</code></pre>
+<p>Mean concentration is 435 and standard deviation is 295.92!</p>
+</section>
+<section id="data-exploration-2" class="slide level2">
+<h1>Data exploration</h1>
+<p>IMAGE: rubiks cube</p>
+<p>Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?apply</code></pre></div>
+</section>
+<section id="data-exploration-3" class="slide level2">
+<h1>Data exploration</h1>
+<p>IMAGE: rubiks cube</p>
+<p>Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?apply</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(CO2[,<span class="dv">4</span>:<span class="dv">5</span>], <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> mean)</code></pre></div>
+</section>
+<section id="saving-your-workspace" class="slide level2">
+<h1>Saving your Workspace</h1>
+<p>Save</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Saving an R workspace file</span>
+<span class="kw">save.image</span>(<span class="dt">file=</span><span class="st">&quot;CO2_project_Data.RData&quot;</span>)</code></pre></div>
+<p>Clear</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clear your memory</span>
+<span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<p>Reload</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Reload your data</span>
+<span class="kw">load</span>(<span class="st">&quot;CO2_project_Data.RData&quot;</span>)
+<span class="kw">head</span>(CO2) <span class="co"># looking good!</span></code></pre></div>
+<pre><code>##   Plant   Type  Treatment conc uptake
+## 1   Qn1 Quebec nonchilled   95   16.0
+## 2   Qn1 Quebec nonchilled  175   30.4
+## 3   Qn1 Quebec nonchilled  250   34.8
+## 4   Qn1 Quebec nonchilled  350   37.2
+## 5   Qn1 Quebec nonchilled  500   35.3
+## 6   Qn1 Quebec nonchilled  675   39.2</code></pre>
+</section>
+<section id="exporting-data" class="slide level2">
+<h1>Exporting data</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(CO2,<span class="dt">file=</span><span class="st">&quot;CO2_new.csv&quot;</span>)</code></pre></div>
+<p>Object (name) File to write (name)</p>
+</section>
+<section id="preparing-data-for-r" class="slide level2">
+<h1>Preparing data for R</h1>
+<p>Comma separated files (.csv) in Data folder</p>
+<ul>
+<li>can be created from almost all applications (Excel, LibreOffice, GoogleDocs)</li>
+<li>file -&gt; save as csv…</li>
+</ul>
+<p>IMAGE</p>
+</section>
+<section id="preparing-data-for-r-1" class="slide level2">
+<h1>Preparing data for R</h1>
+<p>Short informative column headings &gt; - starting with a letter &gt; - no spaces</p>
+<p>IMAGE</p>
+</section>
+<section id="preparing-data-for-r-2" class="slide level2">
+<h1>Preparing data for R</h1>
+<p>Column values match their intended use</p>
+<ul>
+<li>No text in numeric columns
+<ul>
+<li>do not include spaces!</li>
+<li>NA (not available) is allowed, but blank entries will automatically be replaced with NA so no need to add yourself.</li>
+</ul></li>
+<li>Avoid numeric values for data that does not have numeric meaning
+<ul>
+<li>Subject, Replicate, Treatment: 1,2,3 -&gt; A,B,C or S1,S2,S3 or …</li>
+</ul></li>
+</ul>
+<p>IMAGE</p>
+</section>
+<section id="preparing-data-for-r-3" class="slide level2">
+<h1>Preparing data for R</h1>
+<ul>
+<li>no notes!</li>
+<li>no additional headings!</li>
+<li>no merged cells!</li>
+</ul>
+<p>IMAGE</p>
+</section>
+<section id="preparing-data-for-r-4" class="slide level2">
+<h1>Preparing data for R</h1>
+<p>It is possible to do all your data preparation work within R</p>
+<ul>
+<li>Saves time for large datasets</li>
+<li>Keeps original data intact</li>
+<li>Can switch between long and wide easily (more on this in workshop 4)</li>
+<li>Useful page: <a href="https://www.zoology.ubc.ca/~schluter/R/data/" class="uri">https://www.zoology.ubc.ca/~schluter/R/data/</a></li>
+</ul>
+</section>
+<section id="use-your-data" class="slide level2">
+<h1>Use your data</h1>
+<p>IMAGE: rubiks cube</p>
+<ul>
+<li>Try to load, explore, plot, and save your own data in R*</li>
+<li>If it doesn’t load properly, try to make the appropriate changes</li>
+<li>Remember to clear your workspace first!</li>
+<li>When you are finished, try opening your exported data in excel</li>
+</ul>
+<p>*If you don’t have your own data, work with your neighbour</p>
+</section>
+<section id="fixing-a-broken-data-frame" class="slide level2">
+<h1>Fixing a broken data frame</h1>
+</section>
+<section id="harder-challenge" class="slide level2">
+<h1>Harder Challenge</h1>
+<p>IMAGE: rubiks cube</p>
+<p>Read in the file “CO2_broken.csv”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;co2_broken.csv&quot;</span>)
+<span class="kw">head</span>(CO2)</code></pre></div>
+<pre><code>##               NOTE..It.rain.a.lot.in.Quebec.during.sampling
+## 1 falling on my notebook numerous values can&#39;t be read rain
+## 2                      Plant\tType\tTreatment\tconc\tuptake
+## 3                           Qn1\tQuebec\tnonchilled\t95\t16
+## 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
+## 5           Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
+## 6                        Qn1\tQuebec\tnonchilled\t350\t37.2
+##   due.to.excessive  X X.1 X.2 X.3
+## 1               NA NA  NA  NA  NA
+## 2               NA NA  NA  NA  NA
+## 3               NA NA  NA  NA  NA
+## 4               NA NA  NA  NA  NA
+## 5               NA NA  NA  NA  NA
+## 6               NA NA  NA  NA  NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2</code></pre></div>
+<pre><code>##                NOTE..It.rain.a.lot.in.Quebec.during.sampling
+## 1  falling on my notebook numerous values can&#39;t be read rain
+## 2                       Plant\tType\tTreatment\tconc\tuptake
+## 3                            Qn1\tQuebec\tnonchilled\t95\t16
+## 4                         Qn1\tQuebec\tnonchilled\t175\t30.4
+## 5            Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
+## 6                         Qn1\tQuebec\tnonchilled\t350\t37.2
+## 7                         Qn1\tQuebec\tnonchilled\t500\t35.3
+## 8           Qn1\tQuebec\tnonchilled\tcannot_read_notes\t39.2
+## 9                        Qn1\tQuebec\tnonchilled\t1000\t39.7
+## 10                         Qn2\tQuebec\tnonchilled\t95\t13.6
+## 11                        Qn2\tQuebec\tnonchilled\t175\t27.3
+## 12                         Qn2\tQuebec\tnnchilled\t250\t37.1
+## 13                        Qn2\tQuebec\tnonchilled\t350\t41.8
+## 14                        Qn2\tQuebec\tnonchilled\t500\t40.6
+## 15                          Qn2\tQuebec\tnonchilled\t675\tna
+## 16                       Qn2\tQuebec\tnonchilled\t1000\t44.3
+## 17                         Qn3\tQuebec\tnonchilled\t95\t16.2
+## 18                        Qn3\tQuebec\tnonchilled\t175\t32.4
+## 19                        Qn3\tQuebec\tnonchilled\t250\t40.3
+## 20                        Qn3\tQuebec\tnonchilled\t350\t42.1
+## 21                        Qn3\tQuebec\tnonchilled\t500\t42.9
+## 22                        Qn3\tQuebec\tnonchilled\t675\t43.9
+## 23                       Qn3\tQuebec\tnonchilled\t1000\t45.5
+## 24                            Qc1\tQuebec\tchilled\t95\t14.2
+## 25                           Qc1\tQuebec\tchilled\t175\t24.1
+## 26             Qc1\tQuebec\tchilled\tcannot_read_notes\t30.3
+## 27                           Qc1\tQuebec\tchilled\t350\t34.6
+## 28                           Qc1\tQuebec\tchilled\t500\t32.5
+## 29                           Qc1\tQuebec\tchilled\t675\t35.4
+## 30                          Qc1\tQuebec\tchilled\t1000\t38.7
+## 31                             Qc2\tQuebec\tchilled\t95\t9.3
+## 32                           Qc2\tQuebec\tchilled\t175\t27.3
+## 33                             Qc2\tQuebec\tchilled\t250\t35
+## 34                           Qc2\tQuebec\tchilled\t350\t38.8
+## 35                           Qc2\tQuebec\tchilled\t500\t38.6
+## 36                           Qc2\tQuebec\tchilled\t675\t37.5
+## 37                          Qc2\tQuebec\tchilled\t1000\t42.4
+## 38                            Qc3\tQuebec\tchilled\t95\t15.1
+## 39                             Qc3\tQuebec\tchilled\t175\t21
+## 40                           Qc3\tQuebec\tchilled\t250\t38.1
+## 41                             Qc3\tQuebec\tchilled\t350\t34
+## 42                           Qc3\tQuebec\tchilled\t500\t38.9
+## 43                           Qc3\tQuebec\tchilled\t675\t39.6
+## 44                          Qc3\tQuebec\tchilled\t1000\t41.4
+## 45                    Mn1\tMississippi\tnonchilled\t95\t10.6
+## 46                   Mn1\tMississippi\tnonchilled\t175\t19.2
+## 47                   Mn1\tMississippi\tnonchilled\t250\t26.2
+## 48                     Mn1\tMississippi\tnonchilled\t350\t30
+## 49                   Mn1\tMississippi\tnonchilled\t500\t30.9
+## 50                   Mn1\tMississippi\tnonchilled\t675\t32.4
+## 51                  Mn1\tMississippi\tnonchilled\t1000\t35.5
+## 52                      Mn2\tMississippi\tnonchilled\t95\t12
+## 53                     Mn2\tMississippi\tnonchilled\t175\t22
+## 54                   Mn2\tMississippi\tnonchilled\t250\t30.6
+## 55                   Mn2\tMississippi\tnonchilled\t350\t31.8
+## 56                   Mn2\tMississippi\tnonchilled\t500\t32.4
+## 57                   Mn2\tMississippi\tnonchilled\t675\t31.1
+## 58                  Mn2\tMississippi\tnonchilled\t1000\t31.5
+## 59                    Mn3\tMississippi\tnonchilled\t95\t11.3
+## 60                   Mn3\tMississippi\tnonchilled\t175\t19.4
+## 61                   Mn3\tMississippi\tnonchilled\t250\t25.8
+## 62                   Mn3\tMississippi\tnonchilled\t350\t27.9
+## 63                   Mn3\tMississippi\tnonchilled\t500\t28.5
+## 64                   Mn3\tMississippi\tnonchilled\t675\t28.1
+## 65                  Mn3\tMississippi\tnonchilled\t1000\t27.8
+## 66                       Mc1\tMississippi\tchilled\t95\t10.5
+## 67                       Mc1\tMississippi\tchiled\t175\t14.9
+## 68                      Mc1\tMississippi\tchilled\t250\t18.1
+## 69                      Mc1\tMississippi\tchilled\t350\t18.9
+## 70                      Mc1\tMississippi\tchilled\t500\t19.5
+## 71                      Mc1\tMississippi\tchilled\t675\t22.2
+## 72                     Mc1\tMississippi\tchilled\t1000\t21.9
+## 73                        Mc2\tMississippi\tchilled\t95\t7.7
+## 74                      Mc2\tMississippi\tchilled\t175\t11.4
+## 75                      Mc2\tMississippi\tchilled\t250\t12.3
+## 76                        Mc2\tMississippi\tchilled\t350\t13
+## 77                      Mc2\tMississippi\tchilled\t500\t12.5
+## 78                      Mc2\tMississippi\tchilled\t675\t13.7
+## 79                     Mc2\tMississippi\tchilled\t1000\t14.4
+## 80                       Mc3\tMississippi\tchilled\t95\t10.6
+## 81                        Mc3\tMississippi\tchilled\t175\t18
+## 82                      Mc3\tMississippi\tchilled\t250\t17.9
+## 83                      Mc3\tMississippi\tchilled\t350\t17.9
+## 84                      Mc3\tMississippi\tchilled\t500\t17.9
+## 85                      Mc3\tMississippi\tchilled\t675\t18.9
+## 86                     Mc3\tMississippi\tchilled\t1000\t19.9
+##    due.to.excessive  X X.1 X.2 X.3
+## 1                NA NA  NA  NA  NA
+## 2                NA NA  NA  NA  NA
+## 3                NA NA  NA  NA  NA
+## 4                NA NA  NA  NA  NA
+## 5                NA NA  NA  NA  NA
+## 6                NA NA  NA  NA  NA
+## 7                NA NA  NA  NA  NA
+## 8                NA NA  NA  NA  NA
+## 9                NA NA  NA  NA  NA
+## 10               NA NA  NA  NA  NA
+## 11               NA NA  NA  NA  NA
+## 12               NA NA  NA  NA  NA
+## 13               NA NA  NA  NA  NA
+## 14               NA NA  NA  NA  NA
+## 15               NA NA  NA  NA  NA
+## 16               NA NA  NA  NA  NA
+## 17               NA NA  NA  NA  NA
+## 18               NA NA  NA  NA  NA
+## 19               NA NA  NA  NA  NA
+## 20               NA NA  NA  NA  NA
+## 21               NA NA  NA  NA  NA
+## 22               NA NA  NA  NA  NA
+## 23               NA NA  NA  NA  NA
+## 24               NA NA  NA  NA  NA
+## 25               NA NA  NA  NA  NA
+## 26               NA NA  NA  NA  NA
+## 27               NA NA  NA  NA  NA
+## 28               NA NA  NA  NA  NA
+## 29               NA NA  NA  NA  NA
+## 30               NA NA  NA  NA  NA
+## 31               NA NA  NA  NA  NA
+## 32               NA NA  NA  NA  NA
+## 33               NA NA  NA  NA  NA
+## 34               NA NA  NA  NA  NA
+## 35               NA NA  NA  NA  NA
+## 36               NA NA  NA  NA  NA
+## 37               NA NA  NA  NA  NA
+## 38               NA NA  NA  NA  NA
+## 39               NA NA  NA  NA  NA
+## 40               NA NA  NA  NA  NA
+## 41               NA NA  NA  NA  NA
+## 42               NA NA  NA  NA  NA
+## 43               NA NA  NA  NA  NA
+## 44               NA NA  NA  NA  NA
+## 45               NA NA  NA  NA  NA
+## 46               NA NA  NA  NA  NA
+## 47               NA NA  NA  NA  NA
+## 48               NA NA  NA  NA  NA
+## 49               NA NA  NA  NA  NA
+## 50               NA NA  NA  NA  NA
+## 51               NA NA  NA  NA  NA
+## 52               NA NA  NA  NA  NA
+## 53               NA NA  NA  NA  NA
+## 54               NA NA  NA  NA  NA
+## 55               NA NA  NA  NA  NA
+## 56               NA NA  NA  NA  NA
+## 57               NA NA  NA  NA  NA
+## 58               NA NA  NA  NA  NA
+## 59               NA NA  NA  NA  NA
+## 60               NA NA  NA  NA  NA
+## 61               NA NA  NA  NA  NA
+## 62               NA NA  NA  NA  NA
+## 63               NA NA  NA  NA  NA
+## 64               NA NA  NA  NA  NA
+## 65               NA NA  NA  NA  NA
+## 66               NA NA  NA  NA  NA
+## 67               NA NA  NA  NA  NA
+## 68               NA NA  NA  NA  NA
+## 69               NA NA  NA  NA  NA
+## 70               NA NA  NA  NA  NA
+## 71               NA NA  NA  NA  NA
+## 72               NA NA  NA  NA  NA
+## 73               NA NA  NA  NA  NA
+## 74               NA NA  NA  NA  NA
+## 75               NA NA  NA  NA  NA
+## 76               NA NA  NA  NA  NA
+## 77               NA NA  NA  NA  NA
+## 78               NA NA  NA  NA  NA
+## 79               NA NA  NA  NA  NA
+## 80               NA NA  NA  NA  NA
+## 81               NA NA  NA  NA  NA
+## 82               NA NA  NA  NA  NA
+## 83               NA NA  NA  NA  NA
+## 84               NA NA  NA  NA  NA
+## 85               NA NA  NA  NA  NA
+## 86               NA NA  NA  NA  NA</code></pre>
+<ul>
+<li>This is probably what your data or the data you downloaded looks like</li>
+<li>You can fix the data frame in R (or not…)</li>
+<li>Please give it a try before looking at the script provided</li>
+<li>Work with your neighbors and have FUN!</li>
+</ul>
+</section>
+<section id="fixing-co2_broken" class="slide level2">
+<h1>Fixing CO2_broken</h1>
+<p>IMAGE: rubiks cube</p>
+<ul>
+<li><p>?read.csv - look at some of the options for how to load a .csv</p></li>
+<li><p>head()</p></li>
+<li><p>str()</p></li>
+<li><p>class()</p></li>
+<li><p>unique()</p></li>
+<li><p>levels()</p></li>
+<li><p>which()</p></li>
+<li><p>droplevels()</p></li>
+</ul>
+<p>HINT: There are 4 problems!</p>
+</section>
+<section id="broken-data" class="slide level2">
+<h1>Broken data</h1>
+<p>ERROR 1</p>
+<p>The data appears to be lumped into one column</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(CO2)</code></pre></div>
+<pre><code>##               NOTE..It.rain.a.lot.in.Quebec.during.sampling
+## 1 falling on my notebook numerous values can&#39;t be read rain
+## 2                      Plant\tType\tTreatment\tconc\tuptake
+## 3                           Qn1\tQuebec\tnonchilled\t95\t16
+## 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
+## 5           Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
+## 6                        Qn1\tQuebec\tnonchilled\t350\t37.2
+##   due.to.excessive  X X.1 X.2 X.3
+## 1               NA NA  NA  NA  NA
+## 2               NA NA  NA  NA  NA
+## 3               NA NA  NA  NA  NA
+## 4               NA NA  NA  NA  NA
+## 5               NA NA  NA  NA  NA
+## 6               NA NA  NA  NA  NA</code></pre>
+</section>
+<section id="broken-data-1" class="slide level2">
+<h1>Broken data</h1>
+<p>ERROR 1 - Solution</p>
+<ul>
+<li>Re-import the data, but specify the separation among entries</li>
+<li>The sep argument tells R what character separates the values on each line of the file</li>
+<li>Here, “TAB” was used instead of “,”</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;co2_broken.csv&quot;</span>,<span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
+</section>
+<section id="broken-data-2" class="slide level2">
+<h1>Broken data</h1>
+<p>ERROR 2</p>
+<p>The data does not start until the third line of the file, so you end up with notes on the file as the headings.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(CO2)</code></pre></div>
+<pre><code>##     NOTE.     It       rain        a               lot    in. Quebec
+## 1 falling     on         my notebook          numerous values  can&#39;t
+## 2   Plant   Type  Treatment     conc            uptake              
+## 3     Qn1 Quebec nonchilled       95                16              
+## 4     Qn1 Quebec nonchilled      175              30.4              
+## 5     Qn1 Quebec nonchilled      250 cannot_read_notes              
+## 6     Qn1 Quebec nonchilled      350              37.2              
+##   during sampling.      due to excessive X....
+## 1     be      read rain,,,, NA        NA    NA
+## 2                           NA        NA    NA
+## 3                           NA        NA    NA
+## 4                           NA        NA    NA
+## 5                           NA        NA    NA
+## 6                           NA        NA    NA</code></pre>
+<p>SOLUTION</p>
+<p>Skip two lines when loading the file using the “skip” argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2&lt;-<span class="kw">read.csv</span>(<span class="st">&quot;co2_broken.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>)
+<span class="kw">head</span>(CO2)</code></pre></div>
+<pre><code>##   Plant   Type  Treatment              conc            uptake
+## 1   Qn1 Quebec nonchilled                95                16
+## 2   Qn1 Quebec nonchilled               175              30.4
+## 3   Qn1 Quebec nonchilled               250 cannot_read_notes
+## 4   Qn1 Quebec nonchilled               350              37.2
+## 5   Qn1 Quebec nonchilled               500              35.3
+## 6   Qn1 Quebec nonchilled cannot_read_notes              39.2</code></pre>
+</section>
+<section id="broken-data-3" class="slide level2">
+<h1>Broken data</h1>
+<p>ERROR 3</p>
+<p>“conc” and “uptake” variables are considered factors instead of numbers, because there are comments in the numeric columns</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(CO2)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    84 obs. of  5 variables:
+##  $ Plant    : Factor w/ 12 levels &quot;Mc1&quot;,&quot;Mc2&quot;,&quot;Mc3&quot;,..: 10 10 10 10 10 10 10 11 11 11 ...
+##  $ Type     : Factor w/ 2 levels &quot;Mississippi&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Treatment: Factor w/ 4 levels &quot;chiled&quot;,&quot;chilled&quot;,..: 4 4 4 4 4 4 4 4 4 3 ...
+##  $ conc     : Factor w/ 8 levels &quot;1000&quot;,&quot;175&quot;,&quot;250&quot;,..: 7 2 3 4 5 8 1 7 2 3 ...
+##  $ uptake   : Factor w/ 77 levels &quot;10.5&quot;,&quot;10.6&quot;,..: 15 39 76 54 50 61 63 9 32 53 ...</code></pre>
+<ul>
+<li>Due to missing values entered as “cannot_read_notes” and “na”</li>
+<li>Recall that R only recognizes “NA” (capital)</li>
+</ul>
+</section>
+<section id="read.csv" class="slide level2">
+<h1>read.csv</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?read.csv</code></pre></div>
+<p>IMAGE</p>
+</section>
+<section id="broken-data-4" class="slide level2">
+<h1>Broken data</h1>
+<p>ERROR 3 - SOLUTION</p>
+<p>Tell R that all of NA, “na”, and “cannot_read_notes” should be considered NA. Then because all other values in those columns are numbers, $conc and $uptake will be loaded as numeric/integer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;co2_broken.csv&quot;</span>, 
+<span class="dt">sep =</span> <span class="st">&quot;&quot;</span>,
+<span class="dt">skip =</span> <span class="dv">2</span>,
+<span class="dt">na.strings =</span> <span class="kw">c</span>(<span class="st">&quot;NA&quot;</span>,<span class="st">&quot;na&quot;</span>,<span class="st">&quot;cannot_read_notes&quot;</span>))
+
+<span class="kw">str</span>(CO2)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    84 obs. of  5 variables:
+##  $ Plant    : Factor w/ 12 levels &quot;Mc1&quot;,&quot;Mc2&quot;,&quot;Mc3&quot;,..: 10 10 10 10 10 10 10 11 11 11 ...
+##  $ Type     : Factor w/ 2 levels &quot;Mississippi&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Treatment: Factor w/ 4 levels &quot;chiled&quot;,&quot;chilled&quot;,..: 4 4 4 4 4 4 4 4 4 3 ...
+##  $ conc     : int  95 175 250 350 500 NA 1000 95 175 250 ...
+##  $ uptake   : num  16 30.4 NA 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...</code></pre>
+</section>
+<section id="broken-data-5" class="slide level2">
+<h1>Broken data</h1>
+<p>ERROR 4</p>
+<p>There are only two treatments (chilled and nonchilled) but there are spelling errors causing it to look like 4 different treatments.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(CO2)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(CO2$Treatment)</code></pre></div>
+<pre><code>## [1] &quot;chiled&quot;     &quot;chilled&quot;    &quot;nnchilled&quot;  &quot;nonchilled&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(CO2$Treatment)</code></pre></div>
+<pre><code>## [1] nonchilled nnchilled  chilled    chiled    
+## Levels: chiled chilled nnchilled nonchilled</code></pre>
+</section>
+<section id="broken-data-6" class="slide level2">
+<h1>Broken data</h1>
+<p>ERROR 4 - SOLUTION</p>
+<p>Identify all rows that contain “nnchilled” and replace with “nonchilled”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2$Treatment[CO2$Treatment==<span class="st">&quot;nnchilled&quot;</span>] &lt;-<span class="st"> &quot;nonchilled&quot;</span></code></pre></div>
+<p>Identify all rows that contain “chiled” and replace with “chilled”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2$Treatment[CO2$Treatment==<span class="st">&quot;chiled&quot;</span>] &lt;-<span class="st"> &quot;chilled&quot;</span></code></pre></div>
+<p>Drop unused levels from factor</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">droplevels</span>(CO2)
+<span class="kw">str</span>(CO2)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    84 obs. of  5 variables:
+##  $ Plant    : Factor w/ 12 levels &quot;Mc1&quot;,&quot;Mc2&quot;,&quot;Mc3&quot;,..: 10 10 10 10 10 10 10 11 11 11 ...
+##  $ Type     : Factor w/ 2 levels &quot;Mississippi&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Treatment: Factor w/ 2 levels &quot;chilled&quot;,&quot;nonchilled&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ conc     : int  95 175 250 350 500 NA 1000 95 175 250 ...
+##  $ uptake   : num  16 30.4 NA 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...</code></pre>
+<p>Fixed!</p>
+</section>
+<section id="thank-you-for-attending-and-please-provide-us-with-feedback-to-help-us-improve-the-workshop-series" class="slide level2">
+<h1>Thank you for attending, and please provide us with feedback to help us improve the workshop series!</h1>
+<p>Feedback: <a href="http://tinyurl.com/QCBS-R-Comment" class="uri">http://tinyurl.com/QCBS-R-Comment</a></p>
+</section>
+    </div>
+  </div>
+
+  <script src="QCBS-Workshop-2_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="QCBS-Workshop-2_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'QCBS-Workshop-2_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'QCBS-Workshop-2_files/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
+          { src: 'QCBS-Workshop-2_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

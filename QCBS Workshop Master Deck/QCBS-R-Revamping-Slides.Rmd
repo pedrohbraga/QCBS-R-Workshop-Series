@@ -124,7 +124,7 @@ grid.arrange(p + guides(fill = "none"),
              p + guides(fill = "none"), 
              arrow, 
              p, 
-             ncol=5, widths=c(2/10, 1/20, 2/10, 1/20, 2/10)) #Edit the size of the arrows and graphs here
+             ncol=5, widths=c(2/10, 0.5/10, 2/10, 0.5/10, 3/10)) #Edit the size of the arrows and graphs here
 ```
 
 

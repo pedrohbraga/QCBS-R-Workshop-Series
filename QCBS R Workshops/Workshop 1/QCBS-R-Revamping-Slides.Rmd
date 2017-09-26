@@ -34,8 +34,8 @@ R is an open source programming language designed for statistical analysis, data
 ## Why use R?
 <div id = left>
 **It's open source**
- - Improved by the public, for the public!
- - Free
+ - Improved by the public, for the public!  
+ - Free  
  </div>
 
 <img style="float: right; width: 200px;" src="images/Opensource.svg">
@@ -54,25 +54,25 @@ What people have traditionally done to analyze their data:
 
 ## Why use R?
 <image Analyzing data with R>
-R allows you to do everything with one program, which is nice!
+R allows you to do everything with one program, which is nice!  
 
 ## Why use R?
 <img style="float: left; width: 200px;" src="nomdelimage">
- - More and more scientists use it every year!
- - Increasing capacities
+ - More and more scientists use it every year!  
+ - Increasing capacities  
 
 ## Challenge
 <div id = "left">
- - Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes
- - During challenges, collaborate with your neighbours!
+ - Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes  
+ - During challenges, collaborate with your   neighbours!
 </div>
 
-<img style="width: 200px;" src="images/rubicub.png">
+<img style="float: right; width: 350px;" src="images/rubicub.png">
 
 ## Challenge 1
 <img rubicub.png>
 Open Rstudio
-![](Rstudio.png){width=50%, }
+<img style="float: right; width: 200px;" src="images/Rstudio.png">
 
 ## The Rstudio console
 <img>
@@ -87,7 +87,7 @@ output <- "This is the output"
 ```
 
 ```{r}
-output
+  output
 ```
 
 ## How to read the console
@@ -95,7 +95,7 @@ output
 <div id = "left">
 
 ```{r}
-output
+  output
 ```
 
 </div>
@@ -110,13 +110,13 @@ What does this bracket in the output means?
 ## How to read the console
 
 ```{r}
-output
+  output
 ```
 <put an arrow here>
 This bracket help you to locate "where" you are in the output
 
 ```{r, echo = FALSE}
-		c(1:20)
+	c(1:20)
 ```
 
 # Using R as a calculator

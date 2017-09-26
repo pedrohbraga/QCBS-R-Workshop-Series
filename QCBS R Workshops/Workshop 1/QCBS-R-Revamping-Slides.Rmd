@@ -150,7 +150,56 @@ Tip: Note that `R` has some built-in constant such as $\pi$, so you can write:
 The value on the **right** is assigned to the name on the **left** with the assignement operator `<-`
 
  <small>It is also possible to use the `=` sign, but it is better to **avoid it** as it is also used for other purposes.</small>
- 
+
 ## Objects names
 
-test 2
+- Objects names can only include:
+
+|  Type      |  Symbol |
+|------------|--------:|
+| Letters    | a-z A-Z |
+| Numbers    |     0-9 |
+| Period     |       . |
+| Underscore |       _ |
+
+- Objects names should **always** begin with a letter.
+- `R` is **case sensitive**, the names `Data1` and `data1` are not the same.
+
+## Object names: good practices
+
+- Try having short and explicit names for your variables. Naming a variable `var`  is not very informative.
+- Adding spaces after and before the `<-` is recommended because it adds clarity.
+- When typing the object's name, `R` return its value.
+
+```{r}
+  mean.x <- (2+6)/2
+  mean.x
+```
+
+## Challenge 5
+
+Create an object with a value of $1+1.718282$ (Euler's number) and name it `euler.value`.
+
+## Challenge 5: Solution
+
+- Question
+
+Create an object with a value of $1+1.718282$ (Euler's number) and name it `euler.value`.
+
+- Solution
+
+```{r}
+  euler.value <- 1+1.718282
+  euler.value
+```
+
+## Challenge 6
+
+Create
+## Challenge 6: Solution
+
+- Question
+
+
+
+- Solution

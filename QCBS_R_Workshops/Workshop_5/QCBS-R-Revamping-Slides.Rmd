@@ -223,12 +223,74 @@ for(val in sequence) {
 </div>
 
 ##
+The letter `i` can be replaced with any variable name and the sequence can be almost anything, even a list of vectors
+```R
+for (a in c("Hello", "R", "Programmers")) {
+print(a)
+}
 
-The letter 'i' can be replaced with any variable name and the sequence can be almost anything, even a list of vectors
+for (z in 1:30) {
+a <- rnorm(n = 1, mean = 5, sd = 2)
+print(a)
+}
 
+elements <- list(1:3, 4:10)
+for (element in elements) {
+print(element)
+}
+```
+##
+Another example of a for loop
 
+syntax:
+```R
+for(i in 1:5) {
+  expression
+}
+```
 
+<small> The example above would cause R to evaluate the expression 5 times. In the first iteration, R would replace every instance of `i`
+with `1`. In the second iteration `i` would be replaced with `2`, and so on. </small>
 
+```R
+for(m in 1:10) {
+  print(m*2)
+}
+```
+
+## `for` statement
+<div id="left">
+"*work flow*"
+</div>
+
+<div id="right">
+```{R}
+x <- c(2,5,3,9,6)
+count <- 0
+
+for (val in x) {
+if(val %% 2 == 0)
+count = count+1 }
+
+print(count)
+```
+</div>
+
+##
+Loops are often used to `loop` over a dataset. We will use loops to perform functions on the $CO_2$ dataset which is built in to R
+
+```R
+data(CO2) # This loads the built in dataset
+for (i in 1:length(CO2[,1])) { # for each row in the CO2 dataset
+  print(CO2$conc[i]) #print the CO2 concentration
+}
+
+for (i in 1:length(CO2[,1])) { # for each row in the CO2 dataset
+  if(CO2$Type[i] == "Quebec") { # if the type is "Quebec"
+  print(CO2$conc[i]) #print the CO2 concentration }
+}
+}
+```
 
 # Code Section
 

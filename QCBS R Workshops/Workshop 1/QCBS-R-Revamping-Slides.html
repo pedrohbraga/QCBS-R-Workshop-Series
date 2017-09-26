@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Québec Centre for Biodiversity Science" />
-  <title>Workshop 1: QCBS R Workshop Series</title>
+  <title>Workshop 1: Introduction to R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -482,10 +482,84 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <div class="slides">
 
 <section>
-    <h1 class="title">Workshop 1: QCBS R Workshop Series</h1>
+    <h1 class="title">Workshop 1: Introduction to R</h1>
     <h2 class="author">Québec Centre for Biodiversity Science</h2>
 </section>
 
+<section><section id="r-workshop-series" class="titleslide slide level1"><h1>R Workshop Series</h1></section><section id="workshop-1-introduction-to-r" class="slide level2">
+<h1>Workshop 1: Introduction to R</h1>
+<p>Website:<a href="http://qcbs.ca/wiki/r/workshop1" class="uri">http://qcbs.ca/wiki/r/workshop1</a></p>
+<p><img style="float: right; width: 200px;" src="images/QCBS_logo.png"></p>
+</section></section>
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="what-is-r" class="slide level2">
+<h1>What is R?</h1>
+<div id="left">
+<p>R is an open source programming language designed for statistical analysis, data mining, and data visualization.</p>
+</div>
+<p><img style="float: right; width: 200px;" src="images/R_logo.png"></p>
+</section><section id="why-use-r" class="slide level2">
+<h1>Why use R?</h1>
+<div id="left">
+<strong>It’s open source</strong> - Improved by the public, for the public! - Free
+</div>
+<p><img style="float: right; width: 200px;" src="images/Opensource.svg"></p>
+</section><section id="why-use-r-1" class="slide level2">
+<h1>Why use R?</h1>
+<div id="right">
+<p><strong>It’s compatible</strong> R works on most existing operating systems</p>
+</div>
+<p><images linux, mac, windows></p>
+</section><section id="why-use-r-2" class="slide level2">
+<h1>Why use R?</h1>
+<p>What people have traditionally done to analyze their data: <image Data to understanding></p>
+</section><section id="why-use-r-3" class="slide level2">
+<h1>Why use R?</h1>
+<p><image Analyzing data with R> R allows you to do everything with one program, which is nice!</p>
+</section><section id="why-use-r-4" class="slide level2">
+<h1>Why use R?</h1>
+<p><img style="float: left; width: 200px;" src="nomdelimage"> - More and more scientists use it every year! - Increasing capacities</p>
+</section><section id="challenge" class="slide level2">
+<h1>Challenge</h1>
+<div id="left">
+<ul>
+<li>Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes</li>
+<li>During challenges, collaborate with your neighbours!</li>
+</ul>
+</div>
+<p><img style="width: 200px;" src="images/rubicub.png"></p>
+</section><section id="challenge-1" class="slide level2">
+<h1>Challenge 1</h1>
+<p><img rubicub.png> Open Rstudio <img src="Rstudio.png" /></p>
+</section><section id="the-rstudio-console" class="slide level2">
+<h1>The Rstudio console</h1>
+<p><img></p>
+</section><section id="note-for-windows-user" class="slide level2">
+<h1>Note for Windows user</h1>
+<p>If the restriction:“unable to write on disk” appears when you try to open R-Studio, right-click on your R-Studio icon and chose:“Execute as administrator” to open the program.</p>
+</section><section id="how-to-read-the-console" class="slide level2">
+<h1>How to read the console</h1>
+<p>Text in the console typically looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output</code></pre></div>
+<pre><code>## [1] &quot;This is the output&quot;</code></pre>
+</section><section id="how-to-read-the-console-1" class="slide level2">
+<h1>How to read the console</h1>
+<div id="left">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output</code></pre></div>
+<pre><code>## [1] &quot;This is the output&quot;</code></pre>
+</div>
+<div id="right">
+<ul>
+<li>You always have to push “enter” for the input to run in the console.</li>
+</ul>
+</div>
+<p><put an arrow here> What does this bracket in the output means?</p>
+</section><section id="how-to-read-the-console-2" class="slide level2">
+<h1>How to read the console</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output</code></pre></div>
+<pre><code>## [1] &quot;This is the output&quot;</code></pre>
+<p><put an arrow here> This bracket help you to locate “where” you are in the output</p>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+</section></section>
 <section><section id="using-r-as-a-calculator" class="titleslide slide level1"><h1>Using R as a calculator</h1></section><section id="addition-substraction-etc." class="slide level2">
 <h1>Addition, substraction, etc.</h1>
 <ul>
@@ -555,7 +629,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="challenge-4" class="slide level2">
 <h1>Challenge 4</h1>
 <div id="right">
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-5-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-10-1.png" /><!-- --></p>
 </div>
 <div id="left">
 <p>What is the area of this circle, with a radius of <span class="math inline">\(5\ cm\)</span>?</p>
@@ -618,6 +692,38 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ul>
 <li>Objects names should <strong>always</strong> begin with a letter.</li>
 <li><code>R</code> is <strong>case sensitive</strong>, the names <code>Data1</code> and <code>data1</code> are not the same.</li>
+</ul>
+</section><section id="object-names-good-practices" class="slide level2">
+<h1>Object names: good practices</h1>
+<ul>
+<li>Try having short and explicit names for your variables. Naming a variable <code>var</code> is not very informative.</li>
+<li>Adding spaces after and before the <code>&lt;-</code> is recommended because it adds clarity.</li>
+<li>When typing the object’s name, <code>R</code> return its value.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  mean.x &lt;-<span class="st"> </span>(<span class="dv">2+6</span>)/<span class="dv">2</span>
+  mean.x</code></pre></div>
+<pre><code>## [1] 4</code></pre>
+</section><section id="challenge-5" class="slide level2">
+<h1>Challenge 5</h1>
+<p>Create an object with a value of <span class="math inline">\(1+1.718282\)</span> (Euler’s number) and name it <code>euler.value</code>.</p>
+</section><section id="challenge-5-solution" class="slide level2">
+<h1>Challenge 5: Solution</h1>
+<ul>
+<li>Question</li>
+</ul>
+<p>Create an object with a value of <span class="math inline">\(1+1.718282\)</span> (Euler’s number) and name it <code>euler.value</code>.</p>
+<ul>
+<li>Solution</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  euler.value &lt;-<span class="st"> </span><span class="dv">1</span><span class="fl">+1.718282</span>
+  euler.value</code></pre></div>
+<pre><code>## [1] 2.718282</code></pre>
+</section><section id="challenge-6" class="slide level2">
+<h1>Challenge 6</h1>
+<p>Create ## Challenge 6: Solution</p>
+<ul>
+<li><p>Question</p></li>
+<li><p>Solution</p></li>
 </ul>
 </section></section>
     </div>

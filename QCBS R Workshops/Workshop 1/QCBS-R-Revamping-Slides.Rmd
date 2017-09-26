@@ -1,5 +1,5 @@
 ---
-title: "Workshop 1: QCBS R Workshop Series"
+title: "Workshop 1: Introduction to R"
 author: Québec Centre for Biodiversity Science
 output:
   revealjs::revealjs_presentation:
@@ -15,6 +15,109 @@ output:
     reveal_plugins: ["notes", "search", "zoom"]
 ---
 
+# R Workshop Series
+
+## Workshop 1: Introduction to R
+
+Website:http://qcbs.ca/wiki/r/workshop1
+
+<img style="float: right; width: 200px;" src="images/QCBS_logo.png">
+
+# Introduction
+## What is R?
+<div id = left>
+R is an open source programming language designed for statistical analysis, data mining, and data visualization.
+</div>
+
+<img style="float: right; width: 200px;" src="images/R_logo.png">
+
+## Why use R?
+<div id = left>
+**It's open source**
+ - Improved by the public, for the public!
+ - Free
+ </div>
+
+<img style="float: right; width: 200px;" src="images/Opensource.svg">
+
+## Why use R?
+<div id = right>
+**It's compatible**
+R works on most existing operating systems
+</div>
+
+<images linux, mac, windows>
+
+## Why use R?
+What people have traditionally done to analyze their data:
+<image Data to understanding>
+
+## Why use R?
+<image Analyzing data with R>
+R allows you to do everything with one program, which is nice!
+
+## Why use R?
+<img style="float: left; width: 200px;" src="nomdelimage">
+ - More and more scientists use it every year!
+ - Increasing capacities
+
+## Challenge
+<div id = "left">
+ - Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes
+ - During challenges, collaborate with your neighbours!
+</div>
+
+<img style="width: 200px;" src="images/rubicub.png">
+
+## Challenge 1
+<img rubicub.png>
+Open Rstudio
+![](Rstudio.png){width=50%, }
+
+## The Rstudio console
+<img>
+
+## Note for Windows user
+If the restriction:"unable to write on disk" appears when you try to open R-Studio, right-click on your R-Studio icon and chose:"Execute as administrator" to open the program.
+
+## How to read the console
+Text in the console typically looks like this:
+```{r, include = FALSE}
+output <- "This is the output"
+```
+
+```{r}
+output
+```
+
+## How to read the console
+
+<div id = "left">
+
+```{r}
+output
+```
+
+</div>
+
+<div id = "right">
+ - You always have to push "enter" for the input to run in the console.
+</div>
+
+<put an arrow here>
+What does this bracket in the output means?
+
+## How to read the console
+
+```{r}
+output
+```
+<put an arrow here>
+This bracket help you to locate "where" you are in the output
+
+```{r, echo = FALSE}
+		c(1:20)
+```
 
 # Using R as a calculator
 
@@ -104,6 +207,8 @@ Give it a try!
 
 
 ```{r echo = F, fig.width=5, fig.height=5}
+  radius <- 1
+  theta <- seq(0, 2*pi, length = 200)
 	plot(c(-1, 1), c(-1, 1), type = "n", ann = F, axes = F, asp = 1)
 	lines(x = radius * cos(theta), y = radius * sin(theta))
 	arrows(0, 0, x1 = 1, length = 0)

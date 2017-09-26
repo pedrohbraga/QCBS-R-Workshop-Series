@@ -15,6 +15,130 @@ output:
     reveal_plugins: ["notes", "search", "zoom"]
 ---
 
+## Learning objectives
+
+![](images/schema_slide1.png){width=50%}
+
+## Review: Simple linear regression
+Linear relationship between response (Y) and explanatory (X) variable
+
+Y~i~ = α + βX~i~  + ε~i~
+
+<div id="left">
+
+![](images/graphlm1.png){width=100%}
+
+</div>
+
+<div id="right">
+
+<div id="left">
+###Assumptions
+</div>
+
+  * Continuous explanatory variable
+  
+  * Homogeneous and normally distributed error
+  
+  * Independent residuals
+  
+  * No outlier
+
+</div>
+
+## Review: Simple linear regression
+
+* **Least squares** - most used method and corresponds to the default function in R
+
+ 
+
+<div id="right">
+
+![](images/graphlm2.2.png){width=100%}
+
+</div>
+
+<div id="left">
+
+###Assumptions
+
+
+  * Y~i~ : Observed value
+  
+  * $\widehat{Y}$~i~ : Predicted value
+  
+  * $\bar{Y}$ : Mean value of all Y~i~
+  
+  * V~T~ : Total variance
+  
+  * V~R~ : Variance explained by the regression
+
+  * V~E~ : Residual variance (error)
+  
+</div>
+
+## Running a regression in R
+
+###Step 1: Run your linear model
+
+###Step 2: Verify assumptions
+
+<div id="left">
+
+Assumptions are met
+
+###Step 3: Estimate parameters (regression coefficients), test significance, plot your model
+
+
+</div>
+
+<div id="right">
+
+Assumptions are not met
+
+Can you transform your variables (and does it make sense to do so)?
+
+<div id="right">
+
+Go back to Step 1 with transformed variables
+
+</div>
+
+<div id="left">
+
+Try GLM that might better suit your data
+
+</div>
+
+
+## Running a regression in R
+
+### **Step 1:** Run your linear model
+
+In R, the function lm() is used to fit a linear model
+
+```{r, eval = FALSE}
+lm1 <- lm(Y~X)
+```
+
+* lm1 : New object containing the linear model we created
+
+* Y : Response variable
+
+* X : Explanatory variable
+
+## Running a regression in R
+
+Download the <span style="color:blue"> *birdsdiet* </span> dataset:
+
+```{r, eval = FALSE}
+setwd()
+bird <- read.csv("birdsdiet.csv")
+```
+
+
+
+
 
 ## R Markdown
 

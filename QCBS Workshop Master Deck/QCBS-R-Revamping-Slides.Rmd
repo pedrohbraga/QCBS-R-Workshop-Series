@@ -76,6 +76,18 @@ This is a normal text.
 
 <img src="/images/logo_text.png" width="40%">
 
+## Test
+
+
+* a
+* picture
+* says more
+* than a thousand words
+
+or
+
+1. item 1
+1. item 2
 
 # Code Section
 

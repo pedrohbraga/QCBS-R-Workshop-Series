@@ -15,6 +15,9 @@ output:
     reveal_plugins: ["notes", "search", "zoom"]
 ---
 
+```{r, include = FALSE}
+library(ggplot2)
+```
 
 ## ggplot2
 
@@ -56,14 +59,119 @@ Beautiful and flexible graphics!
 Code and HTML available at http://qcbs.ca/wiki/r/workshop3 
 
 - Recommendation:
-       * create your own new script
+      * create your own new script
       * refer to provided code only if needed
       * avoid copy pasting or running the code directly from script
 
 - ggplot2 is also hosted on github: https://github.com/hadley/ggplot2
 
+## Introduction
+
+Required packages
+```{r, eval = FALSE}
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+## Outline
+1. Your first R plot
+    * Basic scatter plot
+    * Challenge 1
+2. Grammar of graphics
+    * More advanced plots
+    * Available plot elements and when to use them
+    * Challenge 2
+3. Saving a plot
+4. Fine tuning your plot
+    * Colours
+    * Themes
+5. Miscellaneous
+
+## Basic scatter plot
+```{r, eval = FALSE}
+?qplot
+```
+arguments:
+
+- data
+
+- x
+
+- y
+
+- ...
+
+## Basic scatter plot
+Look at pre-loaded "iris" dataset:
+```{r, eval = FALSE}
+> ?iris
+> head(iris)
+> str(iris)
+> names(iris)
+```
+
+## Basic scatter plot
+
+```{r}
+qplot(data = iris,
+        x = Sepal.Length,
+        y = Sepal.Width)
+```
+
+## Basic scatter plot
+
+```{r}
+qplot(data = iris,
+        x = Species,
+        y = Sepal.Width)
+```
+
+## Less basic options
+
+arguments:
+
+- xlab
+
+- ylab
+
+- main
+
+## Less basic options
+
+```{r}
+qplot(data = iris,
+        x = Sepal.Length,
+        xlab = "Sepal Length (mm)",
+        y = Sepal.Width,
+        ylab = "Sepal Width (mm)",
+        main = "Sepal dimensions")
+```
+
+## Challenge #1
+Produce a basic plot with built in data (5 minutes)
+
+```{r, eval = FALSE}
+?CO2
+data(CO2)
+?BOD
+data(BOD)
+```
+
+## Solution #1
+Produce a basic plot with the CO2 dataset 
+
+```{r}
+qplot(data = CO2,
+        x = conc,
+        xlab = "CO2 Concentration (mL/L)",
+        y = uptake,
+        ylab = "CO2 Uptake (umol/m^2 sec)",
+        main = "CO2 uptake in grass plants")
+```
+
 
 ## tidyr
+
 
 ![](images/tidyr_logo.png)
 

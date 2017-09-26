@@ -70,7 +70,12 @@ This is a normal text.
 
 ## Vertical Slide with Images
 
-[Caption for the picture.](/images/logo_text.png)
+![Caption for the picture.](/images/logo_text.png)
+
+![An image](/images/logo_text.png) <!-- .element height="50%" width="50%" -->
+
+<img src="/images/logo_text.png" width="40%">
+
 
 # Code Section
 
@@ -113,6 +118,7 @@ library(ggplot2)
 library(gridExtra)
 library(grid)
 library(png)
+
 download.file("https://maxcdn.icons8.com/Share/icon/p1em/arrows//arrow1600.png",
               tf <- tempfile(fileext = ".png"),
               mode="wb")

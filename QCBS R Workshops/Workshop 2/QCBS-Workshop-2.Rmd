@@ -43,7 +43,7 @@ Just highlight text and click "run" or press command+enter (Mac) or ctrl+enter (
 
 ## Create an R script
 
-![](images/2_Create_an_R_script2.Mod_arrow.png)
+![](images/2_Create_an_R_script2.Mod_arrow.png){width=800px}
 
 ## Commands & comments
 The '#' symbol in a script tells R to ignore anything remaining on this line of the script when running commands
@@ -63,7 +63,7 @@ The '#' symbol in a script tells R to ignore anything remaining on this line of 
 ## Header
 It is recommended that you start your script with a header using comments:
 
-![](images/3_Header.Mod_arrow.png)
+![](images/3_Header.Mod_arrow.png){width=700px}
 
 
 ## Section Headings
@@ -75,7 +75,7 @@ You can make a section heading in R Studio four # signs
 
 Allows you to move quickly between sections and hide sections
 
-![](images/4_Section_headings_Mod_arrow 2.png)
+![](images/4_Section_headings_Mod_arrow 2.png){width=600px}
 
 ## Housekeeping
 The first command at the top of all scripts should be: rm(list = ls()). This:
@@ -250,7 +250,7 @@ Check data types with str() again. What is wrong here?
 
 A data frame called *mydata*
 
-![](images/Table_Reminder_from_Workshop_1_Accessing_data.png)
+![](images/Table_Reminder_from_Workshop_1_Accessing_data.png){width=400px}
 
 ```{r, eval = FALSE}
 mydata[1,]
@@ -377,14 +377,14 @@ Comma separated files (.csv) in Data folder
 * can be created from almost all applications (Excel, LibreOffice, GoogleDocs)
 * file -> save as csv…
 
-![](images/Excel_csv_good_bad/excel_vs_csv_wrong_good.png)
+![](images/Excel_csv_good_bad/excel_vs_csv_wrong_good.png){width=250px}
 
 ## Preparing data for R
 Short informative column headings
 > - starting with a letter
 > - no spaces
 
-![](images/Excel_csv_good_bad/excel_vs_excel_wrong_good.png)
+![](images/Excel_csv_good_bad/excel_vs_excel_wrong_good.png){width=250px}
 
 
 ## Preparing data for R
@@ -397,7 +397,7 @@ Column values match their intended use
 * Avoid numeric values for data that does not have numeric meaning
     * Subject, Replicate, Treatment: 1,2,3 -> A,B,C or S1,S2,S3 or …
 
-![](images/Excel_csv_good_bad/excel_vs_excel_wrong_wrong.png)
+![](images/Excel_csv_good_bad/excel_vs_excel_wrong_wrong.png){width=250px}
 
 
 ## Preparing data for R
@@ -405,7 +405,7 @@ Column values match their intended use
 * no additional headings!
 * no merged cells!
 
-![](images/Excel_csv_good_bad/excel_vs_excel_wrong_badDB.png)
+![](images/Excel_csv_good_bad/excel_vs_excel_wrong_badDB.png){width=700px}
 
 ## Preparing data for R
 

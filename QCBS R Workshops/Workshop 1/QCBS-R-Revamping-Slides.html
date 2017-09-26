@@ -678,8 +678,13 @@ right-click on your R-Studio icon and chose:<br />
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  pi*<span class="dv">5</span>^<span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 78.53982</code></pre>
 </section></section>
+<<<<<<< HEAD
+<section><section id="objects" class="titleslide slide level1"><h1>Objects</h1></section><section id="objects-1" class="slide level2">
+<h1>Objects</h1>
+=======
 <section><section id="objects-and-indexing" class="titleslide slide level1"><h1>Objects and indexing</h1></section><section id="objects" class="slide level2">
 <h2>Objects</h2>
+>>>>>>> 65f5966e2c82ab2627a63ee2c48da60f6a8a95dc
 <ul>
 <li>One of the most useful concept in <code>R</code>!</li>
 <li>You can store values as named objects using the assignement operator <code>&lt;-</code></li>
@@ -749,12 +754,185 @@ right-click on your R-Studio icon and chose:<br />
   euler.value</code></pre></div>
 <pre><code>## [1] 2.718282</code></pre>
 </section><section id="challenge-6" class="slide level2">
+<<<<<<< HEAD
+<h1>Challenge 6</h1>
+<p>Create a second object (you decide the name) with a name that starts with a number. What happens?</p>
+</section><section id="challenge-6-solution" class="slide level2">
+<h1>Challenge 6: Solution</h1>
+=======
 <h2>Challenge 6</h2>
 <p>Create ## Challenge 6: Solution</p>
+>>>>>>> 65f5966e2c82ab2627a63ee2c48da60f6a8a95dc
 <ul>
-<li><p>Question</p></li>
-<li><p>Solution</p></li>
+<li>Question</li>
 </ul>
+<p>Create a second object (you decide the name) with a name that starts with a number. What happens?</p>
+<ul>
+<li>Solution</li>
+</ul>
+<p>Creating an object name that starts with a number returns the following error:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> Error:<span class="st"> </span>unexpected symbol in <span class="st">&quot;[your object name]&quot;</span></code></pre></div>
+</section><section id="r-command-line-tip-1" class="slide level2">
+<h1>R command line tip</h1>
+<ul>
+<li>Use the tab key to autocomplete scripts</li>
+<li>This helps avoid spelling errors and speeds up command entering</li>
+</ul>
+<p>Let’s try it!</p>
+</section><section id="r-command-line-tip-2" class="slide level2">
+<h1>R command line tip</h1>
+<ul>
+<li>Enter <code>eu</code></li>
+<li>Push tab</li>
+<li>Use the arrow keys and push enter to select the correct autocomplete</li>
+</ul>
+</section></section>
+<section><section id="types-of-data-structures-in-r" class="titleslide slide level1"><h1>Types of data structures in R</h1></section><section id="types-of-data-structures-in-r-1" class="slide level2">
+<h1>Types of data structures in R</h1>
+<ul>
+<li>Vectors</li>
+<li>Data frames</li>
+<li>Matrices, arrays and lists</li>
+</ul>
+</section><section id="vectors" class="slide level2">
+<h1>Vectors</h1>
+<ul>
+<li>An entity consisting of a list of related values</li>
+<li>A single value is called an <em>atomic value</em></li>
+<li>All values of a vector must have the <strong>same mode</strong> (or class).
+<ul>
+<li>Numeric: only numbers</li>
+<li>Logical: True/False entries</li>
+<li>Character: Text, or a mix of text and other modes</li>
+</ul></li>
+</ul>
+</section><section id="vectors-1" class="slide level2">
+<h1>Vectors</h1>
+<ul>
+<li>Creating vectors usually require the <code>c</code> function</li>
+</ul>
+<p><small><code>c</code> stands for <em>combine</em> or <em>concatenate</em>.</small></p>
+<ul>
+<li>The syntax is:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  vector &lt;-<span class="st"> </span><span class="kw">c</span>(value1, value2, ...)</code></pre></div>
+</section><section id="vectors-2" class="slide level2">
+<h1>Vectors</h1>
+<ul>
+<li>Numeric vectors</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  num.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">98</span>, <span class="dv">32</span>, -<span class="dv">76</span>, -<span class="dv">4</span>)
+  num.vector</code></pre></div>
+<pre><code>## [1]   1   4   3  98  32 -76  -4</code></pre>
+<ul>
+<li>Character vectors</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  char.vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>)
+  char.vector</code></pre></div>
+<pre><code>## [1] &quot;blue&quot;  &quot;red&quot;   &quot;green&quot;</code></pre>
+</section><section id="vectors-3" class="slide level2">
+<h1>Vectors</h1>
+<ul>
+<li>Logical vectors</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> bool.vector&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
+ bool.vector</code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># You can just write T for TRUE and F for FALSE, it&#39;s exactly the same</span>
+ bool.vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(T, T, F)
+ bool.vector2</code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
+</section><section id="challenge-7" class="slide level2">
+<h1>Challenge 7</h1>
+<p>Create a vector containing the first 5 odd numbers, starting from 1, and name it <code>odd.n</code></p>
+</section><section id="challenge-7-solution" class="slide level2">
+<h1>Challenge 7: Solution</h1>
+<ul>
+<li>Question</li>
+</ul>
+<p>Create a vector containing the first 5 odd numbers, starting from 1, and name it <code>odd.n</code></p>
+<ul>
+<li>Solution</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> odd.n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)</code></pre></div>
+</section><section id="vectors-4" class="slide level2">
+<h1>Vectors</h1>
+<p>We can use vectors for calculations</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">5</span>)
+  y &lt;-<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<p><small>The semicolon symbol <code>:</code> is use to combine all values between the first and the second provided numbers. <code>c(1:5)</code> returns <code>1, 2, 3, 4, 5</code></small></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  x+y</code></pre></div>
+<pre><code>## [1]  7  8  9 10 11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  x*y</code></pre></div>
+<pre><code>## [1]  6 12 18 24 30</code></pre>
+</section><section id="data-frames" class="slide level2">
+<h1>Data Frames</h1>
+<ul>
+<li>Used to store data tables</li>
+<li>A list of vectors of the same length</li>
+<li>Columns = variables</li>
+<li>Rows = observations, sites, cases, replicates, …</li>
+<li>Differents columns can have different modes</li>
+</ul>
+</section><section id="data-frames-1" class="slide level2">
+<h1>Data Frames</h1>
+<p>Let’s say you want to store this table in <code>R</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>ID of the site</th>
+<th>soil pH</th>
+<th># of species</th>
+<th>treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1.01</td>
+<td>5.6</td>
+<td>17</td>
+<td>Fert</td>
+</tr>
+<tr class="even">
+<td>A1.02</td>
+<td>7.3</td>
+<td>23</td>
+<td>Fert</td>
+</tr>
+<tr class="odd">
+<td>B1.01</td>
+<td>4.1</td>
+<td>15</td>
+<td>No Fert</td>
+</tr>
+<tr class="even">
+<td>B1.02</td>
+<td>6.0</td>
+<td>7</td>
+<td>No Fert</td>
+</tr>
+</tbody>
+</table>
+</section><section id="data-frames-2" class="slide level2">
+<h1>Data Frames</h1>
+<p>One way of doing it is: - Start by creating vectors</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  siteID &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A1.01&quot;</span>, <span class="st">&quot;A1.02&quot;</span>, <span class="st">&quot;B1.01&quot;</span>, <span class="st">&quot;B1.02&quot;</span>)
+  soil_pH &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">5.6</span>, <span class="fl">7.3</span>, <span class="fl">4.1</span>, <span class="fl">6.0</span>)
+  num.sp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">23</span>, <span class="dv">15</span>, <span class="dv">7</span>)
+  treatment &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Fert&quot;</span>, <span class="st">&quot;Fert&quot;</span>, <span class="st">&quot;No_fert&quot;</span>, <span class="st">&quot;No_fert&quot;</span>)</code></pre></div>
+<ul>
+<li>We then combine them using the function <code>data.frame</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  my.first.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(siteID, soil_pH, num.sp, treatment)</code></pre></div>
+<p><small>We will come back to the <code>data.frame</code> function later.</small></p>
+</section><section id="data-frames-3" class="slide level2">
+<h1>Data Frames</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  my.first.df</code></pre></div>
+<pre><code>##   siteID soil_pH num.sp treatment
+## 1  A1.01     5.6     17      Fert
+## 2  A1.02     7.3     23      Fert
+## 3  B1.01     4.1     15   No_fert
+## 4  B1.02     6.0      7   No_fert</code></pre>
 </section></section>
     </div>
   </div>

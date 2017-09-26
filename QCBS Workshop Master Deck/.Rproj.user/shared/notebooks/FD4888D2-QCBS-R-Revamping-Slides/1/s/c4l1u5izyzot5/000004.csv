@@ -1,0 +1,24 @@
+"0","library(ggplot2)"
+"0","library(gridExtra)"
+"0","library(grid)"
+"0","library(png)"
+"0","download.file(""https://maxcdn.icons8.com/Share/icon/p1em/arrows//arrow1600.png"","
+"0","              tf <- tempfile(fileext = "".png""),"
+"0","              mode=""wb"")"
+"2","trying URL 'https://maxcdn.icons8.com/Share/icon/p1em/arrows//arrow1600.png'
+"
+"2","Content type 'image/png'"
+"2"," length 32753 bytes (31 KB)
+"
+"2","downloaded 31 KB
+
+"
+"0","arrow <- rasterGrob(readPNG(tf))"
+"0","p <- ggplot(diamonds, aes(clarity, fill=cut)) + "
+"0","  geom_bar() "
+"0","grid.arrange(p + guides(fill = ""none""), "
+"0","             arrow, "
+"0","             p + guides(fill = ""none""), "
+"0","             arrow, "
+"0","             p, "
+"0","             ncol=5, widths=c(2/10, 1.75/10, 2/10, 1.75/10, 2.5/10))"

@@ -70,7 +70,28 @@ This is a normal text.
 
 ## Vertical Slide with Images
 
-[Caption for the picture.](/images/logo_text.png)
+![Caption for the picture.](/images/logo_text.png)
+
+![An image](/images/logo_text.png) <!-- .element height="50%" width="50%" -->
+
+<img src="/images/logo_text.png" width="40%">
+
+## Slide with bullet points and ordered stuff
+
+* a
+* picture
+* says more
+* than a thousand words
+
+or
+
+1. item 1
+1. item 2
+
+or
+
+1. item 1
+2. item 2
 
 # Code Section
 
@@ -104,6 +125,34 @@ ggplot(diamonds,
        aes(carat, price)) +
   geom_point(color="firebrick")
 ```
+
+
+## Slide with another ggplot, grid and arrows between them
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(png)
+
+download.file("https://maxcdn.icons8.com/Share/icon/p1em/arrows//arrow1600.png",
+              tf <- tempfile(fileext = ".png"),
+              mode="wb")
+arrow <- rasterGrob(readPNG(tf))
+p <- ggplot(diamonds, aes(clarity, fill=cut)) + 
+  geom_bar() 
+grid.arrange(p + guides(fill = "none"), 
+             arrow, 
+             p + guides(fill = "none"), 
+             arrow, 
+             p, 
+             ncol=5, widths=c(2/10, 0.5/10, 2/10, 0.5/10, 3/10)) #Edit the size of the arrows and graphs here
+```
+
+
+
+https://stackoverflow.com/questions/34744655/how-to-make-a-chain-of-ggplots-and-draw-arrows-between-them
+
 
 ## Use a zoom transition, ggplot and plotly! {data-transition="zoom"}
 

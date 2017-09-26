@@ -39,11 +39,11 @@ Just highlight text and click "run" or press command+enter (Mac) or ctrl+enter (
 
 ## Create an R script
 
-IMAGE
+![](images/1_Create_an_R_script.png)
 
 ## Create an R script
 
-IMAGE
+![](images/2_Create_an_R_script2.Mod_arrow.png)
 
 ## Commands & comments
 The '#' symbol in a script tells R to ignore anything remaining on this line of the script when running commands
@@ -63,7 +63,7 @@ The '#' symbol in a script tells R to ignore anything remaining on this line of 
 ## Header
 It is recommended that you start your script with a header using comments:
 
-IMAGE
+![](images/3_Header.Mod_arrow.png)
 
 
 ## Section Headings
@@ -75,7 +75,7 @@ You can make a section heading in R Studio four # signs
 
 Allows you to move quickly between sections and hide sections
 
-IMAGE
+![](images/4_Section_headings_Mod_arrow 2.png)
 
 ## Housekeeping
 The first command at the top of all scripts should be: rm(list = ls()). This:
@@ -137,11 +137,11 @@ a “/” separates folders and file
 
 ## Setting working directory
 
-(Apple Image) 
+![](images/Logos_and_icons/apple_logo.png){width=50px}
 ```{r, eval = FALSE}
 setwd('/Users/vincentfugere/Desktop/QCBS_R')
 ```
-(Windows Image) 
+![](images/Logos_and_icons/Windows_logo.png){width=50px}
 ```{r, eval = FALSE}
 setwd('C:/Users/Johanna/Documents/PhD/R_Workshop2')
 ```
@@ -195,7 +195,7 @@ Important: if your operating system or CSV editor (e.g. Excel) is in French, the
 
 ## Importing Data
 
-IMAGE
+![](images/5_Importing_data_Mod_arrow.png)
 
 Notice that R-Studio now provides information on the CO2 data in your workspace
 
@@ -250,7 +250,7 @@ Check data types with str() again. What is wrong here?
 
 A data frame called *mydata*
 
-IMAGE
+![](images/Table_Reminder_from_Workshop_1_Accessing_data.png)
 
 ```{r, eval = FALSE}
 mydata[1,]
@@ -315,7 +315,7 @@ Mean concentration is 435 and standard deviation is 295.92!
 
 ## Data exploration
 
-IMAGE: rubiks cube
+![](images/Looking_at_data_Rubik_cube.png){width=50px}
 
 Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
 
@@ -326,7 +326,7 @@ Use apply() to calculate the means of the last two columns of the data frame (i.
 
 ## Data exploration
 
-IMAGE: rubiks cube
+![](images/Looking_at_data_Rubik_cube.png){width=50px}
 
 Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
 
@@ -377,14 +377,14 @@ Comma separated files (.csv) in Data folder
 * can be created from almost all applications (Excel, LibreOffice, GoogleDocs)
 * file -> save as csv…
 
-IMAGE
+![](images/Excel_csv_good_bad/excel_vs_csv_wrong_good.png)
 
 ## Preparing data for R
 Short informative column headings
 > - starting with a letter
 > - no spaces
 
-IMAGE
+![](images/Excel_csv_good_bad/excel_vs_excel_wrong_good.png)
 
 
 ## Preparing data for R
@@ -397,14 +397,15 @@ Column values match their intended use
 * Avoid numeric values for data that does not have numeric meaning
     * Subject, Replicate, Treatment: 1,2,3 -> A,B,C or S1,S2,S3 or …
 
-IMAGE
+![](images/Excel_csv_good_bad/excel_vs_excel_wrong_wrong.png)
+
 
 ## Preparing data for R
 * no notes!
 * no additional headings!
 * no merged cells!
 
-IMAGE
+![](images/Excel_csv_good_bad/excel_vs_excel_wrong_badDB.png)
 
 ## Preparing data for R
 
@@ -417,7 +418,7 @@ It is possible to do all your data preparation work within R
 
 
 ## Use your data
-IMAGE: rubiks cube
+![](images/Looking_at_data_Rubik_cube.png){width=50px}
 
 * Try to load, explore, plot, and save your own data in R*
 * If it doesn’t load properly, try to make the appropriate changes
@@ -431,7 +432,7 @@ IMAGE: rubiks cube
 
 ##Harder Challenge
 
-IMAGE: rubiks cube
+![](images/Looking_at_data_Rubik_cube.png){width=50px}
 
 Read in the file "CO2_broken.csv"
 
@@ -448,7 +449,7 @@ CO2
 
 
 ## Fixing CO2_broken
-IMAGE: rubiks cube
+![](images/Looking_at_data_Rubik_cube.png){width=50px}
 
 *   ?read.csv - look at some of the options for how to load a .csv
 
@@ -588,3 +589,5 @@ Fixed!
 ## Thank you for attending, and please provide us with feedback to help us improve the workshop series!
 
 Feedback: http://tinyurl.com/QCBS-R-Comment
+
+![](images/Logos_and_icons/QCBS_logo_notext_2.png)

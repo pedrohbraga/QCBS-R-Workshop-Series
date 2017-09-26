@@ -514,11 +514,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 <section id="create-an-r-script" class="slide level2">
 <h1>Create an R script</h1>
-<p>IMAGE</p>
+<figure>
+<img src="images/1_Create_an_R_script.png" />
+</figure>
 </section>
 <section id="create-an-r-script-1" class="slide level2">
 <h1>Create an R script</h1>
-<p>IMAGE</p>
+<figure>
+<img src="images/2_Create_an_R_script2.Mod_arrow.png" />
+</figure>
 </section>
 <section id="commands-comments" class="slide level2">
 <h1>Commands &amp; comments</h1>
@@ -536,14 +540,18 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section id="header" class="slide level2">
 <h1>Header</h1>
 <p>It is recommended that you start your script with a header using comments:</p>
-<p>IMAGE</p>
+<figure>
+<img src="images/3_Header.Mod_arrow.png" />
+</figure>
 </section>
 <section id="section-headings" class="slide level2">
 <h1>Section Headings</h1>
 <p>You can make a section heading in R Studio four # signs</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#### Heading name ####</code></pre></div>
 <p>Allows you to move quickly between sections and hide sections</p>
-<p>IMAGE</p>
+<figure>
+<img src="images/4_Section_headings_Mod_arrow%202.png" />
+</figure>
 </section>
 <section id="housekeeping" class="slide level2">
 <h1>Housekeeping</h1>
@@ -593,9 +601,13 @@ A</code></pre></div>
 </section>
 <section id="setting-working-directory" class="slide level2">
 <h1>Setting working directory</h1>
-<p>(Apple Image)</p>
+<figure>
+<img src="images/Logos_and_icons/apple_logo.png" width="50" />
+</figure>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;/Users/vincentfugere/Desktop/QCBS_R&#39;</span>)</code></pre></div>
-<p>(Windows Image)</p>
+<figure>
+<img src="images/Logos_and_icons/Windows_logo.png" width="50" />
+</figure>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;C:/Users/Johanna/Documents/PhD/R_Workshop2&#39;</span>)</code></pre></div>
 <p>Alternatively:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="kw">choose.dir</span>())</code></pre></div>
@@ -624,7 +636,9 @@ A</code></pre></div>
 </section>
 <section id="importing-data-1" class="slide level2">
 <h1>Importing Data</h1>
-<p>IMAGE</p>
+<figure>
+<img src="images/5_Importing_data_Mod_arrow.png" />
+</figure>
 <p>Notice that R-Studio now provides information on the CO2 data in your workspace</p>
 <p>The workspace refers to all the objects that you create during an R session.</p>
 </section>
@@ -699,7 +713,9 @@ A</code></pre></div>
 <section id="reminder-from-workshop-1-accessing-data" class="slide level2">
 <h1>Reminder from Workshop 1: Accessing data</h1>
 <p>A data frame called <em>mydata</em></p>
-<p>IMAGE</p>
+<figure>
+<img src="images/Table_Reminder_from_Workshop_1_Accessing_data.png" />
+</figure>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata[<span class="dv">1</span>,]</code></pre></div>
 <p>Extracts the first row</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata[<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
@@ -731,13 +747,17 @@ A</code></pre></div>
 </section>
 <section id="data-exploration-2" class="slide level2">
 <h1>Data exploration</h1>
-<p>IMAGE: rubiks cube</p>
+<figure>
+<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
+</figure>
 <p>Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?apply</code></pre></div>
 </section>
 <section id="data-exploration-3" class="slide level2">
 <h1>Data exploration</h1>
-<p>IMAGE: rubiks cube</p>
+<figure>
+<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
+</figure>
 <p>Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?apply</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(CO2[,<span class="dv">4</span>:<span class="dv">5</span>], <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> mean)</code></pre></div>
@@ -774,12 +794,16 @@ A</code></pre></div>
 <li>can be created from almost all applications (Excel, LibreOffice, GoogleDocs)</li>
 <li>file -&gt; save as csv…</li>
 </ul>
-<p>IMAGE</p>
+<figure>
+<img src="images/Excel_csv_good_bad/excel_vs_csv_wrong_good.png" />
+</figure>
 </section>
 <section id="preparing-data-for-r-1" class="slide level2">
 <h1>Preparing data for R</h1>
 <p>Short informative column headings &gt; - starting with a letter &gt; - no spaces</p>
-<p>IMAGE</p>
+<figure>
+<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_good.png" />
+</figure>
 </section>
 <section id="preparing-data-for-r-2" class="slide level2">
 <h1>Preparing data for R</h1>
@@ -795,7 +819,9 @@ A</code></pre></div>
 <li>Subject, Replicate, Treatment: 1,2,3 -&gt; A,B,C or S1,S2,S3 or …</li>
 </ul></li>
 </ul>
-<p>IMAGE</p>
+<figure>
+<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_wrong.png" />
+</figure>
 </section>
 <section id="preparing-data-for-r-3" class="slide level2">
 <h1>Preparing data for R</h1>
@@ -804,7 +830,9 @@ A</code></pre></div>
 <li>no additional headings!</li>
 <li>no merged cells!</li>
 </ul>
-<p>IMAGE</p>
+<figure>
+<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_badDB.png" />
+</figure>
 </section>
 <section id="preparing-data-for-r-4" class="slide level2">
 <h1>Preparing data for R</h1>
@@ -818,7 +846,9 @@ A</code></pre></div>
 </section>
 <section id="use-your-data" class="slide level2">
 <h1>Use your data</h1>
-<p>IMAGE: rubiks cube</p>
+<figure>
+<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
+</figure>
 <ul>
 <li>Try to load, explore, plot, and save your own data in R*</li>
 <li>If it doesn’t load properly, try to make the appropriate changes</li>
@@ -832,7 +862,9 @@ A</code></pre></div>
 </section>
 <section id="harder-challenge" class="slide level2">
 <h1>Harder Challenge</h1>
-<p>IMAGE: rubiks cube</p>
+<figure>
+<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
+</figure>
 <p>Read in the file “CO2_broken.csv”</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;co2_broken.csv&quot;</span>)
 <span class="kw">head</span>(CO2)</code></pre></div>
@@ -1034,7 +1066,9 @@ A</code></pre></div>
 </section>
 <section id="fixing-co2_broken" class="slide level2">
 <h1>Fixing CO2_broken</h1>
-<p>IMAGE: rubiks cube</p>
+<figure>
+<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
+</figure>
 <ul>
 <li><p>?read.csv - look at some of the options for how to load a .csv</p></li>
 <li><p>head()</p></li>
@@ -1178,6 +1212,9 @@ A</code></pre></div>
 <section id="thank-you-for-attending-and-please-provide-us-with-feedback-to-help-us-improve-the-workshop-series" class="slide level2">
 <h1>Thank you for attending, and please provide us with feedback to help us improve the workshop series!</h1>
 <p>Feedback: <a href="http://tinyurl.com/QCBS-R-Comment" class="uri">http://tinyurl.com/QCBS-R-Comment</a></p>
+<figure>
+<img src="images/Logos_and_icons/QCBS_logo_notext_2.png" />
+</figure>
 </section>
     </div>
   </div>

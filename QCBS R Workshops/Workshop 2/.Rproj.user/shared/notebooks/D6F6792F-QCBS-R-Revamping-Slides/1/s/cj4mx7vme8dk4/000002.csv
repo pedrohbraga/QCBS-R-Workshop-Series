@@ -1,0 +1,6 @@
+"0","library(ggplot2)"
+"0","data(diamonds)"
+"0","diamonds <- diamonds[sample(1:nrow(diamonds),2000),]"
+"0","ggplot(diamonds, "
+"0","       aes(carat, price)) +"
+"0","  geom_point(color=""firebrick"")"

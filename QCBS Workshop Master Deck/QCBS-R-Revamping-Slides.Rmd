@@ -106,7 +106,7 @@ ggplot(diamonds,
 ```
 
 
-## Slide with another ggplot and arrows between them
+## Slide with another ggplot, grid and arrows between them
 
 ```{r, echo=FALSE}
 library(ggplot2)

@@ -76,8 +76,7 @@ This is a normal text.
 
 <img src="/images/logo_text.png" width="40%">
 
-## Test
-
+## Slide with bullet points and ordered stuff
 
 * a
 * picture
@@ -88,6 +87,11 @@ or
 
 1. item 1
 1. item 2
+
+or
+
+1. item 1
+2. item 2
 
 # Code Section
 

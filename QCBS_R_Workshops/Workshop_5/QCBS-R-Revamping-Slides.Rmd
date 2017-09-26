@@ -1,0 +1,470 @@
+---
+title: "Workshop 1: QCBS R Workshop Series"
+author: Québec Centre for Biodiversity Science
+output:
+  revealjs::revealjs_presentation:
+    css: custom-qcbs.css
+    fig_caption: yes
+    theme: white
+    highlight: haddock
+    center: true
+    transition: fade
+    background_transition: fade
+    self_contained: false
+    pandoc_args: [ "--slide-level", "2" ]
+    reveal_plugins: ["notes", "search", "zoom"]
+---
+
+
+## Outline
+
+- Control Flow
+- Writing functions in R
+- Speeding up your code
+- Useful R packages for biologists
+
+# Control flow
+
+## Control flow
+
+Program flow control can be simply defined as the order in which a program is executed
+
+### Why is it advantageous to have structured programs?
+
+- It decreases the complexity and time of the task at hand
+- This logical structure also means that the code has increased clarity
+- It also means that many programmers can work on one program.
+
+**This means increased productivity**
+
+## Codes solutions
+
+Flow charts can be used to plan programs, and represent structure
+​
+"*Missing a flow*"
+
+## An example of a real life awkward situation
+
+"*Missing a flow*"
+
+## Not convinced that your life is a program?
+**Let us take a look at our graduate lives!**
+
+"*Missing a flow*"
+
+## Representing structure
+The two basic building blocks of codes are the following:
+
+<div id="left">
+
+<small> Program’s execution determined by statements </small>
+
+```R
+if
+if else
+```
+</div>
+
+<div id="right">
+
+<small> Repetition, where the statement will **loop** until a criteria is met </small>
+
+```R
+for
+while
+repeat
+```
+
+</div>
+
+## Decision making
+Decision making is an important part of programming
+
+<div id="left">
+**If statement**
+
+"*Work flow*"
+</div>
+
+<div id="right">
+```R
+if(condition) {
+  expression
+}
+```
+</div>
+
+## Decision making
+Decision making is an important part of programming
+
+<div id="left">
+**If...else statement**
+
+"*Work flow*"
+</div>
+
+<div id="right">
+```R
+if(condition) {
+  expression 1
+}else {
+  expression 2
+}
+```
+</div>
+
+## What if you want to test more than one thing?
+
+- `if` and `if`/`else` test a single condition
+- Use `ifelse` function to:
+    - test a vector of conditions
+    - apply a function only under certain conditions
+
+```R
+a <- 1:10
+ifelse(a > 5, "yes", "no")
+
+a <- (-4):5
+sqrt(ifelse(a >= 0, a, NA))
+```
+
+## Nested `if...else` statement
+
+<div id="left">
+"*work flow*"
+</div>
+
+<div id="right">
+```R
+if (test_expression1) {
+statement1
+} else if (test_expression2) {
+statement2
+} else if (test_expression3) {
+statement3
+} else
+statement4
+```
+</div>
+
+## Exercise 1
+```R
+Paws <- "cat"
+Scruffy <- "dog"
+Sassy <- "cat"
+animals <- c(Paws, Scruffy, Sassy)
+```
+
+1. Use an `if` statement to print “meow” if `Paws` is a “cat”.
+2. Use an `if`/`else` statement to print “woof” if you supply an object that is a “dog” and “meow” if it is not. Try it out with `Paws` and `Scruffy`.
+3. Use the `ifelse` function to display “woof” for `animals` that are dogs and “meow” for `animals` that are cats.
+
+## Beware of R’s expression parsing!
+Use curly brackets `{}` so that R knows to expect more input
+
+Try:
+```R
+if (2+2)==4 print("Arithmetic works.")
+else print("Houston, we have a problem.")
+```
+
+<small> This doesn't work because R evaluates the first line and doesn't know that you are going to use an `else` statement </small>
+
+Instead use:
+
+```R
+if (2+2)==4 {
+  print("Arithmetic works.")
+} else {
+  print("Houston, we have a problem.")
+}
+```
+## Remember the logical operators
+
+<center>
+
+| command  | meaning |
+| ------------- | ------------- |
+| `==`  | equal to  |
+| `!=`  | not x  |
+| `<`   | less than  |
+| `<=`  | less than or equal to  |
+| `>`   | greater than  |
+| `>=`  | greater than or equal to  |
+| `x%y` | x AND y |
+| `x|y`  | x OR y  |
+| `isTURE(x)`  | test if X is true |
+
+</center>
+
+## Iteration
+Every time some operation(s) has to be repeated, a `loop` may come in handy
+
+Loops are good for:
+
+- doing something for every element of an object
+- doing something until the processed data runs out
+- doing something for every file in a folder
+- doing something that can fail, until it succeeds
+- iterating a calculation until it converges
+
+## `for` statement
+
+<div id="left">
+"*work flow*"
+</div>
+
+<div id="right">
+```R
+for(val in sequence) {
+  statement
+  }
+```
+</div>
+
+##
+
+The letter 'i' can be replaced with any variable name and the sequence can be almost anything, even a list of vectors
+
+
+
+
+
+# Code Section
+
+## Slide with R Code and Output
+
+```{r}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+## Slide with R Code and No Output
+
+```{r, eval = FALSE}
+summary(cars)
+```
+
+## Slide with a ggplot2 plot
+
+
+```{r, echo = TRUE}
+library(ggplot2)
+data(diamonds)
+diamonds <- diamonds[sample(1:nrow(diamonds),2000),]
+
+ggplot(diamonds,
+       aes(carat, price)) +
+  geom_point(color="firebrick")
+```
+
+## Use a zoom transition, ggplot and plotly! {data-transition="zoom"}
+
+_It is interactive!!!_
+
+
+```{r plotly, message = FALSE, echo = FALSE}
+library(ggplot2)
+library(plotly)
+g <- ggplot(mpg,
+            aes(x = -cty,
+                y = hwy,
+                colour = as.factor(cyl))) +
+  geom_point()
+ggplotly(g)
+```
+
+## Use a faster speed {data-transition-speed="fast"}
+
+This slide has a figure caption.
+
+```{r,echo = FALSE, warning = FALSE,message=FALSE, fig.cap= "Cars"}
+
+library(ggplot2)
+data(mtcars)
+g <- ggplot(mpg, aes(class))
+g <- g + geom_bar()
+
+print(g)
+
+```
+
+## Incrementaly reveal code
+
+```{r cache=F,echo=F}
+s0 <- knitr::knit_hooks$get('source')
+o0 <- knitr::knit_hooks$get('output')
+
+knitr::knit_hooks$set(
+  list(
+    source=function(x,options){
+      if (is.null(options$class)) s0(x, options)
+      else
+        paste0(
+          paste0("<div class='", options$class, "'><pre><code>")
+          ,x
+          ,'</code></pre>\n'
+        )
+    }
+    ,output = function(x,options){
+      if (is.null(options$class)) o0(x, options)
+      else
+        paste0(
+          "<pre><code>"
+          ,x
+          ,'</code></pre></div>\n'
+        )
+    }
+  )
+)
+```
+
+What is the `mean(1:3)`?
+
+```{r class="fragment"}
+mean(1:3)
+```
+
+<div class="fragment">
+  This works fine! The `div` does not appear until you click forward in the deck. But you cannot put the `div` tags around a code fragment!
+</div>
+
+<div class="fragment">
+What do we type to get the mean from a vector that goes from 1 to 5?
+</div>
+
+```{r class="fragment"}
+mean(1:5)
+```
+
+## Incrementaly reveal plots
+
+```{r cache=F,echo=F}
+c0 <- knitr::knit_hooks$get('chunk')
+
+knitr::knit_hooks$set(
+  list(
+    chunk=function(x,options){
+      if(is.null(options$class) & is.null(options$fragIndex)){
+        c0(x, options)
+      } else if(is.null(options$fragIndex)) {
+        classidx <- which(names(options)=="class")
+        paste0(
+          paste0("<span class='", options$class, "'>"),
+          c0(x, options[-classidx]),
+          '</span>\n'
+        )
+      }
+      else if(length(options$fragIndex)==1) {
+        classidx <- which(names(options)%in%c("class", "fragIndex"))
+        str_replace(
+          paste0(
+            paste0("<span class='", options$class, "' data-fragment-index=", options$fragIndex,">"),
+            c0(x, options[-classidx]),
+            '</span>\n'
+          ),
+          "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
+          "\\2"
+        )
+      } else {
+        classidx <- which(names(options)%in%c("class", "fragIndex"))
+        str_replace(
+          paste0(
+            paste0("<span class='", options$class, " fade-in' data-fragment-index=", options$fragIndex[1],">"),
+            paste0(
+              paste0("<span class='", options$class, " fade-out' data-fragment-index=", options$fragIndex[2],">"),
+              c0(x, options[-classidx]),
+              '</span>\n'
+              ),
+            '</span>\n'
+            ),
+          "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
+          "\\2"
+        )
+
+      }
+
+    }
+  )
+)
+```
+
+## Slides with Equations
+
+With *equations*:
+
+$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+
+## More equations
+
+Inline equation, just like this $equation$, and...
+
+Display equation:
+
+$$ equation $$
+
+# Special Transitions and Color Effects
+
+## Fade in, Slide out {data-transition="slide-in fade-out"}
+
+## Horizontal Rule / Page Break
+
+Three or more asterisks or dashes:
+
+******
+
+Result in this
+
+------
+
+## Tables
+
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
+## Reference Style Links and Images
+
+### Links
+
+A [linked phrase][id].
+At the bottom of the document:
+
+[id]: http://example.com/ "Title"
+
+### Images
+![QCBSLOGO][logo-qcbs]
+
+At the bottom of the document:
+
+[logo-qcbs]: /images/logo_text.png "QCBS Logo"
+
+## Slide in, Fade out {data-transition="fade-in slide-out"}
+
+## CSS color background {data-background=#ff0000}
+
+## CSS color background {data-background=#D3D3D3}
+
+## CSS color background {data-background=#EBF5FB}
+
+Refer to HEX codes in [HTML Color Codes](http://htmlcolorcodes.com/) for other colors.
+
+## Full size image background {data-background="https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png"}
+
+## Video embeded
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen></iframe>
+
+## {data-background-iframe="http://qcbs.ca/wiki/r"}
+
+# Extra information
+
+## Next Steps {#nextsteps .emphasized}
+
+<span class="emphasized">Pay attention to this!</span>

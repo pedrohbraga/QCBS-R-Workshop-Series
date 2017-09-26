@@ -56,8 +56,6 @@ This is a normal text.
 
 </div>
 
-## Vertical Slide with Text Aligned to the Left
-
 <div id="left">
 
 - You can place two graphs on a slide

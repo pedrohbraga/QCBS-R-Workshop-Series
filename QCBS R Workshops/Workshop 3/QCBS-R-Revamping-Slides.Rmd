@@ -1,5 +1,5 @@
 ---
-title: "Workshop 1: QCBS R Workshop Series"
+title: "Workshop 3: Introduction to ggplot2, tidyr & dplyr"
 author: Québec Centre for Biodiversity Science
 output:
   revealjs::revealjs_presentation:
@@ -16,17 +16,60 @@ output:
 ---
 
 
-## R Markdown
+## ggplot2
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+![](images/ggplot2_logo.png) 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+## Introduction
 
-<small>This sentence will appear smaller.</small>
+Why use R for plotting? 
 
-# Section Title Slide
+![](images/ggplot_divided.png)
 
-## Vertical Slide with Incremental Bullets
+## Introduction
+
+Why use R for plotting? 
+
+![](images/ggplot_reproducible.png)
+
+## Introduction
+
+Why use R for plotting?
+
+Beautiful and flexible graphics!
+![](images/ggplot_flexible.png)
+
+## Introduction
+
+- Have you created plots?
+      * What kind of plot?
+      * Which software?
+
+- Have you plotted in R?
+      * base R, lattice?
+      * ggplot2?
+
+## Introduction
+
+- To follow along:
+
+Code and HTML available at http://qcbs.ca/wiki/r/workshop3 
+
+- Recommendation:
+       * create your own new script
+      * refer to provided code only if needed
+      * avoid copy pasting or running the code directly from script
+
+- ggplot2 is also hosted on github: https://github.com/hadley/ggplot2
+
+
+## tidyr
+
+![](images/tidyr_logo.png)
+
+## dplyr
+
+## How to use rmd
 
 > - Bullet 1
 > - Bullet 2

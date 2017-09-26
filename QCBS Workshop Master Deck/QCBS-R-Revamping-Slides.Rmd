@@ -105,6 +105,33 @@ ggplot(diamonds,
   geom_point(color="firebrick")
 ```
 
+
+## Slide with another ggplot and arrows between them
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(png)
+download.file("https://maxcdn.icons8.com/Share/icon/p1em/arrows//arrow1600.png",
+              tf <- tempfile(fileext = ".png"),
+              mode="wb")
+arrow <- rasterGrob(readPNG(tf))
+p <- ggplot(diamonds, aes(clarity, fill=cut)) + 
+  geom_bar() 
+grid.arrange(p + guides(fill = "none"), 
+             arrow, 
+             p + guides(fill = "none"), 
+             arrow, 
+             p, 
+             ncol=5, widths=c(2/10, 1/20, 2/10, 1/20, 2/10)) #Edit the size of the arrows and graphs here
+```
+
+
+
+https://stackoverflow.com/questions/34744655/how-to-make-a-chain-of-ggplots-and-draw-arrows-between-them
+
+
 ## Use a zoom transition, ggplot and plotly! {data-transition="zoom"}
 
 _It is interactive!!!_

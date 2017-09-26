@@ -24,66 +24,102 @@ Website:http://qcbs.ca/wiki/r/workshop1
 <img style="float: right; width: 200px;" src="images/QCBS_logo.png">
 
 # Introduction
+
 ## What is R?
+
 <div id = left>
+
 R is an open source programming language designed for statistical analysis, data mining, and data visualization.
+
 </div>
 
 <img style="float: right; width: 200px;" src="images/R_logo.png">
 
 ## Why use R?
+
 <div id = left>
+
 **It's open source**
+
  - Improved by the public, for the public!  
  - Free  
+
  </div>
 
 <img style="float: right; width: 200px;" src="images/Opensource.svg">
 
 ## Why use R?
-<div id = right>
-**It's compatible**
-R works on most existing operating systems
-</div>
 
-<images linux, mac, windows>
+<center><img style="width: 700px; " src="images/operating_stm.png"></center>
+
+**It's compatible**  
+
+R works on most existing operating systems
 
 ## Why use R?
+
 What people have traditionally done to analyze their data:
+
 <image Data to understanding>
 
 ## Why use R?
+
 <image Analyzing data with R>
+
 R allows you to do everything with one program, which is nice!  
 
 ## Why use R?
-<img style="float: left; width: 200px;" src="nomdelimage">
+
+<img style="float: left; width: 450px;" src="images/Rpackages.png">
+
+<div id = "right">
+
  - More and more scientists use it every year!  
  - Increasing capacities  
 
+ </div>
+
 ## Challenge
+
 <div id = "left">
+
  - Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes  
  - During challenges, collaborate with your   neighbours!
+
 </div>
 
 <img style="float: right; width: 350px;" src="images/rubicub.png">
 
 ## Challenge 1
-<img rubicub.png>
-Open Rstudio
-<img style="float: right; width: 200px;" src="images/Rstudio.png">
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+<center>Open Rstudio</center>
+
+<center><img style="width: 200px;" src="images/Rstudio.png"></center>
 
 ## The Rstudio console
+
 <img>
 
 ## Note for Windows user
-If the restriction:"unable to write on disk" appears when you try to open R-Studio, right-click on your R-Studio icon and chose:"Execute as administrator" to open the program.
+
+If the restriction:  
+"unable to write on disk"   
+appears when you try to open R-Studio,
+
+**Don't worry!**   
+We have the solution   
+right-click on your R-Studio icon and chose:  
+"Execute as administrator" to open the program.
 
 ## How to read the console
+
 Text in the console typically looks like this:
+<small>You always have to push "enter" for the input to run in the console.</small>
+
 ```{r, include = FALSE}
-output <- "This is the output"
+  output <- "This is the output"
 ```
 
 ```{r}
@@ -92,19 +128,12 @@ output <- "This is the output"
 
 ## How to read the console
 
-<div id = "left">
-
 ```{r}
   output
 ```
-
-</div>
-
-<div id = "right">
- - You always have to push "enter" for the input to run in the console.
-</div>
 
 <put an arrow here>
+
 What does this bracket in the output means?
 
 ## How to read the console
@@ -116,7 +145,7 @@ What does this bracket in the output means?
 This bracket help you to locate "where" you are in the output
 
 ```{r, echo = FALSE}
-	c(1:20)
+	c(1:40)
 ```
 
 # Using R as a calculator
@@ -145,6 +174,9 @@ This bracket help you to locate "where" you are in the output
 
 ## Challenge 2
 
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+
 Use R to calculate the following skill testing question:
 
 $$
@@ -170,6 +202,8 @@ $$
 ```
 
 ## Challenge 3
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 Use R to calculate the following skill testing question:
 
@@ -197,11 +231,20 @@ Note that R follows the order of the operations
 
 ## R command line tip
 
+<div id = "left">
+
 Use the "Up" and "Down" arrow keys to reproduce previous commands.
 
 Give it a try!
 
+</div>
+
+<img style="float: right; width: 350px;" src="images/keyboard_arrows.png">
+
 ## Challenge 4
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
 
 <div id="right">
 
@@ -258,4 +301,56 @@ The value on the **right** is assigned to the name on the **left** with the assi
 
 ## Objects names
 
-test 2
+- Objects names can only include:
+
+|  Type      |  Symbol |
+|------------|--------:|
+| Letters    | a-z A-Z |
+| Numbers    |     0-9 |
+| Period     |       . |
+| Underscore |       _ |
+
+- Objects names should **always** begin with a letter.
+- `R` is **case sensitive**, the names `Data1` and `data1` are not the same.
+
+## Object names: good practices
+
+- Try having short and explicit names for your variables. Naming a variable `var`  is not very informative.
+- Adding spaces after and before the `<-` is recommended because it adds clarity.
+- When typing the object's name, `R` return its value.
+
+```{r}
+  mean.x <- (2+6)/2
+  mean.x
+```
+
+## Challenge 5
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+
+Create an object with a value of $1+1.718282$ (Euler's number) and name it `euler.value`.
+
+## Challenge 5: Solution
+
+- Question
+
+Create an object with a value of $1+1.718282$ (Euler's number) and name it `euler.value`.
+
+- Solution
+
+```{r}
+  euler.value <- 1+1.718282
+  euler.value
+```
+
+## Challenge 6
+
+Create
+## Challenge 6: Solution
+
+- Question
+
+
+
+- Solution

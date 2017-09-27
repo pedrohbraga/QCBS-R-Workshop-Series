@@ -137,6 +137,7 @@ a “/” separates folders and file
 
 ## Setting working directory
 
+
 ![](images/Logos_and_icons/apple_logo.png){width=50px}
 ```{r, eval = FALSE}
 setwd('/Users/vincentfugere/Desktop/QCBS_R')
@@ -529,7 +530,10 @@ str(CO2)
 ```{r, eval = FALSE}
 ?read.csv
 ```
-IMAGE
+
+![](images/read_table_help1.png){width=750px}
+
+![](images/read_table_help2.png){width=750px}
 
 
 ## Broken data
@@ -590,4 +594,4 @@ Fixed!
 
 Feedback: http://tinyurl.com/QCBS-R-Comment
 
-![](images/Logos_and_icons/QCBS_logo_notext_2.png)
+![](images/Logos_and_icons/QCBS_logo_notext_2.png){width=250px}

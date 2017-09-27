@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "devtools::install_github('hadley/ggplot2')\n\ninstall.packages(\"revealjs\")\n",
+    "created" : 1506398956077.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3494126426",
+    "id" : "4B30EF08",
+    "lastKnownWriteTime" : 1506401296,
+    "last_content_update" : 1506442733263,
+    "path" : "~/GitHub/QCBS-R-Workshop-Series/QCBS Workshop Master Deck/QCBS-R-Revamping-Slides.R",
+    "project_path" : "QCBS-R-Revamping-Slides.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

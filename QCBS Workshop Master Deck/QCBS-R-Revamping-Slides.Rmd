@@ -115,7 +115,6 @@ summary(cars)
 
 ## Slide with a ggplot2 plot
 
-
 ```{r, echo = TRUE}
 library(ggplot2)
 data(diamonds)
@@ -125,7 +124,6 @@ ggplot(diamonds,
        aes(carat, price)) +
   geom_point(color="firebrick")
 ```
-
 
 ## Slide with another ggplot, grid and arrows between them
 
@@ -284,6 +282,44 @@ knitr::knit_hooks$set(
   )
 )
 ```
+
+## Support to Flowcharts
+
+```{r}
+library(DiagrammeR)
+mermaid("
+graph LR
+    A-->B
+")
+```
+
+## Another slide with flow charts
+
+```{r}
+library(DiagrammeR)
+DiagrammeR("
+  graph TD;
+    A[rect]-- add style -->A2[rect + style];
+    B{rhombus}---|+ some style|B2{rhombus + style};
+    C(rounded);   D((circle)); 
+    style A2 fill:#c12,stroke-width:5px;
+    style B2 fill:none, stroke-dasharray:10;
+")
+```
+
+## Another slide with flowcharts!
+```{r, echo=FALSE}
+
+library(DiagrammeR)
+grViz("
+  digraph {
+    layout = twopi
+    node [shape = circle]
+    A -> {B C D} 
+  }")
+```
+
+
 
 ## Slides with Equations
 

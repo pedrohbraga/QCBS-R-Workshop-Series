@@ -214,6 +214,8 @@ This bracket help you to locate "where" you are in the output
   10-1
 ```
 
+## Additions, substractions, etc.
+
 - Multiplications and Divisions
 
 ```{r}

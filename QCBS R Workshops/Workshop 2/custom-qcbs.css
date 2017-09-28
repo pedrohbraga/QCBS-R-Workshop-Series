@@ -75,7 +75,7 @@
 	text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2); /* shadows */
 	font-weight: bold; /* bold */
     margin-bottom: inherit;
-    margin-top: auto;
+    margin-top: 12px;
 }
 
 
@@ -103,5 +103,4 @@
   margin-left: 0;
   margin-right: 0;
 }
-  
 </style>

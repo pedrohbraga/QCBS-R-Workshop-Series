@@ -100,7 +100,7 @@ is a 1973 essay by the evolutionary biologist and Eastern Orthodox Christian The
 
 ![](https://qcbs.ca/wp-content/uploads/2010/05/image0032.png) <!-- .element height="50%" width="50%" -->
   
-  ## Tables
+## Tables
   
   First Header  | Second Header
 ------------- | -------------
@@ -108,6 +108,12 @@ is a 1973 essay by the evolutionary biologist and Eastern Orthodox Christian The
 Content Cell  | Content Cell
 Content Cell  | Content Cell
 Content Cell  | Content Cell
+
+## Fragments
+
+<span class="fragment fade-in">
+		<span class="fragment fade-out">I'll fade in, then out</span>
+</span>
 
 
 # Code Section
@@ -433,10 +439,13 @@ Refer to HEX codes in [HTML Color Codes](http://htmlcolorcodes.com/) for other c
 
 ## Video embeded
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen></iframe>
+<iframe class="stretch" width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen></iframe>
   
 ## {data-background-iframe="http://qcbs.ca/wiki/r"}
-  
+
+## Website iframe with interactive webpage
+
+
 # Extra information
   
 ## Next Steps {#nextsteps .emphasized}

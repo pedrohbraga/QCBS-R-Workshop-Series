@@ -123,6 +123,7 @@
     display: block;
   }
   .reveal ol {
+    padding-left: 1.4em;
     display: block;
   }  
 </style>

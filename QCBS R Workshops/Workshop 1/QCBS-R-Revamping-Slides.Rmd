@@ -187,8 +187,6 @@ $$
 
 ## Challenge 2: Solution
 
-## Challenge 2: Solution
-
 - Question
 
 $$
@@ -346,6 +344,8 @@ Create an object with a value of $1+1.718282$ (Euler's number) and name it `eule
 
 ## Challenge 6
 
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
 Create a second object (you decide the name) with a name that starts with a number. What happens?
 
 ## Challenge 6: Solution
@@ -433,6 +433,8 @@ Let's try it!
 ```
 
 ## Challenge 7
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
 

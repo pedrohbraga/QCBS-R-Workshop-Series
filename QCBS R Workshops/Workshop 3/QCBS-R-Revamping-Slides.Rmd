@@ -419,18 +419,52 @@ CO2.plot + scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blu
 
 ## Fine tuning - colours
 
-
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
-install.packages("RColorBrewer")
+```{r, message=FALSE, warning=FALSE}
+# install.packages("RColorBrewer")
 require(RColorBrewer)
 ```
 ```{r}
+display.brewer.all()
+```
+## Fine tuning - colours
+```{r}
 CO2.plot + scale_color_brewer(palette = "Dark2")
+```
+
+## Fine tuning - colours
+
+Wes Anderson colour palette
+  
+![](images/wesanderson1.jpg)
+
+## Fine tuning - colours
+
+Wes Anderson colour palette
+  
+![](images/wesanderson2.jpg)
+
+## Fine tuning - colours
+
+Wes Anderson colour palette
+  
+![](images/wesanderson3.jpg)
+
+## Fine tuning - colours
+
+Wes Anderson colour palette
+
+```{r}
+#install.packages("wesanderson")
+library(wesanderson)
+#marche pas!
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width, color = Species)) + 
+  geom_point(size = 3) + 
+  scale_color_manual(values = wes_palette("GrandBudapest2")) + 
+  theme_gray()
 ```
 
 ## tidyr
 
 
-![](images/tidyr_logo.png)
 
 ## dplyr

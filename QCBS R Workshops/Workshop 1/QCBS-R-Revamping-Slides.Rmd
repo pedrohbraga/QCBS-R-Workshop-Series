@@ -882,7 +882,7 @@ If the name is present, the order does not matter.
 
 ## Challenge 12: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r, echo = F}
+```{r, echo = F, fig.width=5, fig.height=5}
   a <- 1:100
   b <- a^2
   par(mfrow = c(2,2))
@@ -894,13 +894,13 @@ If the name is present, the order does not matter.
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4, fig.height=4}
+```{r,fig.width=4.5, fig.height=4.5}
   plot(a,b)
 ```
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4, fig.height=4}
+```{r,fig.width=4.5, fig.height=4.5}
   plot(b,a)
 ```
 
@@ -908,7 +908,7 @@ The shape of the plot has changed, as we did not provided the arguments names, t
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4, fig.height=4}
+```{r,fig.width=4.5, fig.height=4.5}
   plot(x = a, y = b)
 ```
 
@@ -916,7 +916,7 @@ Same as `plot(a,b)`
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4, fig.height=4}
+```{r,fig.width=4.5, fig.height=4.5}
   plot(y = b, x = a)
 ```
 
@@ -1074,7 +1074,7 @@ b) Create a unsorted vector of your favourite numbers, then:
 ## Challenge 13: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 <div class="fragment">
-  Part a):
+  Part a)
 </div>
 
 ```{r class="fragment"}
@@ -1090,7 +1090,7 @@ b) Create a unsorted vector of your favourite numbers, then:
 ```
 
 <div class="fragment">
-  Part b).
+  Part b)
 </div>
 
 ```{r class="fragment"}

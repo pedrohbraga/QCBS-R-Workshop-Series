@@ -41,14 +41,13 @@ R is an open source programming language designed for statistical analysis, data
 
 ## Why use R?
 
-<p class="flotte">
- <img src="images/Opensource.svg" alt="Nouveau !" />
-</p>
-<p style="line-height:65px;">
 **It's open source**
-</p>
 
-**Free** & Improved **by** the public, **for** the public!
+ Improved **by** the public, **for** the public!
+
+ **Free!**
+
+<img style="float: right; width: 200px;" src="images/Opensource.svg">
 
 ## Why use R?
 

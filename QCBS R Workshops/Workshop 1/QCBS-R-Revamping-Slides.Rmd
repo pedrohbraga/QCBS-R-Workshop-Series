@@ -902,15 +902,21 @@ If the name is present, the order does not matter.
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4.5, fig.height=4.5}
-  par(mar = c(4,4,0,0))
+```{r, include = FALSE}
+par(mar=c(4,4,0,0))
+```
+
+```{r,fig.width=4, fig.height=4}
   plot(a,b)
 ```
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4.5, fig.height=4.5}
-  par(mar = c(4,4,0,0))
+```{r, include = FALSE}
+par(mar=c(4,4,0,0))
+```
+
+```{r,fig.width=4, fig.height=4}
   plot(b,a)
 ```
 
@@ -918,8 +924,11 @@ The shape of the plot has changed, as we did not provided the arguments names, t
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4.5, fig.height=4.5}
-  par(mar = c(4,4,0,0))
+```{r, include = FALSE}
+par(mar=c(4,4,0,0))
+```
+
+```{r,fig.width=4, fig.height=4}
   plot(x = a, y = b)
 ```
 
@@ -927,8 +936,11 @@ Same as `plot(a,b)`
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r,fig.width=4.5, fig.height=4.5}
-  par(mar = c(4,4,0,0))
+```{r, include = FALSE}
+par(mar=c(4,4,0,0))
+```
+
+```{r,fig.width=4, fig.height=4}
   plot(y = b, x = a)
 ```
 

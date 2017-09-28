@@ -488,6 +488,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
 <section id="quebec-centre-for-biodiversity-science" class="slide level2">
 <h1>Quebec Centre for Biodiversity Science</h1>
+<!-- <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Logos_and_icons/QCBS_logo_notext_2.png"  width="150" /> -->
 <p>R Workshop Series Workshop 2: Loading and manipulating data</p>
 <p>Website: <a href="http://qcbs.ca/wiki/r/workshop2" class="uri">http://qcbs.ca/wiki/r/workshop2</a></p>
 </section>
@@ -514,21 +515,20 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 <section id="create-an-r-script" class="slide level2">
 <h1>Create an R script</h1>
-<figure>
+<div style="text-align: center">
 <img src="images/1_Create_an_R_script.png" />
-</figure>
+</div>
 </section>
 <section id="create-an-r-script-1" class="slide level2">
 <h1>Create an R script</h1>
-<figure>
-<img src="images/2_Create_an_R_script2.Mod_arrow.png" width="800" />
-</figure>
+<div style="text-align: center">
+<img src="images/2_Create_an_R_script2.Mod_arrow.png" width="800px" />
+</div>
 </section>
 <section id="commands-comments" class="slide level2">
 <h1>Commands &amp; comments</h1>
 <p>The ‘#’ symbol in a script tells R to ignore anything remaining on this line of the script when running commands</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This is a comment not a command</span></code></pre></div>
-<h3 id="section"></h3>
 <h3 id="commenting-documenting">commenting / documenting</h3>
 <ul>
 <li>annotating someone’s script is a good way to learn</li>
@@ -540,18 +540,18 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section id="header" class="slide level2">
 <h1>Header</h1>
 <p>It is recommended that you start your script with a header using comments:</p>
-<figure>
-<img src="images/3_Header.Mod_arrow.png" width="700" />
-</figure>
+<div style="text-align: center">
+<img src="images/3_Header.Mod_arrow.png" width="700px" />
+</div>
 </section>
 <section id="section-headings" class="slide level2">
 <h1>Section Headings</h1>
 <p>You can make a section heading in R Studio four # signs</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#### Heading name ####</code></pre></div>
 <p>Allows you to move quickly between sections and hide sections</p>
-<figure>
-<img src="images/4_Section_headings_Mod_arrow%202.png" width="600" />
-</figure>
+<div style="text-align: center">
+<img src="images/4_Section_headings_Mod_arrow%202.png" width="600px" />
+</div>
 </section>
 <section id="housekeeping" class="slide level2">
 <h1>Housekeeping</h1>
@@ -560,7 +560,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Clears R memory</li>
 <li>Prevents errors such as use of older data</li>
 </ul>
-<h3 id="section-1"></h3>
 <h3 id="clearing-the-workspace">Clearing the workspace</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clear the R workspace</span>
 <span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
@@ -576,7 +575,6 @@ A</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
 A</code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;A&#39; not found</code></pre>
-<h3 id="section-2"></h3>
 <h3 id="remember">Remember</h3>
 <ul>
 <li>R is ready for commands when you see the chevron ‘&gt;’ in the console. If you don’t see it, press ESC</li>
@@ -601,14 +599,18 @@ A</code></pre></div>
 </section>
 <section id="setting-working-directory" class="slide level2">
 <h1>Setting working directory</h1>
-<figure>
-<img src="images/Logos_and_icons/apple_logo.png" width="50" />
-</figure>
+<div id="right style=" width:100%;""="">
+<img style="float: left; margin: 10px 30px 15px 0px;" src="images/Logos_and_icons/apple_logo.png" width=50px>
+<p style="line-height:15px;">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;/Users/vincentfugere/Desktop/QCBS_R&#39;</span>)</code></pre></div>
-<figure>
-<img src="images/Logos_and_icons/Windows_logo.png" width="50" />
-</figure>
+</p>
+</div>
+<div id="right style=" width:100%;""="">
+<img style="float: left; margin: 10px 30px 15px 0px;" src="images/Logos_and_icons/Windows_logo.png" width=50px>
+<p style="line-height:15px;">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;C:/Users/Johanna/Documents/PhD/R_Workshop2&#39;</span>)</code></pre></div>
+</p>
+</div>
 <p>Alternatively:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="kw">choose.dir</span>())</code></pre></div>
 <p>This gives you a pop up to navigate to appropriate directory (might not work on a mac).</p>
@@ -636,9 +638,9 @@ A</code></pre></div>
 </section>
 <section id="importing-data-1" class="slide level2">
 <h1>Importing Data</h1>
-<figure>
-<img src="images/5_Importing_data_Mod_arrow.png" />
-</figure>
+<div style="text-align: center">
+<img src="images/5_Importing_data_Mod_arrow.png" width="900px" />
+</div>
 <p>Notice that R-Studio now provides information on the CO2 data in your workspace</p>
 <p>The workspace refers to all the objects that you create during an R session.</p>
 </section>
@@ -746,18 +748,12 @@ A</code></pre></div>
 <p>Mean concentration is 435 and standard deviation is 295.92!</p>
 </section>
 <section id="data-exploration-2" class="slide level2">
-<h1>Data exploration</h1>
-<figure>
-<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
-</figure>
+<h1>Data exploration <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" /></h1>
 <p>Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?apply</code></pre></div>
 </section>
 <section id="data-exploration-3" class="slide level2">
-<h1>Data exploration</h1>
-<figure>
-<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
-</figure>
+<h1>Data exploration <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" /></h1>
 <p>Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?apply</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(CO2[,<span class="dv">4</span>:<span class="dv">5</span>], <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> mean)</code></pre></div>
@@ -794,16 +790,16 @@ A</code></pre></div>
 <li>can be created from almost all applications (Excel, LibreOffice, GoogleDocs)</li>
 <li>file -&gt; save as csv…</li>
 </ul>
-<figure>
-<img src="images/Excel_csv_good_bad/excel_vs_csv_wrong_good.png" width="250" />
-</figure>
+<div style="text-align: center">
+<img src="images/Excel_csv_good_bad/excel_vs_csv_wrong_good2.png" width="700px" />
+</div>
 </section>
 <section id="preparing-data-for-r-1" class="slide level2">
 <h1>Preparing data for R</h1>
 <p>Short informative column headings &gt; - starting with a letter &gt; - no spaces</p>
-<figure>
-<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_good.png" width="250" />
-</figure>
+<div style="text-align: center">
+<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_good2.png" width="650px" />
+</div>
 </section>
 <section id="preparing-data-for-r-2" class="slide level2">
 <h1>Preparing data for R</h1>
@@ -819,9 +815,9 @@ A</code></pre></div>
 <li>Subject, Replicate, Treatment: 1,2,3 -&gt; A,B,C or S1,S2,S3 or …</li>
 </ul></li>
 </ul>
-<figure>
-<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_wrong.png" width="250" />
-</figure>
+<div style="text-align: center">
+<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_wrong2.png" width="700px" />
+</div>
 </section>
 <section id="preparing-data-for-r-3" class="slide level2">
 <h1>Preparing data for R</h1>
@@ -830,9 +826,9 @@ A</code></pre></div>
 <li>no additional headings!</li>
 <li>no merged cells!</li>
 </ul>
-<figure>
-<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_badDB.png" width="700" />
-</figure>
+<div style="text-align: center">
+<img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_badDB.png" width="700px" />
+</div>
 </section>
 <section id="preparing-data-for-r-4" class="slide level2">
 <h1>Preparing data for R</h1>
@@ -845,10 +841,7 @@ A</code></pre></div>
 </ul>
 </section>
 <section id="use-your-data" class="slide level2">
-<h1>Use your data</h1>
-<figure>
-<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
-</figure>
+<h1>Use your data <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" /></h1>
 <ul>
 <li>Try to load, explore, plot, and save your own data in R*</li>
 <li>If it doesn’t load properly, try to make the appropriate changes</li>
@@ -861,10 +854,7 @@ A</code></pre></div>
 <h1>Fixing a broken data frame</h1>
 </section>
 <section id="harder-challenge" class="slide level2">
-<h1>Harder Challenge</h1>
-<figure>
-<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
-</figure>
+<h1>Harder Challenge <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" /></h1>
 <p>Read in the file “CO2_broken.csv”</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;co2_broken.csv&quot;</span>)
 <span class="kw">head</span>(CO2)</code></pre></div>
@@ -1065,10 +1055,7 @@ A</code></pre></div>
 </ul>
 </section>
 <section id="fixing-co2_broken" class="slide level2">
-<h1>Fixing CO2_broken</h1>
-<figure>
-<img src="images/Looking_at_data_Rubik_cube.png" width="50" />
-</figure>
+<h1>Fixing CO2_broken <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" /></h1>
 <ul>
 <li><p>?read.csv - look at some of the options for how to load a .csv</p></li>
 <li><p>head()</p></li>

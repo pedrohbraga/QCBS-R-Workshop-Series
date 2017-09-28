@@ -24,6 +24,8 @@ When you click the **Knit** button a document will be generated that includes bo
 
 <small>This sentence will appear smaller.</small>
 
+You might even include <span style="color:green; font-weight:bold">inline CSS.</span>
+
 # Section Slide
 
 No text should be included here, for now, as it will not appear in the text.
@@ -67,7 +69,7 @@ This is a normal text.
   
 ## Vertical Slide with Two Columns
   
-  <div id="right">
+<div id="right">
   
 - You can place two graphs on a slide
 - Or two columns of text
@@ -83,7 +85,6 @@ This is a normal text.
 
 </div>
   
-
 You may also use this to align text to right or left
 
 ## Quoting Text
@@ -96,15 +97,18 @@ is a 1973 essay by the evolutionary biologist and Eastern Orthodox Christian The
 
 ## Images
 
-![Caption for the picture.](https://qcbs.ca/wp-content/uploads/2010/05/image0032.png)
+![Caption for the picture.](https://qcbs.ca/wp-content/uploads/2010/05/image0032.png)\
 
 ![](https://qcbs.ca/wp-content/uploads/2010/05/image0032.png) <!-- .element height="50%" width="50%" -->
-  
+
+\placefigure{Caption}{\externalfigure[https://qcbs.ca/wp-content/uploads/2010/05/image0032.png]}
+
+
 ## Tables
   
-  First Header  | Second Header
+First Header  | Second Header
 ------------- | -------------
-  Content Cell  | Content Cell
+Content Cell  | Content Cell
 Content Cell  | Content Cell
 Content Cell  | Content Cell
 Content Cell  | Content Cell
@@ -138,7 +142,7 @@ summary(cars)
 
 ## Slide with a ggplot2 plot
 
-```{r, echo = FALSE}
+```{r, echo = TRUE}
 library(ggplot2)
 data(diamonds)
 diamonds <- diamonds[sample(1:nrow(diamonds),2000),]
@@ -409,9 +413,11 @@ Result in this
 ------
   
 ## Reference Style Links and Images
-  
+
+aaaaaaaaaa
 ### Links
-  
+aaaaaaaaaaaa
+aaaaaaaaaaaaa
 A [linked phrase][id].
 At the bottom of the document:
   
@@ -435,7 +441,7 @@ At the bottom of the document:
 
 Refer to HEX codes in [HTML Color Codes](http://htmlcolorcodes.com/) for other colors.
 
-## Full size image background {data-background="https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png"}
+## Full size image background   {data-background="https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png"}
 
 ## Video embeded
 

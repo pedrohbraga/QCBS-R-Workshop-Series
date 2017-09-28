@@ -91,7 +91,6 @@ The first command at the top of all scripts should be: rm(list = ls()). This:
 * Clears R memory
 * Prevents errors such as use of older data
 
-###
 ### Clearing the workspace
 
 ```{r, eval = FALSE}
@@ -112,7 +111,6 @@ rm(list=ls())
 A
 ```
 
-###
 ### Remember
 
 * R is ready for commands when you see the chevron '>' in the console. If you don't see it, press ESC

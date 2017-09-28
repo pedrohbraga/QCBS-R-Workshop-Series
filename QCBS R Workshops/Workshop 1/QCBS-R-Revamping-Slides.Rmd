@@ -1129,12 +1129,15 @@ Find the appropriate functions to perform the following operations:
 
 ## Cheat 4ever
 
-Lot of cheatsheet are available:
+Lot of cheatsheets are available:
+
 https://www.rstudio.com/resources/cheatsheets/
+
+Open it directly from **Rstudio** 
 
 ## Cheat 4ever
 
-<img src="images/base-r.pdf">
+<center><img style="width:800px" src="images/base-r.png"></center>
 
 ## Some useful R books
 

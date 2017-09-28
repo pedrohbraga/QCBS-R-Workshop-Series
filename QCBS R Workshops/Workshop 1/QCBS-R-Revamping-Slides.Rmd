@@ -203,6 +203,10 @@ This bracket help you to locate "where" you are in the output
 	c(1:40)
 ```
 
+## Error and Warning
+
+
+
 # Using R as a calculator
 
 ## Addition, substraction, etc.
@@ -1135,7 +1139,7 @@ Lot of cheatsheets are available:
 
 https://www.rstudio.com/resources/cheatsheets/
 
-Open it directly from **Rstudio** 
+Open it directly from **Rstudio**
 
 ## Cheat 4ever
 

@@ -1189,51 +1189,124 @@ Open Rstudio
 </section></section>
 <section><section id="getting-help" class="titleslide slide level1"><h1>Getting help</h1></section><section id="searching-for-functions" class="slide level2">
 <h1>Searching for functions</h1>
+<p>WOW! <code>R</code> is so great! So many functions to do what I want!</p>
+<p>But… how do I find them?</p>
+</section><section id="searching-for-functions-1" class="slide level2">
+<h1>Searching for functions</h1>
+<p>To find a function that does something specific in your installed packages (we will see wgat a package is later), you can use <code>??</code> followed by a search term.</p>
+<p>Let’s say we want to create a <em>sequence</em> of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word “sequence” in them:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ??sequence</code></pre></div>
 </section><section id="search-results" class="slide level2">
 <h1>Search results</h1>
+<p>IMAGE</p>
+</section><section id="search-results-1" class="slide level2">
+<h1>Search results</h1>
+<p>IMAGE</p>
 </section><section id="getting-help-with-functions" class="slide level2">
 <h1>Getting help with functions</h1>
+<p>OK! SO let’s use the <code>seq</code> function!!</p>
+<p>But wait… how does it work? What arguments does it need?</p>
+<p>To find information about a function in particular, use <code>?</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ?seq</code></pre></div>
 </section><section id="help-pages" class="slide level2">
 <h1>Help pages</h1>
+<p>IMAGE</p>
+</section><section id="description" class="slide level2">
+<h1>Description</h1>
+<p>IMAGE</p>
 </section><section id="usage" class="slide level2">
 <h1>Usage</h1>
+<p>IMAGE</p>
 </section><section id="arguments-2" class="slide level2">
 <h1>Arguments</h1>
+<p>IMAGE</p>
 </section><section id="details" class="slide level2">
 <h1>Details</h1>
+<p>IMAGE</p>
 </section><section id="value" class="slide level2">
 <h1>Value</h1>
+<p>IMAGE</p>
 </section><section id="see-also" class="slide level2">
 <h1>See Also</h1>
+<p>IMAGE</p>
 </section><section id="examples" class="slide level2">
 <h1>Examples</h1>
+<p>IMAGE</p>
 </section><section id="challenge-13" class="slide level2">
 <h1>Challenge 13</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
+<ol type="a">
+<li><p>Create a sequence of even numbers from 0 to 10 using the <code>seq</code> function.</p></li>
+<li>Create a unsorted vector of your favourite numbers, then:</li>
+</ol>
+<ul>
+<li>find out how to <em>sort</em> it</li>
+<li>sort your vector in reverse order</li>
+</ul>
 </section><section id="challenge-13-solutions" class="slide level2">
 <h1>Challenge 13: Solutions</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
-<ul>
-<li><p>Question</p></li>
-<li><p>Solution</p></li>
-</ul>
+<div class="fragment">
+<p>Part a):</p>
+</div>
+<div class="fragment">
+<pre><code> seq(from=0, to=10, by=2)</code></pre>
+<pre><code>## [1]  0  2  4  6  8 10
+</code></pre>
+</div>
+<div class="fragment">
+<p>or</p>
+</div>
+<div class="fragment">
+<pre><code> seq(0,10,2)</code></pre>
+<pre><code>## [1]  0  2  4  6  8 10
+</code></pre>
+</div>
+<div class="fragment">
+<p>Part b).</p>
+</div>
+<div class='fragment'>
+<pre><code> numbers <- c(2,4,22,6,26)</code></pre>
+<div class="fragment">
+<pre><code> sort(numbers, decreasing = T)</code></pre>
+<pre><code>## [1] 26 22  6  4  2
+</code></pre>
+</div>
 </section><section id="other-ways-to-get-help" class="slide level2">
 <h1>Other ways to get help</h1>
-</section><section id="challenge-13-1" class="slide level2">
-<h1>Challenge 13</h1>
+<p>Usually, your best source of information will be your favorite search engine!</p>
+<p>Here are some tips on how to use them efficiently: - Search in English - Use the keyword “R” at the beginning of your search - Define precisely what you are looking for - Learn to read discussion forums. Chances are other people already had your problem and asked about it. - Don’t hesitate to search again using different keywords! - ## Challenge 14</p>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
-</section><section id="challenge-13-solutions-1" class="slide level2">
-<h1>Challenge 13: Solutions</h1>
+<p>Find the appropriate functions to perform the following operations:</p>
+<ul>
+<li>Square root</li>
+<li>Calculate the mean of numbers</li>
+<li>Combine two data frames by columns</li>
+<li>List availables objects in your workspace</li>
+</ul>
+</section><section id="challenge-14-solutions" class="slide level2">
+<h1>Challenge 14: Solutions</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
-<li><p>Question</p></li>
-<li><p>Solution</p></li>
+<li><code>sqrt</code></li>
+<li><code>mean</code></li>
+<li><code>cbind</code></li>
+<li><code>ls</code></li>
 </ul>
 </section></section>
 <section><section id="additional-resources" class="titleslide slide level1"><h1>Additional resources</h1></section><section id="some-useful-r-books" class="slide level2">
 <h1>Some useful R books</h1>
+<p>IMAGE</p>
 </section><section id="some-useful-r-websites" class="slide level2">
 <h1>Some useful R websites</h1>
+<ul>
+<li><a href="http://stats.stackexchange.com" class="uri">http://stats.stackexchange.com</a></li>
+<li><a href="https://www.zoology.ubc.ca/~schulter/R/" class="uri">https://www.zoology.ubc.ca/~schulter/R/</a></li>
+<li><a href="http://statmethods.net/" class="uri">http://statmethods.net/</a></li>
+<li><a href="http://rseek.org/" class="uri">http://rseek.org/</a></li>
+<li><a href="http://cookbook-r.com/" class="uri">http://cookbook-r.com/</a></li>
+<li><a href="http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf" class="uri">http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf</a></li>
+</ul>
 </section></section>
 <section><section id="thank-you-for-attending" class="titleslide slide level1"><h1>Thank you for attending!</h1></section></section>
     </div>

@@ -833,54 +833,157 @@ To index a data frame you must specify two dimensions: row and column number, us
 
 ## Searching for functions
 
+WOW! `R` is so great! So many functions to do what I want!
+
+But... how do I find them?
+
+## Searching for functions
+
+To find a function that does something specific in your installed packages (we will see wgat a package is later), you can use `??` followed by a search term.
+
+Let's say we want to create a *sequence* of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word "sequence" in them:
+
+```{r, eval = F}
+  ??sequence
+```
+
 ## Search results
+
+IMAGE
+
+## Search results
+
+IMAGE
 
 ## Getting help with functions
 
+OK! SO let's use the `seq` function!!
+
+But wait... how does it work? What arguments does it need?
+
+To find information about a function in particular, use `?`
+
+```{r, eval = F}
+  ?seq
+```
+
 ## Help pages
+
+IMAGE
+
+## Description
+
+IMAGE
 
 ## Usage
 
+IMAGE
+
 ## Arguments
+
+IMAGE
 
 ## Details
 
+IMAGE
+
 ## Value
+
+IMAGE
 
 ## See Also
 
+IMAGE
+
 ## Examples
+
+IMAGE
 
 ## Challenge 13
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
+a) Create a sequence of even numbers from 0 to 10 using the `seq` function.
+
+b) Create a unsorted vector of your favourite numbers, then:
+- find out how to *sort* it
+- sort your vector in reverse order
+
 ## Challenge 13: Solutions
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
-- Question
+<div class="fragment">
+  Part a):
+</div>
 
-- Solution
+```{r class="fragment"}
+ seq(from=0, to=10, by=2)
+```
+
+<div class="fragment">
+  or
+</div>
+
+```{r class="fragment"}
+ seq(0,10,2)
+```
+
+<div class="fragment">
+  Part b).
+</div>
+
+```{r class="fragment"}
+ numbers <- c(2,4,22,6,26)
+ sort(numbers, decreasing = T)
+```
 
 ## Other ways to get help
 
-## Challenge 13
+Usually, your best source of information will be your favorite search engine!
+
+Here are some tips on how to use them efficiently:
+- Search in English
+- Use the keyword "R" at the beginning of your search
+- Define precisely what you are looking for
+- Learn to read discussion forums. Chances are other people already had your problem and asked about it.
+- Don't hesitate to search again using different keywords!
+-
+## Challenge 14
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
-## Challenge 13: Solutions
+Find the appropriate functions to perform the following operations:
+
+- Square root
+- Calculate the mean of numbers
+- Combine two data frames by columns
+- List availables objects in your workspace
+
+## Challenge 14: Solutions
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
-- Question
-
-- Solution
+- `sqrt`
+- `mean`
+- `cbind`
+- `ls`
 
 # Additional resources
 
 ## Some useful R books
 
+IMAGE
+
 ## Some useful R websites
 
+- http://stats.stackexchange.com
+- https://www.zoology.ubc.ca/~schulter/R/
+- http://statmethods.net/
+- http://rseek.org/
+- http://cookbook-r.com/
+- http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf
+
 # Thank you for attending!
+
+IMAGES

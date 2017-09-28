@@ -793,41 +793,190 @@ To index a data frame you must specify two dimensions: row and column number, us
 
 ## Functions
 
+A function is a tool to simplify your life.
+
+It allows you to quickly execute operations on objects without having to write every mathematical step.
+
+A function needs entry values called **arguments** (or parameters). It then performs hidden operations using these arguments and gives a **return value**.
+
 ## Functions
 
+To use (call) a function, the command must be structured properly, following the "grammar rules" of the `R` language: the syntax.
+
+```{r, eval = F}
+  function_name(argument 1, argument 2)
+```
+
 ## Arguments
+
+Arguments are **values** and **instructions** the function needs to run.
+
+Objects storing these values and instructions can be used in functions:
+
+```{r}
+  a <- 3
+  b <- 5
+  sum(a,b)
+```
 
 ## Challenge 11
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
+- Create a vector `a` that contains all the numbers from 1 to 5
+- Create an object `b` with a value of 2
+- Add `a` and `b` together using the basic `+` operator and save the result in an object called `result_add`
+- Add `a` and `b` together using the `sum` function and save the result in an object called `result_sum`
+- Compare `result_add` and `result_sum`. Are they different?
+- Add 5 to `result_sum` function using the `sum` function
+
 ## Challenge 11: Solution
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
-- Question
+```{r}
+  a <- c(1:5)
+  b <- 2
+  result_add <- a + b
+  result_sum <- sum(a,b)
+```
 
-- Solution
+```{r}
+  result_add
+  result_sum
+  sum(result_sum, 5)
+```
+
+## Challenge 11: Solution
+
+The operation `+` on the vector `a` adds 2 to each element. The result is a vector.
+
+The function `sum` concatenates all the values provided and then sum them. It is the same as doing 1+2+3+4+5+2.
 
 ## Arguments
+
+Arguments each have a **name** that can be provided during a function call.
+
+If the name is not present, the order os the arguments does matter.
+
+If the name is present, the order does not matter.
 
 ## Challenge 12
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
+`plot` is a function that draws a graph of y as a fucntion of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
+
+```{r, eval = F}
+  a <- 1:100
+  b <- a^2
+  plot(a,b)
+  plot(b,a)
+  plot(x = a, y = b)
+  plot(y = b, x = a)
+```
+
 ## Challenge 12: Solutions
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
-- Question
+```{r, echo = F}
+  a <- 1:100
+  b <- a^2
+  par(mfrow = c(2,2))
+  plot(a,b)
+  plot(b,a)
+  plot(x = a, y = b)
+  plot(y = b, x = a)
+```
 
-- Solution
+## Challenge 12: Solution
 
-## Some common functions
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+```{r}
+  plot(a,b)
+```
+
+## Challenge 12: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+```{r}
+  plot(b,a)
+```
+
+The shape of the plot has changed, as we did not provided the arguments names, the order is important.
+
+## Challenge 12: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+```{r}
+  plot(x = a, y = b)
+```
+
+Same as `plot(a,b)`
+
+## Challenge 12: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+```{r}
+  plot(y = b, x = a)
+```
+
+Same as `plot(a,b)`. The argument names are provided, the order is not important.
 
 ## Packages
 
+Packages are a **grouping of functions** and/or **datasets** that share a similar **theme**, e.g. statistics, spatial analysis, plotting, etc.
+
+**Everyone** can develop packages and make them available to others.
+
+They are usually available through the *Comprehensive R Archive Network* or CRAN: http://cran.r-project.org/web/packages/
+
+Currently, more than 5877 packages are publicly availables.
+
 ## Packages
+
+To install packages on your computer, use the function `install.packages`.
+
+```{r, eval = F}
+  install.packages("package name")
+```
+
+Installing a package is not enough to use it. You need to load it into your workspace before using it using the `library` function.
+
+```{r, eval = F}
+ library(package name)
+```
+
+## Package: an example
+
+```{r, eval = F}
+  install.packages("ggplot2")
+```
+
+```{r, eval = F}
+## Installing package into '/home/labo/R/x86_64-redhat-linux-gnu-library/3.3'
+## (as 'lib' is unspecified)
+```
+
+```{r, eval = F}
+ qplot(1:10, 1:10)
+```
+
+```{r, eval = F}
+  ## Error: could not find function "qplot"
+```
+
+## Package name: an example
+
+```{r, fig.width=5, fig.height=5}
+  library(ggplot2)
+  qplot(1:10, 1:10)
+```
 
 # Getting help
 
@@ -839,7 +988,7 @@ But... how do I find them?
 
 ## Searching for functions
 
-To find a function that does something specific in your installed packages (we will see wgat a package is later), you can use `??` followed by a search term.
+To find a function that does something specific in your installed packages, you can use `??` followed by a search term.
 
 Let's say we want to create a *sequence* of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word "sequence" in them:
 

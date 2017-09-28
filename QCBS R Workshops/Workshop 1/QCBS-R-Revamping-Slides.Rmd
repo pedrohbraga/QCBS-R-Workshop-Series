@@ -58,11 +58,55 @@ R works on most existing operating systems
 
 What people have traditionally done to analyze their data:
 
-<image Data to understanding>
+```{r, echo = FALSE}
+library(DiagrammeR)
+library(Graphviz)
+
+grViz("
+      digraph {
+
+      node [shape = oval, fillcolor = PaleTuruoise]
+      Data; Graphs; Tables; Statistics
+
+      node [shape = box]
+      Sigmaplot; Excel; SAS
+
+      ##add arrows
+      edge [arrowhead = none]
+      Data -> Sigmaplot; Data -> Excel; Data -> SAS;
+
+      edge [arrowhead = normal]
+      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;
+
+      }")
+
+```
 
 ## Why use R?
 
-<image Analyzing data with R>
+```{r, echo = FALSE}
+library(DiagrammeR)
+library(Graphviz)
+
+grViz("
+      digraph {
+
+      node [shape = oval, fillcolor = PaleTuruoise]
+      Data; Graphs; Tables; Statistics
+
+      node [shape = box]
+      R
+
+      ##add arrows
+      edge [arrowhead = none]
+      Data -> R;
+
+      edge [arrowhead = normal]
+      R -> Graphs; R -> Tables; R -> Statistics;
+
+      }")
+
+```
 
 R allows you to do everything with one program, which is nice!
 
@@ -98,7 +142,9 @@ R allows you to do everything with one program, which is nice!
 
 ## The Rstudio console
 
-<img>
+<img style="float: left; width: 450px;" src="images/Rstudioconsole.png">
+
+**NEED ARROW**
 
 ## Note for Windows user
 

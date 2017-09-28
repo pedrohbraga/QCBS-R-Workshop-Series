@@ -104,10 +104,10 @@ arguments:
 ## Basic scatter plot
 Look at pre-loaded "iris" dataset:
 ```{r, eval = FALSE}
-> ?iris
-> head(iris)
-> str(iris)
-> names(iris)
+?iris
+head(iris)
+str(iris)
+names(iris)
 ```
 
 ## Basic scatter plot
@@ -157,7 +157,7 @@ data(CO2)
 data(BOD)
 ```
 
-## Solution #1
+## Solution to challenge #1
 Produce a basic plot with the CO2 dataset 
 
 ```{r}
@@ -206,6 +206,26 @@ A graphic is made of elements (layers)
     * `geom_boxplot()`: box and whiskers plot for categorical variables
     * `geom_bar()`: bar charts for categorical x axis
     * `geom_histogram()`: histogram, geom_bar for continuous x axis
+    
+## Grammar of graphics (gg)
+Edit any single element to produce a new graph
+e.g., by changing the coordinate system
+
+
+  
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+require(grid)
+require(gridExtra)
+require(ggplot2)
+plot1 <- ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut)) 
+
+plot2 <- ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut)) + 
+  coord_polar()
+grid.arrange(plot1, plot2,ncol=2)
+```
+
 
 ## How it works
 
@@ -215,6 +235,198 @@ Add graphical layers: `plot.object <- plot.object + layer()`
 
 Repeat step 2 until statisfied, then print: `print(plot.object)`
 
+## `qplot()` vs `ggplot()`
+
+```{r, eval = FALSE, message=FALSE, warning=FALSE}
+qplot(data = iris,
+      x = Sepal.Length,
+      xlab = "Sepal Length (mm)",
+      y = Sepal.Width,
+      ylab = "Sepal Width (mm)",
+      main = "Sepal dimensions")
+
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point() +
+  xlab("Sepal Length (mm)") +
+  ylab("Sepal Width (mm)") +
+  ggtitle("Sepal dimensions")
+```
+
+## Assign plot to an R object
+
+```{r}
+basic.plot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+    geom_point()+
+    xlab("Sepal Length (mm)")+
+    ylab("Sepal Width (mm)")+
+    ggtitle("Sepal dimensions")
+basic.plot
+```
+
+## Adding colours and shapes
+
+Add aesthetics using `aes()`
+
+```{r}
+basic.plot <- basic.plot + aes(colour = Species, shape = Species)
+basic.plot
+```
+
+## Adding geometric objects
+
+Add linear regressions with geom_smooth()
+
+```{r}
+linear.smooth.plot <- basic.plot + geom_smooth(method = "lm", se = FALSE)
+linear.smooth.plot
+```
+
+## Challenge #2
+
+Produce a colourful plot with linear regression (or other smoother) from built in data such as the CO2 dataset or the msleep dataset
+
+```{r, eval=FALSE}
+?CO2
+data(CO2)
+?msleep
+data(msleep)
+```
+
+## Solution to challenge #2
+`
+Example using loess smoothing
+
+```{r}
+data(CO2)
+CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
+    geom_point() +
+    xlab("CO2 Concentration (mL/L)") +
+    ylab("CO2 Uptake (umol/m^2 sec)") +    
+    ggtitle("CO2 uptake in grass plants") +
+    geom_smooth(method = "loess")
+CO2.plot
+```
+
+## Adding multiple facets and groups
+
+Data becomes difficult to visualize when there are multiple factors, e.g., the CO2 data set contains data on CO2 uptake for chilled vs non-chilled treatments from two different regions. Let's build a basic plot using this data set:
+
+```{r}
+CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
+    geom_point() +
+    xlab("CO2 Concentration (mL/L)") +
+    ylab("CO2 Uptake (umol/m^2 sec)") +    
+    ggtitle("CO2 uptake in grass plants")
+CO2.plot
+```
+
+## Adding multiple facets and groups
+If we want to compare regions, it is useful to make two panels.
+Basic synthax : `plot.object + facet_grid(rows ~ columns)`
+
+Ex: CO2 by plot type
+```{r} 
+CO2.plot <- CO2.plot + facet_grid(. ~ Type)
+CO2.plot
+```
+
+## Adding multiple facets and groups
+
+Now that we have two facets, let's observe how the CO2 uptake evolves as CO2 concentrations rise, by adding connecting lines to the points using `geom_line()`:
+
+```{r}
+CO2.plot + geom_line()
+```
+Hmm wrong! Because each treatment in each region has 3 replicates
+
+## Adding multiple facets and groups
+
+Specify groups
+
+```{r}
+CO2.plot <- CO2.plot + geom_line(aes(group = Plant))
+CO2.plot
+```
+
+## Available elements
+
+![](images/available_geom.png)
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+## Additional resources
+
+`help(package = ggplot)`
+
+http://ggplot2.tidyverse.org/reference/
+
+
+<div id="left">
+
+![](images/ggplot_book.jpg)
+
+</div>
+
+  <div id="right">
+  
+![](images/grammar_of_graphics.jpg)
+
+</div>
+
+## Challenge #3
+
+Explore a new geom and other plot elements with your own data or built in data. 
+
+```{r, eval = FALSE}
+data(msleep)
+data(OrchardSprays)
+```
+
+## Solution to challenge #3
+
+```{r}
+data(OrchardSprays)
+box.plot  <- ggplot(data = OrchardSprays, aes(x = treatment, y = decrease)) +
+  geom_boxplot()
+box.plot
+```
+
+## Saving plots in RStudio
+
+![](images/save_image.png)
+
+## Saving plots in code
+
+ggsave() will write directly to your working directory all in one line of code and you can specify the name of the file and the dimensions of the plot:
+
+```{r, eval=FALSE}
+ggsave("CO2 plot.pdf",
+       CO2.plot,
+       height = 8.5,
+       width = 11,
+       units = "in")
+```
+Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png,...)
+
+Other methods to save image
+`?pdf`
+`?jpeg`
+
+## Fine tuning - colours
+
+```{r}
+CO2.plot + scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
+```
+
+## Fine tuning - colours
+
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+install.packages("RColorBrewer")
+require(RColorBrewer)
+```
+```{r}
+CO2.plot + scale_color_brewer(palette = "Dark2")
+```
 
 ## tidyr
 

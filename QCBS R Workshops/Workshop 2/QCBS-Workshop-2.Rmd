@@ -15,8 +15,6 @@ output:
     reveal_plugins: ["notes", "search", "zoom"]
 ---
 
-
-
 ## Quebec Centre for Biodiversity Science 
 <!-- <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Logos_and_icons/QCBS_logo_notext_2.png"  width="150" /> -->
 R Workshop Series
@@ -112,7 +110,7 @@ A
 ```
 
 ### Remember
-
+ 
 * R is ready for commands when you see the chevron '>' in the console. If you don't see it, press ESC
 * R is case sensitive!
 
@@ -267,8 +265,8 @@ Check data types with str() again. What is wrong here?
 
 A data frame called *mydata*
 
-![](images/Table_Reminder_from_Workshop_1_Accessing_data.png){width=400px}
-
+<img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="400px" />
+  
 ```{r, eval = FALSE}
 mydata[1,]
 ```

@@ -103,4 +103,12 @@
   margin-left: 0;
   margin-right: 0;
 }
+
+  .reveal ul {
+    padding-left: 1.4em;
+    display: block;
+  }
+  .reveal ol {
+    display: block;
+  }  
 </style>

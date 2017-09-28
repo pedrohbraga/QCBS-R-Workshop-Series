@@ -15,8 +15,6 @@ output:
     reveal_plugins: ["notes", "search", "zoom"]
 ---
 
-
-
 ## Quebec Centre for Biodiversity Science 
 <!-- <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Logos_and_icons/QCBS_logo_notext_2.png"  width="150" /> -->
 R Workshop Series
@@ -268,7 +266,7 @@ Check data types with str() again. What is wrong here?
 A data frame called *mydata*
 
 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="400px" />
-
+  
 ```{r, eval = FALSE}
 mydata[1,]
 ```

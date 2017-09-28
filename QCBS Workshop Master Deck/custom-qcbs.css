@@ -7,21 +7,6 @@
   font-size: 0.3em;
 }
 
-.reveal ul{
- list-style: none;
- margin-left: 10;
- padding-left: 1em;
- text-indent: -1em;
-
-  /* 
-margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline; 
- */
-  }
 /* Two Columns Layout */ 
 
 #left {

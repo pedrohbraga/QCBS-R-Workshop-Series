@@ -76,7 +76,8 @@
 /* Images */
 
 .reveal section img{ /* images */
-  border: 0px; /* no border but still shadow */
+    border: none;
+    box-shadow: none;
 }
 
 /* Slide content area */
@@ -91,5 +92,5 @@
   margin-left: 0;
   margin-right: 0;
 }
-  
+    
 </style>

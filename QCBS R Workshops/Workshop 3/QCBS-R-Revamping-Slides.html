@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Québec Centre for Biodiversity Science" />
-  <title>Workshop 1: QCBS R Workshop Series</title>
+  <title>Workshop 3: Introduction to ggplot2, tidyr &amp; dplyr</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -476,206 +476,238 @@ style.innerHTML = style_script;
 document.getElementsByTagName('head')[0].appendChild(style);
 </script>
 
-    <script src="QCBS-R-Revamping-Slides_files/htmlwidgets-0.9/htmlwidgets.js"></script>
-    <script src="QCBS-R-Revamping-Slides_files/plotly-binding-4.7.1/plotly.js"></script>
-    <script src="QCBS-R-Revamping-Slides_files/typedarray-0.1/typedarray.min.js"></script>
-    <script src="QCBS-R-Revamping-Slides_files/jquery-1.11.3/jquery.min.js"></script>
-    <link href="QCBS-R-Revamping-Slides_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-    <script src="QCBS-R-Revamping-Slides_files/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-    <link href="QCBS-R-Revamping-Slides_files/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-    <script src="QCBS-R-Revamping-Slides_files/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
 <section>
-    <h1 class="title">Workshop 1: QCBS R Workshop Series</h1>
+    <h1 class="title">Workshop 3: Introduction to ggplot2, tidyr &amp; dplyr</h1>
     <h2 class="author">Québec Centre for Biodiversity Science</h2>
 </section>
 
-<section id="r-markdown" class="slide level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.</p>
-<p><small>This sentence will appear smaller.</small></p>
+<section id="ggplot2" class="slide level2">
+<h1>ggplot2</h1>
+<figure>
+<img src="images/ggplot2_logo.png" />
+</figure>
 </section>
-<section><section id="section-title-slide" class="titleslide slide level1"><h1>Section Title Slide</h1></section><section id="vertical-slide-with-incremental-bullets" class="slide level2">
-<h2>Vertical Slide with Incremental Bullets</h2>
+<section id="introduction" class="slide level2">
+<h1>Introduction</h1>
+<p>Why use R for plotting?</p>
+<figure>
+<img src="images/ggplot_divided.png" />
+</figure>
+</section>
+<section id="introduction-1" class="slide level2">
+<h1>Introduction</h1>
+<p>Why use R for plotting?</p>
+<figure>
+<img src="images/ggplot_reproducible.png" />
+</figure>
+</section>
+<section id="introduction-2" class="slide level2">
+<h1>Introduction</h1>
+<p>Why use R for plotting?</p>
+<p>Beautiful and flexible graphics! <img src="images/ggplot_flexible.png" /></p>
+</section>
+<section id="introduction-3" class="slide level2">
+<h1>Introduction</h1>
 <ul>
-<li class="fragment">Bullet 1</li>
-<li class="fragment">Bullet 2</li>
-<li class="fragment">Bullet 3</li>
-</ul>
-<h3 id="begins-a-new-header-within-a-slide">Begins a new header within a slide</h3>
-</section><section id="vertical-slide-with-incremental-bullets-1" class="slide level2">
-<h2>Vertical Slide with Incremental Bullets</h2>
+<li>Have you created plots?
 <ul>
-<li class="fragment">Level 1 item
-<ul>
-<li class="fragment">Level 2 item</li>
-<li class="fragment">Level 2 item</li>
+<li>What kind of plot?</li>
+<li>Which software?</li>
 </ul></li>
-<li class="fragment">Level 1 item</li>
-</ul>
-</section><section id="vertical-slide-with-normal-text-and-small-text" class="slide level2">
-<h2>Vertical Slide with Normal Text and Small Text</h2>
-<p>This is a normal text.</p>
-<p><small>This sentence will appear smaller.</small></p>
-</section><section id="vertical-slide-with-text-aligned-to-the-right" class="slide level2">
-<h2>Vertical Slide with Text Aligned to the Right</h2>
-<div id="right">
+<li>Have you plotted in R?
 <ul>
-<li>You can place two graphs on a slide</li>
-<li>Or two columns of text</li>
-<li>These are all created with div elements</li>
+<li>base R, lattice?</li>
+<li>ggplot2?</li>
+</ul></li>
 </ul>
-</div>
-</section><section id="vertical-slide-with-text-aligned-to-the-left" class="slide level2">
-<h2>Vertical Slide with Text Aligned to the Left</h2>
-<div id="left">
+</section>
+<section id="introduction-4" class="slide level2">
+<h1>Introduction</h1>
 <ul>
-<li>You can place two graphs on a slide</li>
-<li>Or two columns of text</li>
-<li>These are all created with div elements</li>
+<li>To follow along:</li>
 </ul>
-</div>
-</section><section id="vertical-slide-with-quote-text" class="slide level2">
-<h2>Vertical Slide with Quote Text</h2>
-<blockquote>
-<p>R Markdown is amazing!</p>
-</blockquote>
-</section><section id="vertical-slide-with-images" class="slide level2">
-<h2>Vertical Slide with Images</h2>
-<p><a href="/images/logo_text.png">Caption for the picture.</a></p>
-</section></section>
-<section><section id="code-section" class="titleslide slide level1"><h1>Code Section</h1></section><section id="slide-with-r-code-and-output" class="slide level2">
-<h2>Slide with R Code and Output</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars)</code></pre></div>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
-</section><section id="slide-with-plot" class="slide level2">
-<h2>Slide with Plot</h2>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-2-1.png" /><!-- --></p>
-</section><section id="slide-with-r-code-and-no-output" class="slide level2">
-<h2>Slide with R Code and No Output</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars)</code></pre></div>
-</section><section id="slide-with-a-ggplot2-plot" class="slide level2">
-<h2>Slide with a ggplot2 plot</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">data</span>(diamonds)
-diamonds &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(diamonds),<span class="dv">2000</span>),]
-
-<span class="kw">ggplot</span>(diamonds, 
-       <span class="kw">aes</span>(carat, price)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;firebrick&quot;</span>)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-4-1.png" /><!-- --></p>
-</section><section id="use-a-zoom-transition-ggplot-and-plotly" class="slide level2" data-transition="zoom">
-<h2>Use a zoom transition, ggplot and plotly!</h2>
-<p><em>It is interactive!!!</em></p>
-<div id="30d0243247e4" style="width:768px;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="30d0243247e4">{"x":{"data":[{"x":[-18,-21,-20,-21,-18,-16,-20,-19,-19,-22,-18,-28,-24,-25,-23,-24,-26,-25,-24,-21,-18,-18,-21,-21,-19,-19,-20,-20,-21,-19,-23,-23,-18,-18,-20,-19,-20,-18,-21,-19,-19,-19,-20,-20,-19,-20,-15,-16,-21,-21,-21,-21,-21,-21,-21,-22,-24,-24,-26,-28,-26,-15,-16,-17,-21,-19,-21,-22,-33,-21,-19,-22,-21,-35,-29,-21,-19,-21,-18,-19,-21],"y":[29,29,31,30,26,25,28,27,27,30,24,33,32,32,29,32,34,36,36,29,26,27,30,31,26,29,28,27,29,27,31,32,25,24,27,25,26,23,26,26,26,26,25,27,25,27,20,20,29,27,31,31,27,29,31,31,30,33,35,37,35,20,20,22,29,26,29,29,44,29,26,29,29,44,41,29,26,29,29,28,29],"text":["-cty: -18<br />hwy: 29<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -20<br />hwy: 31<br />as.factor(cyl): 4","-cty: -21<br />hwy: 30<br />as.factor(cyl): 4","-cty: -18<br />hwy: 26<br />as.factor(cyl): 4","-cty: -16<br />hwy: 25<br />as.factor(cyl): 4","-cty: -20<br />hwy: 28<br />as.factor(cyl): 4","-cty: -19<br />hwy: 27<br />as.factor(cyl): 4","-cty: -19<br />hwy: 27<br />as.factor(cyl): 4","-cty: -22<br />hwy: 30<br />as.factor(cyl): 4","-cty: -18<br />hwy: 24<br />as.factor(cyl): 4","-cty: -28<br />hwy: 33<br />as.factor(cyl): 4","-cty: -24<br />hwy: 32<br />as.factor(cyl): 4","-cty: -25<br />hwy: 32<br />as.factor(cyl): 4","-cty: -23<br />hwy: 29<br />as.factor(cyl): 4","-cty: -24<br />hwy: 32<br />as.factor(cyl): 4","-cty: -26<br />hwy: 34<br />as.factor(cyl): 4","-cty: -25<br />hwy: 36<br />as.factor(cyl): 4","-cty: -24<br />hwy: 36<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -18<br />hwy: 26<br />as.factor(cyl): 4","-cty: -18<br />hwy: 27<br />as.factor(cyl): 4","-cty: -21<br />hwy: 30<br />as.factor(cyl): 4","-cty: -21<br />hwy: 31<br />as.factor(cyl): 4","-cty: -19<br />hwy: 26<br />as.factor(cyl): 4","-cty: -19<br />hwy: 29<br />as.factor(cyl): 4","-cty: -20<br />hwy: 28<br />as.factor(cyl): 4","-cty: -20<br />hwy: 27<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -19<br />hwy: 27<br />as.factor(cyl): 4","-cty: -23<br />hwy: 31<br />as.factor(cyl): 4","-cty: -23<br />hwy: 32<br />as.factor(cyl): 4","-cty: -18<br />hwy: 25<br />as.factor(cyl): 4","-cty: -18<br />hwy: 24<br />as.factor(cyl): 4","-cty: -20<br />hwy: 27<br />as.factor(cyl): 4","-cty: -19<br />hwy: 25<br />as.factor(cyl): 4","-cty: -20<br />hwy: 26<br />as.factor(cyl): 4","-cty: -18<br />hwy: 23<br />as.factor(cyl): 4","-cty: -21<br />hwy: 26<br />as.factor(cyl): 4","-cty: -19<br />hwy: 26<br />as.factor(cyl): 4","-cty: -19<br />hwy: 26<br />as.factor(cyl): 4","-cty: -19<br />hwy: 26<br />as.factor(cyl): 4","-cty: -20<br />hwy: 25<br />as.factor(cyl): 4","-cty: -20<br />hwy: 27<br />as.factor(cyl): 4","-cty: -19<br />hwy: 25<br />as.factor(cyl): 4","-cty: -20<br />hwy: 27<br />as.factor(cyl): 4","-cty: -15<br />hwy: 20<br />as.factor(cyl): 4","-cty: -16<br />hwy: 20<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -21<br />hwy: 27<br />as.factor(cyl): 4","-cty: -21<br />hwy: 31<br />as.factor(cyl): 4","-cty: -21<br />hwy: 31<br />as.factor(cyl): 4","-cty: -21<br />hwy: 27<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -21<br />hwy: 31<br />as.factor(cyl): 4","-cty: -22<br />hwy: 31<br />as.factor(cyl): 4","-cty: -24<br />hwy: 30<br />as.factor(cyl): 4","-cty: -24<br />hwy: 33<br />as.factor(cyl): 4","-cty: -26<br />hwy: 35<br />as.factor(cyl): 4","-cty: -28<br />hwy: 37<br />as.factor(cyl): 4","-cty: -26<br />hwy: 35<br />as.factor(cyl): 4","-cty: -15<br />hwy: 20<br />as.factor(cyl): 4","-cty: -16<br />hwy: 20<br />as.factor(cyl): 4","-cty: -17<br />hwy: 22<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -19<br />hwy: 26<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -22<br />hwy: 29<br />as.factor(cyl): 4","-cty: -33<br />hwy: 44<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -19<br />hwy: 26<br />as.factor(cyl): 4","-cty: -22<br />hwy: 29<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -35<br />hwy: 44<br />as.factor(cyl): 4","-cty: -29<br />hwy: 41<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -19<br />hwy: 26<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4","-cty: -18<br />hwy: 29<br />as.factor(cyl): 4","-cty: -19<br />hwy: 28<br />as.factor(cyl): 4","-cty: -21<br />hwy: 29<br />as.factor(cyl): 4"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"4","legendgroup":"4","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[-21,-21,-20,-20],"y":[29,29,28,29],"text":["-cty: -21<br />hwy: 29<br />as.factor(cyl): 5","-cty: -21<br />hwy: 29<br />as.factor(cyl): 5","-cty: -20<br />hwy: 28<br />as.factor(cyl): 5","-cty: -20<br />hwy: 29<br />as.factor(cyl): 5"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(124,174,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(124,174,0,1)"}},"hoveron":"points","name":"5","legendgroup":"5","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[-16,-18,-18,-15,-17,-17,-15,-15,-17,-18,-18,-17,-17,-16,-16,-17,-17,-11,-15,-15,-16,-16,-15,-14,-13,-14,-13,-14,-15,-14,-13,-14,-14,-18,-18,-17,-16,-18,-18,-19,-17,-16,-17,-17,-15,-15,-14,-13,-19,-19,-18,-19,-19,-14,-15,-14,-18,-16,-17,-18,-15,-15,-16,-18,-18,-19,-18,-18,-18,-15,-15,-15,-16,-17,-16,-17,-16,-18,-17],"y":[26,26,27,25,25,25,25,24,25,26,29,26,24,22,22,24,24,17,22,21,23,23,19,18,17,17,17,17,19,17,19,17,17,26,25,26,24,26,26,28,24,24,24,22,19,20,17,19,27,26,26,25,25,17,17,20,26,26,27,28,19,17,20,26,26,28,26,26,27,17,19,18,20,24,23,24,26,26,26],"text":["-cty: -16<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 27<br />as.factor(cyl): 6","-cty: -15<br />hwy: 25<br />as.factor(cyl): 6","-cty: -17<br />hwy: 25<br />as.factor(cyl): 6","-cty: -17<br />hwy: 25<br />as.factor(cyl): 6","-cty: -15<br />hwy: 25<br />as.factor(cyl): 6","-cty: -15<br />hwy: 24<br />as.factor(cyl): 6","-cty: -17<br />hwy: 25<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 29<br />as.factor(cyl): 6","-cty: -17<br />hwy: 26<br />as.factor(cyl): 6","-cty: -17<br />hwy: 24<br />as.factor(cyl): 6","-cty: -16<br />hwy: 22<br />as.factor(cyl): 6","-cty: -16<br />hwy: 22<br />as.factor(cyl): 6","-cty: -17<br />hwy: 24<br />as.factor(cyl): 6","-cty: -17<br />hwy: 24<br />as.factor(cyl): 6","-cty: -11<br />hwy: 17<br />as.factor(cyl): 6","-cty: -15<br />hwy: 22<br />as.factor(cyl): 6","-cty: -15<br />hwy: 21<br />as.factor(cyl): 6","-cty: -16<br />hwy: 23<br />as.factor(cyl): 6","-cty: -16<br />hwy: 23<br />as.factor(cyl): 6","-cty: -15<br />hwy: 19<br />as.factor(cyl): 6","-cty: -14<br />hwy: 18<br />as.factor(cyl): 6","-cty: -13<br />hwy: 17<br />as.factor(cyl): 6","-cty: -14<br />hwy: 17<br />as.factor(cyl): 6","-cty: -13<br />hwy: 17<br />as.factor(cyl): 6","-cty: -14<br />hwy: 17<br />as.factor(cyl): 6","-cty: -15<br />hwy: 19<br />as.factor(cyl): 6","-cty: -14<br />hwy: 17<br />as.factor(cyl): 6","-cty: -13<br />hwy: 19<br />as.factor(cyl): 6","-cty: -14<br />hwy: 17<br />as.factor(cyl): 6","-cty: -14<br />hwy: 17<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 25<br />as.factor(cyl): 6","-cty: -17<br />hwy: 26<br />as.factor(cyl): 6","-cty: -16<br />hwy: 24<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -19<br />hwy: 28<br />as.factor(cyl): 6","-cty: -17<br />hwy: 24<br />as.factor(cyl): 6","-cty: -16<br />hwy: 24<br />as.factor(cyl): 6","-cty: -17<br />hwy: 24<br />as.factor(cyl): 6","-cty: -17<br />hwy: 22<br />as.factor(cyl): 6","-cty: -15<br />hwy: 19<br />as.factor(cyl): 6","-cty: -15<br />hwy: 20<br />as.factor(cyl): 6","-cty: -14<br />hwy: 17<br />as.factor(cyl): 6","-cty: -13<br />hwy: 19<br />as.factor(cyl): 6","-cty: -19<br />hwy: 27<br />as.factor(cyl): 6","-cty: -19<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -19<br />hwy: 25<br />as.factor(cyl): 6","-cty: -19<br />hwy: 25<br />as.factor(cyl): 6","-cty: -14<br />hwy: 17<br />as.factor(cyl): 6","-cty: -15<br />hwy: 17<br />as.factor(cyl): 6","-cty: -14<br />hwy: 20<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -16<br />hwy: 26<br />as.factor(cyl): 6","-cty: -17<br />hwy: 27<br />as.factor(cyl): 6","-cty: -18<br />hwy: 28<br />as.factor(cyl): 6","-cty: -15<br />hwy: 19<br />as.factor(cyl): 6","-cty: -15<br />hwy: 17<br />as.factor(cyl): 6","-cty: -16<br />hwy: 20<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -19<br />hwy: 28<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 27<br />as.factor(cyl): 6","-cty: -15<br />hwy: 17<br />as.factor(cyl): 6","-cty: -15<br />hwy: 19<br />as.factor(cyl): 6","-cty: -15<br />hwy: 18<br />as.factor(cyl): 6","-cty: -16<br />hwy: 20<br />as.factor(cyl): 6","-cty: -17<br />hwy: 24<br />as.factor(cyl): 6","-cty: -16<br />hwy: 23<br />as.factor(cyl): 6","-cty: -17<br />hwy: 24<br />as.factor(cyl): 6","-cty: -16<br />hwy: 26<br />as.factor(cyl): 6","-cty: -18<br />hwy: 26<br />as.factor(cyl): 6","-cty: -17<br />hwy: 26<br />as.factor(cyl): 6"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"6","legendgroup":"6","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[-16,-14,-11,-14,-13,-12,-16,-15,-16,-15,-15,-14,-11,-11,-14,-14,-14,-9,-11,-11,-13,-9,-13,-11,-13,-11,-12,-9,-13,-13,-12,-9,-11,-11,-13,-11,-11,-11,-12,-13,-13,-13,-13,-13,-11,-13,-15,-15,-15,-15,-14,-14,-9,-14,-13,-11,-11,-12,-12,-11,-11,-11,-12,-13,-13,-12,-16,-14,-11,-13],"y":[23,20,15,20,17,17,26,23,26,25,24,19,14,15,17,19,19,12,17,15,17,12,17,16,18,15,16,12,17,17,16,12,15,16,17,15,17,17,18,19,17,16,16,17,15,17,21,22,23,22,20,17,12,19,18,14,15,18,18,15,17,16,18,19,17,18,25,17,15,18],"text":["-cty: -16<br />hwy: 23<br />as.factor(cyl): 8","-cty: -14<br />hwy: 20<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -14<br />hwy: 20<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -12<br />hwy: 17<br />as.factor(cyl): 8","-cty: -16<br />hwy: 26<br />as.factor(cyl): 8","-cty: -15<br />hwy: 23<br />as.factor(cyl): 8","-cty: -16<br />hwy: 26<br />as.factor(cyl): 8","-cty: -15<br />hwy: 25<br />as.factor(cyl): 8","-cty: -15<br />hwy: 24<br />as.factor(cyl): 8","-cty: -14<br />hwy: 19<br />as.factor(cyl): 8","-cty: -11<br />hwy: 14<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -14<br />hwy: 17<br />as.factor(cyl): 8","-cty: -14<br />hwy: 19<br />as.factor(cyl): 8","-cty: -14<br />hwy: 19<br />as.factor(cyl): 8","-cty:  -9<br />hwy: 12<br />as.factor(cyl): 8","-cty: -11<br />hwy: 17<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty:  -9<br />hwy: 12<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -11<br />hwy: 16<br />as.factor(cyl): 8","-cty: -13<br />hwy: 18<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -12<br />hwy: 16<br />as.factor(cyl): 8","-cty:  -9<br />hwy: 12<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -12<br />hwy: 16<br />as.factor(cyl): 8","-cty:  -9<br />hwy: 12<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -11<br />hwy: 16<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -11<br />hwy: 17<br />as.factor(cyl): 8","-cty: -11<br />hwy: 17<br />as.factor(cyl): 8","-cty: -12<br />hwy: 18<br />as.factor(cyl): 8","-cty: -13<br />hwy: 19<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -13<br />hwy: 16<br />as.factor(cyl): 8","-cty: -13<br />hwy: 16<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -15<br />hwy: 21<br />as.factor(cyl): 8","-cty: -15<br />hwy: 22<br />as.factor(cyl): 8","-cty: -15<br />hwy: 23<br />as.factor(cyl): 8","-cty: -15<br />hwy: 22<br />as.factor(cyl): 8","-cty: -14<br />hwy: 20<br />as.factor(cyl): 8","-cty: -14<br />hwy: 17<br />as.factor(cyl): 8","-cty:  -9<br />hwy: 12<br />as.factor(cyl): 8","-cty: -14<br />hwy: 19<br />as.factor(cyl): 8","-cty: -13<br />hwy: 18<br />as.factor(cyl): 8","-cty: -11<br />hwy: 14<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -12<br />hwy: 18<br />as.factor(cyl): 8","-cty: -12<br />hwy: 18<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -11<br />hwy: 17<br />as.factor(cyl): 8","-cty: -11<br />hwy: 16<br />as.factor(cyl): 8","-cty: -12<br />hwy: 18<br />as.factor(cyl): 8","-cty: -13<br />hwy: 19<br />as.factor(cyl): 8","-cty: -13<br />hwy: 17<br />as.factor(cyl): 8","-cty: -12<br />hwy: 18<br />as.factor(cyl): 8","-cty: -16<br />hwy: 25<br />as.factor(cyl): 8","-cty: -14<br />hwy: 17<br />as.factor(cyl): 8","-cty: -11<br />hwy: 15<br />as.factor(cyl): 8","-cty: -13<br />hwy: 18<br />as.factor(cyl): 8"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(199,124,255,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(199,124,255,1)"}},"hoveron":"points","name":"8","legendgroup":"8","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":25.7412480974125,"r":7.30593607305936,"b":39.6955859969559,"l":37.2602739726027},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[-36.3,-7.7],"tickmode":"array","ticktext":["-35","-30","-25","-20","-15","-10"],"tickvals":[-35,-30,-25,-20,-15,-10],"categoryorder":"array","categoryarray":["-35","-30","-25","-20","-15","-10"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"-cty","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[10.4,45.6],"tickmode":"array","ticktext":["20","30","40"],"tickvals":[20,30,40],"categoryorder":"array","categoryarray":["20","30","40"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":"hwy","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"y":0.927821522309711},"annotations":[{"text":"as.factor(cyl)","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"source":"A","attrs":{"30d0336e5a9c":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"30d0336e5a9c","visdat":{"30d0336e5a9c":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":{"render":[{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null}]}}</script>
-</section><section id="use-a-faster-speed" class="slide level2" data-transition-speed="fast">
-<h2>Use a faster speed</h2>
-<p>This slide has a figure caption.</p>
+<p>Code and HTML available at <a href="http://qcbs.ca/wiki/r/workshop3" class="uri">http://qcbs.ca/wiki/r/workshop3</a></p>
+<ul>
+<li>Recommendation:
+<ul>
+<li>create your own new script</li>
+<li>refer to provided code only if needed</li>
+<li>avoid copy pasting or running the code directly from script</li>
+</ul></li>
+<li>ggplot2 is also hosted on github: <a href="https://github.com/hadley/ggplot2" class="uri">https://github.com/hadley/ggplot2</a></li>
+</ul>
+</section>
+<section id="introduction-5" class="slide level2">
+<h1>Introduction</h1>
+<p>Required packages</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)
+<span class="kw">library</span>(ggplot2)</code></pre></div>
+</section>
+<section id="outline" class="slide level2">
+<h1>Outline</h1>
+<ol type="1">
+<li>Your first R plot
+<ul>
+<li>Basic scatter plot</li>
+<li>Challenge 1</li>
+</ul></li>
+<li>Grammar of graphics
+<ul>
+<li>More advanced plots</li>
+<li>Available plot elements and when to use them</li>
+<li>Challenge 2</li>
+</ul></li>
+<li>Saving a plot</li>
+<li>Fine tuning your plot
+<ul>
+<li>Colours</li>
+<li>Themes</li>
+</ul></li>
+<li>Miscellaneous</li>
+</ol>
+</section>
+<section id="basic-scatter-plot" class="slide level2">
+<h1>Basic scatter plot</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?qplot</code></pre></div>
+<p>arguments:</p>
+<ul>
+<li><p>data</p></li>
+<li><p>x</p></li>
+<li><p>y</p></li>
+<li><p>…</p></li>
+</ul>
+</section>
+<section id="basic-scatter-plot-1" class="slide level2">
+<h1>Basic scatter plot</h1>
+<p>Look at pre-loaded “iris” dataset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>?iris
+&gt;<span class="st"> </span><span class="kw">head</span>(iris)
+&gt;<span class="st"> </span><span class="kw">str</span>(iris)
+&gt;<span class="st"> </span><span class="kw">names</span>(iris)</code></pre></div>
+</section>
+<section id="basic-scatter-plot-2" class="slide level2">
+<h1>Basic scatter plot</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> iris,
+        <span class="dt">x =</span> Sepal.Length,
+        <span class="dt">y =</span> Sepal.Width)</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-5-1.png" /><!-- --></p>
+</section>
+<section id="basic-scatter-plot-3" class="slide level2">
+<h1>Basic scatter plot</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> iris,
+        <span class="dt">x =</span> Species,
+        <span class="dt">y =</span> Sepal.Width)</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-6-1.png" /><!-- --></p>
+</section>
+<section id="less-basic-options" class="slide level2">
+<h1>Less basic options</h1>
+<p>arguments:</p>
+<ul>
+<li><p>xlab</p></li>
+<li><p>ylab</p></li>
+<li><p>main</p></li>
+</ul>
+</section>
+<section id="less-basic-options-1" class="slide level2">
+<h1>Less basic options</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> iris,
+        <span class="dt">x =</span> Sepal.Length,
+        <span class="dt">xlab =</span> <span class="st">&quot;Sepal Length (mm)&quot;</span>,
+        <span class="dt">y =</span> Sepal.Width,
+        <span class="dt">ylab =</span> <span class="st">&quot;Sepal Width (mm)&quot;</span>,
+        <span class="dt">main =</span> <span class="st">&quot;Sepal dimensions&quot;</span>)</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-7-1.png" /><!-- --></p>
+</section>
+<section id="challenge-1" class="slide level2">
+<h1>Challenge #1</h1>
+<p>Produce a basic plot with built in data (5 minutes)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?CO2
+<span class="kw">data</span>(CO2)
+?BOD
+<span class="kw">data</span>(BOD)</code></pre></div>
+</section>
+<section id="solution-1" class="slide level2">
+<h1>Solution #1</h1>
+<p>Produce a basic plot with the CO2 dataset</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> CO2,
+        <span class="dt">x =</span> conc,
+        <span class="dt">xlab =</span> <span class="st">&quot;CO2 Concentration (mL/L)&quot;</span>,
+        <span class="dt">y =</span> uptake,
+        <span class="dt">ylab =</span> <span class="st">&quot;CO2 Uptake (umol/m^2 sec)&quot;</span>,
+        <span class="dt">main =</span> <span class="st">&quot;CO2 uptake in grass plants&quot;</span>)</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-9-1.png" /><!-- --></p>
+</section>
+<section id="grammar-of-graphics-gg" class="slide level2">
+<h1>Grammar of graphics (gg)</h1>
+<p>A graphic is made of elements (layers)</p>
+<ul>
+<li>Data
+<ul>
+<li>aesthetics (aes)</li>
+<li>transformation</li>
+<li>geoms (geometric objects)</li>
+<li>axis (coordinate system)</li>
+<li>scales</li>
+</ul></li>
+</ul>
 <figure>
-<img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-5-1.png" alt="Cars" /><figcaption>Cars</figcaption>
+<img src="images/ggplot_grammar.png" style="width:100.0%" />
 </figure>
-</section><section id="incrementaly-reveal-code" class="slide level2">
-<h2>Incrementaly reveal code</h2>
-<p>What is the <code>mean(1:3)</code>?</p>
-<div class="fragment">
-<pre><code>mean(1:3)</code></pre>
-<pre><code>## [1] 2
-</code></pre>
-</div>
-<div class="fragment">
-<p>This works fine! The <code>div</code> does not appear until you click forward in the deck. But you cannot put the <code>div</code> tags around a code fragment!</p>
-</div>
-<div class="fragment">
-<p>What do we type to get the mean from a vector that goes from 1 to 5?</p>
-</div>
-<div class="fragment">
-<pre><code>mean(1:5)</code></pre>
-<pre><code>## [1] 3
-</code></pre>
-</div>
-</section><section id="incrementaly-reveal-plots" class="slide level2">
-<h2>Incrementaly reveal plots</h2>
-</section><section id="slides-with-equations" class="slide level2">
-<h2>Slides with Equations</h2>
-<p>With <em>equations</em>:</p>
-<p><span class="math display">\[\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\]</span></p>
-</section><section id="more-equations" class="slide level2">
-<h2>More equations</h2>
-<p>Inline equation, just like this <span class="math inline">\(equation\)</span>, and…</p>
-<p>Display equation:</p>
-<p><span class="math display">\[ equation \]</span></p>
-</section></section>
-<section><section id="special-transitions-and-color-effects" class="titleslide slide level1"><h1>Special Transitions and Color Effects</h1></section><section id="fade-in-slide-out" class="slide level2" data-transition="slide-in fade-out">
-<h2>Fade in, Slide out</h2>
-</section><section id="horizontal-rule-page-break" class="slide level2">
-<h2>Horizontal Rule / Page Break</h2>
-<p>Three or more asterisks or dashes:</p>
-</section><section class="slide level2">
-
-<p>Result in this</p>
-</section><section id="tables" class="slide level2">
-<h2>Tables</h2>
-<table>
-<thead>
-<tr class="header">
-<th>First Header</th>
-<th>Second Header</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr class="even">
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody>
-</table>
-</section><section id="reference-style-links-and-images" class="slide level2">
-<h2>Reference Style Links and Images</h2>
-<h3 id="links">Links</h3>
-<p>A <a href="http://example.com/" title="Title">linked phrase</a>. At the bottom of the document:</p>
-<h3 id="images">Images</h3>
+</section>
+<section id="grammar-of-graphics-gg-1" class="slide level2">
+<h1>Grammar of graphics (gg)</h1>
+<p>A graphic is made of elements (layers)</p>
+<ul>
+<li>Data</li>
+<li>Aesthetics (aes), to make data visible
+<ul>
+<li>x,y : position along the x and y axis</li>
+<li>colour: the colour of the point</li>
+<li>group: what group a point belongs to</li>
+<li>shape: the figure used to plot a point</li>
+<li>linetype: the type of line used (solid, dashed, etc)</li>
+<li>size: the size of the point or line</li>
+<li>alpha: the transparency of the point</li>
+</ul></li>
+</ul>
+</section>
+<section id="grammar-of-graphics-gg-2" class="slide level2">
+<h1>Grammar of graphics (gg)</h1>
+<p>A graphic is made of elements (layers)</p>
+<ul>
+<li>Data</li>
+<li>Aesthetics (aes)</li>
+<li>Geometric objects (geoms)
+<ul>
+<li><code>geom_point()</code>: scatterplot</li>
+<li><code>geom_line()</code>: lines connected to points by increasing value of x</li>
+<li><code>geom_path()</code>: lines connected to points in sequence of appearance</li>
+<li><code>geom_boxplot()</code>: box and whiskers plot for categorical variables</li>
+<li><code>geom_bar()</code>: bar charts for categorical x axis</li>
+<li><code>geom_histogram()</code>: histogram, geom_bar for continuous x axis</li>
+</ul></li>
+</ul>
+</section>
+<section id="how-it-works" class="slide level2">
+<h1>How it works</h1>
+<p>Create a simple plot object: <code>plot.object &lt;- ggplot()</code> OR <code>qplot()</code></p>
+<p>Add graphical layers/complexity: <code>plot.object &lt;- plot.object + layer()</code></p>
+<p>Repeat step 2 until statisfied, then print: <code>print(plot.object)</code></p>
+</section>
+<section id="tidyr" class="slide level2">
+<h1>tidyr</h1>
 <figure>
-<img src="/images/logo_text.png" title="QCBS Logo" alt="QCBSLOGO" /><figcaption>QCBSLOGO</figcaption>
+<img src="images/tidyr_logo.png" />
 </figure>
-<p>At the bottom of the document:</p>
-</section><section id="slide-in-fade-out" class="slide level2" data-transition="fade-in slide-out">
-<h2>Slide in, Fade out</h2>
-</section><section id="css-color-background" class="slide level2" data-background="#ff0000">
-<h2>CSS color background</h2>
-</section><section id="css-color-background-1" class="slide level2" data-background="#D3D3D3">
-<h2>CSS color background</h2>
-</section><section id="css-color-background-2" class="slide level2" data-background="#EBF5FB">
-<h2>CSS color background</h2>
-<p>Refer to HEX codes in <a href="http://htmlcolorcodes.com/">HTML Color Codes</a> for other colors.</p>
-</section><section id="full-size-image-background" class="slide level2" data-background="https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png">
-<h2>Full size image background</h2>
-</section><section id="video-embeded" class="slide level2">
-<h2>Video embeded</h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen>
-</iframe>
-</section><section id="section" class="slide level2" data-background-iframe="http://qcbs.ca/wiki/r">
-<h2></h2>
-</section></section>
-<section><section id="extra-information" class="titleslide slide level1"><h1>Extra information</h1></section><section id="nextsteps" class="slide level2 emphasized">
-<h2>Next Steps</h2>
-<p><span class="emphasized">Pay attention to this!</span></p>
-</section></section>
+</section>
+<section id="dplyr" class="slide level2">
+<h1>dplyr</h1>
+</section>
     </div>
   </div>
 

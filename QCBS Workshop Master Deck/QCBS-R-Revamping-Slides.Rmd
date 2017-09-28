@@ -24,15 +24,32 @@ When you click the **Knit** button a document will be generated that includes bo
 
 <small>This sentence will appear smaller.</small>
 
-# Section Title Slide
+# Section Slide
 
-## Vertical Slide with Incremental Bullets
+No text should be included here, for now, as it will not appear in the text.
 
+## Subsection Slide with bullet points and ordered items
+
+* a
+* picture
+* says more
+* than a thousand words
+
+or
+
+1. item 1
+1. item 2
+
+or
+
+1. item 1
+2. item 2
+
+
+## Vertical Slide with incremental bullets
 > - Bullet 1
 > - Bullet 2
 > - Bullet 3
-
-### Begins a new header within a slide
 
 ## Vertical Slide with Incremental Bullets
 > - Level 1 item
@@ -45,40 +62,65 @@ When you click the **Knit** button a document will be generated that includes bo
 This is a normal text.
 
 <small>This sentence will appear smaller.</small>
-
-## Vertical Slide with Text Aligned to the Right
-
-<div id="right">
-
+  
+### Three sqaures start new header within a slide
+  
+## Vertical Slide with Two Columns
+  
+  <div id="right">
+  
 - You can place two graphs on a slide
 - Or two columns of text
 - These are all created with div elements
 
 </div>
-
-## Vertical Slide with Text Aligned to the Left
-
+  
 <div id="left">
-
+  
 - You can place two graphs on a slide
 - Or two columns of text
 - These are all created with div elements
 
 </div>
+  
 
-## Vertical Slide with Quote Text
+You may also use this to align text to right or left
+
+## Quoting Text
 
 > R Markdown is amazing!
+  
+> "Nothing in Biology Makes Sense Except in the Light of Evolution"
 
-## Vertical Slide with Images
+is a 1973 essay by the evolutionary biologist and Eastern Orthodox Christian Theodosius Dobzhansky, criticising anti-evolution creationism and espousing theistic evolution.
 
-[Caption for the picture.](/images/logo_text.png)
+## Images
+
+![Caption for the picture.](https://qcbs.ca/wp-content/uploads/2010/05/image0032.png)
+
+![](https://qcbs.ca/wp-content/uploads/2010/05/image0032.png) <!-- .element height="50%" width="50%" -->
+  
+## Tables
+  
+  First Header  | Second Header
+------------- | -------------
+  Content Cell  | Content Cell
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
+## Fragments
+
+<span class="fragment fade-in">
+		<span class="fragment fade-out">I'll fade in, then out</span>
+</span>
+
 
 # Code Section
 
 ## Slide with R Code and Output
 
-```{r}
+```{r cars}
 summary(cars)
 ```
 
@@ -96,8 +138,7 @@ summary(cars)
 
 ## Slide with a ggplot2 plot
 
-
-```{r, echo = TRUE}
+```{r, echo = FALSE}
 library(ggplot2)
 data(diamonds)
 diamonds <- diamonds[sample(1:nrow(diamonds),2000),]
@@ -107,10 +148,34 @@ ggplot(diamonds,
   geom_point(color="firebrick")
 ```
 
+## Slide with another ggplot, grid and arrows between them
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(png)
+
+download.file("https://maxcdn.icons8.com/Share/icon/p1em/arrows//arrow1600.png",
+              tf <- tempfile(fileext = ".png"),
+              mode="wb")
+arrow <- rasterGrob(readPNG(tf))
+p <- ggplot(diamonds, aes(clarity, fill=cut)) + 
+  geom_bar() 
+grid.arrange(p + guides(fill = "none"), 
+             arrow, 
+             p + guides(fill = "none"), 
+             arrow, 
+             p, 
+             ncol=5, widths=c(2/10, 0.5/10, 2/10, 0.5/10, 3/10)) #Edit the size of the arrows and graphs here
+```
+
+Help? <small> https://stackoverflow.com/questions/34744655/how-to-make-a-chain-of-ggplots-and-draw-arrows-between-them </small>
+  
+  
 ## Use a zoom transition, ggplot and plotly! {data-transition="zoom"}
-
+  
 _It is interactive!!!_
-
 
 ```{r plotly, message = FALSE, echo = FALSE}
 library(ggplot2)
@@ -123,7 +188,19 @@ g <- ggplot(mpg,
 ggplotly(g)
 ```
 
-## Use a faster speed {data-transition-speed="fast"}
+
+## ggplotly, again
+
+```{r ggplotly.2, echo=FALSE}
+library(ggplot2)
+library(plotly)
+p <- ggplot(data = diamonds, aes(x = cut, fill = clarity)) +
+  geom_bar(position = "dodge")
+ggplotly(p)
+```
+
+
+## Use a faster speed transition {data-transition-speed="fast"}
 
 This slide has a figure caption.
 
@@ -136,6 +213,17 @@ g <- g + geom_bar()
 
 print(g)
 
+```
+
+## Highcharter, if you do not like ggplot
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(magrittr)
+library(highcharter)
+highchart() %>% 
+  hc_title(text = "Scatter chart with size and color") %>% 
+  hc_add_series_scatter(mtcars$wt, mtcars$mpg,
+                        mtcars$drat, mtcars$hp)
 ```
 
 ## Incrementaly reveal code
@@ -175,13 +263,13 @@ mean(1:3)
 ```
 
 <div class="fragment">
-  This works fine! The `div` does not appear until you click forward in the deck. But you cannot put the `div` tags around a code fragment!
+This works fine! The `div` does not appear until you click forward in the deck. But you cannot put the `div` tags around a code fragment!
 </div>
-
+  
 <div class="fragment">
 What do we type to get the mean from a vector that goes from 1 to 5?
 </div>
-
+  
 ```{r class="fragment"}
 mean(1:5)
 ```
@@ -224,69 +312,117 @@ knitr::knit_hooks$set(
               paste0("<span class='", options$class, " fade-out' data-fragment-index=", options$fragIndex[2],">"),
               c0(x, options[-classidx]),
               '</span>\n'
-              ),
-            '</span>\n'
             ),
+            '</span>\n'
+          ),
           "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
           "\\2"
         )
         
       }
-        
+      
     }
   )
 )
 ```
 
-## Slides with Equations
+```{r class="fragment",echo = FALSE, warning = FALSE,message=FALSE, fig.cap= "Cars"}
+
+library(ggplot2)
+data(mtcars)
+g <- ggplot(mpg, aes(class))
+g <- g + geom_bar()
+
+print(g)
+
+``` 
+
+
+## Flow charts using `grViz`
+```{r, echo=FALSE}
+
+library(DiagrammeR)
+grViz("
+      digraph {
+      layout = twopi
+      node [shape = circle]
+      A -> {B C D} 
+      }")
+```
+
+<small> Looks fun! </small>
+  
+## DataTables
+  
+```{r}
+library(DT)
+datatable(iris, options = list(pageLength = 5))
+```
+
+## Interactive 3D plot
+
+```{r, echo=FALSE, message=FALSE}
+library(threejs)
+z <- seq(-10, 10, 0.01)
+x <- cos(z)
+y <- sin(z)
+scatterplot3js(x,y,z, color=rainbow(length(z)))
+```
+
+<small> This could me useful when showing ordination methods!</small>
+  
+## Interactive maps
+  
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# !formatR
+library(leaflet)
+m = leaflet() %>% addTiles() %>% fitBounds(0, 40, 10, 50) %>% setView(-93.65, 42.0285, zoom = 17)
+m
+```
+
+## Including Equations
 
 With *equations*:
-
+  
 $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
-
-## More equations
-
+  
+## Inline and display equations
+  
 Inline equation, just like this $equation$, and...
 
 Display equation:
-
+  
 $$ equation $$
-
+  
 # Special Transitions and Color Effects
-
+  
 ## Fade in, Slide out {data-transition="slide-in fade-out"}
-
+  
 ## Horizontal Rule / Page Break
-
+  
 Three or more asterisks or dashes:
-
+  
 ******
-
+  
 Result in this
 
 ------
-
-## Tables
-
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
-
+  
 ## Reference Style Links and Images
-
+  
 ### Links
-
+  
 A [linked phrase][id].
 At the bottom of the document:
-
+  
 [id]: http://example.com/ "Title"
 
 ### Images
+
 ![QCBSLOGO][logo-qcbs]
 
 At the bottom of the document:
-
+  
 [logo-qcbs]: /images/logo_text.png "QCBS Logo"
 
 ## Slide in, Fade out {data-transition="fade-in slide-out"}
@@ -303,14 +439,16 @@ Refer to HEX codes in [HTML Color Codes](http://htmlcolorcodes.com/) for other c
 
 ## Video embeded
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen></iframe>
-
+<iframe class="stretch" width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen></iframe>
+  
 ## {data-background-iframe="http://qcbs.ca/wiki/r"}
 
+## Website iframe with interactive webpage
+
+
 # Extra information
-
+  
 ## Next Steps {#nextsteps .emphasized}
-
+  
 <span class="emphasized">Pay attention to this!</span>
-
-
+  

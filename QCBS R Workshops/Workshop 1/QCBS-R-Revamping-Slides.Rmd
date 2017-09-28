@@ -41,8 +41,8 @@ R is an open source programming language designed for statistical analysis, data
 
 **It's open source**
 
- - Improved by the public, for the public!  
- - Free  
+ - Improved by the public, for the public!
+ - Free
 
  </div>
 
@@ -52,7 +52,7 @@ R is an open source programming language designed for statistical analysis, data
 
 <center><img style="width: 700px; " src="images/operating_stm.png"></center>
 
-**It's compatible**  
+**It's compatible**
 
 R works on most existing operating systems
 
@@ -66,7 +66,7 @@ What people have traditionally done to analyze their data:
 
 <image Analyzing data with R>
 
-R allows you to do everything with one program, which is nice!  
+R allows you to do everything with one program, which is nice!
 
 ## Why use R?
 
@@ -74,8 +74,8 @@ R allows you to do everything with one program, which is nice!
 
 <div id = "right">
 
- - More and more scientists use it every year!  
- - Increasing capacities  
+ - More and more scientists use it every year!
+ - Increasing capacities
 
  </div>
 
@@ -83,7 +83,7 @@ R allows you to do everything with one program, which is nice!
 
 <div id = "left">
 
- - Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes  
+ - Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes
  - During challenges, collaborate with your   neighbours!
 
 </div>
@@ -104,13 +104,13 @@ R allows you to do everything with one program, which is nice!
 
 ## Note for Windows user
 
-If the restriction:  
-"unable to write on disk"   
+If the restriction:
+"unable to write on disk"
 appears when you try to open R-Studio,
 
-**Don't worry!**   
-We have the solution   
-right-click on your R-Studio icon and chose:  
+**Don't worry!**
+We have the solution
+right-click on your R-Studio icon and chose:
 "Execute as administrator" to open the program.
 
 ## How to read the console
@@ -187,7 +187,7 @@ $$
 
 ## Challenge 2: Solution
 
-## Challenge 2: Solution
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 - Question
 
@@ -214,6 +214,8 @@ $$
 <small>Hints: Think about the order of the operation.</small>
 
 ## Challenge 3: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 - Question
 
@@ -267,6 +269,8 @@ What is the area of this circle, with a radius of $5\ cm$?
 </div>
 
 ## Challenge 4: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 - Question
 
@@ -329,13 +333,15 @@ The value on the **right** is assigned to the name on the **left** with the assi
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 
-Create an object with a value of $1+1.718282$ (Euler's number) and name it `euler.value`.
+Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
 
 ## Challenge 5: Solution
 
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
 - Question
 
-Create an object with a value of $1+1.718282$ (Euler's number) and name it `euler.value`.
+Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
 
 - Solution
 
@@ -346,9 +352,13 @@ Create an object with a value of $1+1.718282$ (Euler's number) and name it `eule
 
 ## Challenge 6
 
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
 Create a second object (you decide the name) with a name that starts with a number. What happens?
 
 ## Challenge 6: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 - Question
 
@@ -434,9 +444,13 @@ Let's try it!
 
 ## Challenge 7
 
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
 
 ## Challenge 7: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
 - Question
 
@@ -512,3 +526,131 @@ One way of doing it is:
 ## Matrices, Arrays and Lists
 
 Image!
+
+## Indexing objects
+
+## Indexing vectors
+
+## Challenge 8
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 8: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 9
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 9: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 10
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 10: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## A quick note on logical statetements
+
+## Indexing data frames
+
+# Functions
+
+## Functions
+
+## Functions
+
+## Arguments
+
+## Challenge 11
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 11: Solution
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+- Question
+
+- Solution
+
+## Arguments
+
+## Challenge 12
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 12: Solutions
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+- Question
+
+- Solution
+
+## Some common functions
+
+## Packages
+
+## Packages
+
+# Getting help
+
+## Searching for functions
+
+## Search results
+
+## Getting help with functions
+
+## Help pages
+
+## Usage
+
+## Arguments
+
+## Details
+
+## Value
+
+## See Also
+
+## Examples
+
+## Challenge 13
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 13: Solutions
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+- Question
+
+- Solution
+
+## Other ways to get help
+
+## Challenge 13
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+## Challenge 13: Solutions
+
+<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+
+- Question
+
+- Solution
+
+# Additional resources
+
+## Some useful R books
+
+## Some useful R websites
+
+# Thank you for attending!

@@ -112,7 +112,7 @@ A
 ```
 
 ### Remember
-
+ 
 * R is ready for commands when you see the chevron '>' in the console. If you don't see it, press ESC
 * R is case sensitive!
 

@@ -142,7 +142,7 @@ a “/” separates folders and file
 ## Setting working directory
 
 <div id="right style="width:100%;"">
-<img style="float: left; margin: 10px 30px 15px 0px;" src="images/Logos_and_icons/apple_logo.png" width=50px>
+<img style="float: left; margin: -8px 30px 15px 0px;" src="images/Logos_and_icons/apple_logo.png" width=50px>
 <p style="line-height:15px;">
 ```{r, eval = FALSE}
 setwd('/Users/vincentfugere/Desktop/QCBS_R')
@@ -151,7 +151,7 @@ setwd('/Users/vincentfugere/Desktop/QCBS_R')
 </div>
 
 <div id="right style="width:100%;"">
-<img style="float: left; margin: 10px 30px 15px 0px;" src="images/Logos_and_icons/Windows_logo.png" width=50px>
+<img style="float: left; margin: 0px 30px 15px 0px;" src="images/Logos_and_icons/Windows_logo.png" width=50px>
 <p style="line-height:15px;">
 ```{r, eval = FALSE}
 setwd('C:/Users/Johanna/Documents/PhD/R_Workshop2')
@@ -265,7 +265,7 @@ Check data types with str() again. What is wrong here?
 
 A data frame called *mydata*
 
-<img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="400px" />
+<img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="350px" />
   
 ```{r, eval = FALSE}
 mydata[1,]
@@ -452,7 +452,15 @@ Read in the file "CO2_broken.csv"
 ```{r, eval = TRUE}
 CO2 <- read.csv("co2_broken.csv")
 head(CO2)
+```
+
+##Harder Challenge <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
+```{r, eval = FALSE}
 CO2
+```
+
+```{r, eval = TRUE, echo=F}
+CO2[1:4,]
 ```
 
 * This is probably what your data or the data you downloaded looks like
@@ -513,6 +521,9 @@ The data does not start until the third line of the file, so you end up with not
 ```{r, eval = TRUE}
 head(CO2)
 ```
+
+
+## Broken data
 
 SOLUTION
 

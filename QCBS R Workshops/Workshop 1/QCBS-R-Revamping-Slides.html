@@ -521,12 +521,12 @@ Website: <a href="http://qcbs.ca/wiki/r/workshop1" class="uri">http://qcbs.ca/wi
 </section><section id="why-use-r-2" class="slide level2">
 <h2>Why use R?</h2>
 <p>What people have traditionally done to analyze their data:</p>
-<div id="htmlwidget-108fef5314eae610e4bc" style="width:768px;height:576px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-108fef5314eae610e4bc">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-84cab9a3be910256ff01" style="width:768px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-84cab9a3be910256ff01">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </section><section id="why-use-r-3" class="slide level2">
 <h2>Why use R?</h2>
-<div id="htmlwidget-29b1b1f11740e98a0c63" style="width:768px;height:576px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-29b1b1f11740e98a0c63">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-df29fe075522a92f5ff8" style="width:768px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df29fe075522a92f5ff8">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>R allows you to do everything with one program, which is nice!</p>
 </section><section id="why-use-r-4" class="slide level2">
 <h2>Why use R?</h2>
@@ -731,6 +731,7 @@ Open Rstudio
 <ul>
 <li>Objects names should <strong>always</strong> begin with a letter.</li>
 <li><code>R</code> is <strong>case sensitive</strong>, the names <code>Data1</code> and <code>data1</code> are not the same.</li>
+<li>You can <strong>not</strong> use special characters! (@, /, etc.)</li>
 </ul>
 </section><section id="object-names-good-practices" class="slide level2">
 <h2>Object names: good practices</h2>
@@ -1221,21 +1222,25 @@ Open Rstudio
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-58-1.png" /><!-- --></p>
 </section><section id="challenge-12-solution" class="slide level2">
 <h2>Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(a,b)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+  <span class="kw">plot</span>(a,b)</code></pre></div>
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-59-1.png" /><!-- --></p>
 </section><section id="challenge-12-solution-1" class="slide level2">
 <h2>Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(b,a)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+  <span class="kw">plot</span>(b,a)</code></pre></div>
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-60-1.png" /><!-- --></p>
 <p>The shape of the plot has changed, as we did not provided the arguments names, the order is important.</p>
 </section><section id="challenge-12-solution-2" class="slide level2">
 <h2>Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> b)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+  <span class="kw">plot</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> b)</code></pre></div>
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-61-1.png" /><!-- --></p>
 <p>Same as <code>plot(a,b)</code></p>
 </section><section id="challenge-12-solution-3" class="slide level2">
 <h2>Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(<span class="dt">y =</span> b, <span class="dt">x =</span> a)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+  <span class="kw">plot</span>(<span class="dt">y =</span> b, <span class="dt">x =</span> a)</code></pre></div>
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-62-1.png" /><!-- --></p>
 <p>Same as <code>plot(a,b)</code>. The argument names are provided, the order is not important.</p>
 </section><section id="packages" class="slide level2">

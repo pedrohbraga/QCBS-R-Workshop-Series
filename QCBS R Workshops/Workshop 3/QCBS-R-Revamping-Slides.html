@@ -846,6 +846,25 @@ box.plot</code></pre></div>
 <p>Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png,…)</p>
 <p>Other methods to save image <code>?pdf</code> <code>?jpeg</code></p>
 </section>
+<section id="fine-tuning---colours" class="slide level2">
+<h2>Fine tuning - colours</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2.plot <span class="op">+</span><span class="st"> </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;nonchilled&quot;</span> =<span class="st"> &quot;red&quot;</span>, <span class="st">&quot;chilled&quot;</span> =<span class="st"> &quot;blue&quot;</span>))</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-24-1.png" /><!-- --></p>
+</section>
+<section id="fine-tuning---colours-1" class="slide level2">
+<h2>Fine tuning - colours</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;RColorBrewer&quot;</span>)
+<span class="kw">require</span>(RColorBrewer)
+<span class="kw">display.brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;Dark2&quot;</span>)</code></pre></div>
+</section>
+<section id="fine-tuning---colours-2" class="slide level2">
+<h2>Fine tuning - colours</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2.plot <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-26-1.png" /><!-- --></p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+</section>
 <section id="tidyr" class="slide level2">
 <h2>tidyr</h2>
 <figure>

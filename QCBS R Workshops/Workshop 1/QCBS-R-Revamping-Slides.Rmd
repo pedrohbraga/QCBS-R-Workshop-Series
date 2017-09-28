@@ -790,7 +790,7 @@ To index a data frame you must specify two dimensions: row and column number, us
 ## Challenge 10: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 <div class="fragment">
-  Part a):
+  Part a)
 </div>
 
 ```{r class="fragment"}
@@ -800,7 +800,7 @@ To index a data frame you must specify two dimensions: row and column number, us
 ```
 
 <div class="fragment">
-  Part b):
+  Part b)
 </div>
 
 ```{r class="fragment"}

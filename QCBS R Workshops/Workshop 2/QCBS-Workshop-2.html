@@ -600,13 +600,13 @@ A</code></pre></div>
 <section id="setting-working-directory" class="slide level2">
 <h1>Setting working directory</h1>
 <div id="right style=" width:100%;""="">
-<img style="float: left; margin: 10px 30px 15px 0px;" src="images/Logos_and_icons/apple_logo.png" width=50px>
+<img style="float: left; margin: -8px 30px 15px 0px;" src="images/Logos_and_icons/apple_logo.png" width=50px>
 <p style="line-height:15px;">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;/Users/vincentfugere/Desktop/QCBS_R&#39;</span>)</code></pre></div>
 </p>
 </div>
 <div id="right style=" width:100%;""="">
-<img style="float: left; margin: 10px 30px 15px 0px;" src="images/Logos_and_icons/Windows_logo.png" width=50px>
+<img style="float: left; margin: 0px 30px 15px 0px;" src="images/Logos_and_icons/Windows_logo.png" width=50px>
 <p style="line-height:15px;">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;C:/Users/Johanna/Documents/PhD/R_Workshop2&#39;</span>)</code></pre></div>
 </p>
@@ -715,7 +715,7 @@ A</code></pre></div>
 <section id="reminder-from-workshop-1-accessing-data" class="slide level2">
 <h1>Reminder from Workshop 1: Accessing data</h1>
 <p>A data frame called <em>mydata</em></p>
-<p><img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="400px" /></p>
+<p><img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="350px" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata[<span class="dv">1</span>,]</code></pre></div>
 <p>Extracts the first row</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata[<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
@@ -870,181 +870,20 @@ A</code></pre></div>
 ## 4               NA NA  NA  NA  NA
 ## 5               NA NA  NA  NA  NA
 ## 6               NA NA  NA  NA  NA</code></pre>
+</section>
+<section id="harder-challenge-1" class="slide level2">
+<h1>Harder Challenge <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" /></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2</code></pre></div>
-<pre><code>##                NOTE..It.rain.a.lot.in.Quebec.during.sampling
-## 1  falling on my notebook numerous values can&#39;t be read rain
-## 2                       Plant\tType\tTreatment\tconc\tuptake
-## 3                            Qn1\tQuebec\tnonchilled\t95\t16
-## 4                         Qn1\tQuebec\tnonchilled\t175\t30.4
-## 5            Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
-## 6                         Qn1\tQuebec\tnonchilled\t350\t37.2
-## 7                         Qn1\tQuebec\tnonchilled\t500\t35.3
-## 8           Qn1\tQuebec\tnonchilled\tcannot_read_notes\t39.2
-## 9                        Qn1\tQuebec\tnonchilled\t1000\t39.7
-## 10                         Qn2\tQuebec\tnonchilled\t95\t13.6
-## 11                        Qn2\tQuebec\tnonchilled\t175\t27.3
-## 12                         Qn2\tQuebec\tnnchilled\t250\t37.1
-## 13                        Qn2\tQuebec\tnonchilled\t350\t41.8
-## 14                        Qn2\tQuebec\tnonchilled\t500\t40.6
-## 15                          Qn2\tQuebec\tnonchilled\t675\tna
-## 16                       Qn2\tQuebec\tnonchilled\t1000\t44.3
-## 17                         Qn3\tQuebec\tnonchilled\t95\t16.2
-## 18                        Qn3\tQuebec\tnonchilled\t175\t32.4
-## 19                        Qn3\tQuebec\tnonchilled\t250\t40.3
-## 20                        Qn3\tQuebec\tnonchilled\t350\t42.1
-## 21                        Qn3\tQuebec\tnonchilled\t500\t42.9
-## 22                        Qn3\tQuebec\tnonchilled\t675\t43.9
-## 23                       Qn3\tQuebec\tnonchilled\t1000\t45.5
-## 24                            Qc1\tQuebec\tchilled\t95\t14.2
-## 25                           Qc1\tQuebec\tchilled\t175\t24.1
-## 26             Qc1\tQuebec\tchilled\tcannot_read_notes\t30.3
-## 27                           Qc1\tQuebec\tchilled\t350\t34.6
-## 28                           Qc1\tQuebec\tchilled\t500\t32.5
-## 29                           Qc1\tQuebec\tchilled\t675\t35.4
-## 30                          Qc1\tQuebec\tchilled\t1000\t38.7
-## 31                             Qc2\tQuebec\tchilled\t95\t9.3
-## 32                           Qc2\tQuebec\tchilled\t175\t27.3
-## 33                             Qc2\tQuebec\tchilled\t250\t35
-## 34                           Qc2\tQuebec\tchilled\t350\t38.8
-## 35                           Qc2\tQuebec\tchilled\t500\t38.6
-## 36                           Qc2\tQuebec\tchilled\t675\t37.5
-## 37                          Qc2\tQuebec\tchilled\t1000\t42.4
-## 38                            Qc3\tQuebec\tchilled\t95\t15.1
-## 39                             Qc3\tQuebec\tchilled\t175\t21
-## 40                           Qc3\tQuebec\tchilled\t250\t38.1
-## 41                             Qc3\tQuebec\tchilled\t350\t34
-## 42                           Qc3\tQuebec\tchilled\t500\t38.9
-## 43                           Qc3\tQuebec\tchilled\t675\t39.6
-## 44                          Qc3\tQuebec\tchilled\t1000\t41.4
-## 45                    Mn1\tMississippi\tnonchilled\t95\t10.6
-## 46                   Mn1\tMississippi\tnonchilled\t175\t19.2
-## 47                   Mn1\tMississippi\tnonchilled\t250\t26.2
-## 48                     Mn1\tMississippi\tnonchilled\t350\t30
-## 49                   Mn1\tMississippi\tnonchilled\t500\t30.9
-## 50                   Mn1\tMississippi\tnonchilled\t675\t32.4
-## 51                  Mn1\tMississippi\tnonchilled\t1000\t35.5
-## 52                      Mn2\tMississippi\tnonchilled\t95\t12
-## 53                     Mn2\tMississippi\tnonchilled\t175\t22
-## 54                   Mn2\tMississippi\tnonchilled\t250\t30.6
-## 55                   Mn2\tMississippi\tnonchilled\t350\t31.8
-## 56                   Mn2\tMississippi\tnonchilled\t500\t32.4
-## 57                   Mn2\tMississippi\tnonchilled\t675\t31.1
-## 58                  Mn2\tMississippi\tnonchilled\t1000\t31.5
-## 59                    Mn3\tMississippi\tnonchilled\t95\t11.3
-## 60                   Mn3\tMississippi\tnonchilled\t175\t19.4
-## 61                   Mn3\tMississippi\tnonchilled\t250\t25.8
-## 62                   Mn3\tMississippi\tnonchilled\t350\t27.9
-## 63                   Mn3\tMississippi\tnonchilled\t500\t28.5
-## 64                   Mn3\tMississippi\tnonchilled\t675\t28.1
-## 65                  Mn3\tMississippi\tnonchilled\t1000\t27.8
-## 66                       Mc1\tMississippi\tchilled\t95\t10.5
-## 67                       Mc1\tMississippi\tchiled\t175\t14.9
-## 68                      Mc1\tMississippi\tchilled\t250\t18.1
-## 69                      Mc1\tMississippi\tchilled\t350\t18.9
-## 70                      Mc1\tMississippi\tchilled\t500\t19.5
-## 71                      Mc1\tMississippi\tchilled\t675\t22.2
-## 72                     Mc1\tMississippi\tchilled\t1000\t21.9
-## 73                        Mc2\tMississippi\tchilled\t95\t7.7
-## 74                      Mc2\tMississippi\tchilled\t175\t11.4
-## 75                      Mc2\tMississippi\tchilled\t250\t12.3
-## 76                        Mc2\tMississippi\tchilled\t350\t13
-## 77                      Mc2\tMississippi\tchilled\t500\t12.5
-## 78                      Mc2\tMississippi\tchilled\t675\t13.7
-## 79                     Mc2\tMississippi\tchilled\t1000\t14.4
-## 80                       Mc3\tMississippi\tchilled\t95\t10.6
-## 81                        Mc3\tMississippi\tchilled\t175\t18
-## 82                      Mc3\tMississippi\tchilled\t250\t17.9
-## 83                      Mc3\tMississippi\tchilled\t350\t17.9
-## 84                      Mc3\tMississippi\tchilled\t500\t17.9
-## 85                      Mc3\tMississippi\tchilled\t675\t18.9
-## 86                     Mc3\tMississippi\tchilled\t1000\t19.9
-##    due.to.excessive  X X.1 X.2 X.3
-## 1                NA NA  NA  NA  NA
-## 2                NA NA  NA  NA  NA
-## 3                NA NA  NA  NA  NA
-## 4                NA NA  NA  NA  NA
-## 5                NA NA  NA  NA  NA
-## 6                NA NA  NA  NA  NA
-## 7                NA NA  NA  NA  NA
-## 8                NA NA  NA  NA  NA
-## 9                NA NA  NA  NA  NA
-## 10               NA NA  NA  NA  NA
-## 11               NA NA  NA  NA  NA
-## 12               NA NA  NA  NA  NA
-## 13               NA NA  NA  NA  NA
-## 14               NA NA  NA  NA  NA
-## 15               NA NA  NA  NA  NA
-## 16               NA NA  NA  NA  NA
-## 17               NA NA  NA  NA  NA
-## 18               NA NA  NA  NA  NA
-## 19               NA NA  NA  NA  NA
-## 20               NA NA  NA  NA  NA
-## 21               NA NA  NA  NA  NA
-## 22               NA NA  NA  NA  NA
-## 23               NA NA  NA  NA  NA
-## 24               NA NA  NA  NA  NA
-## 25               NA NA  NA  NA  NA
-## 26               NA NA  NA  NA  NA
-## 27               NA NA  NA  NA  NA
-## 28               NA NA  NA  NA  NA
-## 29               NA NA  NA  NA  NA
-## 30               NA NA  NA  NA  NA
-## 31               NA NA  NA  NA  NA
-## 32               NA NA  NA  NA  NA
-## 33               NA NA  NA  NA  NA
-## 34               NA NA  NA  NA  NA
-## 35               NA NA  NA  NA  NA
-## 36               NA NA  NA  NA  NA
-## 37               NA NA  NA  NA  NA
-## 38               NA NA  NA  NA  NA
-## 39               NA NA  NA  NA  NA
-## 40               NA NA  NA  NA  NA
-## 41               NA NA  NA  NA  NA
-## 42               NA NA  NA  NA  NA
-## 43               NA NA  NA  NA  NA
-## 44               NA NA  NA  NA  NA
-## 45               NA NA  NA  NA  NA
-## 46               NA NA  NA  NA  NA
-## 47               NA NA  NA  NA  NA
-## 48               NA NA  NA  NA  NA
-## 49               NA NA  NA  NA  NA
-## 50               NA NA  NA  NA  NA
-## 51               NA NA  NA  NA  NA
-## 52               NA NA  NA  NA  NA
-## 53               NA NA  NA  NA  NA
-## 54               NA NA  NA  NA  NA
-## 55               NA NA  NA  NA  NA
-## 56               NA NA  NA  NA  NA
-## 57               NA NA  NA  NA  NA
-## 58               NA NA  NA  NA  NA
-## 59               NA NA  NA  NA  NA
-## 60               NA NA  NA  NA  NA
-## 61               NA NA  NA  NA  NA
-## 62               NA NA  NA  NA  NA
-## 63               NA NA  NA  NA  NA
-## 64               NA NA  NA  NA  NA
-## 65               NA NA  NA  NA  NA
-## 66               NA NA  NA  NA  NA
-## 67               NA NA  NA  NA  NA
-## 68               NA NA  NA  NA  NA
-## 69               NA NA  NA  NA  NA
-## 70               NA NA  NA  NA  NA
-## 71               NA NA  NA  NA  NA
-## 72               NA NA  NA  NA  NA
-## 73               NA NA  NA  NA  NA
-## 74               NA NA  NA  NA  NA
-## 75               NA NA  NA  NA  NA
-## 76               NA NA  NA  NA  NA
-## 77               NA NA  NA  NA  NA
-## 78               NA NA  NA  NA  NA
-## 79               NA NA  NA  NA  NA
-## 80               NA NA  NA  NA  NA
-## 81               NA NA  NA  NA  NA
-## 82               NA NA  NA  NA  NA
-## 83               NA NA  NA  NA  NA
-## 84               NA NA  NA  NA  NA
-## 85               NA NA  NA  NA  NA
-## 86               NA NA  NA  NA  NA</code></pre>
+<pre><code>##               NOTE..It.rain.a.lot.in.Quebec.during.sampling
+## 1 falling on my notebook numerous values can&#39;t be read rain
+## 2                      Plant\tType\tTreatment\tconc\tuptake
+## 3                           Qn1\tQuebec\tnonchilled\t95\t16
+## 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
+##   due.to.excessive  X X.1 X.2 X.3
+## 1               NA NA  NA  NA  NA
+## 2               NA NA  NA  NA  NA
+## 3               NA NA  NA  NA  NA
+## 4               NA NA  NA  NA  NA</code></pre>
 <ul>
 <li>This is probably what your data or the data you downloaded looks like</li>
 <li>You can fix the data frame in R (or not…)</li>
@@ -1115,6 +954,9 @@ A</code></pre></div>
 ## 4                           NA        NA    NA
 ## 5                           NA        NA    NA
 ## 6                           NA        NA    NA</code></pre>
+</section>
+<section id="broken-data-3" class="slide level2">
+<h1>Broken data</h1>
 <p>SOLUTION</p>
 <p>Skip two lines when loading the file using the “skip” argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2&lt;-<span class="kw">read.csv</span>(<span class="st">&quot;co2_broken.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>)
@@ -1127,7 +969,7 @@ A</code></pre></div>
 ## 5   Qn1 Quebec nonchilled               500              35.3
 ## 6   Qn1 Quebec nonchilled cannot_read_notes              39.2</code></pre>
 </section>
-<section id="broken-data-3" class="slide level2">
+<section id="broken-data-4" class="slide level2">
 <h1>Broken data</h1>
 <p>ERROR 3</p>
 <p>“conc” and “uptake” variables are considered factors instead of numbers, because there are comments in the numeric columns</p>
@@ -1153,7 +995,7 @@ A</code></pre></div>
 <img src="images/read_table_help2.png" width="750" />
 </figure>
 </section>
-<section id="broken-data-4" class="slide level2">
+<section id="broken-data-5" class="slide level2">
 <h1>Broken data</h1>
 <p>ERROR 3 - SOLUTION</p>
 <p>Tell R that all of NA, “na”, and “cannot_read_notes” should be considered NA. Then because all other values in those columns are numbers, $conc and $uptake will be loaded as numeric/integer.</p>
@@ -1170,7 +1012,7 @@ A</code></pre></div>
 ##  $ conc     : int  95 175 250 350 500 NA 1000 95 175 250 ...
 ##  $ uptake   : num  16 30.4 NA 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...</code></pre>
 </section>
-<section id="broken-data-5" class="slide level2">
+<section id="broken-data-6" class="slide level2">
 <h1>Broken data</h1>
 <p>ERROR 4</p>
 <p>There are only two treatments (chilled and nonchilled) but there are spelling errors causing it to look like 4 different treatments.</p>
@@ -1181,7 +1023,7 @@ A</code></pre></div>
 <pre><code>## [1] nonchilled nnchilled  chilled    chiled    
 ## Levels: chiled chilled nnchilled nonchilled</code></pre>
 </section>
-<section id="broken-data-6" class="slide level2">
+<section id="broken-data-7" class="slide level2">
 <h1>Broken data</h1>
 <p>ERROR 4 - SOLUTION</p>
 <p>Identify all rows that contain “nnchilled” and replace with “nonchilled”</p>

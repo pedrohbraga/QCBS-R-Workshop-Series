@@ -419,6 +419,7 @@ CO2.plot + scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blu
 
 ## Fine tuning - colours
 
+
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 install.packages("RColorBrewer")
 require(RColorBrewer)

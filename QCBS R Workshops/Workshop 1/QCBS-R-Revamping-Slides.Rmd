@@ -200,6 +200,13 @@ This bracket help you to locate "where" you are in the output
 	c(1:40)
 ```
 
+## Error and Warning
+
+Error message will not allow to enter values/furthur
+process.
+
+warning message you can proceed your process
+
 # Using R as a calculator
 
 ## Addition, substraction, etc.

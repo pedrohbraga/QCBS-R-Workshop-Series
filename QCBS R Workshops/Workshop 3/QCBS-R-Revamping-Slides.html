@@ -487,32 +487,32 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 
 <section id="ggplot2" class="slide level2">
-<h1>ggplot2</h1>
+<h2>ggplot2</h2>
 <figure>
 <img src="images/ggplot2_logo.png" />
 </figure>
 </section>
 <section id="introduction" class="slide level2">
-<h1>Introduction</h1>
+<h2>Introduction</h2>
 <p>Why use R for plotting?</p>
 <figure>
 <img src="images/ggplot_divided.png" />
 </figure>
 </section>
 <section id="introduction-1" class="slide level2">
-<h1>Introduction</h1>
+<h2>Introduction</h2>
 <p>Why use R for plotting?</p>
 <figure>
 <img src="images/ggplot_reproducible.png" />
 </figure>
 </section>
 <section id="introduction-2" class="slide level2">
-<h1>Introduction</h1>
+<h2>Introduction</h2>
 <p>Why use R for plotting?</p>
 <p>Beautiful and flexible graphics! <img src="images/ggplot_flexible.png" /></p>
 </section>
 <section id="introduction-3" class="slide level2">
-<h1>Introduction</h1>
+<h2>Introduction</h2>
 <ul>
 <li>Have you created plots?
 <ul>
@@ -527,7 +527,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section>
 <section id="introduction-4" class="slide level2">
-<h1>Introduction</h1>
+<h2>Introduction</h2>
 <ul>
 <li>To follow along:</li>
 </ul>
@@ -543,13 +543,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section>
 <section id="introduction-5" class="slide level2">
-<h1>Introduction</h1>
+<h2>Introduction</h2>
 <p>Required packages</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)
 <span class="kw">library</span>(ggplot2)</code></pre></div>
 </section>
 <section id="outline" class="slide level2">
-<h1>Outline</h1>
+<h2>Outline</h2>
 <ol type="1">
 <li>Your first R plot
 <ul>
@@ -572,7 +572,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ol>
 </section>
 <section id="basic-scatter-plot" class="slide level2">
-<h1>Basic scatter plot</h1>
+<h2>Basic scatter plot</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?qplot</code></pre></div>
 <p>arguments:</p>
 <ul>
@@ -583,29 +583,29 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section>
 <section id="basic-scatter-plot-1" class="slide level2">
-<h1>Basic scatter plot</h1>
+<h2>Basic scatter plot</h2>
 <p>Look at pre-loaded “iris” dataset:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>?iris
-&gt;<span class="st"> </span><span class="kw">head</span>(iris)
-&gt;<span class="st"> </span><span class="kw">str</span>(iris)
-&gt;<span class="st"> </span><span class="kw">names</span>(iris)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?iris
+<span class="kw">head</span>(iris)
+<span class="kw">str</span>(iris)
+<span class="kw">names</span>(iris)</code></pre></div>
 </section>
 <section id="basic-scatter-plot-2" class="slide level2">
-<h1>Basic scatter plot</h1>
+<h2>Basic scatter plot</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> iris,
         <span class="dt">x =</span> Sepal.Length,
         <span class="dt">y =</span> Sepal.Width)</code></pre></div>
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-5-1.png" /><!-- --></p>
 </section>
 <section id="basic-scatter-plot-3" class="slide level2">
-<h1>Basic scatter plot</h1>
+<h2>Basic scatter plot</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> iris,
         <span class="dt">x =</span> Species,
         <span class="dt">y =</span> Sepal.Width)</code></pre></div>
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-6-1.png" /><!-- --></p>
 </section>
 <section id="less-basic-options" class="slide level2">
-<h1>Less basic options</h1>
+<h2>Less basic options</h2>
 <p>arguments:</p>
 <ul>
 <li><p>xlab</p></li>
@@ -614,7 +614,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section>
 <section id="less-basic-options-1" class="slide level2">
-<h1>Less basic options</h1>
+<h2>Less basic options</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> iris,
         <span class="dt">x =</span> Sepal.Length,
         <span class="dt">xlab =</span> <span class="st">&quot;Sepal Length (mm)&quot;</span>,
@@ -624,15 +624,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-7-1.png" /><!-- --></p>
 </section>
 <section id="challenge-1" class="slide level2">
-<h1>Challenge #1</h1>
+<h2>Challenge #1</h2>
 <p>Produce a basic plot with built in data (5 minutes)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?CO2
 <span class="kw">data</span>(CO2)
 ?BOD
 <span class="kw">data</span>(BOD)</code></pre></div>
 </section>
-<section id="solution-1" class="slide level2">
-<h1>Solution #1</h1>
+<section id="solution-to-challenge-1" class="slide level2">
+<h2>Solution to challenge #1</h2>
 <p>Produce a basic plot with the CO2 dataset</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> CO2,
         <span class="dt">x =</span> conc,
@@ -643,7 +643,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-9-1.png" /><!-- --></p>
 </section>
 <section id="grammar-of-graphics-gg" class="slide level2">
-<h1>Grammar of graphics (gg)</h1>
+<h2>Grammar of graphics (gg)</h2>
 <p>A graphic is made of elements (layers)</p>
 <ul>
 <li>Data
@@ -660,7 +660,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </figure>
 </section>
 <section id="grammar-of-graphics-gg-1" class="slide level2">
-<h1>Grammar of graphics (gg)</h1>
+<h2>Grammar of graphics (gg)</h2>
 <p>A graphic is made of elements (layers)</p>
 <ul>
 <li>Data</li>
@@ -677,7 +677,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section>
 <section id="grammar-of-graphics-gg-2" class="slide level2">
-<h1>Grammar of graphics (gg)</h1>
+<h2>Grammar of graphics (gg)</h2>
 <p>A graphic is made of elements (layers)</p>
 <ul>
 <li>Data</li>
@@ -693,20 +693,167 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul></li>
 </ul>
 </section>
+<section id="grammar-of-graphics-gg-3" class="slide level2">
+<h2>Grammar of graphics (gg)</h2>
+<p>Edit any single element to produce a new graph e.g., by changing the coordinate system</p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-10-1.png" /><!-- --></p>
+</section>
 <section id="how-it-works" class="slide level2">
-<h1>How it works</h1>
+<h2>How it works</h2>
 <p>Create a simple plot object: <code>plot.object &lt;- ggplot()</code> OR <code>qplot()</code></p>
-<p>Add graphical layers/complexity: <code>plot.object &lt;- plot.object + layer()</code></p>
+<p>Add graphical layers: <code>plot.object &lt;- plot.object + layer()</code></p>
 <p>Repeat step 2 until statisfied, then print: <code>print(plot.object)</code></p>
 </section>
+<section id="qplot-vs-ggplot" class="slide level2">
+<h2><code>qplot()</code> vs <code>ggplot()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">data =</span> iris,
+      <span class="dt">x =</span> Sepal.Length,
+      <span class="dt">xlab =</span> <span class="st">&quot;Sepal Length (mm)&quot;</span>,
+      <span class="dt">y =</span> Sepal.Width,
+      <span class="dt">ylab =</span> <span class="st">&quot;Sepal Width (mm)&quot;</span>,
+      <span class="dt">main =</span> <span class="st">&quot;Sepal dimensions&quot;</span>)
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Sepal Length (mm)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Sepal Width (mm)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Sepal dimensions&quot;</span>)</code></pre></div>
+</section>
+<section id="assign-plot-to-an-r-object" class="slide level2">
+<h2>Assign plot to an R object</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">basic.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>()<span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Sepal Length (mm)&quot;</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Sepal Width (mm)&quot;</span>)<span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Sepal dimensions&quot;</span>)
+basic.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-12-1.png" /><!-- --></p>
+</section>
+<section id="adding-colours-and-shapes" class="slide level2">
+<h2>Adding colours and shapes</h2>
+<p>Add aesthetics using <code>aes()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">basic.plot &lt;-<span class="st"> </span>basic.plot <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">colour =</span> Species, <span class="dt">shape =</span> Species)
+basic.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-13-1.png" /><!-- --></p>
+</section>
+<section id="adding-geometric-objects" class="slide level2">
+<h2>Adding geometric objects</h2>
+<p>Add linear regressions with geom_smooth()</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">linear.smooth.plot &lt;-<span class="st"> </span>basic.plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)
+linear.smooth.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-14-1.png" /><!-- --></p>
+</section>
+<section id="challenge-2" class="slide level2">
+<h2>Challenge #2</h2>
+<p>Produce a colourful plot with linear regression (or other smoother) from built in data such as the CO2 dataset or the msleep dataset</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?CO2
+<span class="kw">data</span>(CO2)
+?msleep
+<span class="kw">data</span>(msleep)</code></pre></div>
+</section>
+<section id="solution-to-challenge-2" class="slide level2">
+<h2>Solution to challenge #2</h2>
+<p>` Example using loess smoothing</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(CO2)
+CO2.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> CO2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> uptake, <span class="dt">colour =</span> Treatment)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;CO2 Concentration (mL/L)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CO2 Uptake (umol/m^2 sec)&quot;</span>) <span class="op">+</span><span class="st">    </span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;CO2 uptake in grass plants&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>)
+CO2.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-16-1.png" /><!-- --></p>
+</section>
+<section id="adding-multiple-facets-and-groups" class="slide level2">
+<h2>Adding multiple facets and groups</h2>
+<p>Data becomes difficult to visualize when there are multiple factors, e.g., the CO2 data set contains data on CO2 uptake for chilled vs non-chilled treatments from two different regions. Let’s build a basic plot using this data set:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> CO2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> uptake, <span class="dt">colour =</span> Treatment)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;CO2 Concentration (mL/L)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CO2 Uptake (umol/m^2 sec)&quot;</span>) <span class="op">+</span><span class="st">    </span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;CO2 uptake in grass plants&quot;</span>)
+CO2.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-17-1.png" /><!-- --></p>
+</section>
+<section id="adding-multiple-facets-and-groups-1" class="slide level2">
+<h2>Adding multiple facets and groups</h2>
+<p>If we want to compare regions, it is useful to make two panels. Basic synthax : <code>plot.object + facet_grid(rows ~ columns)</code></p>
+<p>Ex: CO2 by plot type</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2.plot &lt;-<span class="st"> </span>CO2.plot <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>Type)
+CO2.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-18-1.png" /><!-- --></p>
+</section>
+<section id="adding-multiple-facets-and-groups-2" class="slide level2">
+<h2>Adding multiple facets and groups</h2>
+<p>Now that we have two facets, let’s observe how the CO2 uptake evolves as CO2 concentrations rise, by adding connecting lines to the points using <code>geom_line()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2.plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-19-1.png" /><!-- --> Hmm wrong! Because each treatment in each region has 3 replicates</p>
+</section>
+<section id="adding-multiple-facets-and-groups-3" class="slide level2">
+<h2>Adding multiple facets and groups</h2>
+<p>Specify groups</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CO2.plot &lt;-<span class="st"> </span>CO2.plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> Plant))
+CO2.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-20-1.png" /><!-- --></p>
+</section>
+<section id="available-elements" class="slide level2">
+<h2>Available elements</h2>
+<p><img src="images/available_geom.png" /> <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf</a></p>
+</section>
+<section id="additional-resources" class="slide level2">
+<h2>Additional resources</h2>
+<p><code>help(package = ggplot)</code></p>
+<p><a href="http://ggplot2.tidyverse.org/reference/" class="uri">http://ggplot2.tidyverse.org/reference/</a></p>
+<div id="left">
+<figure>
+<img src="images/ggplot_book.jpg" />
+</figure>
+</div>
+<div id="right">
+<figure>
+<img src="images/grammar_of_graphics.jpg" />
+</figure>
+</div>
+</section>
+<section id="challenge-3" class="slide level2">
+<h2>Challenge #3</h2>
+<p>Explore a new geom and other plot elements with your own data or built in data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(msleep)
+<span class="kw">data</span>(OrchardSprays)</code></pre></div>
+</section>
+<section id="solution-to-challenge-3" class="slide level2">
+<h2>Solution to challenge #3</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(OrchardSprays)
+box.plot  &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> OrchardSprays, <span class="kw">aes</span>(<span class="dt">x =</span> treatment, <span class="dt">y =</span> decrease)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()
+box.plot</code></pre></div>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-22-1.png" /><!-- --></p>
+</section>
+<section id="saving-plots-in-rstudio" class="slide level2">
+<h2>Saving plots in RStudio</h2>
+<figure>
+<img src="images/save_image.png" />
+</figure>
+</section>
+<section id="saving-plots-in-code" class="slide level2">
+<h2>Saving plots in code</h2>
+<p>ggsave() will write directly to your working directory all in one line of code and you can specify the name of the file and the dimensions of the plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;CO2 plot.pdf&quot;</span>,
+       CO2.plot,
+       <span class="dt">height =</span> <span class="fl">8.5</span>,
+       <span class="dt">width =</span> <span class="dv">11</span>,
+       <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>)</code></pre></div>
+<p>Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png,…)</p>
+<p>Other methods to save image <code>?pdf</code> <code>?jpeg</code></p>
+</section>
 <section id="tidyr" class="slide level2">
-<h1>tidyr</h1>
+<h2>tidyr</h2>
 <figure>
 <img src="images/tidyr_logo.png" />
 </figure>
 </section>
 <section id="dplyr" class="slide level2">
-<h1>dplyr</h1>
+<h2>dplyr</h2>
 </section>
     </div>
   </div>
@@ -743,7 +890,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
     (function () {
       var script = document.createElement("script");
       script.type = "text/javascript";
-      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
       document.getElementsByTagName("head")[0].appendChild(script);
     })();
   </script>

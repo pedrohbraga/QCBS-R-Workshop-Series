@@ -547,7 +547,7 @@ One way of doing it is:
 
 ## Matrices, Arrays and Lists
 
-<center><img src="images/matrix.png"></center>
+<center><img style="width: 700px" src="images/matrix.png"></center>
 
 ## Indexing objects
 
@@ -1126,6 +1126,15 @@ Find the appropriate functions to perform the following operations:
 - `ls`
 
 # Additional resources
+
+## Cheat 4ever
+
+Lot of cheatsheet are available:
+https://www.rstudio.com/resources/cheatsheets/
+
+## Cheat 4ever
+
+<img src="images/base-r.pdf">
 
 ## Some useful R books
 

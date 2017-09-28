@@ -132,9 +132,7 @@ R allows you to do everything with one program, which is nice!
 
 <img style="float: right; width: 350px;" src="images/rubicub.png">
 
-## Challenge 1
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 1 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 <center>Open Rstudio</center>
 
@@ -231,9 +229,7 @@ This bracket help you to locate "where" you are in the output
 	2^3
 ```
 
-## Challenge 2
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 2 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 
 Use R to calculate the following skill testing question:
@@ -244,9 +240,7 @@ $$
 
 <small>Hints: The `*` symbol is used to multiply</small>
 
-## Challenge 2: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 2: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Question
 
@@ -260,9 +254,7 @@ $$
 	2+16*24-56
 ```
 
-## Challenge 3
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 3 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Use R to calculate the following skill testing question:
 
@@ -272,9 +264,7 @@ $$
 
 <small>Hints: Think about the order of the operation.</small>
 
-## Challenge 3: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 3: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Question
 
@@ -302,10 +292,7 @@ Give it a try!
 
 <img style="float: right; width: 350px;" src="images/keyboard_arrows.png">
 
-## Challenge 4
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
-
+## Challenge 4 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 <div id="right">
 
@@ -327,9 +314,7 @@ What is the area of this circle, with a radius of $5\ cm$?
 
 </div>
 
-## Challenge 4: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 4: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Question
 
@@ -387,16 +372,11 @@ The value on the **right** is assigned to the name on the **left** with the assi
   mean.x
 ```
 
-## Challenge 5
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
-
+## Challenge 5 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
 
-## Challenge 5: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 5: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Question
 
@@ -409,15 +389,11 @@ Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.
   euler.value
 ```
 
-## Challenge 6
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 6 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Create a second object (you decide the name) with a name that starts with a number. What happens?
 
-## Challenge 6: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 6: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Question
 
@@ -501,15 +477,11 @@ Let's try it!
  bool.vector2
 ```
 
-## Challenge 7
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 7 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
 
-## Challenge 7: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 7: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Question
 
@@ -675,9 +647,7 @@ knitr::knit_hooks$set(
 <small>Logical statements such as `>` will be described in more details later.</small>
 </div>
 
-## Challenge 8
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 8 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Using the vector `num.vector`
 
@@ -685,9 +655,7 @@ Using the vector `num.vector`
 - Extract the 1st and 3rd values
 - Extract all values except for the 2nd and the 4th
 
-## Challenge 8: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 8: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Extract the forth value
 
@@ -707,9 +675,7 @@ Using the vector `num.vector`
   num.vector[c(-2,-4)]
 ```
 
-## Challenge 9
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 9 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Explore the difference between these 2 lines of code:
 
@@ -718,9 +684,7 @@ Explore the difference between these 2 lines of code:
   char.vector[char.vector == "blue"]
 ```
 
-## Challenge 9: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 9: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r}
   char.vector == "blue"
@@ -819,16 +783,12 @@ To index a data frame you must specify two dimensions: row and column number, us
   Extracts the `siteID` and `soil_pH` variables from the data frame.
 </div>
 
-## Challenge 10
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 10 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - a) Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
 - b) After that, write a statement that checks if the values you obtained are greater than 25.
 
-## Challenge 10: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 10: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 <div class="fragment">
   Part a):
@@ -878,9 +838,7 @@ Objects storing these values and instructions can be used in functions:
   sum(a,b)
 ```
 
-## Challenge 11
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 11 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - Create a vector `a` that contains all the numbers from 1 to 5
 - Create an object `b` with a value of 2
@@ -889,9 +847,7 @@ Objects storing these values and instructions can be used in functions:
 - Compare `result_add` and `result_sum`. Are they different?
 - Add 5 to `result_sum` function using the `sum` function
 
-## Challenge 11: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 11: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r}
   a <- c(1:5)
@@ -906,7 +862,7 @@ Objects storing these values and instructions can be used in functions:
   sum(result_sum, 5)
 ```
 
-## Challenge 11: Solution
+## Challenge 11: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 The operation `+` on the vector `a` adds 2 to each element. The result is a vector.
 
@@ -920,9 +876,7 @@ If the name is not present, the order os the arguments does matter.
 
 If the name is present, the order does not matter.
 
-## Challenge 12
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 12 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 `plot` is a function that draws a graph of y as a fucntion of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
 
@@ -935,9 +889,7 @@ If the name is present, the order does not matter.
   plot(y = b, x = a)
 ```
 
-## Challenge 12: Solutions
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 12: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r, echo = F}
   a <- 1:100
@@ -949,17 +901,13 @@ If the name is present, the order does not matter.
   plot(y = b, x = a)
 ```
 
-## Challenge 12: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r}
   plot(a,b)
 ```
 
-## Challenge 12: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r}
   plot(b,a)
@@ -967,9 +915,7 @@ If the name is present, the order does not matter.
 
 The shape of the plot has changed, as we did not provided the arguments names, the order is important.
 
-## Challenge 12: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r}
   plot(x = a, y = b)
@@ -977,9 +923,7 @@ The shape of the plot has changed, as we did not provided the arguments names, t
 
 Same as `plot(a,b)`
 
-## Challenge 12: Solution
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r}
   plot(y = b, x = a)
@@ -1128,9 +1072,7 @@ To find information about a function in particular, use `?`
 
 <img style="width: 900px;"  src="images/seq_examples.png">
 
-## Challenge 13
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 13 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 a) Create a sequence of even numbers from 0 to 10 using the `seq` function.
 
@@ -1138,9 +1080,7 @@ b) Create a unsorted vector of your favourite numbers, then:
 - find out how to *sort* it
 - sort your vector in reverse order
 
-## Challenge 13: Solutions
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 13: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 <div class="fragment">
   Part a):
@@ -1178,9 +1118,7 @@ Here are some tips on how to use them efficiently:
 - Learn to read discussion forums. Chances are other people already had your problem and asked about it.
 - Don't hesitate to search again using different keywords!
 
-## Challenge 14
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 14 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Find the appropriate functions to perform the following operations:
 
@@ -1189,9 +1127,7 @@ Find the appropriate functions to perform the following operations:
 - Combine two data frames by columns
 - List availables objects in your workspace
 
-## Challenge 14: Solutions
-
-<img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
+## Challenge 14: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 - `sqrt`
 - `mean`

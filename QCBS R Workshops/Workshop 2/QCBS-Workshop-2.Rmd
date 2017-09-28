@@ -25,9 +25,9 @@ Website: http://qcbs.ca/wiki/r/workshop2
 
 ## Learning Objectives
 
-* 1. Writing a script
-* 2. Loading, exploring and saving data
-* 3. Fixing a broken data frame
+1. Writing a script
+2. Loading, exploring and saving data
+3. Fixing a broken data frame
 
 ## R Scripts
 

@@ -1000,11 +1000,15 @@ Let's say we want to create a *sequence* of odd numers between 0 and 10 as we di
 
 ## Search results
 
-IMAGE
+<img style="width: 650px;"  src="images/searchseq1.svg">
 
 ## Search results
 
-IMAGE
+<img style="width: 650px;"  src="images/searchseq2.svg">
+
+## Search results
+
+<img style="width: 650px;"  src="images/searchseq3.svg">
 
 ## Getting help with functions
 
@@ -1020,35 +1024,52 @@ To find information about a function in particular, use `?`
 
 ## Help pages
 
-IMAGE
+<img style="height: 600px;"  src="images/print-1.png">
 
 ## Description
 
-IMAGE
+- `function_name {package_name}`
+- Description: a short description of what the function does.
+
+<img style="width: 900px;"  src="images/seq_description.png">
 
 ## Usage
 
-IMAGE
+- How to call the function
+- If `name = value` is present, a default value is provided if the argument is missing. The argument becomes optional.
+- Other related functions described in this help page
+
+<img style="width: 900px;"  src="images/seq_usage.png">
 
 ## Arguments
 
-IMAGE
+- Description of all the arguments and what they are used for
+
+<img style="width: 900px;"  src="images/seq_arguments.png">
 
 ## Details
 
-IMAGE
+- A detailed description of how the functions work and their characteristics
+
+<img style="width: 900px;"  src="images/seq_details.png">
 
 ## Value
 
-IMAGE
+- A description of the return value
+
+<img style="width: 900px;"  src="images/seq_value.png">
 
 ## See Also
 
-IMAGE
+- Other related functions that can be useful
+
+<img style="width: 900px;"  src="images/seq_see_also.png">
 
 ## Examples
 
-IMAGE
+- Reproducibles examples
+
+<img style="width: 900px;"  src="images/seq_examples.png">
 
 ## Challenge 13
 

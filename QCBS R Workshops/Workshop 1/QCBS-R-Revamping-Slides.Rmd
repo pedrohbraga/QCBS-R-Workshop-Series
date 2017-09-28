@@ -161,10 +161,12 @@ This bracket help you to locate "where" you are in the output
 
 - Multiplications and Divisions
 
-```{r]
+```{r}
 	2*2
   8/2
 ```
+
+## Additions, substractions, etc.
 
 - Exponents
 
@@ -1097,7 +1099,7 @@ Here are some tips on how to use them efficiently:
 - Define precisely what you are looking for
 - Learn to read discussion forums. Chances are other people already had your problem and asked about it.
 - Don't hesitate to search again using different keywords!
--
+
 ## Challenge 14
 
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">

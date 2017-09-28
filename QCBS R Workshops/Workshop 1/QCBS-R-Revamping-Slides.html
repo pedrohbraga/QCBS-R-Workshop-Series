@@ -587,8 +587,12 @@ Open Rstudio
 <ul>
 <li>Multiplications and Divisions</li>
 </ul>
-<pre class="{r]"><code>    2*2
-  8/2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="dv">2</span>*<span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="dv">8</span>/<span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+</section><section id="additions-substractions-etc." class="slide level2">
+<h1>Additions, substractions, etc.</h1>
 <ul>
 <li>Exponents</li>
 </ul>
@@ -650,7 +654,7 @@ Open Rstudio
 <h1>Challenge 4</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div id="right">
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-10-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-11-1.png" /><!-- --></p>
 </div>
 <div id="left">
 <p>What is the area of this circle, with a radius of <span class="math inline">\(5\ cm\)</span>?</p>
@@ -1215,29 +1219,29 @@ Open Rstudio
 </section><section id="challenge-12-solutions" class="slide level2">
 <h1>Challenge 12: Solutions</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-54-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-55-1.png" /><!-- --></p>
 </section><section id="challenge-12-solution" class="slide level2">
 <h1>Challenge 12: Solution</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(a,b)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-55-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-56-1.png" /><!-- --></p>
 </section><section id="challenge-12-solution-1" class="slide level2">
 <h1>Challenge 12: Solution</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(b,a)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-56-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-57-1.png" /><!-- --></p>
 <p>The shape of the plot has changed, as we did not provided the arguments names, the order is important.</p>
 </section><section id="challenge-12-solution-2" class="slide level2">
 <h1>Challenge 12: Solution</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> b)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-57-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-58-1.png" /><!-- --></p>
 <p>Same as <code>plot(a,b)</code></p>
 </section><section id="challenge-12-solution-3" class="slide level2">
 <h1>Challenge 12: Solution</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(<span class="dt">y =</span> b, <span class="dt">x =</span> a)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-58-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-59-1.png" /><!-- --></p>
 <p>Same as <code>plot(a,b)</code>. The argument names are provided, the order is not important.</p>
 </section><section id="packages" class="slide level2">
 <h1>Packages</h1>
@@ -1262,7 +1266,7 @@ Open Rstudio
 <h1>Package name: an example</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">library</span>(ggplot2)
   <span class="kw">qplot</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-65-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-66-1.png" /><!-- --></p>
 </section></section>
 <section><section id="getting-help" class="titleslide slide level1"><h1>Getting help</h1></section><section id="searching-for-functions" class="slide level2">
 <h1>Searching for functions</h1>
@@ -1270,7 +1274,7 @@ Open Rstudio
 <p>But… how do I find them?</p>
 </section><section id="searching-for-functions-1" class="slide level2">
 <h1>Searching for functions</h1>
-<p>To find a function that does something specific in your installed packages (we will see wgat a package is later), you can use <code>??</code> followed by a search term.</p>
+<p>To find a function that does something specific in your installed packages, you can use <code>??</code> followed by a search term.</p>
 <p>Let’s say we want to create a <em>sequence</em> of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word “sequence” in them:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ??sequence</code></pre></div>
 </section><section id="search-results" class="slide level2">
@@ -1352,7 +1356,9 @@ Open Rstudio
 </section><section id="other-ways-to-get-help" class="slide level2">
 <h1>Other ways to get help</h1>
 <p>Usually, your best source of information will be your favorite search engine!</p>
-<p>Here are some tips on how to use them efficiently: - Search in English - Use the keyword “R” at the beginning of your search - Define precisely what you are looking for - Learn to read discussion forums. Chances are other people already had your problem and asked about it. - Don’t hesitate to search again using different keywords! - ## Challenge 14</p>
+<p>Here are some tips on how to use them efficiently: - Search in English - Use the keyword “R” at the beginning of your search - Define precisely what you are looking for - Learn to read discussion forums. Chances are other people already had your problem and asked about it. - Don’t hesitate to search again using different keywords!</p>
+</section><section id="challenge-14" class="slide level2">
+<h1>Challenge 14</h1>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Find the appropriate functions to perform the following operations:</p>
 <ul>

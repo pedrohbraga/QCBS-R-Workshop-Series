@@ -203,10 +203,11 @@ This bracket help you to locate "where" you are in the output
 
 ## Error and Warning
 
-Error message will not allow to enter values/furthur
-process.
+- **Warning message** happens with unexpected behavior in your process. You can continue to proceed your process.
 
-warning message you can proceed your process
+- **Error message** will stop the current execution. It indicates a problem in your code
+
+To solve *error*, google is your bestfriend!
 
 # Using R as a calculator
 

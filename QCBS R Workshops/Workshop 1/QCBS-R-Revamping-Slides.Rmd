@@ -19,8 +19,6 @@ output:
 install.packages("DiagrammeR")
 library(DiagrammeR)
 
-install.packages("Graphviz")
-library(Graphviz)
 ```
 
 ## Workshop 1: Introduction to R

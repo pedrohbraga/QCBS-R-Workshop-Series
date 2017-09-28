@@ -358,6 +358,7 @@ The value on the **right** is assigned to the name on the **left** with the assi
 
 - Objects names should **always** begin with a letter.
 - `R` is **case sensitive**, the names `Data1` and `data1` are not the same.
+- You can **not** use special characters! (@, /, etc.)
 
 ## Object names: good practices
 
@@ -892,7 +893,7 @@ If the name is present, the order does not matter.
 ```{r, echo = F, fig.width=5, fig.height=5}
   a <- 1:100
   b <- a^2
-  par(mfrow = c(2,2))
+  par(mfrow = c(2,2), mar = c(4,4,0,0))
   plot(a,b)
   plot(b,a)
   plot(x = a, y = b)
@@ -902,12 +903,14 @@ If the name is present, the order does not matter.
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r,fig.width=4.5, fig.height=4.5}
+  par(mar = c(4,4,0,0))
   plot(a,b)
 ```
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r,fig.width=4.5, fig.height=4.5}
+  par(mar = c(4,4,0,0))
   plot(b,a)
 ```
 
@@ -916,6 +919,7 @@ The shape of the plot has changed, as we did not provided the arguments names, t
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r,fig.width=4.5, fig.height=4.5}
+  par(mar = c(4,4,0,0))
   plot(x = a, y = b)
 ```
 
@@ -924,6 +928,7 @@ Same as `plot(a,b)`
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 ```{r,fig.width=4.5, fig.height=4.5}
+  par(mar = c(4,4,0,0))
   plot(y = b, x = a)
 ```
 

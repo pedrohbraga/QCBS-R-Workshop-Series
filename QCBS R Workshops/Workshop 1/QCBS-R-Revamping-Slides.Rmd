@@ -1,5 +1,5 @@
 ---
-title: "Workshop 1: Introduction to R"
+title: "R Workshop Series"
 author: Québec Centre for Biodiversity Science
 output:
   revealjs::revealjs_presentation:
@@ -15,9 +15,7 @@ output:
     reveal_plugins: ["notes", "search", "zoom"]
 ---
 
-# R Workshop Series
-
-## Workshop 1: Introduction to R
+# Workshop 1: Introduction to R
 
 Website:http://qcbs.ca/wiki/r/workshop1
 
@@ -60,11 +58,55 @@ R works on most existing operating systems
 
 What people have traditionally done to analyze their data:
 
-<image Data to understanding>
+```{r, echo = FALSE}
+library(DiagrammeR)
+library(Graphviz)
+
+grViz("
+      digraph {
+
+      node [shape = oval, fillcolor = PaleTuruoise]
+      Data; Graphs; Tables; Statistics
+
+      node [shape = box]
+      Sigmaplot; Excel; SAS
+
+      ##add arrows
+      edge [arrowhead = none]
+      Data -> Sigmaplot; Data -> Excel; Data -> SAS;
+
+      edge [arrowhead = normal]
+      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;
+
+      }")
+
+```
 
 ## Why use R?
 
-<image Analyzing data with R>
+```{r, echo = FALSE}
+library(DiagrammeR)
+library(Graphviz)
+
+grViz("
+      digraph {
+
+      node [shape = oval, fillcolor = PaleTuruoise]
+      Data; Graphs; Tables; Statistics
+
+      node [shape = box]
+      R
+
+      ##add arrows
+      edge [arrowhead = none]
+      Data -> R;
+
+      edge [arrowhead = normal]
+      R -> Graphs; R -> Tables; R -> Statistics;
+
+      }")
+
+```
 
 R allows you to do everything with one program, which is nice!
 
@@ -100,7 +142,9 @@ R allows you to do everything with one program, which is nice!
 
 ## The Rstudio console
 
-<img>
+<img style="float: left; width: 450px;" src="images/Rstudioconsole.png">
+
+**NEED ARROW**
 
 ## Note for Windows user
 
@@ -189,8 +233,11 @@ $$
 
 ## Challenge 2: Solution
 
+<<<<<<< HEAD
+=======
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
+>>>>>>> a3fac9d52c9a82ee8a50fc633870b21c0ab60545
 - Question
 
 $$

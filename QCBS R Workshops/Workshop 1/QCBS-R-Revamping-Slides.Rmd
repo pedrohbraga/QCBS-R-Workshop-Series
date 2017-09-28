@@ -15,11 +15,19 @@ output:
     reveal_plugins: ["notes", "search", "zoom"]
 ---
 
-# Workshop 1: Introduction to R
+```{r, include = FALSE}
+install.packages("DiagrammeR")
+library(DiagrammeR)
 
-Website:http://qcbs.ca/wiki/r/workshop1
+install.packages("Graphviz")
+library(Graphviz)
+```
 
-<img style="float: right; width: 200px;" src="images/QCBS_logo.png">
+## Workshop 1: Introduction to R
+
+<center><img src="images/QCBS_logo_text.png"></center>
+
+<center>Website: http://qcbs.ca/wiki/r/workshop1</center>
 
 # Introduction
 
@@ -59,10 +67,7 @@ R works on most existing operating systems
 What people have traditionally done to analyze their data:
 
 ```{r, echo = FALSE}
-library(DiagrammeR)
-library(Graphviz)
-
-grViz("
+  grViz("
       digraph {
 
       node [shape = oval, fillcolor = PaleTuruoise]
@@ -85,10 +90,7 @@ grViz("
 ## Why use R?
 
 ```{r, echo = FALSE}
-library(DiagrammeR)
-library(Graphviz)
-
-grViz("
+  grViz("
       digraph {
 
       node [shape = oval, fillcolor = PaleTuruoise]
@@ -142,9 +144,7 @@ R allows you to do everything with one program, which is nice!
 
 ## The Rstudio console
 
-<img style="float: left; width: 450px;" src="images/Rstudioconsole.png">
-
-**NEED ARROW**
+<img src="images/Rstudioconsole_fleche.png">
 
 ## Note for Windows user
 
@@ -156,6 +156,21 @@ appears when you try to open R-Studio,
 We have the solution
 right-click on your R-Studio icon and chose:
 "Execute as administrator" to open the program.
+
+## Note for Windows user
+
+**Common problem**
+
+installation process of some packages
+
+<small>(especially a problem for permission when installing libraries)</small>
+
+## Note for Mac user
+
+Please install the developer package
+
+https://developer.apple.com/downloads/index.action#
+
 
 ## How to read the console
 
@@ -233,11 +248,8 @@ $$
 
 ## Challenge 2: Solution
 
-<<<<<<< HEAD
-=======
 <img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png">
 
->>>>>>> a3fac9d52c9a82ee8a50fc633870b21c0ab60545
 - Question
 
 $$
@@ -574,7 +586,7 @@ One way of doing it is:
 
 ## Matrices, Arrays and Lists
 
-Image!
+<center><img src="images/matrix.png"></center>
 
 ## Indexing objects
 
@@ -1171,7 +1183,13 @@ Find the appropriate functions to perform the following operations:
 
 ## Some useful R books
 
-IMAGE
+<img style="float: right; width: 170px;" src="images/Book6.jpg">
+<img style="float: right; width: 151px;" src="images/Book5.jpg">
+<img style="float: right; width: 180px;" src="images/Book4.jpg">
+<img style="float: right; width: 150.5px;" src="images/Book3.jpg">
+<img style="float: right; width: 150px;" src="images/Book2.jpg">
+<img style="float: right; width: 150px;" src="images/Book1.jpg">
+
 
 ## Some useful R websites
 
@@ -1182,6 +1200,9 @@ IMAGE
 - http://cookbook-r.com/
 - http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf
 
-# Thank you for attending!
+## Thank you for attending!
 
-IMAGES
+<img src="images/QCBS_logo_text.png">
+
+We want your feed back!
+https://docs.google.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0

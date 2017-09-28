@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Québec Centre for Biodiversity Science" />
-  <title>Workshop 1: Introduction to R</title>
+  <title>R Workshop Series</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -476,29 +476,37 @@ style.innerHTML = style_script;
 document.getElementsByTagName('head')[0].appendChild(style);
 </script>
 
+    <script src="QCBS-R-Revamping-Slides_files/htmlwidgets-0.9/htmlwidgets.js"></script>
+    <script src="QCBS-R-Revamping-Slides_files/viz-0.3/viz.js"></script>
+    <link href="QCBS-R-Revamping-Slides_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="QCBS-R-Revamping-Slides_files/grViz-binding-0.9.2/grViz.js"></script>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
 <section>
-    <h1 class="title">Workshop 1: Introduction to R</h1>
+    <h1 class="title">R Workshop Series</h1>
     <h2 class="author">Québec Centre for Biodiversity Science</h2>
 </section>
 
-<section><section id="r-workshop-series" class="titleslide slide level1"><h1>R Workshop Series</h1></section><section id="workshop-1-introduction-to-r" class="slide level2">
-<h1>Workshop 1: Introduction to R</h1>
-<p>Website:<a href="http://qcbs.ca/wiki/r/workshop1" class="uri">http://qcbs.ca/wiki/r/workshop1</a></p>
-<p><img style="float: right; width: 200px;" src="images/QCBS_logo.png"></p>
-</section></section>
+<section id="workshop-1-introduction-to-r" class="slide level2">
+<h2>Workshop 1: Introduction to R</h2>
+<center>
+<img src="images/QCBS_logo_text.png">
+</center>
+<center>
+Website: <a href="http://qcbs.ca/wiki/r/workshop1" class="uri">http://qcbs.ca/wiki/r/workshop1</a>
+</center>
+</section>
 <section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="what-is-r" class="slide level2">
-<h1>What is R?</h1>
+<h2>What is R?</h2>
 <div id="left">
 <p>R is an open source programming language designed for statistical analysis, data mining, and data visualization.</p>
 </div>
 <p><img style="float: right; width: 200px;" src="images/R_logo.png"></p>
 </section><section id="why-use-r" class="slide level2">
-<h1>Why use R?</h1>
+<h2>Why use R?</h2>
 <div id="left">
 <p><strong>It’s open source</strong></p>
 <ul>
@@ -508,22 +516,24 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </div>
 <p><img style="float: right; width: 200px;" src="images/Opensource.svg"></p>
 </section><section id="why-use-r-1" class="slide level2">
-<h1>Why use R?</h1>
+<h2>Why use R?</h2>
 <center>
 <img style="width: 700px; " src="images/operating_stm.png">
 </center>
 <p><strong>It’s compatible</strong></p>
 <p>R works on most existing operating systems</p>
 </section><section id="why-use-r-2" class="slide level2">
-<h1>Why use R?</h1>
+<h2>Why use R?</h2>
 <p>What people have traditionally done to analyze their data:</p>
-<p><image Data to understanding></p>
+<div id="htmlwidget-8061f8e245193c33445f" style="width:768px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8061f8e245193c33445f">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </section><section id="why-use-r-3" class="slide level2">
-<h1>Why use R?</h1>
-<p><image Analyzing data with R></p>
+<h2>Why use R?</h2>
+<div id="htmlwidget-dd3360b130efb68377b2" style="width:768px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dd3360b130efb68377b2">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>R allows you to do everything with one program, which is nice!</p>
 </section><section id="why-use-r-4" class="slide level2">
-<h1>Why use R?</h1>
+<h2>Why use R?</h2>
 <p><img style="float: left; width: 450px;" src="images/Rpackages.png"></p>
 <div id="right">
 <ul>
@@ -532,7 +542,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </div>
 </section><section id="challenge" class="slide level2">
-<h1>Challenge</h1>
+<h2>Challenge</h2>
 <div id="left">
 <ul>
 <li>Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes</li>
@@ -541,7 +551,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </div>
 <p><img style="float: right; width: 350px;" src="images/rubicub.png"></p>
 </section><section id="challenge-1" class="slide level2">
-<h1>Challenge 1</h1>
+<h2>Challenge 1</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <center>
 Open Rstudio
@@ -550,25 +560,34 @@ Open Rstudio
 <img style="width: 200px;" src="images/Rstudio.png">
 </center>
 </section><section id="the-rstudio-console" class="slide level2">
-<h1>The Rstudio console</h1>
-<p><img></p>
+<h2>The Rstudio console</h2>
+<p><img src="images/Rstudioconsole_fleche.png"></p>
 </section><section id="note-for-windows-user" class="slide level2">
-<h1>Note for Windows user</h1>
+<h2>Note for Windows user</h2>
 <p>If the restriction: “unable to write on disk” appears when you try to open R-Studio,</p>
 <p><strong>Don’t worry!</strong> We have the solution right-click on your R-Studio icon and chose: “Execute as administrator” to open the program.</p>
+</section><section id="note-for-windows-user-1" class="slide level2">
+<h2>Note for Windows user</h2>
+<p><strong>Common problem</strong></p>
+<p>installation process of some packages</p>
+<p><small>(especially a problem for permission when installing libraries)</small></p>
+</section><section id="note-for-mac-user" class="slide level2">
+<h2>Note for Mac user</h2>
+<p>Please install the developer package</p>
+<p><a href="https://developer.apple.com/downloads/index.action#" class="uri">https://developer.apple.com/downloads/index.action#</a></p>
 </section><section id="how-to-read-the-console" class="slide level2">
-<h1>How to read the console</h1>
+<h2>How to read the console</h2>
 <p>Text in the console typically looks like this: <small>You always have to push “enter” for the input to run in the console.</small></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  output</code></pre></div>
 <pre><code>## [1] &quot;This is the output&quot;</code></pre>
 </section><section id="how-to-read-the-console-1" class="slide level2">
-<h1>How to read the console</h1>
+<h2>How to read the console</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  output</code></pre></div>
 <pre><code>## [1] &quot;This is the output&quot;</code></pre>
 <p><put an arrow here></p>
 <p>What does this bracket in the output means?</p>
 </section><section id="how-to-read-the-console-2" class="slide level2">
-<h1>How to read the console</h1>
+<h2>How to read the console</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  output</code></pre></div>
 <pre><code>## [1] &quot;This is the output&quot;</code></pre>
 <p><put an arrow here> This bracket help you to locate “where” you are in the output</p>
@@ -576,7 +595,7 @@ Open Rstudio
 ## [24] 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40</code></pre>
 </section></section>
 <section><section id="using-r-as-a-calculator" class="titleslide slide level1"><h1>Using R as a calculator</h1></section><section id="addition-substraction-etc." class="slide level2">
-<h1>Addition, substraction, etc.</h1>
+<h2>Addition, substraction, etc.</h2>
 <ul>
 <li>Additions and Substractions</li>
 </ul>
@@ -592,14 +611,14 @@ Open Rstudio
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="dv">8</span>/<span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 </section><section id="additions-substractions-etc." class="slide level2">
-<h1>Additions, substractions, etc.</h1>
+<h2>Additions, substractions, etc.</h2>
 <ul>
 <li>Exponents</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="dv">2</span>^<span class="dv">3</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 </section><section id="challenge-2" class="slide level2">
-<h1>Challenge 2</h1>
+<h2>Challenge 2</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Use R to calculate the following skill testing question:</p>
 <p><span class="math display">\[
@@ -607,7 +626,7 @@ Open Rstudio
 \]</span></p>
 <p><small>Hints: The <code>*</code> symbol is used to multiply</small></p>
 </section><section id="challenge-2-solution" class="slide level2">
-<h1>Challenge 2: Solution</h1>
+<h2>Challenge 2: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Question</li>
@@ -621,7 +640,7 @@ Open Rstudio
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="dv">2+16</span>*<span class="dv">24-56</span></code></pre></div>
 <pre><code>## [1] 330</code></pre>
 </section><section id="challenge-3" class="slide level2">
-<h1>Challenge 3</h1>
+<h2>Challenge 3</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Use R to calculate the following skill testing question:</p>
 <p><span class="math display">\[
@@ -629,7 +648,7 @@ Open Rstudio
 \]</span></p>
 <p><small>Hints: Think about the order of the operation.</small></p>
 </section><section id="challenge-3-solution" class="slide level2">
-<h1>Challenge 3: Solution</h1>
+<h2>Challenge 3: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Question</li>
@@ -644,27 +663,23 @@ Open Rstudio
 <pre><code>## [1] -89.66667</code></pre>
 <p>Note that R follows the order of the operations</p>
 </section><section id="r-command-line-tip" class="slide level2">
-<h1>R command line tip</h1>
+<h2>R command line tip</h2>
 <div id="left">
 <p>Use the “Up” and “Down” arrow keys to reproduce previous commands.</p>
 <p>Give it a try!</p>
 </div>
 <p><img style="float: right; width: 350px;" src="images/keyboard_arrows.png"></p>
 </section><section id="challenge-4" class="slide level2">
-<<<<<<< HEAD
 <h2>Challenge 4</h2>
-=======
-<h1>Challenge 4</h1>
->>>>>>> a3fac9d52c9a82ee8a50fc633870b21c0ab60545
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div id="right">
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-11-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-13-1.png" /><!-- --></p>
 </div>
 <div id="left">
 <p>What is the area of this circle, with a radius of <span class="math inline">\(5\ cm\)</span>?</p>
 </div>
 </section><section id="challenge-4-solution" class="slide level2">
-<h1>Challenge 4: Solution</h1>
+<h2>Challenge 4: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Question</li>
@@ -680,7 +695,7 @@ Open Rstudio
 <pre><code>## [1] 78.53982</code></pre>
 </section></section>
 <section><section id="objects" class="titleslide slide level1"><h1>Objects</h1></section><section id="objects-1" class="slide level2">
-<h1>Objects</h1>
+<h2>Objects</h2>
 <ul>
 <li>One of the most useful concept in <code>R</code>!</li>
 <li>You can store values as named objects using the assignement operator <code>&lt;-</code></li>
@@ -689,7 +704,7 @@ Open Rstudio
 <p>The value on the <strong>right</strong> is assigned to the name on the <strong>left</strong> with the assignement operator <code>&lt;-</code></p>
 <p><small>It is also possible to use the <code>=</code> sign, but it is better to <strong>avoid it</strong> as it is also used for other purposes.</small></p>
 </section><section id="objects-names" class="slide level2">
-<h1>Objects names</h1>
+<h2>Objects names</h2>
 <ul>
 <li>Objects names can only include:</li>
 </ul>
@@ -724,7 +739,7 @@ Open Rstudio
 <li><code>R</code> is <strong>case sensitive</strong>, the names <code>Data1</code> and <code>data1</code> are not the same.</li>
 </ul>
 </section><section id="object-names-good-practices" class="slide level2">
-<h1>Object names: good practices</h1>
+<h2>Object names: good practices</h2>
 <ul>
 <li>Try having short and explicit names for your variables. Naming a variable <code>var</code> is not very informative.</li>
 <li>Adding spaces after and before the <code>&lt;-</code> is recommended because it adds clarity.</li>
@@ -734,17 +749,11 @@ Open Rstudio
   mean.x</code></pre></div>
 <pre><code>## [1] 4</code></pre>
 </section><section id="challenge-5" class="slide level2">
-<<<<<<< HEAD
 <h2>Challenge 5</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
-<p>Create an object with a value of <span class="math inline">\(1+1.718282\)</span> (Euler’s number) and name it <code>euler.value</code>.</p>
-=======
-<h1>Challenge 5</h1>
-<p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Create an object with a value of 1+1.718282 (Euler’s number) and name it <code>euler.value</code>.</p>
->>>>>>> a3fac9d52c9a82ee8a50fc633870b21c0ab60545
 </section><section id="challenge-5-solution" class="slide level2">
-<h1>Challenge 5: Solution</h1>
+<h2>Challenge 5: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Question</li>
@@ -757,11 +766,11 @@ Open Rstudio
   euler.value</code></pre></div>
 <pre><code>## [1] 2.718282</code></pre>
 </section><section id="challenge-6" class="slide level2">
-<h1>Challenge 6</h1>
+<h2>Challenge 6</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Create a second object (you decide the name) with a name that starts with a number. What happens?</p>
 </section><section id="challenge-6-solution" class="slide level2">
-<h1>Challenge 6: Solution</h1>
+<h2>Challenge 6: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Question</li>
@@ -773,14 +782,14 @@ Open Rstudio
 <p>Creating an object name that starts with a number returns the following error:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> Error:<span class="st"> </span>unexpected symbol in <span class="st">&quot;[your object name]&quot;</span></code></pre></div>
 </section><section id="r-command-line-tip-1" class="slide level2">
-<h1>R command line tip</h1>
+<h2>R command line tip</h2>
 <ul>
 <li>Use the tab key to autocomplete scripts</li>
 <li>This helps avoid spelling errors and speeds up command entering</li>
 </ul>
 <p>Let’s try it!</p>
 </section><section id="r-command-line-tip-2" class="slide level2">
-<h1>R command line tip</h1>
+<h2>R command line tip</h2>
 <ul>
 <li>Enter <code>eu</code></li>
 <li>Push tab</li>
@@ -788,14 +797,14 @@ Open Rstudio
 </ul>
 </section></section>
 <section><section id="types-of-data-structures-in-r" class="titleslide slide level1"><h1>Types of data structures in R</h1></section><section id="types-of-data-structures-in-r-1" class="slide level2">
-<h1>Types of data structures in R</h1>
+<h2>Types of data structures in R</h2>
 <ul>
 <li>Vectors</li>
 <li>Data frames</li>
 <li>Matrices, arrays and lists</li>
 </ul>
 </section><section id="vectors" class="slide level2">
-<h1>Vectors</h1>
+<h2>Vectors</h2>
 <ul>
 <li>An entity consisting of a list of related values</li>
 <li>A single value is called an <em>atomic value</em></li>
@@ -807,7 +816,7 @@ Open Rstudio
 </ul></li>
 </ul>
 </section><section id="vectors-1" class="slide level2">
-<h1>Vectors</h1>
+<h2>Vectors</h2>
 <ul>
 <li>Creating vectors usually require the <code>c</code> function</li>
 </ul>
@@ -817,7 +826,7 @@ Open Rstudio
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  vector &lt;-<span class="st"> </span><span class="kw">c</span>(value1, value2, ...)</code></pre></div>
 </section><section id="vectors-2" class="slide level2">
-<h1>Vectors</h1>
+<h2>Vectors</h2>
 <ul>
 <li>Numeric vectors</li>
 </ul>
@@ -831,7 +840,7 @@ Open Rstudio
   char.vector</code></pre></div>
 <pre><code>## [1] &quot;blue&quot;  &quot;red&quot;   &quot;green&quot;</code></pre>
 </section><section id="vectors-3" class="slide level2">
-<h1>Vectors</h1>
+<h2>Vectors</h2>
 <ul>
 <li>Logical vectors</li>
 </ul>
@@ -843,11 +852,11 @@ Open Rstudio
  bool.vector2</code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
 </section><section id="challenge-7" class="slide level2">
-<h1>Challenge 7</h1>
+<h2>Challenge 7</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Create a vector containing the first 5 odd numbers, starting from 1, and name it <code>odd.n</code></p>
 </section><section id="challenge-7-solution" class="slide level2">
-<h1>Challenge 7: Solution</h1>
+<h2>Challenge 7: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Question</li>
@@ -858,7 +867,7 @@ Open Rstudio
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> odd.n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)</code></pre></div>
 </section><section id="vectors-4" class="slide level2">
-<h1>Vectors</h1>
+<h2>Vectors</h2>
 <p>We can use vectors for calculations</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">5</span>)
   y &lt;-<span class="st"> </span><span class="dv">6</span></code></pre></div>
@@ -868,7 +877,7 @@ Open Rstudio
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  x*y</code></pre></div>
 <pre><code>## [1]  6 12 18 24 30</code></pre>
 </section><section id="data-frames" class="slide level2">
-<h1>Data Frames</h1>
+<h2>Data Frames</h2>
 <ul>
 <li>Used to store data tables</li>
 <li>A list of vectors of the same length</li>
@@ -877,7 +886,7 @@ Open Rstudio
 <li>Differents columns can have different modes</li>
 </ul>
 </section><section id="data-frames-1" class="slide level2">
-<h1>Data Frames</h1>
+<h2>Data Frames</h2>
 <p>Let’s say you want to store this table in <code>R</code>:</p>
 <table>
 <thead>
@@ -916,7 +925,7 @@ Open Rstudio
 </tbody>
 </table>
 </section><section id="data-frames-2" class="slide level2">
-<h1>Data Frames</h1>
+<h2>Data Frames</h2>
 <p>One way of doing it is: - Start by creating vectors</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  siteID &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A1.01&quot;</span>, <span class="st">&quot;A1.02&quot;</span>, <span class="st">&quot;B1.01&quot;</span>, <span class="st">&quot;B1.02&quot;</span>)
   soil_pH &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">5.6</span>, <span class="fl">7.3</span>, <span class="fl">4.1</span>, <span class="fl">6.0</span>)
@@ -928,7 +937,7 @@ Open Rstudio
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  my.first.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(siteID, soil_pH, num.sp, treatment)</code></pre></div>
 <p><small>We will come back to the <code>data.frame</code> function later.</small></p>
 </section><section id="data-frames-3" class="slide level2">
-<h1>Data Frames</h1>
+<h2>Data Frames</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  my.first.df</code></pre></div>
 <pre><code>##   siteID soil_pH num.sp treatment
 ## 1  A1.01     5.6     17      Fert
@@ -936,14 +945,16 @@ Open Rstudio
 ## 3  B1.01     4.1     15   No_fert
 ## 4  B1.02     6.0      7   No_fert</code></pre>
 </section><section id="matrices-arrays-and-lists" class="slide level2">
-<h1>Matrices, Arrays and Lists</h1>
-<p>Image!</p>
+<h2>Matrices, Arrays and Lists</h2>
+<center>
+<img src="images/matrix.png">
+</center>
 </section><section id="indexing-objects" class="slide level2">
-<h1>Indexing objects</h1>
+<h2>Indexing objects</h2>
 <p>Sometimes, we only want to look at or extract part of our data. This is done using <strong>brackets:</strong> <code>[]</code></p>
 <p>We indicate the <strong>position</strong> of the values we want to see between the brackets. It’s called <em>indexing</em>.</p>
 </section><section id="indexing-vectors" class="slide level2">
-<h1>Indexing vectors</h1>
+<h2>Indexing vectors</h2>
 <div class="fragment">
 <p>You can use indexing to chose a particular position, let’s say we want to see the second value of our <code>odd.n</code> vector</p>
 </div>
@@ -969,7 +980,7 @@ Open Rstudio
 </code></pre>
 </div>
 </section><section id="indexing-vectors-1" class="slide level2">
-<h1>Indexing vectors</h1>
+<h2>Indexing vectors</h2>
 <div class="fragment">
 <p>If you select a position that is not in the vector it will return:</p>
 </div>
@@ -995,7 +1006,7 @@ Open Rstudio
 <p><small>Logical statements such as <code>&gt;</code> will be described in more details later.</small></p>
 </div>
 </section><section id="challenge-8" class="slide level2">
-<h1>Challenge 8</h1>
+<h2>Challenge 8</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Using the vector <code>num.vector</code></p>
 <ul>
@@ -1004,7 +1015,7 @@ Open Rstudio
 <li>Extract all values except for the 2nd and the 4th</li>
 </ul>
 </section><section id="challenge-8-solution" class="slide level2">
-<h1>Challenge 8: Solution</h1>
+<h2>Challenge 8: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Extract the forth value</li>
@@ -1022,13 +1033,13 @@ Open Rstudio
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  num.vector[<span class="kw">c</span>(-<span class="dv">2</span>,-<span class="dv">4</span>)]</code></pre></div>
 <pre><code>## [1]   1   3  32 -76  -4</code></pre>
 </section><section id="challenge-9" class="slide level2">
-<h1>Challenge 9</h1>
+<h2>Challenge 9</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Explore the difference between these 2 lines of code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  char.vector ==<span class="st"> &quot;blue&quot;</span>
   char.vector[char.vector ==<span class="st"> &quot;blue&quot;</span>]</code></pre></div>
 </section><section id="challenge-9-solution" class="slide level2">
-<h1>Challenge 9: Solution</h1>
+<h2>Challenge 9: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  char.vector ==<span class="st"> &quot;blue&quot;</span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE</code></pre>
@@ -1037,7 +1048,7 @@ Open Rstudio
 <pre><code>## [1] &quot;blue&quot;</code></pre>
 <p>In this line of code, you ask <code>R</code> to extract all values within the <code>col.vector</code> vector that are exactly equal to <code>&quot;blue&quot;</code>.</p>
 </section><section id="a-quick-note-on-logical-statements" class="slide level2">
-<h1>A quick note on logical statements</h1>
+<h2>A quick note on logical statements</h2>
 <ul>
 <li><p><code>R</code> allows testing of logical statements, <em>i.e.</em> testing whether a statement is true or false.</p></li>
 <li><p>You need to use logical operators for that.</p></li>
@@ -1084,11 +1095,11 @@ Open Rstudio
 </tbody>
 </table>
 </section><section id="indexing-data-frames" class="slide level2">
-<h1>Indexing data frames</h1>
+<h2>Indexing data frames</h2>
 <p>To index a data frame you must specify two dimensions: row and column number, using the following syntax:</p>
 <p><code>data.frame.name[row,column]</code></p>
 </section><section id="indexing-data-frames-examples" class="slide level2">
-<h1>Indexing data frames: examples</h1>
+<h2>Indexing data frames: examples</h2>
 <div class='fragment'>
 <pre><code> my.first.df[1,]</code></pre>
 <div class="fragment">
@@ -1106,7 +1117,7 @@ Open Rstudio
 <p>Extracts the second element of the fourth column</p>
 </div>
 </section><section id="indexing-data-frames-examples-1" class="slide level2">
-<h1>Indexing data frames: examples</h1>
+<h2>Indexing data frames: examples</h2>
 <div class='fragment'>
 <pre><code> my.first.df[c(2,4),]</code></pre>
 <div class="fragment">
@@ -1129,7 +1140,7 @@ Open Rstudio
 <p>Extracts the <code>siteID</code> and <code>soil_pH</code> variables from the data frame.</p>
 </div>
 </section><section id="challenge-10" class="slide level2">
-<h1>Challenge 10</h1>
+<h2>Challenge 10</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li><ol type="a">
@@ -1140,7 +1151,7 @@ Open Rstudio
 </ol></li>
 </ul>
 </section><section id="challenge-10-solution" class="slide level2">
-<h1>Challenge 10: Solution</h1>
+<h2>Challenge 10: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="fragment">
 <p>Part a):</p>
@@ -1167,16 +1178,16 @@ Open Rstudio
 </div>
 </section></section>
 <section><section id="functions" class="titleslide slide level1"><h1>Functions</h1></section><section id="functions-1" class="slide level2">
-<h1>Functions</h1>
+<h2>Functions</h2>
 <p>A function is a tool to simplify your life.</p>
 <p>It allows you to quickly execute operations on objects without having to write every mathematical step.</p>
 <p>A function needs entry values called <strong>arguments</strong> (or parameters). It then performs hidden operations using these arguments and gives a <strong>return value</strong>.</p>
 </section><section id="functions-2" class="slide level2">
-<h1>Functions</h1>
+<h2>Functions</h2>
 <p>To use (call) a function, the command must be structured properly, following the “grammar rules” of the <code>R</code> language: the syntax.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">function_name</span>(argument <span class="dv">1</span>, argument <span class="dv">2</span>)</code></pre></div>
 </section><section id="arguments" class="slide level2">
-<h1>Arguments</h1>
+<h2>Arguments</h2>
 <p>Arguments are <strong>values</strong> and <strong>instructions</strong> the function needs to run.</p>
 <p>Objects storing these values and instructions can be used in functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  a &lt;-<span class="st"> </span><span class="dv">3</span>
@@ -1184,7 +1195,7 @@ Open Rstudio
   <span class="kw">sum</span>(a,b)</code></pre></div>
 <pre><code>## [1] 8</code></pre>
 </section><section id="challenge-11" class="slide level2">
-<h1>Challenge 11</h1>
+<h2>Challenge 11</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li>Create a vector <code>a</code> that contains all the numbers from 1 to 5</li>
@@ -1195,7 +1206,7 @@ Open Rstudio
 <li>Add 5 to <code>result_sum</code> function using the <code>sum</code> function</li>
 </ul>
 </section><section id="challenge-11-solution" class="slide level2">
-<h1>Challenge 11: Solution</h1>
+<h2>Challenge 11: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">5</span>)
   b &lt;-<span class="st"> </span><span class="dv">2</span>
@@ -1208,16 +1219,16 @@ Open Rstudio
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">sum</span>(result_sum, <span class="dv">5</span>)</code></pre></div>
 <pre><code>## [1] 22</code></pre>
 </section><section id="challenge-11-solution-1" class="slide level2">
-<h1>Challenge 11: Solution</h1>
+<h2>Challenge 11: Solution</h2>
 <p>The operation <code>+</code> on the vector <code>a</code> adds 2 to each element. The result is a vector.</p>
 <p>The function <code>sum</code> concatenates all the values provided and then sum them. It is the same as doing 1+2+3+4+5+2.</p>
 </section><section id="arguments-1" class="slide level2">
-<h1>Arguments</h1>
+<h2>Arguments</h2>
 <p>Arguments each have a <strong>name</strong> that can be provided during a function call.</p>
 <p>If the name is not present, the order os the arguments does matter.</p>
 <p>If the name is present, the order does not matter.</p>
 </section><section id="challenge-12" class="slide level2">
-<h1>Challenge 12</h1>
+<h2>Challenge 12</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p><code>plot</code> is a function that draws a graph of y as a fucntion of x. It requires two arguments names <em>x</em> and <em>y</em>. What are the differences between the following lines?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  a &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</span>
@@ -1227,104 +1238,104 @@ Open Rstudio
   <span class="kw">plot</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> b)
   <span class="kw">plot</span>(<span class="dt">y =</span> b, <span class="dt">x =</span> a)</code></pre></div>
 </section><section id="challenge-12-solutions" class="slide level2">
-<h1>Challenge 12: Solutions</h1>
+<h2>Challenge 12: Solutions</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-55-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-57-1.png" /><!-- --></p>
 </section><section id="challenge-12-solution" class="slide level2">
-<h1>Challenge 12: Solution</h1>
+<h2>Challenge 12: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(a,b)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-56-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-58-1.png" /><!-- --></p>
 </section><section id="challenge-12-solution-1" class="slide level2">
-<h1>Challenge 12: Solution</h1>
+<h2>Challenge 12: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(b,a)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-57-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-59-1.png" /><!-- --></p>
 <p>The shape of the plot has changed, as we did not provided the arguments names, the order is important.</p>
 </section><section id="challenge-12-solution-2" class="slide level2">
-<h1>Challenge 12: Solution</h1>
+<h2>Challenge 12: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> b)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-58-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-60-1.png" /><!-- --></p>
 <p>Same as <code>plot(a,b)</code></p>
 </section><section id="challenge-12-solution-3" class="slide level2">
-<h1>Challenge 12: Solution</h1>
+<h2>Challenge 12: Solution</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot</span>(<span class="dt">y =</span> b, <span class="dt">x =</span> a)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-59-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-61-1.png" /><!-- --></p>
 <p>Same as <code>plot(a,b)</code>. The argument names are provided, the order is not important.</p>
 </section><section id="packages" class="slide level2">
-<h1>Packages</h1>
+<h2>Packages</h2>
 <p>Packages are a <strong>grouping of functions</strong> and/or <strong>datasets</strong> that share a similar <strong>theme</strong>, e.g. statistics, spatial analysis, plotting, etc.</p>
 <p><strong>Everyone</strong> can develop packages and make them available to others.</p>
 <p>They are usually available through the <em>Comprehensive R Archive Network</em> or CRAN: <a href="http://cran.r-project.org/web/packages/" class="uri">http://cran.r-project.org/web/packages/</a></p>
 <p>Currently, more than 5877 packages are publicly availables.</p>
 </section><section id="packages-1" class="slide level2">
-<h1>Packages</h1>
+<h2>Packages</h2>
 <p>To install packages on your computer, use the function <code>install.packages</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">install.packages</span>(<span class="st">&quot;package name&quot;</span>)</code></pre></div>
 <p>Installing a package is not enough to use it. You need to load it into your workspace before using it using the <code>library</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">library</span>(package name)</code></pre></div>
 </section><section id="package-an-example" class="slide level2">
-<h1>Package: an example</h1>
+<h2>Package: an example</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Installing package into &#39;/home/labo/R/x86_64-redhat-linux-gnu-library/3.3&#39;
 ## (as &#39;lib&#39; is unspecified)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">qplot</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ## Error: could not find function &quot;qplot&quot;</code></pre></div>
 </section><section id="package-name-an-example" class="slide level2">
-<h1>Package name: an example</h1>
+<h2>Package name: an example</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">library</span>(ggplot2)
   <span class="kw">qplot</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>)</code></pre></div>
-<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-66-1.png" /><!-- --></p>
+<p><img src="QCBS-R-Revamping-Slides_files/figure-revealjs/unnamed-chunk-68-1.png" /><!-- --></p>
 </section></section>
 <section><section id="getting-help" class="titleslide slide level1"><h1>Getting help</h1></section><section id="searching-for-functions" class="slide level2">
-<h1>Searching for functions</h1>
+<h2>Searching for functions</h2>
 <p>WOW! <code>R</code> is so great! So many functions to do what I want!</p>
 <p>But… how do I find them?</p>
 </section><section id="searching-for-functions-1" class="slide level2">
-<h1>Searching for functions</h1>
+<h2>Searching for functions</h2>
 <p>To find a function that does something specific in your installed packages, you can use <code>??</code> followed by a search term.</p>
 <p>Let’s say we want to create a <em>sequence</em> of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word “sequence” in them:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ??sequence</code></pre></div>
 </section><section id="search-results" class="slide level2">
-<h1>Search results</h1>
+<h2>Search results</h2>
 <p>IMAGE</p>
 </section><section id="search-results-1" class="slide level2">
-<h1>Search results</h1>
+<h2>Search results</h2>
 <p>IMAGE</p>
 </section><section id="getting-help-with-functions" class="slide level2">
-<h1>Getting help with functions</h1>
+<h2>Getting help with functions</h2>
 <p>OK! SO let’s use the <code>seq</code> function!!</p>
 <p>But wait… how does it work? What arguments does it need?</p>
 <p>To find information about a function in particular, use <code>?</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  ?seq</code></pre></div>
 </section><section id="help-pages" class="slide level2">
-<h1>Help pages</h1>
+<h2>Help pages</h2>
 <p>IMAGE</p>
 </section><section id="description" class="slide level2">
-<h1>Description</h1>
+<h2>Description</h2>
 <p>IMAGE</p>
 </section><section id="usage" class="slide level2">
-<h1>Usage</h1>
+<h2>Usage</h2>
 <p>IMAGE</p>
 </section><section id="arguments-2" class="slide level2">
-<h1>Arguments</h1>
+<h2>Arguments</h2>
 <p>IMAGE</p>
 </section><section id="details" class="slide level2">
-<h1>Details</h1>
+<h2>Details</h2>
 <p>IMAGE</p>
 </section><section id="value" class="slide level2">
-<h1>Value</h1>
+<h2>Value</h2>
 <p>IMAGE</p>
 </section><section id="see-also" class="slide level2">
-<h1>See Also</h1>
+<h2>See Also</h2>
 <p>IMAGE</p>
 </section><section id="examples" class="slide level2">
-<h1>Examples</h1>
+<h2>Examples</h2>
 <p>IMAGE</p>
 </section><section id="challenge-13" class="slide level2">
-<h1>Challenge 13</h1>
+<h2>Challenge 13</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ol type="a">
 <li><p>Create a sequence of even numbers from 0 to 10 using the <code>seq</code> function.</p></li>
@@ -1335,7 +1346,7 @@ Open Rstudio
 <li>sort your vector in reverse order</li>
 </ul>
 </section><section id="challenge-13-solutions" class="slide level2">
-<h1>Challenge 13: Solutions</h1>
+<h2>Challenge 13: Solutions</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <div class="fragment">
 <p>Part a):</p>
@@ -1364,11 +1375,11 @@ Open Rstudio
 </code></pre>
 </div>
 </section><section id="other-ways-to-get-help" class="slide level2">
-<h1>Other ways to get help</h1>
+<h2>Other ways to get help</h2>
 <p>Usually, your best source of information will be your favorite search engine!</p>
 <p>Here are some tips on how to use them efficiently: - Search in English - Use the keyword “R” at the beginning of your search - Define precisely what you are looking for - Learn to read discussion forums. Chances are other people already had your problem and asked about it. - Don’t hesitate to search again using different keywords!</p>
 </section><section id="challenge-14" class="slide level2">
-<h1>Challenge 14</h1>
+<h2>Challenge 14</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <p>Find the appropriate functions to perform the following operations:</p>
 <ul>
@@ -1378,7 +1389,7 @@ Open Rstudio
 <li>List availables objects in your workspace</li>
 </ul>
 </section><section id="challenge-14-solutions" class="slide level2">
-<h1>Challenge 14: Solutions</h1>
+<h2>Challenge 14: Solutions</h2>
 <p><img style="position:absolute; top:0 ; right: 0; padding:5px; width: 75px;" src="images/rubicub.png"></p>
 <ul>
 <li><code>sqrt</code></li>
@@ -1388,10 +1399,10 @@ Open Rstudio
 </ul>
 </section></section>
 <section><section id="additional-resources" class="titleslide slide level1"><h1>Additional resources</h1></section><section id="some-useful-r-books" class="slide level2">
-<h1>Some useful R books</h1>
-<p>IMAGE</p>
+<h2>Some useful R books</h2>
+<p><img style="float: right; width: 170px;" src="images/Book6.jpg"> <img style="float: right; width: 151px;" src="images/Book5.jpg"> <img style="float: right; width: 180px;" src="images/Book4.jpg"> <img style="float: right; width: 150.5px;" src="images/Book3.jpg"> <img style="float: right; width: 150px;" src="images/Book2.jpg"> <img style="float: right; width: 150px;" src="images/Book1.jpg"></p>
 </section><section id="some-useful-r-websites" class="slide level2">
-<h1>Some useful R websites</h1>
+<h2>Some useful R websites</h2>
 <ul>
 <li><a href="http://stats.stackexchange.com" class="uri">http://stats.stackexchange.com</a></li>
 <li><a href="https://www.zoology.ubc.ca/~schulter/R/" class="uri">https://www.zoology.ubc.ca/~schulter/R/</a></li>
@@ -1400,8 +1411,11 @@ Open Rstudio
 <li><a href="http://cookbook-r.com/" class="uri">http://cookbook-r.com/</a></li>
 <li><a href="http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf" class="uri">http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf</a></li>
 </ul>
+</section><section id="thank-you-for-attending" class="slide level2">
+<h2>Thank you for attending!</h2>
+<p><img src="images/QCBS_logo_text.png"></p>
+<p>We want your feed back! <a href="https://docs.google.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0" class="uri">https://docs.google.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0</a></p>
 </section></section>
-<section><section id="thank-you-for-attending" class="titleslide slide level1"><h1>Thank you for attending!</h1></section></section>
     </div>
   </div>
 
@@ -1437,7 +1451,7 @@ Open Rstudio
     (function () {
       var script = document.createElement("script");
       script.type = "text/javascript";
-      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
       document.getElementsByTagName("head")[0].appendChild(script);
     })();
   </script>

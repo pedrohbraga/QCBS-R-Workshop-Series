@@ -41,16 +41,14 @@ R is an open source programming language designed for statistical analysis, data
 
 ## Why use R?
 
-<div id = left>
-
+<p class="flotte">
+ <img src="images/Opensource.svg" alt="Nouveau !" />
+</p>
+<p style="line-height:65px;">
 **It's open source**
+</p>
 
- - Improved by the public, for the public!
- - Free
-
- </div>
-
-<img style="float: right; width: 200px;" src="images/Opensource.svg">
+**Free** & Improved **by** the public, **for** the public!
 
 ## Why use R?
 
@@ -1135,7 +1133,7 @@ Lot of cheatsheets are available:
 
 https://www.rstudio.com/resources/cheatsheets/
 
-Open it directly from **Rstudio** 
+Open it directly from **Rstudio**
 
 ## Cheat 4ever
 

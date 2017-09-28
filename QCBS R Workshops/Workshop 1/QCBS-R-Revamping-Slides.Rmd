@@ -214,8 +214,6 @@ This bracket help you to locate "where" you are in the output
   10-1
 ```
 
-## Addition, substraction, etc.
-
 - Multiplications and Divisions
 
 ```{r}
@@ -296,10 +294,9 @@ Give it a try!
 
 ## Challenge 4 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-<div id="right">
+What is the area of this circle, with a radius of $5\ cm$?
 
-
-```{r echo = F, fig.width=5, fig.height=5}
+```{r echo = F, fig.width=4.5, fig.height=4.5}
   radius <- 1
   theta <- seq(0, 2*pi, length = 200)
 	plot(c(-1, 1), c(-1, 1), type = "n", ann = F, axes = F, asp = 1)
@@ -307,14 +304,6 @@ Give it a try!
 	arrows(0, 0, x1 = 1, length = 0)
 	text(.5, .1, "radius = 5 cm", cex = .8)
 ```
-
-</div>
-
-<div id="left">
-
-What is the area of this circle, with a radius of $5\ cm$?
-
-</div>
 
 ## Challenge 4: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
@@ -905,13 +894,13 @@ If the name is present, the order does not matter.
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r}
+```{r,fig.width=4, fig.height=4}
   plot(a,b)
 ```
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r}
+```{r,fig.width=4, fig.height=4}
   plot(b,a)
 ```
 
@@ -919,7 +908,7 @@ The shape of the plot has changed, as we did not provided the arguments names, t
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r}
+```{r,fig.width=4, fig.height=4}
   plot(x = a, y = b)
 ```
 
@@ -927,7 +916,7 @@ Same as `plot(a,b)`
 
 ## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-```{r}
+```{r,fig.width=4, fig.height=4}
   plot(y = b, x = a)
 ```
 
@@ -1162,4 +1151,4 @@ Find the appropriate functions to perform the following operations:
 <img src="images/QCBS_logo_text.png">
 
 We want your feed back!
-https://docs.google.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0
+https://docs.googlgithube.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0

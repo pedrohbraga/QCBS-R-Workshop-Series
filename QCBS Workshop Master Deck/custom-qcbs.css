@@ -39,7 +39,7 @@
 .reveal pre code { /* code boxes */
 	word-wrap: normal; /* wrap code */
 	overflow: visible; /* wrap code */
-  	white-space: pre-line; /* wrap code */
+  	white-space: pre; /* wrap code */
   	background-color: #FEFCFF;	/* code output bg color*/
   	width: 950px; /* larger box*/
     box-shadow: none;

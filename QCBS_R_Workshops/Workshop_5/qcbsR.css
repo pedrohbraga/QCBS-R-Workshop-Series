@@ -1,0 +1,209 @@
+.remark-code-line-highlighted {
+  background-color: #ffdd55;
+}
+
+.remark-slide-content {
+  border-right: 5px solid #303940;
+  border-left: 5px solid #303940;
+  padding: .2em;
+  margin: .15em;
+  font-size: 24px;
+  color: #32454f;
+}
+
+.remark-slide-number {
+  font-size: 12pt;
+  margin-bottom: -11.6px;
+  margin-right: 10px;
+  color: #374559;
+  opacity: 0.6; /* default: 0.5 */
+}
+
+
+.remark-slide-content p, .remark-slide-content ul, .remark-slide-content ol {
+  margin: .15em;
+}
+
+.remark-slide-content h1 {
+  font-size: 54px;
+  border-bottom: 3px solid;
+  margin: .14em .1em .32em .1em;
+}
+
+.remark-slide-content h2 {
+  font-size: 46px;
+  margin: .28em .1em;
+}
+
+.remark-slide-content h3 {
+  font-size: 42px;
+  padding-left: 0.2em;
+  margin: .24em .1em;
+}
+
+.remark-slide-content h4 {
+  font-size: 36px;
+  padding-left: 0.4em;
+  margin: .22em .1em;
+}
+
+.remark-slide-content h5 {
+  font-size: 32px;
+  padding-left: 0.7em;
+  margin: .2em .1em;
+}
+
+
+.remark-slide-content h6 {
+  font-size: 28px;
+  padding-left: 1em;
+  margin: .2em .1em;
+}
+
+a, a > code {
+  color: #3fb3b2;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+
+.remark-code, .remark-inline-code {
+    color: #303940;
+    background-color: #f3f3f3;  font-size: 90%;
+}
+
+
+
+
+
+
+.alert {
+  color: #c7254e;
+  font-weight: bold;
+}
+
+.comment {
+  color: #8555b4;
+  font-style: italic;
+}
+
+
+
+.huge {
+  font-size: 2em;
+}
+
+.large {
+  font-size: 1.5em;
+}
+
+.small {
+  font-size: .8em;
+}
+
+.tiny {
+  font-size: .5em;
+}
+
+.footnote {
+  position: absolute;
+  bottom: 3em;
+  padding-right: 4em;
+  font-size: 60%;
+}
+
+.column:first-of-type {
+  float:left;
+  width: 50%;
+  padding: .1em .5em .1em .1em
+}
+.column:last-of-type {
+  float:right;
+  width: 50%;
+  padding:  .1em .1em .1em .5em
+}
+
+
+.remark-slide-content blockquote {
+  font-size: 1.1em;
+  padding-left: 1em;
+}
+
+
+
+
+
+
+
+
+
+.inverse {
+  border-left: 5px solid #f3f3f3;
+  border-right: 5px solid #f3f3f3;
+  background-color: #32454f;
+  color: #f3f3f3;
+}
+
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #f3f3f3;
+}
+
+
+table {
+  margin: auto;
+  font-size: 90%;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+
+
+.shrink {
+  margin: auto;
+  width: 90%;
+}
+
+.enlarge {
+  margin: auto;
+  width: 110%;
+}
+
+
+
+/* for title page  */
+.maintitle {
+  font-size: 3em;
+  color: #334853;
+  text-align: center;
+}
+
+.title-slide {
+  background-image: url(https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png);
+  background-size: cover;
+}
+
+
+.title-slide:before{
+  position: absolute;
+  top: -35%;
+  left: 0%;
+  content: url(https://qcbs.ca/wp-content/uploads/2010/05/logo_small_grey-01.png);
+  transform: scale(.25);
+}
+
+
+
+
+/* help style */
+
+.remark-help-content h1 {
+    color: #fff;
+}
+
+.remark-help {
+    color: #fff;
+}
+
+.remark-help tr:nth-child(even) {
+  background-color: #999;
+}

@@ -702,9 +702,9 @@ plot.CO2 &lt;- function(CO2, ...) {
  
   for (i in 1:length(CO2[,1])){
      if (CO2$Type[i] == "Quebec") {
-       points(CO2$conc[i], CO2$uptake[i], col="red", type="p", ...) 
+       points(CO2$conc[i], CO2$uptake[i], col = "red", type = "p", ...) 
      } else if (CO2$Type[i] == "Mississippi") {
-       points(CO2$conc[i], CO2$uptake[i], col="blue", type="p", ...) 
+       points(CO2$conc[i], CO2$uptake[i], col = "blue", type = "p", ...) 
      }
   }
 }
@@ -884,10 +884,148 @@ a + b
 ```
 
 ---
+
 class: inverse, center, middle
 
 # Good programming practices
 
+---
+
+## Why?
+
+- To make your life easier 
+- To achieve greater readability and makes sharing and reusing your code a lot less painful
+- To reduce the time you'll spend to understand your code.
+
+---
+
+## Keep a clean and nice code
+
+Proper indentation and spacing is the first step to get an easy to read code:
+
+- Use spaces between and after you operators
+- Use consistentely the same assignation operator. `&lt;-` is often preferred, `=` is ok but don't switch all the time between the two
+- Use brackets when using flow control statements
+  - Inside brackets, indent by at least two spaces. 
+  - Put closing brackets on a separate line, except when preceding an `else` statement. 
+- Define each variable on its own line
+
+
+---
+
+## Keep a clean and nice code
+
+Here is some hard to read code
+
+```r
+a&lt;-4;b=3
+if(a&lt;b){
+if(a==0)print("a zero") } else {
+if(b==0){print("b zero")} else print(b)}
+```
+
+--- 
+
+## Keep a clean and nice code
+
+Here is a little easier-to-read version. It takes more space but it is easier to see the flow of the code.
+
+```r
+a &lt;- 4
+b &lt;- 3
+if(a &lt; b){
+  if(a == 0) {
+    print("a zero")
+  }
+} else {
+  if(b == 0){
+    print("b zero")
+  } else {
+    print(b)
+  }
+}
+```
+
+--- 
+
+## Use functions to simplify your code
+
+When some portion of code is repeated more than twice in your script, you can write a function. Or if only a part of the code change, you can write a function that includes different arguments.
+This would reduce the number of errors done by copying/pasting and the time needed to correct them.
+
+Let's modify the example from exercise 3 and suppose that all CO2 uptake from Mississipi were overestimated by 20 and Quebec underestimated by 50. We could write this:
+
+```r
+for (i in 1:length(CO2[,1])) {
+  if(CO2$Type[i] == "Mississippi") {
+    CO2$conc[i] &lt;- CO2$conc[i] - 20 
+  }
+}
+for (i in 1:length(CO2[,1])) {
+  if(CO2$Type[i] == "Quebec") {
+    CO2$conc[i] &lt;- CO2$conc[i] + 50 
+  }
+}
+```
+
+--- 
+## Use functions to simplify your code
+
+Or 
+
+```r
+recalibrate &lt;- function(CO2, type, bias) {
+  for (i in 1:nrow(CO2)) {
+    if(CO2$Type[i] == type) {
+      CO2$conc[i] &lt;- CO2$conc[i] + bias 
+    }
+  }
+  # we have to return our new dataset because the original is not modified
+  return (CO2)
+}
+newCO2 &lt;- recalibrate(CO2, "Mississipi", -20)
+# Note that we recalibrate our newCO2 dataset here because the original CO2 is not modified
+newCO2 &lt;- recalibrate(newCO2, "Quebec", +50)
+```
+
+---
+## Use meaningful variable and function names
+
+Same function but vague names
+
+```r
+rc &lt;- function(c, t, b) {
+  for (i in 1:nrow(c)) {
+    if(c$Type[i] == t) {
+      c$uptake[i] &lt;- c$uptake[i] + b 
+    }
+  }
+  return (c)
+}
+```
+
+---
+## Use comments
+
+Add comment to describe what your code does, how to use its arguments or a detailed step by step of the function.
+
+```r
+## recalibrates the CO2 dataset by modifying the CO2 uptake concentration
+## by a fixed amount depending on the region of sampling
+# Arguments
+# CO2: the CO2 dataset
+# type: the type that need to be recalibrated. Values: "Mississippi" or "Quebec"
+# bias: the amount to add to the concentration uptake. Use negative values for overestimations 
+recalibrate &lt;- function(CO2, type, bias) {
+  for (i in 1:nrow(CO2)) {
+    if(CO2$Type[i] == type) {
+      CO2$uptake[i] &lt;- CO2$uptake[i] + bias 
+    }
+  }
+  # we have to return our new dataset because the original is not modified
+  return (CO2)
+}
+```
 ---
 class: inverse, center, middle
 

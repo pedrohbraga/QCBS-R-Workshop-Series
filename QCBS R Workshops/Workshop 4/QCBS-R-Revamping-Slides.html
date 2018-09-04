@@ -35,6 +35,11 @@ Website: http://qcbs.ca/wiki/r/workshop4
 ![:scale 40%](images/schema_slide1.png)
 ]
 
+
+```
+## Warning: package 'MASS' was built under R version 3.4.3
+```
+
 ---
 ## Review: Simple linear regression
 
@@ -134,9 +139,10 @@ str(bird)
 
 ---
 ## Running a regression in R
-Response variable: ***Bird abundance***    num: continuous
 
-Explanatory variable: ***Bird mass***      num: continuous
+Response variable: **Bird abundance**    num: continuous
+
+Explanatory variable: **Bird mass**      num: continuous
 
 ```
 'data.frame':	54 obs. of  7 variables:
@@ -151,7 +157,528 @@ Explanatory variable: ***Bird mass***      num: continuous
 
 We first want to test if bird maximum abundance is a function of bird mass 
 
-```lm1 &lt;- lm(bird$MaxAbund ~ bird$Mass)```
+
+```r
+lm1 &lt;- lm(MaxAbund ~ Mass, data = bird)
+```
+
+---
+## Running a regression in R
+
+Step 2: Verify assumptions using diagnostic plots
+
+
+```r
+opar &lt;- par(mfrow=c(2,2)) 
+plot(lm1)
+```
+
+- par(): sets the graphical parameters, for example, the mfrow argument sets the number of rows in the frame 
+- plot(): is a generic function to plot graphics in R
+
+The output will provide the four built-in diagnostic plots of the `lm()` function
+
+---
+## Diagnostic plot # 1 - Residuals vs Fitted
+
+Example of independence (what we want!)
+
+- Should show a scatter across and no pattern 
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-8-1.png" width="672" /&gt;
+
+---
+## Diagnostic plot # 1 - Residuals vs Fitted
+
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-9-1.png" width="672" /&gt;
+
+- Solution: Transform your data or try another distribution than linear (Gaussian) (i.e., a generalized linear model (GLM): Poisson, binomial, negative binomial, etc.)
+
+---
+## Diagnostic plot # 2 - Scale Location
+
+- Should show a scatter across and no pattern 
+
+No pattern in the residuals 
+
+Strong pattern in the residuals 
+
+---
+## Diagnostic plot # 3 - Normal QQ 
+
+- Compares the distribution (quantiles) of the residuals of the current model to those of a normal distribution 
+- If points lie linearly on the 1:1 line, data follow a normal distribution 
+
+---
+## Diagnostic plot # 4 - Residuals vs Leverage 
+- Looks for influential values
+- **Leverage points**: observations at extreme/ outlying values of the explanatory variable. Because they lack neighboring observations, the regression model passes close to leverage points. **They may OR may not have a high influence on the regression.**
+- High leverage points with high influence can be identified with a **Cook's distance greater than 0.5**
+
+---
+## Leverage vs influence
+
+
+- No leverage
+- Low influence
+
+- High leverage
+- No influence
+
+- High leverage
+- High influence
+
+---
+
+No influential values
+  
+High leverage point and reasonable influence
+- Here, point 32 has high leverage but its influence is acceptable (inside the 0.5 Cook's distance limits)
+
+---
+
+High leverage point and high influence
+- Points are outside the 0.5 limit of Cook's distance
+- These points have too much influence on the regression
+
+** Note: you should never remove outliers if you don't have good reasons to do so (ex: error of measurement)
+
+---
+
+**Step 2**: Verify assumptions of `lm1`
+
+```r
+plot(lm1)
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-1.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-2.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-3.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-4.png" width="672" /&gt;
+
+
+---
+## Assumptions not met - where did we go wrong?
+
+- Plot Y ~ X with corresponding best-fit regression line, and a histogram of Y and X to explore their distributions
+
+
+```r
+par(mfrow=c(1,3))
+```
+
+
+```r
+plot(bird$MaxAbund ~ bird$Mass)
+abline(lm1)
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-12-1.png" width="672" /&gt;
+
+```r
+hist(bird$MaxAbund)
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-12-2.png" width="672" /&gt;
+
+```r
+hist(bird$Mass)
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-12-3.png" width="672" /&gt;
+
+- The function `abline()` adds the best-fit line
+- The function `hist()` produces a histogram of the variable
+
+---
+## Assumptions not met - where did we go wrong?
+
+Can also use the `Shapiro-Wilk` and the `Skewness` tests to see if variables follow a normal distribuon:
+
+
+```r
+shapiro.test(bird$MaxAbund)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  bird$MaxAbund
+## W = 0.5831, p-value = 3.872e-11
+```
+
+```r
+shapiro.test(bird$Mass)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  bird$Mass
+## W = 0.54667, p-value = 1.155e-11
+```
+In both cases, distributions are significantly different from normal
+
+
+```r
+skewness(bird$MaxAbund)
+```
+
+```
+## [1] 3.167159
+```
+
+```r
+skewness(bird$Mass)
+```
+
+```
+## [1] 3.146062
+```
+The positive skewness values also indicate that the distributions are left skewed
+
+---
+## Transform the data
+
+- Lets try normalizing data with a `log10()` transformation
+- Add the log-transformed variables to our dataframe
+
+
+```r
+bird$logMaxAbund &lt;- log10(bird$MaxAbund)
+bird$logMass &lt;- log10(bird$Mass)
+```
+
+**Step 1**: Re-run the analysis with log-transformed variables
+
+
+```r
+lm2 &lt;- lm(logMaxAbund ~ logMass, data = bird) 
+```
+
+---
+**Step 2**: Verify assumptions of model `lm2`
+
+
+```r
+plot(lm2)
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-1.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-2.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-3.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-4.png" width="672" /&gt;
+
+- Much improved! 
+
+---
+**Step 2**: Verify assumptions of model `lm2`
+
+
+```r
+plot(logMaxAbund ~ logMass, data=bird)
+abline(lm2) 
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-1.png" width="672" /&gt;
+
+```r
+hist(log10(bird$MaxAbund))
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-2.png" width="672" /&gt;
+
+```r
+hist(log10(bird$Mass))
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-3.png" width="672" /&gt;
+
+---
+
+**Step 3**: Estimate parameters and test significance
+
+The function `summary()` is used to obtain parameter estimates, significance, etc.
+
+
+```r
+summary(lm2)
+```
+
+```
+## 
+## Call:
+## lm(formula = logMaxAbund ~ logMass, data = bird)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.93562 -0.39982  0.05487  0.40625  1.61469 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.6724     0.2472   6.767 1.17e-08 ***
+## logMass      -0.2361     0.1170  -2.019   0.0487 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.6959 on 52 degrees of freedom
+## Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484 
+## F-statistic: 4.075 on 1 and 52 DF,  p-value: 0.04869
+```
+
+- We can also call out specific parameters of the model, for example:
+
+
+```r
+lm2$coef
+str(summary(lm2))
+summary(lm2)$coefficients 
+summary(lm2)$r.squared 
+```
+
+---
+## Group discussion 
+
+- Can you write down the equation of the regression line for your model `lm2`? 
+- Are the parameters significant? 
+- What proportion of variance is explained by model `lm2`?
+
+```
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   1.6724     0.2472   6.767 1.17e-08 ***
+logMass      -0.2361     0.1170  -2.019   0.0487 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.6959 on 52 degrees of freedom
+Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484 
+F-statistic: 4.075 on 1 and 52 DF,  p-value: 0.04869
+```
+
+---
+## Group discussion 
+
+Can we improve the model if we only use terrestrial birds?
+**You could exclude objects using "=!" 
+
+
+```r
+lm3 &lt;- lm(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic) 
+# removes aquatic birds (= TRUE) 
+# or equivalently
+lm3 &lt;- lm(logMaxAbund~logMass, data=bird, subset=bird$Aquatic == 0)
+```
+
+
+```r
+# Examine the diagnostic plots
+par(mfrow=c(2,2))
+plot(lm3)
+summary(lm3)
+
+# Compare both models
+par(mfrow=c(1,2))
+plot(logMaxAbund~logMass, data=bird)
+plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
+```
+
+
+---
+## Plot
+
+- R2-adj changed from 0.05 to 0.25 when we dropped aquatic birds: 
+
+---
+## Challenge 1
+
+&lt;img style="float: right; width: 350px;" src="images/rubicub.png"&gt;
+
+- Examine the relationship between log(MaxAbund) and log(Mass) for passerine birds
+- Save the model object as lm4
+
+HINT: Passerine is also coded 0 and 1 (look at str(bird))
+
+- Compare the variance explained by lm2, lm3 and lm4
+
+---
+## Challenge 1 - Solution
+
+The best model among the three models is lm3 *(only terrestrial birds)*
+
+
+```r
+# Run the model
+lm4 &lt;- lm(logMaxAbund ~ logMass, data=bird, subset=bird$Passerine == 1)
+
+# Examine the diagnostic plots
+par(mfrow=c(2,2))
+plot(lm4)
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-23-1.png" width="672" /&gt;
+
+```r
+summary(lm4)
+```
+
+```
+## 
+## Call:
+## lm(formula = logMaxAbund ~ logMass, data = bird, subset = bird$Passerine == 
+##     1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.24644 -0.20937  0.02494  0.25192  0.93624 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)   1.2429     0.4163   2.985  0.00661 **
+## logMass       0.2107     0.3076   0.685  0.50010   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.5151 on 23 degrees of freedom
+## Multiple R-squared:   0.02,	Adjusted R-squared:  -0.02261 
+## F-statistic: 0.4694 on 1 and 23 DF,  p-value: 0.5001
+```
+
+```r
+# Compare variance explained by lm2, lm3 and lm4
+str(summary(lm4)) 
+```
+
+```
+## List of 11
+##  $ call         : language lm(formula = logMaxAbund ~ logMass, data = bird, subset = bird$Passerine ==      1)
+##  $ terms        :Classes 'terms', 'formula'  language logMaxAbund ~ logMass
+##   .. ..- attr(*, "variables")= language list(logMaxAbund, logMass)
+##   .. ..- attr(*, "factors")= int [1:2, 1] 0 1
+##   .. .. ..- attr(*, "dimnames")=List of 2
+##   .. .. .. ..$ : chr [1:2] "logMaxAbund" "logMass"
+##   .. .. .. ..$ : chr "logMass"
+##   .. ..- attr(*, "term.labels")= chr "logMass"
+##   .. ..- attr(*, "order")= int 1
+##   .. ..- attr(*, "intercept")= int 1
+##   .. ..- attr(*, "response")= int 1
+##   .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
+##   .. ..- attr(*, "predvars")= language list(logMaxAbund, logMass)
+##   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
+##   .. .. ..- attr(*, "names")= chr [1:2] "logMaxAbund" "logMass"
+##  $ residuals    : Named num [1:25] 0.182 0.812 -0.519 0.164 -0.455 ...
+##   ..- attr(*, "names")= chr [1:25] "2" "3" "11" "13" ...
+##  $ coefficients : num [1:2, 1:4] 1.243 0.211 0.416 0.308 2.985 ...
+##   ..- attr(*, "dimnames")=List of 2
+##   .. ..$ : chr [1:2] "(Intercept)" "logMass"
+##   .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(&gt;|t|)"
+##  $ aliased      : Named logi [1:2] FALSE FALSE
+##   ..- attr(*, "names")= chr [1:2] "(Intercept)" "logMass"
+##  $ sigma        : num 0.515
+##  $ df           : int [1:3] 2 23 2
+##  $ r.squared    : num 0.02
+##  $ adj.r.squared: num -0.0226
+##  $ fstatistic   : Named num [1:3] 0.469 1 23
+##   ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
+##  $ cov.unscaled : num [1:2, 1:2] 0.653 -0.468 -0.468 0.357
+##   ..- attr(*, "dimnames")=List of 2
+##   .. ..$ : chr [1:2] "(Intercept)" "logMass"
+##   .. ..$ : chr [1:2] "(Intercept)" "logMass"
+##  - attr(*, "class")= chr "summary.lm"
+```
+
+```r
+# Recall: we want adj.r.squared
+summary(lm4)$adj.r.squared # R2-adj = -0.02
+```
+
+```
+## [1] -0.02260731
+```
+
+```r
+summary(lm2)$adj.r.squared # R2-adj = 0.05
+```
+
+```
+## [1] 0.05483696
+```
+
+```r
+summary(lm3)$adj.r.squared # R2-adj = 0.25
+```
+
+```
+## [1] 0.2484544
+```
+
+
+---
+## Learning objectives
+
+.center[
+![:scale 40%](images/schema_slide1.png)
+]
+
+---
+## T-test 
+
+- **Response variable**: Continuous 
+- **Explanatory variable**: Categorical with **2 levels**
+
+Hypothesis (for a bilateral t-test)
+
+- H0: The mean of group 1 is equal to the mean of group 2 
+- H1: The mean of group 1 is not equal to the mean of group 2
+If assumptions cannot be respected,
+
+Hypothesis (for a unilateral t-test)
+- H0: The mean of group 1 is not larger than the mean of group 2
+- H1: The mean of group 1 is smaller than the mean of group 2
+
+Assumptions
+- Data follow a normal distribution
+- Equality of variance between groups
+
+* robustness of this test increases with sample size and is higher when groups have equal sizes
+
+---
+## Running a T-test in R
+
+- Use the function `t.test()`
+
+```t.test(Y~X2, data= data, alternative = "two.sided")```
+response variable
+factor (2 levels)
+name of dataframe
+Alternative hypothesis: "two.sided" (default), "less", or "greater"
+
+- The t-test is still a linear model and a specific case of ANOVA with one factor with 2 levels 
+
+Thus the function `lm()` can also be used
+
+```lm.t &lt;-lm(Y~X2, data = data)```
+```anova(lm.t)```
+
+---
+## Running a T-test in R 
+
+Are aquatic birds heavier than non-aquatic birds?
+
+Response variable: **Bird mass** / num: Continuous
+Explanatory variable: **Aquatic** / 2 levels: 1 or 0 (yes or no)
+
+---
+## Running a T-test in R 
+
+First, lets visualize the data using the function `boxplot()`
+
+```r
+boxplot(logMass ~ Aquatic, 
+        data = bird, 
+        names = c("Non-Aquatic",
+                  "Aquatic"))
+```
+
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-24-1.png" width="672" /&gt;
+
 
 
 ---

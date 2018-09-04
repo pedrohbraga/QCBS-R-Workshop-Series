@@ -1,0 +1,50 @@
+---
+title: "Workshop 5: Programming in R"
+subtitle: "QCBS R Workshop Series"
+author: "Québec Centre for Biodiversity Science"
+output:
+  xaringan::moon_reader:
+    includes:
+      in_header: inSileco-header.html
+    lib_dir: assets
+    seal: true
+    css: ["default", "inSileco.css", "inSileco-fonts.css"]
+    nature:
+      # beforeInit: "inSileco-macros.js"
+<!-- --- -->
+
+
+## Outline
+
+- Control Flow
+- Writing functions in R
+- Speeding up your code
+- Useful R packages for biologists
+
+---
+# Control flow
+
+---
+## Control flow
+
+Program flow control can be simply defined as the order in which a program is executed
+
+### Why is it advantageous to have structured programs?
+
+- It decreases the complexity and time of the task at hand
+- This logical structure also means that the code has increased clarity
+- It also means that many programmers can work on one program.
+
+**This means increased productivity**
+
+---
+## Codes solutions
+
+Flow charts can be used to plan programs, and represent structure
+
+"*Missing a flow*"
+
+---
+## An example of a real life awkward situation
+
+"*Missing a flow*"

@@ -516,6 +516,55 @@ var.test(logMass ~ Aquatic, data = bird)
 - The ratio of variances is not statistically different from 1, therefore variances are equal 
 - We may now proceed with the t-test!
 
+---
+## Running a T-test in R 
+
+```{r}
+ttest1 <- t.test(logMass ~ Aquatic, var.equal = TRUE, data = bird)
+
+# Or use lm()
+ttest.lm1 <- lm(logMass ~ Aquatic, data=bird)
+```
+
+Indicates that homogeneity of variance was respected (as we just tested)
+
+You can verify that `t.test()` and `lm()` provide the same model:
+
+```{r}
+ttest1$statistic^2
+anova(ttest.lm1)$F 
+# answer: F=60.3845 in both cases
+```
+
+When the assumption of equal variance is met $t^2$ follows an F distribution 
+--- 
+## Running a t-test in R
+
+If p<0.01 (or 0.05), the null hypothesis of no difference between the two groups (H0) can be rejected, with a risk of 0.01 (or 0.05) that we made a mistake in this conclusion.
+
+There exists a difference in mass between the aquatic and terrestrial birds
+
+mean of the two groups 
+
+```
+Two Sample t-test
+
+data:  logMass by Aquatic
+t = -7.7707, df = 52, p-value = 2.936e-10
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -1.6669697 -0.9827343
+sample estimates:
+mean in group 0 mean in group 1 
+       1.583437        2.908289 
+```
+
+---
+## Violation of Assumptions
+
+- If variances between groups are not equal, can use corrections like the Welch correction (DEFAULT in R!)
+- If assumptions cannot be respected, the **non-parametric** equivalent of t-test is the Mann-Whitney test
+- If two groups **are not independent** (e.g. measurements on the same individual at 2 different years), you should use a paired t-test
 
 ---
 ## Thank you for attending!

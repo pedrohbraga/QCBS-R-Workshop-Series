@@ -16,7 +16,7 @@ output:
 ---
 
 ```{r, include = FALSE}
-install.packages("DiagrammeR")
+install.packages("DiagrammeR", repos = "http://cran.us.r-project.org")
 library(DiagrammeR)
 
 ```
@@ -960,7 +960,7 @@ Currently, more than 5877 packages are publicly availables.
 
 To install packages on your computer, use the function `install.packages`.
 
-```{r, eval = F}
+```{r, eval = FALSE}
   install.packages("package name")
 ```
 

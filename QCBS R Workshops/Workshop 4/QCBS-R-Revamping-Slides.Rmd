@@ -28,7 +28,7 @@ Website: http://qcbs.ca/wiki/r/workshop4
 ![:scale 40%](images/schema_slide1.png)
 ]
 
-```{r eval=TRUE, echo=FALSE}
+```{r eval=TRUE, echo=FALSE, warning=FALSE}
 library(e1071)
 library(MASS)
 ```
@@ -446,7 +446,7 @@ summary(lm3)$adj.r.squared # R2-adj = 0.25
 ]
 
 ---
-## T-test 
+## T-test
 
 - **Response variable**: Continuous 
 - **Explanatory variable**: Categorical with **2 levels**
@@ -472,7 +472,7 @@ Assumptions
 
 - Use the function `t.test()`
 
-```t.test(Y~X2, data= data, alternative = "two.sided")```
+`t.test(Y~X2, data= data, alternative = "two.sided")`
 response variable
 factor (2 levels)
 name of dataframe
@@ -482,11 +482,13 @@ Alternative hypothesis: "two.sided" (default), "less", or "greater"
 
 Thus the function `lm()` can also be used
 
-```lm.t <-lm(Y~X2, data = data)```
-```anova(lm.t)```
+```
+lm.t <-lm(Y~X2, data = data)
+anova(lm.t)
+```
 
 ---
-## Running a T-test in R 
+## Running a T-test in R
 
 Are aquatic birds heavier than non-aquatic birds?
 
@@ -494,7 +496,7 @@ Response variable: **Bird mass** / num: Continuous
 Explanatory variable: **Aquatic** / 2 levels: 1 or 0 (yes or no)
 
 ---
-## Running a T-test in R 
+## Running a T-test in R
 
 First, lets visualize the data using the function `boxplot()`
 ```{r eval=TRUE}
@@ -505,7 +507,7 @@ boxplot(logMass ~ Aquatic,
 ```
 
 ---
-## Running a t-test in R 
+## Running a t-test in R
 
 - Next, test the assumption of equality of variance using `var.test()`
 
@@ -517,7 +519,7 @@ var.test(logMass ~ Aquatic, data = bird)
 - We may now proceed with the t-test!
 
 ---
-## Running a T-test in R 
+## Running a T-test in R
 
 ```{r}
 ttest1 <- t.test(logMass ~ Aquatic, var.equal = TRUE, data = bird)
@@ -537,7 +539,8 @@ anova(ttest.lm1)$F
 ```
 
 When the assumption of equal variance is met $t^2$ follows an F distribution 
---- 
+
+---
 ## Running a t-test in R
 
 If p<0.01 (or 0.05), the null hypothesis of no difference between the two groups (H0) can be rejected, with a risk of 0.01 (or 0.05) that we made a mistake in this conclusion.
@@ -567,9 +570,823 @@ mean in group 0 mean in group 1
 - If two groups **are not independent** (e.g. measurements on the same individual at 2 different years), you should use a paired t-test
 
 ---
+## Group discussion
+
+- Are aquatic birds heavier than terrestrial birds?
+
+```{r}
+# Unilateral t-test
+uni.ttest1 <- t.test(logMass ~ Aquatic, 
+                     var.equal = TRUE, 
+                     data = bird, 
+                     alternative = "less")
+uni.ttest1
+```
+
+- What did you conclude? 
+
+---
+## Group discussion
+
+```{r}
+uni.ttest1
+```
+
+Yes, aquatic birds are heavier than terrestrial birds: 
+`r uni.ttest1$p.value`
+
+---
+## Learning objectives
+
+.center[
+![:scale 40%](images/schema_slide1.png)
+]
+
+---
+## Analysis of Variance (ANOVA)
+
+- Generalization of the t-test to >2 groups and/or ≥ 2 factor levels
+- Subsets variation in the response variable into additive effects of one or several factors and the interactions between them
+
+Y = u + Main effects of Factors + Interactions Between Factors + Residuals
+
+The constant is the mean of the values of the response variable
+---
+## Types of ANOVA
+
+### One-Way ANOVA
+- One factor with >2 levels
+
+### Two-Way ANOVA
+- 2 factors or more
+- Each factor can have multiple levels
+- Need to test for **interactions** among factors
+
+### Repested measures?
+- Note that ANOVA can be used for repeated measures, but we won't cover this today. Mixed-effect linear models can also be used for this kind of data (see Workshop 5!) 
+
+---
+## Review: ANOVA
+
+**Compares variation within and between groups in order to determine if group means differ**
+
+Hypothesis 
+- For each factor and each interaction term: 
+  - H0: The mean of the response variable is equal between groups
+  - H1: At least two groups have a different mean
+
+- When an interaction term is significant: the effect of a given factor varies according to the levels of another factor
+- Just like the t-test, the robustness of ANOVA increases with sample size and if groups have equal sizes
+
+---
+## Review: ANOVA
+
+Assumptions
+- Normality of residuals
+- Equality of variance between groups
+
+Complementary test
+- When ANOVA detects a significant difference between groups, it does not tell you which group differs from which other group
+- A commonly used post-hoc test to answer this question is the **Tukey's test**
+
+---
+## Running an ANOVA in R 
+
+### Is abundance a function of diet?
+- Response variable: **MaxAbund** / num: continuous
+- Explanatory variable: **Diet** / factor with 5 levels 
+
+```
+'data.frame':	54 obs. of  7 variables:
+ $ Family   : Factor w/ 53 levels "Anhingas"... 
+ $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
+ $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
+ $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
+ $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
+ $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
+ $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
+```
+
+---
+## Running an ANOVA in R
+
+- First, visualize the data using `boxplot()` (alphabetically by default)
+
+```{r, eval=FALSE}
+boxplot(logMaxAbund ~ Diet, 
+        data = bird)
+```
+
+- We can reorder factor levels according to group medians using the `tapply()` and `sort()` functions
+
+```{r}
+med <- sort(tapply(bird$logMaxAbund, 
+                   bird$Diet, median))
+boxplot(logMaxAbund ~ factor(Diet, 
+                             levels = names(med)),
+        data = bird)
+```
+
+
+---
+## Running a one-way ANOVA in R 
+
+- Can use the function `lm()` to run an ANOVA
+```{r}
+anov1 <- lm(logMaxAbund ~ Diet, 
+            data = bird)
+anova(anov1)
+```
+
+- Or use a specific function called `aov()`
+```{r}
+aov1 <- aov(logMaxAbund ~ Diet, 
+            data = bird)
+summary(aov1)
+```
+
+- Try it and compare the outputs! 
+
+---
+## Running a one-way ANOVA in R 
+
+- Compare outputs 
+```{r}
+anova(anov1)
+```
+```{r}
+summary(aov1)
+```
+
+---
+## Did we violate the model assumptions?
+
+- **Bartlett test**: equality of variance among groups 
+```{r}
+bartlett.test(logMaxAbund ~ Diet, 
+              data = bird)
+```
+
+- **Shapiro-Wilk test**:  Normality of residuals
+```{r}
+shapiro.test(resid(anov1))
+```
+
+- Both tests are non-significant; variances assumed to be equal and residuals assumed to be normally distributed
+
+---
+## What if the assumptions were not met?
+
+- **Transform the data**: might normalize the residuals and homogenize the variances, and convert a multiplicative effect into an additive one
+```{r eval=FALSE}
+data$logY <- log10(data$Y)
+```
+* see Workshop 1 for rules on data transformation 
+* re-run your data with the transformed variables and verify the assumptions once again
+
+**Kruskal-Wallis Test**: non-parametric equivalent to ANOVA if you cannot *(or do not wish to)* transform the data
+```{r eval=FALSE}
+kruskal.test(Y~X, data)
+```
+
+---
+## Output of our ANOVA model 
+
+- Factor levels in alphabetical order and all levels are compared to the reference level ("Insect")
+
+```{r}
+summary(anov1)
+```
+```{r eval=FALSE}
+summary.lm(aov1)
+```
+
+Significant difference between Diet groups, but we don't know which ones! 
+
+---
+## A posteriori test
+
+- If ANOVA detects a significant effect, a post-hoc test is required to determine which treatment(s) differ from the others. This can be done with the **TukeyHSD()** function
+
+```{r}
+TukeyHSD(aov(anov1),
+         ordered=T) 
+```
+
+Only "Vertebrate" and "PlantInsect" differ 
+
+---
+## Graphical representation 
+
+- The ANOVA results can be graphically illustrated using the `barplot()` function 
+
+```{r}
+sd <- tapply(bird$logMaxAbund, list(bird$Diet), sd) 
+means <- tapply(bird$logMaxAbund, list(bird$Diet), mean)
+n <- length(bird$logMaxAbund)
+se <- 1.96*sd/sqrt(n)
+bp <- barplot(means)
+epsilon = 0.1
+segments(bp, means - se, bp, means + se, lwd=2)
+segments(bp - epsilon, means - se, bp + epsilon, means - se, lwd = 2)
+segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2)
+```
+
+
+---
+## Two-way ANOVA
+
+`anova.with.lm <- lm(Y~X*Z, data)`
+
+The "*" symbol indicates that the main effects as well as their interaction will be included in the model
+```
+Analysis of Variance Table
+
+Response: Y
+Df Sum Sq Mean Sq F value Pr(>F) 
+X 4 5.1059 1.27647 3.0378 0.02669 *
+Z 1 0.3183 0.31834 0.7576 0.38870 
+X:Z 3 2.8250 0.94167 2.2410 0.10689
+Residuals 45 18.9087 0.42019 
+---
+Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+Example of a non-significant interaction
+
+---
+## Two-way ANOVA
+
+- According to law of **parsimony**, select model that explain the most variance with the least model parameters possible
+- Thus, remove the interaction term if non-signficant and re-evaluate
+
+`anova.with.lm <- lm(Y~X+Z, data)`
+
+If use the "+" symbol, the **main effects**, but *not* their interaction are included
+
+---
+## Challenge 2
+
+<img style="float: right; width: 350px;" src="images/rubicub.png">
+
+### Evaluate how `log(MaxAbund)` varies with Diet and Aquatic
+
+Hint: Test the factors Diet, Aquatic and their interaction in a two-way ANOVA model
+e.g. `lm(Y ~ A*B)`
+
+where A is your first factor, B is your second and "*" is the command for interaction in R
+
+---
+## Challenge 2 - Solution
+```{r}
+anov2 <- lm(logMaxAbund ~ Diet*Aquatic, 
+            data = bird)
+summary(anov2)
+anova(anov2)
+```
+
+
+---
+## Learning objectives
+
+.center[
+![:scale 40%](images/schema_slide1.png)
+]
+
+
+---
+## Analysis of Covariance (ANCOVA)
+
+- Combination of ANOVA and linear regression
+- Explanatory variables are a mix of continuous variable(s) (covariates) and categorial variable(s) (factors)
+- Subsets the observed variation:
+
+```
+Y = μ + Main Effects of Factors
+      + Interactions between factors
+      + Main effects of covariates 
+      + Interactions between covariates and factors 
+      + Residuals
+```
+---
+## Review: ANCOVA
+Assumptions
+- Variables are **fixed** *
+- Residuals are normally distributed
+- Independence btw residuals and fitted values
+- Equal variance among factor levels
+- Same range for all covariates
+- No interaction between factors and covariate(s)
+- No outlier
+
+If not respected; try transforming your data
+
+* A **fixed** variable is one that you are specifically interested in (bird mass) whereas a **random** variable is noise that you want to control for (i.e. site a bird was sampled in).
+See **Linear mixed-effect model (LMM) Workshop 5** next semester for more on this!
+
+---
+## Types of ANCOVA
+
+- You can have any number of factors and/or covariates, but as their number increases, the interpretation of results gets more complex
+
+Frequently used ANCOVA
+1) One covariate and one factor
+2) One covariate and two factors
+3) Two covariates and one factor
+
+* We will only see the first case today, but the two others are pretty similar! 
+
+---
+## ANCOVA with one covariate and one factor
+
+Different possible goals of this analysis:
+
+1) Effect of factor and covariate on the response variable
+2) Effect of factor on the response variable after removing effect of covariate
+3) Effect of covariate on response variable while controlling for the effect of factor
+
+* You can only meet these goals if you have no interaction between your factor and covariate! 
+
+---
+## ANCOVA with one covariate and one factor
+
+If your covariate and factor are significant, you will have a scenario that looks like this:
+
+If the interaction is significant, outputs will look like these:
+
+No interaction
+One level of the factor has a different slope 
+Many levels have different slopes 
+
+---
+## ANCOVA with one covariate and one factor
+
+- If you want to compare the mean values of each factor, conditional on the effect of the other, the **ajusted means** should be visualized
+- The `effect()` function uses the output of the ANCOVA model to estimate the means of each factor level, corrected by the effect of the covariate
+
+```{r eval=FALSE, warning=FALSE}
+ancova.exemple <- lm(Y ~ X*Z, data=data)
+# X = quantitative; Z = categorical
+```
+
+```{r eval=FALSE, warning=FALSE}
+library(effects)
+adj.means.ex <- effect('Z', ancova.exemple)
+plot(adj.means.ex)
+```
+
+---
+## ANCOVA with one covariate and one factor
+
+- If only your factor is significant, remove the covariate -> you will have a simple **ANOVA**
+- If only your covariate is significant, remove your factor -> you will have a **simple linear regression**
+- If the interaction btw your covariate and factor (*) is significant, you should explore which levels of the factor have different slopes from the others
+
+Verify assumptions!
+- Very similar to what we have done so far!
+
+---
+## Running an ANCOVA in R 
+
+### Is Max Abund a function of Diet and Mass?
+
+Response variable: **MaxAbund** / num : quantitative continuous
+Explanatory variables: **Diet** / factor with 5 levels
+                       **Mass** / numeric continuous
+```
+'data.frame':	54 obs. of  7 variables:
+ $ Family   : Factor w/ 53 levels "Anhingas"... 
+ $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
+ $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
+ $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
+ $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
+ $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
+ $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
+```
+
+---
+## Challenge 3 
+<img style="float: right; width: 350px;" src="images/rubicub.png">
+
+1- Run an ANCOVA to test the effect of Diet and Mass (as well as their interaction) on Maximum abundance
+```{r eval=FALSE}
+ancova.exemple <- lm(Y~X*Z, data=data)
+summary(ancova.exemple2)
+```
+
+2- Test whether the interaction is signifiant
+```{r eval=FALSE}
+ancova.exemple2 <- lm(Y~X+Z, data=data)
+```
+
+---
+## Challenge 3 - Solution
+```{r}
+ancov1 <- lm(logMaxAbund ~ logMass*Diet, 
+             data = bird)
+anova(ancov1)
+```
+
+Interaction btw logMass and Diet is non-significant
+
+---
+## Challenge 3 - Solution
+
+- Remove the interaction term and re-evaluate the model (with only the main effects of Diet and logMass)
+
+```{r}
+ancov2 <- lm(logMaxAbund ~ logMass + Diet, 
+             data = bird)
+anova(ancov2)
+
+```
+
+---
+## Learning objectives
+
+.center[
+![:scale 40%](images/schema_slide1.png)
+]
+
+
+---
+## Multiple linear regression
+- **Explanatory variable**: 2 or more continuous variables
+- **Response variable**: 1 continuous variable
+
+- Generalization of simple linear regression
+
+$Y_i = \alpha + \beta_1x_{1i}+\beta_2x_{2i}+\beta_3x_{3i}+...+\beta_kx_{ki} + \epsilon$
+
+Assumptions
+- Each of the explanatory variables must follow a normal distribution
+- Linear relationship between each explanatory variable and response variable
+- Explanatory variables are orthogonal (NO collinearity)
+- Residuals follow a normal distribution
+- Independence of residuals versus predicted values
+- Independence of the variance of residuals versus predicted values
+- No outliers
+
+*same as simple linear regression!
+
+---
+##  Multiple linear regression in R
+
+Using the *Dickcissel* datast, test the **effect of climate (clTma), productivity (NDVI) and grassland cover (grass) on bird abundance (abund)**
+
+```{r, eval=TRUE, echo=FALSE}
+Dickcissel = read.csv("Scripts_and_data/dickcissel.csv")
+```
+
+```{r eval=FALSE}
+Dickcissel <- read.csv("dickcissel.csv")
+```
+```{r}
+str(Dickcissel)
+```
+
+---
+## Verify assumptions! 
+
+Collinearity: 
+- Verify collinearity of all explanatory variables
+```{r}
+plot(Dickcissel) # May take some time 
+```
+
+- If you see a pattern between any two variables, they may be collinear! 
+- They are likely to explain the same variability of the response variable and the effect of one variable will be masked by the other
+
+Possible solutions: 
+- Keep only **one** of the collinear variables
+- Try multivariate analyses (see *Ordination Workshop*)
+- Try a pseudo-orthogonal analysis
+
+---
+## Multiple linear regression in R 
+
+- Run the multiple linear regression in R with abund as a function of clTma + NDVI + grass 
+```{r}
+lm.mult <- lm(abund ~ clTma + NDVI + grass, 
+              data = Dickcissel)
+summary(lm.mult)
+```
+
+- Verify diagnostic plots, as you did for the simple linear regression
+```{r}
+par(mfrow=c(2,2))
+plot(lm.mult)
+```
+
+---
+## Find the best-fit model 
+
+- Recall the principle of parcimony: Most variance explained using the least number of terms possible
+- Remove the weakest variable 
+
+```{r}
+summary(lm.mult)
+```
+
+All 3 variables are significant 
+
+Model explains ~11% of the dickcissel variance ($R^2$-adj =0.11)
+
+---
+## 
+
+- However, the response variable (abund) is not linearly related to the explanatory variables. 
+
+```{r}
+par(mfrow=c(1,3))
+plot(abund ~ clTma, data = Dickcissel)
+plot(abund ~ NDVI,  data = Dickcissel)
+plot(abund ~ grass, data = Dickcissel)
+```
+
+* See **Advanced section** on **polynomial regression** for solution!
+
+---
+## Stepwise regression
+
+- Run a model with everything in except the "Present/ absence" variable 
+- Use `step()` to iteratively select the best model, 
+  - i.e. model with lowest Akaike's Information Criterion (AIC)
+
+```{r}
+lm.full <- lm(abund ~ . - Present, 
+              data = Dickcissel) 
+lm.step <- step(lm.full)
+?step
+```
+
+---
+## Stepwise regression
+
+```{r eval=TRUE, echo=FALSE}
+summary(lm.full)
+```
+
+Variables selected by the `step()` function 
+```{r}
+summary(lm.step)
+```
+
+The model now accounts for 31.44% of the Dickcissel abundance variability
+
+---
+## Optional section *(... if time permits)*
+
+1. Interpreting contrasts
+2. Unbalanced ANOVA
+3. Polynomial regression 
+4. Variance partitioning
+
+---
+## Interpreting contrasts
+
+- DEFAULT contrast compares each level of a factor to baseline level
+- The intercept is the baseline group and corresponds to the mean of the first (alphabetically) Diet level (Insect) 
+
+- Add Intercept + coefficient estimates of each Diet level 
+
+```{r}
+tapply(bird$logMaxAbund, 
+       bird$Diet, 
+       mean)
+coef(anov1)
+coef(anov1)[1] + coef(anov1)[2] # InsectVert
+coef(anov1)[1] + coef(anov1)[3] # Plant
+```
+
+- What did you notice?
+
+---
+## Interpreting contrasts
+
+- We may want to relevel the baseline: 
+
+1) Compare the Plant diet to all other diet levels
+```{r}
+bird$Diet2 <- relevel(bird$Diet, ref="Plant")
+anov2 <- lm(logMaxAbund ~ Diet2,
+            data = bird)
+summary(anov2) 
+anova(anov2) 
+```
+
+2) Reorder multiple levels according to median
+```{r}
+bird$Diet2 <- factor(bird$Diet, levels=names(med)) 
+anov2 <- lm(logMaxAbund ~ Diet2, 
+            data = bird)
+summary(anov2) 
+anova(anov2) 
+```
+
+- Did you see change in the significance of each Diet level? 
+
+---
+## Interpreting contrasts
+
+- Note, the DEFAULT contrast ("contr.treatment") is NOT orthogonal
+- To be orthogonal, 
+1) coefficients must sum to 0
+2) any two contrast columns must sum to 0
+
+```{r}
+sum(contrasts(bird$Diet)[,1])
+sum(contrasts(bird$Diet)[,1]*contrasts(bird$Diet)[,2])
+```
+
+Change the contrast to make levels orthogonal (e.g. Helmert contrast will contrast the second level with the first, the third with the average of the first two, and so on)
+
+```{r}
+options(contrasts=c("contr.helmert", "contr.poly"))
+sum(contrasts(bird$Diet)[,1]) 
+sum(contrasts(bird$Diet)[,1]*contrasts(bird$Diet)[,2]) 
+anov3 <- lm(logMaxAbund ~ Diet, 
+            data = bird)
+summary(anov3)
+```
+
+
+---
+## Optional section *(... if time permits)*
+
+1. Interpreting contrasts
+2. Unbalanced ANOVA
+3. Polynomial regression 
+4. Variance partitioning
+
+---
+## Unbalanced ANOVA
+
+- The *birdsdiet* data is actually unbalanced (number of Aquatic and non-Aquatic is not equal)
+
+```{r}
+table(bird$Aquatic)
+```
+- Which means the order of the covariates changes the values of Sums of Squares
+
+```{r}
+unb.anov1 <- lm(logMaxAbund ~ Aquatic + Diet, data = bird)
+unb.anov2 <- lm(logMaxAbund ~ Diet + Aquatic, data = bird)
+anova(unb.anov1)
+anova(unb.anov2) 
+```
+
+- Now try type III ANOVA using the `Anova()` function. What have you noticed when using `Anova()`?
+
+```{r}
+library(car)
+Anova(unb.anov1, type = "III")
+Anova(unb.anov2, type = "III") 
+```
+
+---
+## Optional section *(... if time permits)*
+
+1. Interpreting contrasts
+2. Unbalanced ANOVA
+3. Polynomial regression 
+4. Variance partitioning
+
+
+---
+## Polynomial regression
+
+- As we noticed in the section on **multiple linear regression**, `MaxAbund` was non-linearly related to some variables.
+- To test for non-linear relationships, polynomial models of different degrees are compared.
+
+A polynomial model looks like this:
+$2x^4+3x-2$ 
+terms
+
+this polynomial has 3 terms
+
+---
+## Polynomial regression
+
+For a polynomial with one variable (x), the *degree* is the largest exponent of that variable 
+
+$2x^4+3x-2$ 
+
+this makes the degree 4
+
+---
+## Polynomial regression
+
+- When you know a degree, you can also give it a name:
+```{r echo=FALSE, warning=FALSE}
+library(dplyr,warn.conflicts = FALSE)
+library(kableExtra,warn.conflicts = FALSE)
+
+poly.reg=data.frame(Degree = 0:5, 
+                    Name = c("Constant","Linear","Quadratic",
+                             "Cubic","Quartic","Quintic"),
+                    Example = c("\\(3\\)",
+                                "\\(x+9\\)",
+                                "\\(x^2-x+4\\)",
+                                "\\(x^3-x^2+5\\)",
+                                "\\(6x^4-x^3+x-2\\)",
+                                "\\(x^5-3x^3+x^2+8\\)"))
+# knitr::kable(poly.reg, format = "html")
+knitr::kable(poly.reg, format = "html", escape=FALSE)
+```
+
+---
+## Polynomial regression
+
+- Using the *Dickcissel* dataset, test the non-linear relationship between max abundance and temperature by comparing three sets of nested polynomial models (of degrees 0, 1, and 3): 
+
+```{r}
+lm.linear <- lm(abund ~ clDD, data = Dickcissel)
+lm.quad   <- lm(abund ~ clDD + I(clDD^2), data = Dickcissel)
+lm.cubic  <- lm(abund ~ clDD + I(clDD^2) + I(clDD^3), data = Dickcissel)
+```
+
+---
+## Polynomial regression
+
+- Compare the polynomial models and determine which nested model we should keep 
+- Run a summary of this model, report the regression formula, p-values and $R^2$-adj
+
+
+---
+## Optional section *(... if time permits)*
+
+1. Interpreting contrasts
+2. Unbalanced ANOVA
+3. Polynomial regression 
+4. Variance partitioning
+
+
+---
+## Variance Partitioning 
+- Some of the selected explanatory variables in the **multiple linear regression** section were highly correlated 
+- Collinearity between explanatory variables can be assessed using the variance inflation factor `vif()` function of package ‘HH’
+  - Variable with VIF >> 5 are considered collinearity
+  
+```{r warning=FALSE,message=FALSE}
+library(HH)
+vif(clDD ~ clFD + clTmi + clTma + clP + grass, 
+    data = Dickcissel)
+```
+
+---
+## Variance Partitioning
+
+- Use `varpart()` to partition the variance in max abundance with all land cover variables in one set and all climate variables in the other set (leaving out NDVI)
+- **Note**: Collinear variables do not have to be removed prior to partitioning
+
+```{r warning=FALSE,message=FALSE}
+library(vegan)
+part.lm = varpart(Dickcissel$abund, 
+                  Dickcissel[ ,c("clDD","clFD","clTmi","clTma","clP")], 
+                  Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")]) 
+part.lm
+
+showvarparts(2)
+
+plot(part.lm,
+     digits = 2,
+     bg = rgb(48,225,210,80,
+              maxColorValue=225),
+     col = "turquoise4")
+```
+
+---
+## Variance Partitioning
+- Proportion of variance explained by climate alone is 28.5% (given by X1|X2), by land cover alone is ~0% (X2|X1), and by both combined is 2.4%
+
+---
+## Variance Partitioning
+
+Test significance of each fraction
+
+```{r}
+# Climate set
+out.1 = rda(Dickcissel$abund, 
+            Dickcissel[ ,c("clDD", "clFD","clTmi","clTma","clP")], 
+            Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")])
+anova(out.1, 
+      step = 1000, 
+      perm.max = 1000)
+
+# Land cover set
+out.2 = rda(Dickcissel$abund, 
+            Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban", "wetland")], 
+            Dickcissel[ ,c("clDD","clFD","clTmi", "clTma","clP")])
+anova(out.2, 
+      step = 1000, 
+      perm.max = 1000) 
+```
+
+- **Conclusion**: the land cover fraction is non-significant once climate data is accounted for
+
+---
 ## Thank you for attending!
 
 ![:scale 40%](images/QCBS_logo_text.png)
 
-We want your feed back!
-https://docs.googlgithube.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0
+We want your [feedback](https://docs.googlgithube.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0)!

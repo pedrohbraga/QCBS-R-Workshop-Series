@@ -1,24 +1,22 @@
 ---
 title: "QCBS R Workshop 2: Loading and Manipulating Data"
-author: Québec Centre for Biodiversity Science
+subtitle: "QCBS R Workshop Series"
+author: "Québec Centre for Biodiversity Science"
 output:
-  revealjs::revealjs_presentation:
-    css: custom-qcbs.css
-    fig_caption: yes
-    theme: white
-    highlight: haddock
-    center: false
-    transition: fade
-    background_transition: fade
-    self_contained: false
-    pandoc_args: [ "--slide-level", "2" ]
-    reveal_plugins: ["notes", "search", "zoom"]
+  xaringan::moon_reader:
+    includes:
+      in_header: qcbsR-header.html
+    lib_dir: assets
+    seal: true
+    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
+    nature:
+      beforeInit: "qcbsR-macros.js"
 ---
 
-## Quebec Centre for Biodiversity Science 
+## Quebec Centre for Biodiversity Science
 <!-- <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Logos_and_icons/QCBS_logo_notext_2.png"  width="150" /> -->
 R Workshop Series
-Workshop 2: 
+Workshop 2:
 Loading and manipulating data
 
 Website: http://qcbs.ca/wiki/r/workshop2
@@ -110,7 +108,7 @@ A
 ```
 
 ### Remember
- 
+
 * R is ready for commands when you see the chevron '>' in the console. If you don't see it, press ESC
 * R is case sensitive!
 
@@ -147,7 +145,7 @@ a “/” separates folders and file
 ```{r, eval = FALSE}
 setwd('/Users/vincentfugere/Desktop/QCBS_R')
 ```
-</p>	
+</p>
 </div>
 
 <div id="right style="width:100%;"">
@@ -156,11 +154,11 @@ setwd('/Users/vincentfugere/Desktop/QCBS_R')
 ```{r, eval = FALSE}
 setwd('C:/Users/Johanna/Documents/PhD/R_Workshop2')
 ```
-</p>	
+</p>
 </div>
 
 
-Alternatively: 
+Alternatively:
 ```{r, eval = FALSE}
 setwd(choose.dir())
 ```
@@ -239,7 +237,7 @@ str(CO2)
 ```
 This shows the structure of the dataframe.
 
-Very useful to check data type (mode) of all columns to make sure R loaded data properly. 
+Very useful to check data type (mode) of all columns to make sure R loaded data properly.
 
 **Common problems:**
 
@@ -252,12 +250,12 @@ Very useful to check data type (mode) of all columns to make sure R loaded data 
 
 data(), head(), str(), names(), attributes(), summary(), ncol(), nrow()
 
-Load the data with: 
+Load the data with:
 
 ```{r, eval = FALSE}
 CO2 <- read.csv("CO2_good.csv", header = FALSE)
 ```
-Check data types with str() again. What is wrong here? 
+Check data types with str() again. What is wrong here?
 
 *(Don't forget to re-load data with* **header = T** *afterward)*
 
@@ -266,7 +264,7 @@ Check data types with str() again. What is wrong here?
 A data frame called *mydata*
 
 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="350px" />
-  
+
 ```{r, eval = FALSE}
 mydata[1,]
 ```
@@ -430,7 +428,7 @@ It is possible to do all your data preparation work within R
 * Saves time for large datasets
 * Keeps original data intact
 * Can switch between long and wide easily (more on this in workshop 4)
-* Useful page: https://www.zoology.ubc.ca/~schluter/R/data/ 
+* Useful page: https://www.zoology.ubc.ca/~schluter/R/data/
 
 
 ## Use your data <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
@@ -464,7 +462,7 @@ CO2[1:4,]
 ```
 
 * This is probably what your data or the data you downloaded looks like
-* You can fix the data frame in R (or not…) 
+* You can fix the data frame in R (or not…)
 * Please give it a try before looking at the script provided
 * Work with your neighbors and have FUN!
 
@@ -473,9 +471,9 @@ CO2[1:4,]
 
 *   ?read.csv - look at some of the options for how to load a .csv
 
-*   head() 
+*   head()
 
-*   str() 
+*   str()
 
 *   class()
 
@@ -566,7 +564,7 @@ Tell R that all of NA, "na", and "cannot_read_notes" should be considered NA. Th
 
 
 ```{r, eval = TRUE}
-CO2 <- read.csv("co2_broken.csv", 
+CO2 <- read.csv("co2_broken.csv",
 sep = "",
 skip = 2,
 na.strings = c("NA","na","cannot_read_notes"))

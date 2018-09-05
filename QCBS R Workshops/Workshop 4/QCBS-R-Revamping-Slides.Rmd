@@ -1,18 +1,16 @@
 ---
-title: "Workshop 1: QCBS R Workshop Series"
-author: Québec Centre for Biodiversity Science
+title: "Workshop 4: Linear models"
+subtitle: "QCBS R Workshop Series"
+author: "Québec Centre for Biodiversity Science"
 output:
-  revealjs::revealjs_presentation:
-    css: custom-qcbs.css
-    fig_caption: yes
-    theme: white
-    highlight: haddock
-    center: true
-    transition: fade
-    background_transition: fade
-    self_contained: false
-    pandoc_args: [ "--slide-level", "2" ]
-    reveal_plugins: ["notes", "search", "zoom"]
+  xaringan::moon_reader:
+    includes:
+      in_header: qcbsR-header.html
+    lib_dir: assets
+    seal: true
+    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
+    nature:
+      beforeInit: "qcbsR-macros.js"
 ---
 
 ## Learning objectives
@@ -37,11 +35,11 @@ Y~i~ = α + βX~i~  + ε~i~
 </div>
 
   * Continuous explanatory variable
-  
+
   * Homogeneous and normally distributed error
-  
+
   * Independent residuals
-  
+
   * No outlier
 
 </div>
@@ -50,7 +48,7 @@ Y~i~ = α + βX~i~  + ε~i~
 
 * **Least squares** - most used method and corresponds to the default function in R
 
- 
+
 
 <div id="right">
 
@@ -64,17 +62,17 @@ Y~i~ = α + βX~i~  + ε~i~
 
 
   * Y~i~ : Observed value
-  
+
   * $\widehat{Y}$~i~ : Predicted value
-  
+
   * $\bar{Y}$ : Mean value of all Y~i~
-  
+
   * V~T~ : Total variance
-  
+
   * V~R~ : Variance explained by the regression
 
   * V~E~ : Residual variance (error)
-  
+
 </div>
 
 ## Running a regression in R
@@ -226,7 +224,7 @@ library(ggplot2)
 data(diamonds)
 diamonds <- diamonds[sample(1:nrow(diamonds),2000),]
 
-ggplot(diamonds, 
+ggplot(diamonds,
        aes(carat, price)) +
   geom_point(color="firebrick")
 ```
@@ -239,9 +237,9 @@ _It is interactive!!!_
 ```{r plotly, message = FALSE, echo = FALSE}
 library(ggplot2)
 library(plotly)
-g <- ggplot(mpg, 
-            aes(x = -cty, 
-                y = hwy, 
+g <- ggplot(mpg,
+            aes(x = -cty,
+                y = hwy,
                 colour = as.factor(cyl))) +
   geom_point()
 ggplotly(g)
@@ -281,7 +279,7 @@ knitr::knit_hooks$set(
     }
     ,output = function(x,options){
       if (is.null(options$class)) o0(x, options)
-      else 
+      else
         paste0(
           "<pre><code>"
           ,x
@@ -354,9 +352,9 @@ knitr::knit_hooks$set(
           "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
           "\\2"
         )
-        
+
       }
-        
+
     }
   )
 )
@@ -436,5 +434,3 @@ Refer to HEX codes in [HTML Color Codes](http://htmlcolorcodes.com/) for other c
 ## Next Steps {#nextsteps .emphasized}
 
 <span class="emphasized">Pay attention to this!</span>
-
-

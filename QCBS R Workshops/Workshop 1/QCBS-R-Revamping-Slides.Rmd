@@ -1,44 +1,72 @@
 ---
-title: "R Workshop Series"
-author: Québec Centre for Biodiversity Science
+title: "QCBS R Workshop 1: Introduction to R"
+subtitle: "QCBS R Workshop Series"
+author: "Québec Centre for Biodiversity Science"
 output:
-  revealjs::revealjs_presentation:
-    css: custom-qcbs.css
-    fig_caption: yes
-    theme: white
-    highlight: haddock
-    center: true
-    transition: fade
-    background_transition: fade
-    self_contained: false
-    pandoc_args: [ "--slide-level", "2" ]
-    reveal_plugins: ["notes", "search", "zoom"]
+  xaringan::moon_reader:
+    includes:
+      in_header: qcbsR-header.html
+    lib_dir: assets
+    seal: true
+    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
+    nature:
+      beforeInit: "qcbsR-macros.js"
+      highlightLines: false
 ---
 
-```{r, include = FALSE}
-install.packages("DiagrammeR")
-library(DiagrammeR)
-
+```{r setup, echo = F}
+knitr::opts_chunk$set(
+  comment = "#",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE, 
+  fig.width=6, fig.height=6,
+  fig.align = 'center'
+)
 ```
+
+```{r, echo =F}
+options(repos=structure(c(CRAN="http://cran.r-project.org")))
+```
+
+```{r, include = FALSE}
+if (!require(DiagrammeR)) install.packages("DiagrammeR")
+library(DiagrammeR)
+if (!require(widgetframe)) install.packages("widgetframe")
+library(widgetframe)
+```
+
 
 ## Workshop 1: Introduction to R
 
-<center><img src="images/QCBS_logo_text.png"></center>
+<br>
 
-<center>Website: http://qcbs.ca/wiki/r/workshop1</center>
+.center[
+![](images/QCBS_logo_text.png)
+]
+
+
+
+Website: http://qcbs.ca/wiki/r/workshop1
+
+
+---
+class: inverse, center, middle
 
 # Introduction
 
+---
 ## What is R?
 
-<div id = left>
-
+.pull-left[
 R is an open source programming language designed for statistical analysis, data mining, and data visualization.
+]
 
-</div>
+.pull.right[
+![:scale 40%](images/R_logo.png)
+]
 
-<img style="float: right; width: 200px;" src="images/R_logo.png">
-
+---
 ## Why use R?
 
 **It's open source**
@@ -47,16 +75,25 @@ R is an open source programming language designed for statistical analysis, data
 
  **Free!**
 
-<img style="float: right; width: 200px;" src="images/Opensource.svg">
+.right[
+![:scale 60%](images/Opensource.png)
+]
 
+
+
+---
 ## Why use R?
 
-<center><img style="width: 700px; " src="images/operating_stm.png"></center>
+.center[
+![:scale 60%](images/operating_stm.png)
+]
+
 
 **It's compatible**
 
 R works on most existing operating systems
 
+---
 ## Why use R?
 
 What people have traditionally done to analyze their data:
@@ -82,10 +119,12 @@ What people have traditionally done to analyze their data:
 
 ```
 
+---
 ## Why use R?
 
+R allows you to do everything with one program, which is nice!
 ```{r, echo = FALSE}
-  grViz("
+grViz("
       digraph {
 
       node [shape = oval, fillcolor = PaleTuruoise]
@@ -105,137 +144,164 @@ What people have traditionally done to analyze their data:
 
 ```
 
-R allows you to do everything with one program, which is nice!
 
+
+---
 ## Why use R?
 
-<img style="float: left; width: 450px;" src="images/Rpackages.png">
+- More and more scientists use it every year!
+- Increasing capacities
 
-<div id = "right">
+.center[![:scale 70%](images/Rpackages.png)]
 
- - More and more scientists use it every year!
- - Increasing capacities
 
- </div>
 
+---
 ## Challenge
 
-<div id = "left">
+.pull-left2[
+- Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubik's cubes
+- During challenges, collaborate with your neighbours!
+]
 
- - Throughout these workshops you will be presented with a series of challenges that will be indicated by these rubiks cubes
- - During challenges, collaborate with your   neighbours!
 
-</div>
+.pull-right2[
+![](images/rubicub.png)
+]
 
-<img style="float: right; width: 350px;" src="images/rubicub.png">
 
-## Challenge 1 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 1  ![:cube]()
 
-<center>Open Rstudio</center>
+.center[Open Rstudio]
 
-<center><img style="width: 200px;" src="images/Rstudio.png"></center>
+<br>
 
+.center[
+![](images/Rstudio.png)
+]
+
+
+---
 ## The Rstudio console
 
-<img src="images/Rstudioconsole_fleche.png">
+![](images/Rstudioconsole_fleche.png)
+
+
+---
 
 ## Note for Windows user
 
-If the restriction:
-"unable to write on disk"
-appears when you try to open R-Studio,
+If the restriction `unable to write on disk` appears when you try to open R-Studio, .alert[don't worry!]
 
-**Don't worry!**
-We have the solution
-right-click on your R-Studio icon and chose:
+We have the solution! 
+
+Right-click on your R-Studio icon and chose:
 "Execute as administrator" to open the program.
 
+---
 ## Note for Windows user
 
 **Common problem**
 
 installation process of some packages
 
-<small>(especially a problem for permission when installing libraries)</small>
+.comment[(especially a problem for permission when installing libraries)]
 
+---
 ## Note for Mac user
 
 Please install the developer package
 
 https://developer.apple.com/downloads/index.action#
 
-
+---
 ## How to read the console
 
 Text in the console typically looks like this:
-<small>You always have to push "enter" for the input to run in the console.</small>
+
+.comment[You always have to push "enter" for the input to run in the console.]
 
 ```{r, include = FALSE}
-  output <- "This is the output"
+output <- "This is the output"
 ```
 
 ```{r}
-  output
+output
 ```
 
+---
 ## How to read the console
 
 ```{r}
-  output
+output
 ```
 
-<put an arrow here>
+What does this bracket `[]` in the output means?
 
-What does this bracket in the output means?
-
+---
 ## How to read the console
 
 ```{r}
-  output
+output
 ```
-<put an arrow here>
-This bracket help you to locate "where" you are in the output
+
+The bracket help you to locate *where* you are in the output
 
 ```{r, echo = FALSE}
-	c(1:40)
+c(1:40)
 ```
 
+---
 ## Error and Warning
 
-- **Warning message** happens with unexpected behavior in your process. You can continue to proceed your process.
+- .alarm[Warning message] happens with unexpected behavior in your process. You can continue to proceed your process.
 
-- **Error message** will stop the current execution. It indicates a problem in your code
+- .alarm[Error message] will stop the current execution. It indicates a problem in your code
 
-To solve *error*, google is your bestfriend!
+.center[
+**To solve *error*, google is your bestfriend!**
+]
+
+
+
+---
+class: inverse, center, middle
 
 # Using R as a calculator
 
+---
 ## Addition, substraction, etc.
 
 - Additions and Substractions
 
 ```{r}
-	1+1
-  10-1
+1+1
+
+10-1
 ```
 
+---
 ## Additions, substractions, etc.
 
 - Multiplications and Divisions
 
 ```{r}
-	2*2
-  8/2
+2*2
+
+8/2
 ```
 
+---
 ## Additions, substractions, etc.
 
 - Exponents
 
 ```{r}
-	2^3
+2^3
 ```
 
+---
 ## Challenge 2 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 
@@ -245,23 +311,26 @@ $$
 2+16*24-56
 $$
 
-<small>Hints: The `*` symbol is used to multiply</small>
+<br>
 
-## Challenge 2: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+**Hints**: The `*` symbol is used to multiply
 
-- Question
+---
+## Challenge 2: Solution ![:cube]()
+
 
 $$
 2+16*24-56
 $$
 
-- Solution
+
 
 ```{r}
-	2+16*24-56
+2+16*24-56
 ```
 
-## Challenge 3 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 3 ![:cube]()
 
 Use R to calculate the following skill testing question:
 
@@ -269,88 +338,97 @@ $$
 2+16*24-56 / (2+1)-457
 $$
 
-<small>Hints: Think about the order of the operation.</small>
+**Hints**: Think about the order of the operation.
 
-## Challenge 3: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 3: Solution ![:cube]()
 
-- Question
+Use R to calculate the following skill testing question:
 
 $$
 2+16*24-56 / (2+1)-457
 $$
 
-- Solution
 
 ```{r}
-	2+16*24-56/(2+1)-457
+2+16*24-56/(2+1)-457
 ```
 
-Note that R follows the order of the operations
+.comment[Note that R follows the order of the operations]
 
+---
 ## R command line tip
 
-<div id = "left">
 
-Use the "Up" and "Down" arrow keys to reproduce previous commands.
+Use the **Up** and **Down** arrow keys to reproduce previous commands.
 
 Give it a try!
 
-</div>
 
-<img style="float: right; width: 350px;" src="images/keyboard_arrows.png">
 
-## Challenge 4 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+
+.center[
+![:scale 50%](images/keyboard_arrows.png)
+]
+
+
+---
+## Challenge 4 ![:cube]()
 
 What is the area of this circle, with a radius of $5\ cm$?
 
-```{r echo = F, fig.width=4.5, fig.height=4.5}
-  radius <- 1
-  theta <- seq(0, 2*pi, length = 200)
-	plot(c(-1, 1), c(-1, 1), type = "n", ann = F, axes = F, asp = 1)
-	lines(x = radius * cos(theta), y = radius * sin(theta))
-	arrows(0, 0, x1 = 1, length = 0)
-	text(.5, .1, "radius = 5 cm", cex = .8)
+```{r echo = F}
+radius <- 1
+theta <- seq(0, 2*pi, length = 200)
+plot(c(-1, 1), c(-1, 1), type = "n", ann = F, axes = F, asp = 1)
+lines(x = radius * cos(theta), y = radius * sin(theta))
+arrows(0, 0, x1 = 1, length = 0)
+text(.5, .1, "radius = 5 cm", cex = 1)
 ```
 
+---
 ## Challenge 4: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-- Question
 
 What is the area of a circle, with a radius of $5\ cm$?
 
-- Solution
 
 ```{r}
-  3.1416*5^2
+3.1416*5^2
 ```
 
-Tip: Note that `R` has some built-in constant such as $\pi$, so you can write:
+.comment[**Tip**: Note that `R` has some built-in constant such as $\pi$, so you can write:]
 
 ```{r}
-  pi*5^2
+pi*5^2
 ```
+
+---
+class: inverse, center, middle
 
 # Objects
 
+---
 ## Objects
 
 - One of the most useful concept in `R`!
 - You can store values as named objects using the assignement operator `<-`
 
 ```{r, eval = F}
-  object name <- assigned value
+object name <- assigned value
 ```
 
 The value on the **right** is assigned to the name on the **left** with the assignement operator `<-`
 
- <small>It is also possible to use the `=` sign, but it is better to **avoid it** as it is also used for other purposes.</small>
+.comment[It is also possible to use the `=` sign, but it is better to **avoid it** as it is also used for other purposes.]
 
+---
 ## Objects names
 
 - Objects names can only include:
 
 |  Type      |  Symbol |
-|------------|--------:|
+|------------|:-------:|
 | Letters    | a-z A-Z |
 | Numbers    |     0-9 |
 | Period     |       . |
@@ -360,6 +438,7 @@ The value on the **right** is assigned to the name on the **left** with the assi
 - `R` is **case sensitive**, the names `Data1` and `data1` are not the same.
 - You can **not** use special characters! (@, /, etc.)
 
+---
 ## Object names: good practices
 
 - Try having short and explicit names for your variables. Naming a variable `var`  is not very informative.
@@ -367,45 +446,52 @@ The value on the **right** is assigned to the name on the **left** with the assi
 - When typing the object's name, `R` return its value.
 
 ```{r}
-  mean.x <- (2+6)/2
-  mean.x
+mean.x <- (2+6)/2
+
+mean.x
 ```
 
-## Challenge 5 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 5 ![:cube]()
+
+<br>
 
 Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
 
-## Challenge 5: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 5: Solution ![:cube]()
 
-- Question
+
+<br>
 
 Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
 
-- Solution
 
 ```{r}
-  euler.value <- 1+1.718282
-  euler.value
+euler.value <- 1+1.718282
+
+euler.value
 ```
 
-## Challenge 6 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 6 ![:cube]()
 
 Create a second object (you decide the name) with a name that starts with a number. What happens?
 
-## Challenge 6: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 6: Solution ![:cube]()
 
-- Question
 
 Create a second object (you decide the name) with a name that starts with a number. What happens?
 
-- Solution
 
 Creating an object name that starts with a number returns the following error:
 
 ```{r, eval = F}
- Error: unexpected symbol in "[your object name]"
+Error: unexpected symbol in "[your object name]"
 ```
 
+---
 ## R command line tip
 
 - Use the tab key to autocomplete scripts
@@ -413,20 +499,26 @@ Creating an object name that starts with a number returns the following error:
 
 Let's try it!
 
+---
 ## R command line tip
 
 - Enter `eu`
 - Push tab
 - Use the arrow keys and push enter to select the correct autocomplete
 
+---
+class: inverse, center, middle
+
 # Types of data structures in R
 
+---
 ## Types of data structures in R
 
 - Vectors
 - Data frames
 - Matrices, arrays and lists
 
+---
 ## Vectors
 
 - An entity consisting of a list of related values
@@ -436,62 +528,74 @@ Let's try it!
       * Logical: True/False entries
       * Character: Text, or a mix of text and other modes
 
+---
 ## Vectors
 
 - Creating vectors usually require the `c` function
 
-<small>`c` stands for *combine* or *concatenate*.</small>
+.comment[`c` stands for *combine* or *concatenate*.]
 
 - The syntax is:
 
 ```{r, eval = F}
-  vector <- c(value1, value2, ...)
+vector <- c(value1, value2, ...)
 ```
 
+---
 ## Vectors
 
 - Numeric vectors
 
 ```{r}
-  num.vector <- c(1, 4, 3, 98, 32, -76, -4)
-  num.vector
+num.vector <- c(1, 4, 3, 98, 32, -76, -4)
+
+num.vector
 ```
 
 - Character vectors
 
 ```{r}
-  char.vector <- c("blue", "red", "green")
-  char.vector
+char.vector <- c("blue", "red", "green")
+
+char.vector
 ```
 
+---
 ## Vectors
 
 - Logical vectors
 
 ```{r}
- bool.vector<- c(TRUE, TRUE, FALSE)
- bool.vector
- # You can just write T for TRUE and F for FALSE, it's exactly the same
- bool.vector2 <- c(T, T, F)
- bool.vector2
+bool.vector<- c(TRUE, TRUE, FALSE)
+
+bool.vector
 ```
 
+You can just write T for TRUE and F for FALSE, it's exactly the same
+```{r}
+bool.vector2 <- c(T, T, F)
+
+bool.vector2
+```
+
+---
 ## Challenge 7 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
 
+---
 ## Challenge 7: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
-- Question
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
 
-- Solution
+
 
 ```{r}
  odd.n <- c(1,3,5,7)
 ```
 
+---
 ## Vectors
 
 We can use vectors for calculations
@@ -501,13 +605,15 @@ We can use vectors for calculations
   y <- 6
 ```
 
-<small>The semicolon symbol `:` is use to combine all values between the first and the second provided numbers. `c(1:5)` returns `1, 2, 3, 4, 5`</small>
+.comment[The semicolon symbol `:` is use to combine all values between the first and the second provided numbers. `c(1:5)` returns `1, 2, 3, 4, 5`]
 
 ```{r}
-  x+y
-  x*y
+x+y
+
+x*y
 ```
 
+---
 ## Data Frames
 
 - Used to store data tables
@@ -516,6 +622,7 @@ We can use vectors for calculations
 - Rows = observations, sites, cases, replicates, ...
 - Differents columns can have different modes
 
+---
 ## Data Frames
 
 Let's say you want to store this table in `R`:
@@ -527,126 +634,102 @@ Let's say you want to store this table in `R`:
 |B1.01|4.1|15|No Fert|
 |B1.02|6.0|7|No Fert|
 
+---
 ## Data Frames
 
 One way of doing it is:
 - Start by creating vectors
 
 ```{r}
-  siteID <- c("A1.01", "A1.02", "B1.01", "B1.02")
-  soil_pH <- c(5.6, 7.3, 4.1, 6.0)
-  num.sp <- c(17, 23, 15, 7)
-  treatment <- c("Fert", "Fert", "No_fert", "No_fert")
+siteID <- c("A1.01", "A1.02", "B1.01", "B1.02")
+soil_pH <- c(5.6, 7.3, 4.1, 6.0)
+num.sp <- c(17, 23, 15, 7)
+treatment <- c("Fert", "Fert", "No_fert", "No_fert")
 ```
 
 - We then combine them using the function `data.frame`
 
 ```{r}
-  my.first.df <- data.frame(siteID, soil_pH, num.sp, treatment)
+my.first.df <- data.frame(siteID, soil_pH, num.sp, treatment)
 ```
 
-<small>We will come back to the `data.frame` function later.</small>
+.comment[We will come back to the `data.frame` function later.]
 
+---
 ## Data Frames
 
-```{r}
-  my.first.df
+```{r} 
+my.first.df
 ```
 
+---
 ## Matrices, Arrays and Lists
 
-<center><img style="width: 700px" src="images/matrix.png"></center>
+.center[
+![:scale 90%](images/matrix.png)
+]
 
+
+---
 ## Indexing objects
 
 Sometimes, we only want to look at or extract part of our data. This is done using **brackets:** `[]`
 
 We indicate the **position** of the values we want to see between the brackets. It's called *indexing*.
 
+---
 ## Indexing vectors
 
-```{r cache=F,echo=F}
-s0 <- knitr::knit_hooks$get('source')
-o0 <- knitr::knit_hooks$get('output')
 
-knitr::knit_hooks$set(
-  list(
-    source=function(x,options){
-      if (is.null(options$class)) s0(x, options)
-      else
-        paste0(
-          paste0("<div class='", options$class, "'><pre><code>")
-          ,x
-          ,'</code></pre>\n'
-        )
-    }
-    ,output = function(x,options){
-      if (is.null(options$class)) o0(x, options)
-      else
-        paste0(
-          "<pre><code>"
-          ,x
-          ,'</code></pre></div>\n'
-        )
-    }
-  )
-)
+You  can use indexing to chose a particular position, let's say we want to see the second value of our `odd.n` vector
+
+
+```{r}
+odd.n[2]
 ```
 
-<div class="fragment">
-  You  can use indexing to chose a particular position, let's say we want to see the second value of our `odd.n` vector
-</div>
+It also work with multiple position:
 
 
-```{r class="fragment"}
- odd.n[2]
+```{r}
+odd.n[c(2,4)]
 ```
 
-<div class="fragment">
-  It also work with multiple position:
-</div>
+It can be used to remove some values at particular positions
 
 
-```{r class="fragment"}
- odd.n[c(2,4)]
+```{r}
+odd.n[-c(1,2)]
 ```
 
-<div class="fragment">
-  It can be used to remove some values at particular positions
-</div>
-
-```{r class="fragment"}
- odd.n[-c(1,2)]
-```
-
+---
 ## Indexing vectors
 
-<div class="fragment">
-  If you select a position that is not in the vector it will return:
-</div>
 
-```{r class="fragment"}
- odd.n[c(1,5)]
+If you select a position that is not in the vector it will return:
+
+```{r}
+odd.n[c(1,5)]
 ```
 
-<div class="fragment">
-  You can also use conditions to select values:
-</div>
+You can also use conditions to select values:
 
 
-```{r class="fragment"}
- odd.n[odd.n > 4]
+```{r}
+odd.n[odd.n > 4]
 ```
 
-```{r class="fragment"}
- char.vector[char.vector == "blue"]
+
+```{r}
+char.vector[char.vector == "blue"]
 ```
 
-<div class="fragment">
-<small>Logical statements such as `>` will be described in more details later.</small>
-</div>
 
-## Challenge 8 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+.comment[Logical statements such as `>` will be described in more details later.]
+
+
+---
+## Challenge 8 ![:cube]()
 
 Using the vector `num.vector`
 
@@ -654,177 +737,162 @@ Using the vector `num.vector`
 - Extract the 1st and 3rd values
 - Extract all values except for the 2nd and the 4th
 
-## Challenge 8: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 8: Solution ![:cube]()
 
-- Extract the forth value
+- Extract the 4th value
 
 ```{r}
-  num.vector[4]
+num.vector[4]
 ```
 
 - Extract the 1st and 3rd values
 
 ```{r}
-  num.vector[c(1,3)]
+num.vector[c(1,3)]
 ```
 
 - Extract all values except for the 2nd and the 4th
 
 ```{r}
-  num.vector[c(-2,-4)]
+num.vector[c(-2,-4)]
 ```
 
-## Challenge 9 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 9 ![:cube]()
 
 Explore the difference between these 2 lines of code:
 
 ```{r, eval = F}
-  char.vector == "blue"
-  char.vector[char.vector == "blue"]
+char.vector == "blue"
+
+char.vector[char.vector == "blue"]
 ```
 
-## Challenge 9: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 9: Solution ![:cube]()
 
 ```{r}
-  char.vector == "blue"
+char.vector == "blue"
 ```
 
-In this line of code, you **test a logical statement**. For each entry in the `char.vector`, `R` checks whether the entry is equal to `"blue"` or not.
+In this line of code, you **test a logical statement**. For each entry in the `char.vector`,  `R` checks whether the entry is equal to `"blue"` or not.
 
 ```{r}
-  char.vector[char.vector == "blue"]
+char.vector[char.vector == "blue"]
 ```
 
 In this line of code, you ask `R` to extract all values within the `col.vector` vector that are exactly equal to `"blue"`.
 
+---
 ## A quick note on logical statements
 
-- `R` allows testing of logical statements, *i.e.* testing whether a statement is true or false.
-
-- You need to use logical operators for that.
+`R` allows testing of logical statements, *i.e.* testing whether a statement is true or false.
+You need to use logical operators for that.
 
 |Operator|Description|Example|
-|---|---|---|
-|`<` and `>`|less than or greater than|`odd.n > 3`|
-|`<=` and `>=`|less/greater or equal to|`odd.n >= 3`|
-|`==`|exactly equal to|`odd.n == 3`|
-|`!=`|not equal to|`odd.n != 3`|
-|`x | y`|x OR y|`odd.n[odd.n >= 5 | odd.n < 3]`|
-|`x & y`|x and y|`odd.n[odd.n >=3 & odd.n < 7]`|
+|-------------|-------------------------|-------------------------------|
+|`<` and `>`  |less than or greater than|`odd.n > 3`                    |
+|`<=` and `>=`|less/greater or equal to |`odd.n >= 3`                   |
+|`==`         |exactly equal to         |`odd.n == 3`                   |
+|`!=`         |not equal to             |`odd.n != 3`                   |
+|`x`&#124;`y` |x OR y                   |`odd.n[odd.n >= 5` &#124; `odd.n < 3]`|
+|`x & y`      |x AND y                  |`odd.n[odd.n >=3 & odd.n < 7]` |
 
+---
 ## Indexing data frames
 
 To index a data frame you must specify two dimensions: row and column number, using the following syntax:
 
-`data.frame.name[row,column]`
+```r
+data.frame.name[row, column]
+```
 
+---
 ## Indexing data frames: examples
 
-```{r class="fragment", eval = F}
- my.first.df[1,]
-```
+`my.first.df[1,]` ![:faic](arrow-right) Extracts the first line
 
-<div class="fragment">
-  Extracts the first line
 
-  <small>Note that an empty index select **all** the values.</small>
-</div>
+.comment[Note that an empty index select **all** the values.]
 
-```{r class="fragment", eval = F}
- my.first.df[,3]
-```
+`my.first.df[,3]` ![:faic](arrow-right) Extracts the third column
 
-<div class="fragment">
-  Extracts the third column
-</div>
 
-```{r class="fragment", eval = F}
- my.first.df[2,4]
-```
+`my.first.df[2,4]` ![:faic](arrow-right) Extracts the second element of the fourth column
 
-<div class="fragment">
-  Extracts the second element of the fourth column
-</div>
 
+---
 ## Indexing data frames: examples
 
-```{r class="fragment", eval = F}
- my.first.df[c(2,4),]
+`my.first.df[c(2,4),]` ![:faic](arrow-right) Extracts lines 2 to 4
+
+.comment[The examples given so far are also valid for indexing matrices, this is not the case for the following examples.]
+
+
+`my.first.df$siteID` ![:faic](arrow-right) Extracts the variable `siteID` from the data frame
+
+`my.first.df$siteID[2]` ![:faic](arrow-right) Extracts the second value of the variable `siteID` from the data frame
+
+
+`my.first.df[c("siteID", "soil_pH")]` ![:faic](arrow-right) Extracts the `siteID` and `soil_pH` variables from the data frame.
+
+
+---
+## Challenge 10 ![:cube]()
+
+1. Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
+
+2. After that, write a statement that checks if the values you obtained are greater than 25.
+
+---
+## Challenge 10: Solution ![:cube]()
+
+1. Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
+
+```{r}
+my.first.df$num.sp * num.vector[c(1:4)]
+# or
+my.first.df[,3] * num.vector[c(1:4)] 
 ```
 
-<div class="fragment">
-  Extracts lines 2 to 4
+2. After that, write a statement that checks if the values you obtained are greater than 25.
 
-  <small>The examples given so far are also valid for indexing matrices, this is not the case for the following examples.</small>
-</div>
 
-```{r class="fragment", eval = F}
- my.first.df$siteID
+```{r}
+(my.first.df$num.sp * num.vector[c(1:4)]) > 25
 ```
 
-<div class="fragment">
-  Extracts the variable `siteID` from the data frame
-</div>
-
-```{r class="fragment", eval = F}
- my.first.df$siteID[2]
-```
-
-<div class="fragment">
-  Extracts the second value of the variable `siteID` from the data frame
-</div>
-
-```{r class="fragment", eval = F}
- my.first.df$[c("siteID", "soil_pH")]
-```
-
-<div class="fragment">
-  Extracts the `siteID` and `soil_pH` variables from the data frame.
-</div>
-
-## Challenge 10 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
-
-- a) Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
-- b) After that, write a statement that checks if the values you obtained are greater than 25.
-
-## Challenge 10: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
-
-<div class="fragment">
-  Part a)
-</div>
-
-```{r class="fragment"}
- my.first.df$num.sp * num.vector[c(1:4)]
- # or
- my.first.df[,3] * num.vector[c(1:4)]
-```
-
-<div class="fragment">
-  Part b)
-</div>
-
-```{r class="fragment"}
- (my.first.df$num.sp * num.vector[c(1:4)]) > 25
-```
+---
+class: inverse, center, middle
 
 # Functions
 
+---
 ## Functions
 
+.pull-left2[
 A function is a tool to simplify your life.
 
 It allows you to quickly execute operations on objects without having to write every mathematical step.
 
 A function needs entry values called **arguments** (or parameters). It then performs hidden operations using these arguments and gives a **return value**.
+]
 
+.pull.right2[
+![:scale 20%](images/function.png)
+]
+
+---
 ## Functions
 
 To use (call) a function, the command must be structured properly, following the "grammar rules" of the `R` language: the syntax.
 
 ```{r, eval = F}
-  function_name(argument 1, argument 2)
+function_name(argument 1, argument 2)
 ```
 
+---
 ## Arguments
 
 Arguments are **values** and **instructions** the function needs to run.
@@ -832,12 +900,13 @@ Arguments are **values** and **instructions** the function needs to run.
 Objects storing these values and instructions can be used in functions:
 
 ```{r}
-  a <- 3
-  b <- 5
-  sum(a,b)
+a <- 3
+b <- 5
+sum(a,b)
 ```
 
-## Challenge 11 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 11 ![:cube]()
 
 - Create a vector `a` that contains all the numbers from 1 to 5
 - Create an object `b` with a value of 2
@@ -846,106 +915,124 @@ Objects storing these values and instructions can be used in functions:
 - Compare `result_add` and `result_sum`. Are they different?
 - Add 5 to `result_sum` function using the `sum` function
 
-## Challenge 11: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 11: Solution  ![:cube]()
 
 ```{r}
-  a <- c(1:5)
-  b <- 2
-  result_add <- a + b
-  result_sum <- sum(a,b)
+a <- c(1:5)
+b <- 2
+
+result_add <- a + b
+
+result_sum <- sum(a,b)
 ```
 
 ```{r}
-  result_add
-  result_sum
-  sum(result_sum, 5)
+result_add
+
+result_sum
+
+sum(result_sum, 5)
 ```
 
-## Challenge 11: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 11: Solution  ![:cube]()
 
 The operation `+` on the vector `a` adds 2 to each element. The result is a vector.
 
 The function `sum` concatenates all the values provided and then sum them. It is the same as doing 1+2+3+4+5+2.
 
+---
 ## Arguments
 
 Arguments each have a **name** that can be provided during a function call.
 
-If the name is not present, the order os the arguments does matter.
+If the name is not present, the order of the arguments does matter.
 
 If the name is present, the order does not matter.
 
-## Challenge 12 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 12 
 
-`plot` is a function that draws a graph of y as a fucntion of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
+`plot` is a function that draws a graph of y as a function of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
 
 ```{r, eval = F}
-  a <- 1:100
-  b <- a^2
-  plot(a,b)
-  plot(b,a)
-  plot(x = a, y = b)
-  plot(y = b, x = a)
+a <- 1:100
+b <- a^2
+plot(a,b)
+plot(b,a)
+plot(x = a, y = b)
+plot(y = b, x = a)
 ```
 
-## Challenge 12: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 12: Solution
 
-```{r, echo = F, fig.width=5, fig.height=5}
-  a <- 1:100
-  b <- a^2
-  par(mfrow = c(2,2), mar = c(4,4,0,0))
-  plot(a,b)
-  plot(b,a)
-  plot(x = a, y = b)
-  plot(y = b, x = a)
+```{r, echo = F}
+a <- 1:100
+b <- a^2
+par(mfrow = c(2,2),mar=c(4,4,1,1))
+plot(a,b)
+plot(b,a)
+plot(x = a, y = b)
+plot(y = b, x = a)
 ```
 
-## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 12: Solution 
 
-```{r, include = FALSE}
-par(mar=c(4,4,0,0))
+.pull-left[
+```{r,eval=F}
+plot(a,b)
 ```
 
-```{r,fig.width=4, fig.height=4}
-  plot(a,b)
+```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
+par(mar=c(4,4,1,1))
+plot(a,b)
+```
+]
+
+.pull-right[
+```{r,eval=F}
+plot(b,a)
 ```
 
-## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
+par(mar=c(4,4,1,1))
+plot(b,a)
+```
+]
 
-```{r, include = FALSE}
-par(mar=c(4,4,0,0))
+The shape of the plot changes, as we did not provided the arguments names, the order is important.
+
+---
+## Challenge 12: Solution 
+
+.pull-left[
+```{r,eval=F}
+plot(x = a, y = b)
 ```
 
-```{r,fig.width=4, fig.height=4}
-  plot(b,a)
+```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
+par(mar=c(4,4,1,1))
+plot(x = a, y = b)
+```
+]
+
+.pull-right[
+```{r,eval=F}
+plot(y = b, x = a)
 ```
 
-The shape of the plot has changed, as we did not provided the arguments names, the order is important.
-
-## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
-
-```{r, include = FALSE}
-par(mar=c(4,4,0,0))
+```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
+par(mar=c(4,4,1,1))
+plot(y = b, x = a)
 ```
-
-```{r,fig.width=4, fig.height=4}
-  plot(x = a, y = b)
-```
-
-Same as `plot(a,b)`
-
-## Challenge 12: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
-
-```{r, include = FALSE}
-par(mar=c(4,4,0,0))
-```
-
-```{r,fig.width=4, fig.height=4}
-  plot(y = b, x = a)
-```
+]
 
 Same as `plot(a,b)`. The argument names are provided, the order is not important.
 
+---
 ## Packages
 
 Packages are a **grouping of functions** and/or **datasets** that share a similar **theme**, e.g. statistics, spatial analysis, plotting, etc.
@@ -956,54 +1043,62 @@ They are usually available through the *Comprehensive R Archive Network* or CRAN
 
 Currently, more than 5877 packages are publicly availables.
 
+---
 ## Packages
 
 To install packages on your computer, use the function `install.packages`.
 
-```{r, eval = F}
-  install.packages("package name")
+```r
+install.packages("package name")
 ```
 
 Installing a package is not enough to use it. You need to load it into your workspace before using it using the `library` function.
 
-```{r, eval = F}
- library(package name)
+```r
+library(package name)
 ```
 
+---
 ## Package: an example
 
 ```{r, eval = F}
-  install.packages("ggplot2")
+install.packages("ggplot2")
 ```
 
 ```{r, eval = F}
-## Installing package into '/home/labo/R/x86_64-redhat-linux-gnu-library/3.3'
-## (as 'lib' is unspecified)
+Installing package into '/home/labo/R/x86_64-redhat-linux-gnu-library/3.3'
+(as 'lib' is unspecified)
 ```
 
 ```{r, eval = F}
- qplot(1:10, 1:10)
+qplot(1:10, 1:10)
 ```
 
 ```{r, eval = F}
-  ## Error: could not find function "qplot"
+## Error: could not find function "qplot"
 ```
 
+---
 ## Package name: an example
 
-```{r, fig.width=5, fig.height=5}
-  library(ggplot2)
-  qplot(1:10, 1:10)
+```{r, fig.width=4, fig.height=4}
+library(ggplot2)
+qplot(1:10, 1:10)
 ```
+
+---
+class: inverse, center, middle
 
 # Getting help
 
+---
 ## Searching for functions
 
 WOW! `R` is so great! So many functions to do what I want!
 
 But... how do I find them?
 
+---
 ## Searching for functions
 
 To find a function that does something specific in your installed packages, you can use `??` followed by a search term.
@@ -1011,21 +1106,25 @@ To find a function that does something specific in your installed packages, you 
 Let's say we want to create a *sequence* of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word "sequence" in them:
 
 ```{r, eval = F}
-  ??sequence
+??sequence
 ```
 
+---
 ## Search results
 
-<img style="width: 650px;"  src="images/searchseq1.svg">
+![](images/searchseq1.svg)
 
+---
 ## Search results
 
-<img style="width: 650px;"  src="images/searchseq2.svg">
+![](images/searchseq2.svg)
 
+---
 ## Search results
 
-<img style="width: 650px;"  src="images/searchseq3.svg">
+![](images/searchseq3.svg)
 
+---
 ## Getting help with functions
 
 OK! SO let's use the `seq` function!!
@@ -1038,90 +1137,97 @@ To find information about a function in particular, use `?`
   ?seq
 ```
 
+---
 ## Help pages
 
-<img style="height: 600px;"  src="images/print-1.png">
+![](images/print-1.png)
 
+---
 ## Description
 
 - `function_name {package_name}`
 - Description: a short description of what the function does.
 
-<img style="width: 900px;"  src="images/seq_description.png">
+![](images/seq_description.png)
 
+---
 ## Usage
 
 - How to call the function
 - If `name = value` is present, a default value is provided if the argument is missing. The argument becomes optional.
 - Other related functions described in this help page
 
-<img style="width: 900px;"  src="images/seq_usage.png">
+![](images/seq_usage.png)
 
+
+---
 ## Arguments
 
 - Description of all the arguments and what they are used for
 
-<img style="width: 900px;"  src="images/seq_arguments.png">
+![](images/seq_arguments.png)
 
+---
 ## Details
 
 - A detailed description of how the functions work and their characteristics
 
-<img style="width: 900px;"  src="images/seq_details.png">
+![](images/seq_details.png)
 
+---
 ## Value
 
 - A description of the return value
 
-<img style="width: 900px;"  src="images/seq_value.png">
+![](images/seq_value.png)
 
+---
 ## See Also
 
 - Other related functions that can be useful
 
-<img style="width: 900px;"  src="images/seq_see_also.png">
+![](images/seq_see_also.png)
 
+---
 ## Examples
 
 - Reproducibles examples
 
-<img style="width: 900px;"  src="images/seq_examples.png">
+![](images/seq_examples.png)
 
-## Challenge 13 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 13 ![:cube]()
 
-a) Create a sequence of even numbers from 0 to 10 using the `seq` function.
+1. Create a sequence of even numbers from 0 to 10 using the `seq` function.
 
-b) Create a unsorted vector of your favourite numbers, then:
-- find out how to *sort* it
-- sort your vector in reverse order
+2. Create a unsorted vector of your favourite numbers, then sort your vector in reverse order.
 
-## Challenge 13: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+---
+## Challenge 13: Solutions ![:cube]()
 
-<div class="fragment">
-  Part a)
-</div>
+1. Create a sequence of even numbers from 0 to 10 using the `seq` function.
+
+.pull-left[
+```{r class="fragment"}
+seq(from=0, to=10, by=2)
+```
+]
+
+.pull-right[
+```{r class="fragment"}
+seq(0,10,2)
+```
+]
+
+
+2. Create a unsorted vector of your favourite numbers, then sort your vector in reverse order.
 
 ```{r class="fragment"}
- seq(from=0, to=10, by=2)
+numbers <- c(2,4,22,6,26)
+sort(numbers, decreasing = T)
 ```
 
-<div class="fragment">
-  or
-</div>
-
-```{r class="fragment"}
- seq(0,10,2)
-```
-
-<div class="fragment">
-  Part b)
-</div>
-
-```{r class="fragment"}
- numbers <- c(2,4,22,6,26)
- sort(numbers, decreasing = T)
-```
-
+---
 ## Other ways to get help
 
 Usually, your best source of information will be your favorite search engine!
@@ -1133,6 +1239,7 @@ Here are some tips on how to use them efficiently:
 - Learn to read discussion forums. Chances are other people already had your problem and asked about it.
 - Don't hesitate to search again using different keywords!
 
+---
 ## Challenge 14 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
 
 Find the appropriate functions to perform the following operations:
@@ -1142,15 +1249,19 @@ Find the appropriate functions to perform the following operations:
 - Combine two data frames by columns
 - List availables objects in your workspace
 
-## Challenge 14: Solutions <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
-
+---
+## Challenge 14: Solutions ![:cube]()
 - `sqrt`
 - `mean`
 - `cbind`
 - `ls`
 
+---
+class: inverse, center, middle
+
 # Additional resources
 
+---
 ## Cheat 4ever
 
 Lot of cheatsheets are available:
@@ -1159,10 +1270,12 @@ https://www.rstudio.com/resources/cheatsheets/
 
 Open it directly from **Rstudio**
 
+---
 ## Cheat 4ever
 
-<center><img style="width:800px" src="images/base-r.png"></center>
+![](images/base-r.png)
 
+---
 ## Some useful R books
 
 <img style="float: right; width: 170px;" src="images/Book6.jpg">
@@ -1173,6 +1286,7 @@ Open it directly from **Rstudio**
 <img style="float: right; width: 150px;" src="images/Book1.jpg">
 
 
+---
 ## Some useful R websites
 
 - http://stats.stackexchange.com
@@ -1182,9 +1296,9 @@ Open it directly from **Rstudio**
 - http://cookbook-r.com/
 - http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf
 
-## Thank you for attending!
+---
+class: inverse, center, bottom
 
-<img src="images/QCBS_logo_text.png">
+# Thank you for attending!
 
-We want your feed back!
-https://docs.googlgithube.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0
+![:scale 50%](images/qcbs_logo.png)

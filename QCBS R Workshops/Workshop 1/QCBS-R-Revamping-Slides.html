@@ -93,15 +93,15 @@ R works on most existing operating systems
 
 What people have traditionally done to analyze their data:
 
-<div id="htmlwidget-0dfe24ac0f7893da289c" style="width:576px;height:576px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0dfe24ac0f7893da289c">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-00572ba8e37e91903622" style="width:576px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-00572ba8e37e91903622">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Why use R?
 
 R allows you to do everything with one program, which is nice!
-<div id="htmlwidget-14741a299eedd052c8d8" style="width:576px;height:576px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-14741a299eedd052c8d8">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4a5f9041501d1889b7b1" style="width:576px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4a5f9041501d1889b7b1">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 
 
@@ -153,7 +153,7 @@ R allows you to do everything with one program, which is nice!
 
 If the restriction `unable to write on disk` appears when you try to open R-Studio, .alert[don't worry!]
 
-We have the solution! 
+We have the solution!
 
 Right-click on your R-Studio icon and chose:
 "Execute as administrator" to open the program.
@@ -880,7 +880,7 @@ data.frame.name[row, column]
 my.first.df$num.sp * num.vector[c(1:4)]
 # [1]  17  92  45 686
 # or
-my.first.df[,3] * num.vector[c(1:4)] 
+my.first.df[,3] * num.vector[c(1:4)]
 # [1]  17  92  45 686
 ```
 
@@ -990,7 +990,7 @@ If the name is not present, the order of the arguments does matter.
 If the name is present, the order does not matter.
 
 ---
-## Challenge 12 
+## Challenge 12
 
 `plot` is a function that draws a graph of y as a function of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
 
@@ -1010,7 +1010,7 @@ plot(y = b, x = a)
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-52-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
-## Challenge 12: Solution 
+## Challenge 12: Solution
 
 .pull-left[
 
@@ -1033,7 +1033,7 @@ plot(b,a)
 The shape of the plot changes, as we did not provided the arguments names, the order is important.
 
 ---
-## Challenge 12: Solution 
+## Challenge 12: Solution
 
 .pull-left[
 

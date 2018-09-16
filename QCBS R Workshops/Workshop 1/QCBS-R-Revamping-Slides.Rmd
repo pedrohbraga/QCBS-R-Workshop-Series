@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
   comment = "#",
   collapse = TRUE,
   warning = FALSE,
-  message = FALSE, 
+  message = FALSE,
   fig.width=6, fig.height=6,
   fig.align = 'center'
 )
@@ -194,7 +194,7 @@ grViz("
 
 If the restriction `unable to write on disk` appears when you try to open R-Studio, .alert[don't worry!]
 
-We have the solution! 
+We have the solution!
 
 Right-click on your R-Studio icon and chose:
 "Execute as administrator" to open the program.
@@ -658,7 +658,7 @@ my.first.df <- data.frame(siteID, soil_pH, num.sp, treatment)
 ---
 ## Data Frames
 
-```{r} 
+```{r}
 my.first.df
 ```
 
@@ -853,7 +853,7 @@ data.frame.name[row, column]
 ```{r}
 my.first.df$num.sp * num.vector[c(1:4)]
 # or
-my.first.df[,3] * num.vector[c(1:4)] 
+my.first.df[,3] * num.vector[c(1:4)]
 ```
 
 2. After that, write a statement that checks if the values you obtained are greater than 25.
@@ -952,7 +952,7 @@ If the name is not present, the order of the arguments does matter.
 If the name is present, the order does not matter.
 
 ---
-## Challenge 12 
+## Challenge 12
 
 `plot` is a function that draws a graph of y as a function of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
 
@@ -979,7 +979,7 @@ plot(y = b, x = a)
 ```
 
 ---
-## Challenge 12: Solution 
+## Challenge 12: Solution
 
 .pull-left[
 ```{r,eval=F}
@@ -1006,7 +1006,7 @@ plot(b,a)
 The shape of the plot changes, as we did not provided the arguments names, the order is important.
 
 ---
-## Challenge 12: Solution 
+## Challenge 12: Solution
 
 .pull-left[
 ```{r,eval=F}

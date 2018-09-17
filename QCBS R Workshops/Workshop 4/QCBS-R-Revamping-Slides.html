@@ -20,21 +20,19 @@ class: center, middle, inverse, title-slide
 
 ---
 
-&lt;!-- devtools::install_github('yihui/xaringan') --&gt;
 
-## Workshop 4: Linear models
 
-![:scale 40%](images/QCBS_logo_text.png)
 
-Website: http://qcbs.ca/wiki/r/workshop4
+
+
+
 
 ---
 ## Learning objectives
 
 .center[
-![:scale 40%](images/schema_slide1.png)
+![:scale 60%](images/schema_slide1.png)
 ]
-
 
 
 ---
@@ -42,23 +40,32 @@ Website: http://qcbs.ca/wiki/r/workshop4
 
 Linear relationship between response (Y) and explanatory (X) variable
 
+.pull-left[
 `\(Y_i = α + βX_i  + ε_i\)`
-![:scale 40%](images/graphlm1.png)
 
-###Assumptions
+![](images/graphlm1.png)
+]
+
+.pull-right[
+**Assumptions**
 - Continuous explanatory variable
 - Homogeneous and normally distributed error
 - Independent residuals
 - No outlier
+]
+
 
 ---
 ## Review: Simple linear regression
 
+.pull-left[
 - **Least squares**: most used method and corresponds to the default function in R
 
-![:scale 40%](images/graphlm2.2.png)
+![](images/graphlm2.2.png)
+]
 
-### Assumptions
+.pull-right[
+**Assumptions**
 
 - `\(Y_i\)` : Observed value (measured) at `\(X_i\)`
 - `\(\widehat{Y}_i\)` : Predicted value at `\(X_i\)`
@@ -67,30 +74,32 @@ Linear relationship between response (Y) and explanatory (X) variable
 - `\(V_R\)` : Variance explained by the regression
 - `\(V_T\)` : Total variance
 - `\(R^2 = \frac{V_R}{V_T}\)`
-  
+]
+
+
 
 ---
 ## Running a regression in R
 
-###Step 1: Run your linear model
+**Step 1**. Run your linear model
 
-###Step 2: Verify assumptions
+**Step 2**. Verify assumptions
 
-Assumptions are met
+- Assumptions are met
 
-###Step 3: Estimate parameters (regression coefficients), test significance, plot your model
+**Step 3**. Estimate regression parameters, test significance, plot your model
 
-Assumptions are not met
+- Assumptions are not met
 
-Can you transform your variables (and does it make sense to do so)?
+- Can you transform your variables (and does it make sense to do so)?
 
-Yes: Go back to Step 1 with transformed variables
-No: Try GLM that might better suit your data
+  - Yes: Go back to Step 1 with transformed variables
+  - No: Try GLM that might better suit your data
 
 ---
 ## Running a regression in R
 
-### **Step 1:** Run your linear model
+**Step 1**. Run your linear model
 
 In R, the function `lm()` is used to fit a linear model
 
@@ -116,7 +125,7 @@ setwd()
 bird &lt;- read.csv("birdsdiet.csv")
 ```
 
-Visualize the data using the structure `str()` command: 
+Visualize the data using the structure `str()` command:
 
 
 ```r
@@ -125,7 +134,7 @@ str(bird)
 
 ```
 'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"... 
+ $ Family   : Factor w/ 53 levels "Anhingas"...
  $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
  $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
  $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
@@ -137,13 +146,13 @@ str(bird)
 ---
 ## Running a regression in R
 
-Response variable: **Bird abundance**    num: continuous
+Response variable: **Bird abundance**  ![:faic](arrow-right) num: continuous
 
-Explanatory variable: **Bird mass**      num: continuous
+Explanatory variable: **Bird mass**   ![:faic](arrow-right)  num: continuous
 
 ```
 'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"... 
+ $ Family   : Factor w/ 53 levels "Anhingas"...
  $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
  $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
  $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
@@ -152,7 +161,7 @@ Explanatory variable: **Bird mass**      num: continuous
  $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
 ```
 
-We first want to test if bird maximum abundance is a function of bird mass 
+We first want to test if bird maximum abundance is a function of bird mass
 
 
 ```r
@@ -162,16 +171,16 @@ lm1 &lt;- lm(MaxAbund ~ Mass, data = bird)
 ---
 ## Running a regression in R
 
-Step 2: Verify assumptions using diagnostic plots
+**Step 2**. Verify assumptions using diagnostic plots
 
 
 ```r
-opar &lt;- par(mfrow=c(2,2)) 
+opar &lt;- par(mfrow=c(2,2))
 plot(lm1)
 ```
 
-- par(): sets the graphical parameters, for example, the mfrow argument sets the number of rows in the frame 
-- plot(): is a generic function to plot graphics in R
+- par( ): sets the graphical parameters, for example, the `mfrow` argument sets the number of rows in the frame
+- plot( ): is a generic function to plot graphics in R
 
 The output will provide the four built-in diagnostic plots of the `lm()` function
 
@@ -180,35 +189,35 @@ The output will provide the four built-in diagnostic plots of the `lm()` functio
 
 Example of independence (what we want!)
 
-- Should show a scatter across and no pattern 
+- Should show a scatter across and no pattern
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-8-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Diagnostic plot # 1 - Residuals vs Fitted
 
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-9-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /&gt;
 
 - Solution: Transform your data or try another distribution than linear (Gaussian) (i.e., a generalized linear model (GLM): Poisson, binomial, negative binomial, etc.)
 
 ---
 ## Diagnostic plot # 2 - Scale Location
 
-- Should show a scatter across and no pattern 
+- Should show a scatter across and no pattern
 
-No pattern in the residuals 
+  - No pattern in the residuals
 
-Strong pattern in the residuals 
-
----
-## Diagnostic plot # 3 - Normal QQ 
-
-- Compares the distribution (quantiles) of the residuals of the current model to those of a normal distribution 
-- If points lie linearly on the 1:1 line, data follow a normal distribution 
+  - Strong pattern in the residuals
 
 ---
-## Diagnostic plot # 4 - Residuals vs Leverage 
+## Diagnostic plot # 3 - Normal QQ
+
+- Compares the distribution (quantiles) of the residuals of the current model to those of a normal distribution
+- If points lie linearly on the 1:1 line, data follow a normal distribution
+
+---
+## Diagnostic plot # 4 - Residuals vs Leverage
 - Looks for influential values
 - **Leverage points**: observations at extreme/ outlying values of the explanatory variable. Because they lack neighboring observations, the regression model passes close to leverage points. **They may OR may not have a high influence on the regression.**
 - High leverage points with high influence can be identified with a **Cook's distance greater than 0.5**
@@ -229,7 +238,7 @@ Strong pattern in the residuals
 ---
 
 No influential values
-  
+
 High leverage point and reasonable influence
 - Here, point 32 has high leverage but its influence is acceptable (inside the 0.5 Cook's distance limits)
 
@@ -239,98 +248,68 @@ High leverage point and high influence
 - Points are outside the 0.5 limit of Cook's distance
 - These points have too much influence on the regression
 
-** Note: you should never remove outliers if you don't have good reasons to do so (ex: error of measurement)
+.alert[Note] you should never remove outliers if you don't have good reasons to do so (ex: error of measurement)
 
 ---
 
-**Step 2**: Verify assumptions of `lm1`
+**Step 2**. Verify assumptions of `lm1`
+
 
 ```r
+par(mfrow=c(2,2), mar = c(4,4,2,1), oma =c(0,0,0,0))
 plot(lm1)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-1.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-2.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-3.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-4.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-11-1.png" width="470.4" style="display: block; margin: auto;" /&gt;
 
 
 ---
-## Assumptions not met - where did we go wrong?
+## Assumptions not met - what is wrong?
 
 - Plot Y ~ X with corresponding best-fit regression line, and a histogram of Y and X to explore their distributions
 
 
 ```r
-par(mfrow=c(1,3))
-```
-
-
-```r
+par(mfrow=c(1,3), mar = c(4,4,3,1))
 plot(bird$MaxAbund ~ bird$Mass)
 abline(lm1)
-```
-
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-12-1.png" width="672" /&gt;
-
-```r
 hist(bird$MaxAbund)
-```
-
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-12-2.png" width="672" /&gt;
-
-```r
 hist(bird$Mass)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-12-3.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;" /&gt;
 
 - The function `abline()` adds the best-fit line
 - The function `hist()` produces a histogram of the variable
 
 ---
-## Assumptions not met - where did we go wrong?
+## Assumptions not met - what is wrong?
 
 Can also use the `Shapiro-Wilk` and the `Skewness` tests to see if variables follow a normal distribuon:
 
 
 ```r
 shapiro.test(bird$MaxAbund)
-```
-
-```
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  bird$MaxAbund
-## W = 0.5831, p-value = 3.872e-11
-```
-
-```r
+# 
+# 	Shapiro-Wilk normality test
+# 
+# data:  bird$MaxAbund
+# W = 0.5831, p-value = 3.872e-11
 shapiro.test(bird$Mass)
-```
-
-```
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  bird$Mass
-## W = 0.54667, p-value = 1.155e-11
+# 
+# 	Shapiro-Wilk normality test
+# 
+# data:  bird$Mass
+# W = 0.54667, p-value = 1.155e-11
 ```
 In both cases, distributions are significantly different from normal
 
 
 ```r
 skewness(bird$MaxAbund)
-```
-
-```
-## [1] 3.167159
-```
-
-```r
+# [1] 3.167159
 skewness(bird$Mass)
-```
-
-```
-## [1] 3.146062
+# [1] 3.146062
 ```
 The positive skewness values also indicate that the distributions are left skewed
 
@@ -350,7 +329,7 @@ bird$logMass &lt;- log10(bird$Mass)
 
 
 ```r
-lm2 &lt;- lm(logMaxAbund ~ logMass, data = bird) 
+lm2 &lt;- lm(logMaxAbund ~ logMass, data = bird)
 ```
 
 ---
@@ -358,12 +337,13 @@ lm2 &lt;- lm(logMaxAbund ~ logMass, data = bird)
 
 
 ```r
+par(mfrow=c(2,2), mar=c(4,4,3,1))
 plot(lm2)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-1.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-2.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-3.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-4.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-1.png" width="384" style="display: block; margin: auto;" /&gt;
 
-- Much improved! 
+- Much improved!
 
 ---
 **Step 2**: Verify assumptions of model `lm2`
@@ -371,22 +351,22 @@ plot(lm2)
 
 ```r
 plot(logMaxAbund ~ logMass, data=bird)
-abline(lm2) 
+abline(lm2)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ```r
 hist(log10(bird$MaxAbund))
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-2.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-2.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ```r
 hist(log10(bird$Mass))
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-3.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-3.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -397,27 +377,24 @@ The function `summary()` is used to obtain parameter estimates, significance, et
 
 ```r
 summary(lm2)
-```
-
-```
-## 
-## Call:
-## lm(formula = logMaxAbund ~ logMass, data = bird)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.93562 -0.39982  0.05487  0.40625  1.61469 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   1.6724     0.2472   6.767 1.17e-08 ***
-## logMass      -0.2361     0.1170  -2.019   0.0487 *  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.6959 on 52 degrees of freedom
-## Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484 
-## F-statistic: 4.075 on 1 and 52 DF,  p-value: 0.04869
+# 
+# Call:
+# lm(formula = logMaxAbund ~ logMass, data = bird)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -1.93562 -0.39982  0.05487  0.40625  1.61469 
+# 
+# Coefficients:
+#             Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept)   1.6724     0.2472   6.767 1.17e-08 ***
+# logMass      -0.2361     0.1170  -2.019   0.0487 *  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.6959 on 52 degrees of freedom
+# Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484 
+# F-statistic: 4.075 on 1 and 52 DF,  p-value: 0.04869
 ```
 
 - We can also call out specific parameters of the model, for example:
@@ -426,15 +403,15 @@ summary(lm2)
 ```r
 lm2$coef
 str(summary(lm2))
-summary(lm2)$coefficients 
-summary(lm2)$r.squared 
+summary(lm2)$coefficients
+summary(lm2)$r.squared
 ```
 
 ---
-## Group discussion 
+## Group discussion
 
-- Can you write down the equation of the regression line for your model `lm2`? 
-- Are the parameters significant? 
+- Can you write down the equation of the regression line for your model `lm2`?
+- Are the parameters significant?
 - What proportion of variance is explained by model `lm2`?
 
 ```
@@ -446,20 +423,20 @@ logMass      -0.2361     0.1170  -2.019   0.0487 *
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 0.6959 on 52 degrees of freedom
-Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484 
+Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484
 F-statistic: 4.075 on 1 and 52 DF,  p-value: 0.04869
 ```
 
 ---
-## Group discussion 
+## Group discussion
 
 Can we improve the model if we only use terrestrial birds?
-**You could exclude objects using "=!" 
+**You could exclude objects using "=!"
 
 
 ```r
-lm3 &lt;- lm(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic) 
-# removes aquatic birds (= TRUE) 
+lm3 &lt;- lm(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
+# removes aquatic birds (= TRUE)
 # or equivalently
 lm3 &lt;- lm(logMaxAbund~logMass, data=bird, subset=bird$Aquatic == 0)
 ```
@@ -481,12 +458,10 @@ plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
 ---
 ## Plot
 
-- R2-adj changed from 0.05 to 0.25 when we dropped aquatic birds: 
+- R2-adj changed from 0.05 to 0.25 when we dropped aquatic birds:
 
 ---
-## Challenge 1
-
-&lt;img style="float: right; width: 350px;" src="images/rubicub.png"&gt;
+## Challenge 1 ![:cube]()
 
 - Examine the relationship between log(MaxAbund) and log(Mass) for passerine birds
 - Save the model object as lm4
@@ -496,7 +471,7 @@ HINT: Passerine is also coded 0 and 1 (look at str(bird))
 - Compare the variance explained by lm2, lm3 and lm4
 
 ---
-## Challenge 1 - Solution
+## Challenge 1 - Solution ![:cube]()
 
 The best model among the three models is lm3 *(only terrestrial birds)*
 
@@ -510,100 +485,75 @@ par(mfrow=c(2,2))
 plot(lm4)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-23-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ```r
 summary(lm4)
-```
+# 
+# Call:
+# lm(formula = logMaxAbund ~ logMass, data = bird, subset = bird$Passerine == 
+#     1)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -1.24644 -0.20937  0.02494  0.25192  0.93624 
+# 
+# Coefficients:
+#             Estimate Std. Error t value Pr(&gt;|t|)   
+# (Intercept)   1.2429     0.4163   2.985  0.00661 **
+# logMass       0.2107     0.3076   0.685  0.50010   
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.5151 on 23 degrees of freedom
+# Multiple R-squared:   0.02,	Adjusted R-squared:  -0.02261 
+# F-statistic: 0.4694 on 1 and 23 DF,  p-value: 0.5001
 
-```
-## 
-## Call:
-## lm(formula = logMaxAbund ~ logMass, data = bird, subset = bird$Passerine == 
-##     1)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.24644 -0.20937  0.02494  0.25192  0.93624 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)   
-## (Intercept)   1.2429     0.4163   2.985  0.00661 **
-## logMass       0.2107     0.3076   0.685  0.50010   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.5151 on 23 degrees of freedom
-## Multiple R-squared:   0.02,	Adjusted R-squared:  -0.02261 
-## F-statistic: 0.4694 on 1 and 23 DF,  p-value: 0.5001
-```
-
-```r
 # Compare variance explained by lm2, lm3 and lm4
-str(summary(lm4)) 
-```
+str(summary(lm4))
+# List of 11
+#  $ call         : language lm(formula = logMaxAbund ~ logMass, data = bird, subset = bird$Passerine ==      1)
+#  $ terms        :Classes 'terms', 'formula'  language logMaxAbund ~ logMass
+#   .. ..- attr(*, "variables")= language list(logMaxAbund, logMass)
+#   .. ..- attr(*, "factors")= int [1:2, 1] 0 1
+#   .. .. ..- attr(*, "dimnames")=List of 2
+#   .. .. .. ..$ : chr [1:2] "logMaxAbund" "logMass"
+#   .. .. .. ..$ : chr "logMass"
+#   .. ..- attr(*, "term.labels")= chr "logMass"
+#   .. ..- attr(*, "order")= int 1
+#   .. ..- attr(*, "intercept")= int 1
+#   .. ..- attr(*, "response")= int 1
+#   .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
+#   .. ..- attr(*, "predvars")= language list(logMaxAbund, logMass)
+#   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
+#   .. .. ..- attr(*, "names")= chr [1:2] "logMaxAbund" "logMass"
+#  $ residuals    : Named num [1:25] 0.182 0.812 -0.519 0.164 -0.455 ...
+#   ..- attr(*, "names")= chr [1:25] "2" "3" "11" "13" ...
+#  $ coefficients : num [1:2, 1:4] 1.243 0.211 0.416 0.308 2.985 ...
+#   ..- attr(*, "dimnames")=List of 2
+#   .. ..$ : chr [1:2] "(Intercept)" "logMass"
+#   .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(&gt;|t|)"
+#  $ aliased      : Named logi [1:2] FALSE FALSE
+#   ..- attr(*, "names")= chr [1:2] "(Intercept)" "logMass"
+#  $ sigma        : num 0.515
+#  $ df           : int [1:3] 2 23 2
+#  $ r.squared    : num 0.02
+#  $ adj.r.squared: num -0.0226
+#  $ fstatistic   : Named num [1:3] 0.469 1 23
+#   ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
+#  $ cov.unscaled : num [1:2, 1:2] 0.653 -0.468 -0.468 0.357
+#   ..- attr(*, "dimnames")=List of 2
+#   .. ..$ : chr [1:2] "(Intercept)" "logMass"
+#   .. ..$ : chr [1:2] "(Intercept)" "logMass"
+#  - attr(*, "class")= chr "summary.lm"
 
-```
-## List of 11
-##  $ call         : language lm(formula = logMaxAbund ~ logMass, data = bird, subset = bird$Passerine ==      1)
-##  $ terms        :Classes 'terms', 'formula'  language logMaxAbund ~ logMass
-##   .. ..- attr(*, "variables")= language list(logMaxAbund, logMass)
-##   .. ..- attr(*, "factors")= int [1:2, 1] 0 1
-##   .. .. ..- attr(*, "dimnames")=List of 2
-##   .. .. .. ..$ : chr [1:2] "logMaxAbund" "logMass"
-##   .. .. .. ..$ : chr "logMass"
-##   .. ..- attr(*, "term.labels")= chr "logMass"
-##   .. ..- attr(*, "order")= int 1
-##   .. ..- attr(*, "intercept")= int 1
-##   .. ..- attr(*, "response")= int 1
-##   .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
-##   .. ..- attr(*, "predvars")= language list(logMaxAbund, logMass)
-##   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
-##   .. .. ..- attr(*, "names")= chr [1:2] "logMaxAbund" "logMass"
-##  $ residuals    : Named num [1:25] 0.182 0.812 -0.519 0.164 -0.455 ...
-##   ..- attr(*, "names")= chr [1:25] "2" "3" "11" "13" ...
-##  $ coefficients : num [1:2, 1:4] 1.243 0.211 0.416 0.308 2.985 ...
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:2] "(Intercept)" "logMass"
-##   .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(&gt;|t|)"
-##  $ aliased      : Named logi [1:2] FALSE FALSE
-##   ..- attr(*, "names")= chr [1:2] "(Intercept)" "logMass"
-##  $ sigma        : num 0.515
-##  $ df           : int [1:3] 2 23 2
-##  $ r.squared    : num 0.02
-##  $ adj.r.squared: num -0.0226
-##  $ fstatistic   : Named num [1:3] 0.469 1 23
-##   ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
-##  $ cov.unscaled : num [1:2, 1:2] 0.653 -0.468 -0.468 0.357
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:2] "(Intercept)" "logMass"
-##   .. ..$ : chr [1:2] "(Intercept)" "logMass"
-##  - attr(*, "class")= chr "summary.lm"
-```
-
-```r
 # Recall: we want adj.r.squared
 summary(lm4)$adj.r.squared # R2-adj = -0.02
-```
-
-```
-## [1] -0.02260731
-```
-
-```r
+# [1] -0.02260731
 summary(lm2)$adj.r.squared # R2-adj = 0.05
-```
-
-```
-## [1] 0.05483696
-```
-
-```r
+# [1] 0.05483696
 summary(lm3)$adj.r.squared # R2-adj = 0.25
-```
-
-```
-## [1] 0.2484544
+# [1] 0.2484544
 ```
 
 
@@ -617,12 +567,12 @@ summary(lm3)$adj.r.squared # R2-adj = 0.25
 ---
 ## T-test
 
-- **Response variable**: Continuous 
+- **Response variable**: Continuous
 - **Explanatory variable**: Categorical with **2 levels**
 
 Hypothesis (for a bilateral t-test)
 
-- H0: The mean of group 1 is equal to the mean of group 2 
+- H0: The mean of group 1 is equal to the mean of group 2
 - H1: The mean of group 1 is not equal to the mean of group 2
 If assumptions cannot be respected,
 
@@ -647,7 +597,7 @@ factor (2 levels)
 name of dataframe
 Alternative hypothesis: "two.sided" (default), "less", or "greater"
 
-- The t-test is still a linear model and a specific case of ANOVA with one factor with 2 levels 
+- The t-test is still a linear model and a specific case of ANOVA with one factor with 2 levels
 
 Thus the function `lm()` can also be used
 
@@ -670,13 +620,13 @@ Explanatory variable: **Aquatic** / 2 levels: 1 or 0 (yes or no)
 First, lets visualize the data using the function `boxplot()`
 
 ```r
-boxplot(logMass ~ Aquatic, 
-        data = bird, 
+boxplot(logMass ~ Aquatic,
+        data = bird,
         names = c("Non-Aquatic",
                   "Aquatic"))
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-24-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Running a t-test in R
@@ -686,23 +636,20 @@ boxplot(logMass ~ Aquatic,
 
 ```r
 var.test(logMass ~ Aquatic, data = bird)
+# 
+# 	F test to compare two variances
+# 
+# data:  logMass by Aquatic
+# F = 1.0725, num df = 38, denom df = 14, p-value = 0.9305
+# alternative hypothesis: true ratio of variances is not equal to 1
+# 95 percent confidence interval:
+#  0.3996428 2.3941032
+# sample estimates:
+# ratio of variances 
+#           1.072452
 ```
 
-```
-## 
-## 	F test to compare two variances
-## 
-## data:  logMass by Aquatic
-## F = 1.0725, num df = 38, denom df = 14, p-value = 0.9305
-## alternative hypothesis: true ratio of variances is not equal to 1
-## 95 percent confidence interval:
-##  0.3996428 2.3941032
-## sample estimates:
-## ratio of variances 
-##           1.072452
-```
-
-- The ratio of variances is not statistically different from 1, therefore variances are equal 
+- The ratio of variances is not statistically different from 1, therefore variances are equal
 - We may now proceed with the t-test!
 
 ---
@@ -723,26 +670,14 @@ You can verify that `t.test()` and `lm()` provide the same model:
 
 ```r
 ttest1$statistic^2
-```
-
-```
-##       t 
-## 60.3845
-```
-
-```r
-anova(ttest.lm1)$F 
-```
-
-```
-## [1] 60.3845      NA
-```
-
-```r
+#       t 
+# 60.3845
+anova(ttest.lm1)$F
+# [1] 60.3845      NA
 # answer: F=60.3845 in both cases
 ```
 
-When the assumption of equal variance is met `\(t^2\)` follows an F distribution 
+When the assumption of equal variance is met `\(t^2\)` follows an F distribution
 
 ---
 ## Running a t-test in R
@@ -751,7 +686,7 @@ If p&lt;0.01 (or 0.05), the null hypothesis of no difference between the two gro
 
 There exists a difference in mass between the aquatic and terrestrial birds
 
-mean of the two groups 
+mean of the two groups
 
 ```
 Two Sample t-test
@@ -762,8 +697,8 @@ alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
  -1.6669697 -0.9827343
 sample estimates:
-mean in group 0 mean in group 1 
-       1.583437        2.908289 
+mean in group 0 mean in group 1
+       1.583437        2.908289
 ```
 
 ---
@@ -781,28 +716,25 @@ mean in group 0 mean in group 1
 
 ```r
 # Unilateral t-test
-uni.ttest1 &lt;- t.test(logMass ~ Aquatic, 
-                     var.equal = TRUE, 
-                     data = bird, 
+uni.ttest1 &lt;- t.test(logMass ~ Aquatic,
+                     var.equal = TRUE,
+                     data = bird,
                      alternative = "less")
 uni.ttest1
+# 
+# 	Two Sample t-test
+# 
+# data:  logMass by Aquatic
+# t = -7.7707, df = 52, p-value = 1.468e-10
+# alternative hypothesis: true difference in means is less than 0
+# 95 percent confidence interval:
+#       -Inf -1.039331
+# sample estimates:
+# mean in group 0 mean in group 1 
+#        1.583437        2.908289
 ```
 
-```
-## 
-## 	Two Sample t-test
-## 
-## data:  logMass by Aquatic
-## t = -7.7707, df = 52, p-value = 1.468e-10
-## alternative hypothesis: true difference in means is less than 0
-## 95 percent confidence interval:
-##       -Inf -1.039331
-## sample estimates:
-## mean in group 0 mean in group 1 
-##        1.583437        2.908289
-```
-
-- What did you conclude? 
+- What did you conclude?
 
 ---
 ## Group discussion
@@ -810,23 +742,20 @@ uni.ttest1
 
 ```r
 uni.ttest1
+# 
+# 	Two Sample t-test
+# 
+# data:  logMass by Aquatic
+# t = -7.7707, df = 52, p-value = 1.468e-10
+# alternative hypothesis: true difference in means is less than 0
+# 95 percent confidence interval:
+#       -Inf -1.039331
+# sample estimates:
+# mean in group 0 mean in group 1 
+#        1.583437        2.908289
 ```
 
-```
-## 
-## 	Two Sample t-test
-## 
-## data:  logMass by Aquatic
-## t = -7.7707, df = 52, p-value = 1.468e-10
-## alternative hypothesis: true difference in means is less than 0
-## 95 percent confidence interval:
-##       -Inf -1.039331
-## sample estimates:
-## mean in group 0 mean in group 1 
-##        1.583437        2.908289
-```
-
-Yes, aquatic birds are heavier than terrestrial birds: 
+Yes, aquatic birds are heavier than terrestrial birds:
 1.4680868\times 10^{-10}
 
 ---
@@ -857,15 +786,15 @@ The constant is the mean of the values of the response variable
 - Need to test for **interactions** among factors
 
 ### Repested measures?
-- Note that ANOVA can be used for repeated measures, but we won't cover this today. Mixed-effect linear models can also be used for this kind of data (see Workshop 5!) 
+- Note that ANOVA can be used for repeated measures, but we won't cover this today. Mixed-effect linear models can also be used for this kind of data (see Workshop 5!)
 
 ---
 ## Review: ANOVA
 
 **Compares variation within and between groups in order to determine if group means differ**
 
-Hypothesis 
-- For each factor and each interaction term: 
+Hypothesis
+- For each factor and each interaction term:
   - H0: The mean of the response variable is equal between groups
   - H1: At least two groups have a different mean
 
@@ -884,15 +813,15 @@ Complementary test
 - A commonly used post-hoc test to answer this question is the **Tukey's test**
 
 ---
-## Running an ANOVA in R 
+## Running an ANOVA in R
 
 ### Is abundance a function of diet?
 - Response variable: **MaxAbund** / num: continuous
-- Explanatory variable: **Diet** / factor with 5 levels 
+- Explanatory variable: **Diet** / factor with 5 levels
 
 ```
 'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"... 
+ $ Family   : Factor w/ 53 levels "Anhingas"...
  $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
  $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
  $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
@@ -908,7 +837,7 @@ Complementary test
 
 
 ```r
-boxplot(logMaxAbund ~ Diet, 
+boxplot(logMaxAbund ~ Diet,
         data = bird)
 ```
 
@@ -916,118 +845,100 @@ boxplot(logMaxAbund ~ Diet,
 
 
 ```r
-med &lt;- sort(tapply(bird$logMaxAbund, 
+med &lt;- sort(tapply(bird$logMaxAbund,
                    bird$Diet, median))
-boxplot(logMaxAbund ~ factor(Diet, 
+boxplot(logMaxAbund ~ factor(Diet,
                              levels = names(med)),
         data = bird)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-31-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
-## Running a one-way ANOVA in R 
+## Running a one-way ANOVA in R
 
 - Can use the function `lm()` to run an ANOVA
 
 ```r
-anov1 &lt;- lm(logMaxAbund ~ Diet, 
+anov1 &lt;- lm(logMaxAbund ~ Diet,
             data = bird)
 anova(anov1)
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
-## Diet       4  5.1059 1.27647  2.8363 0.0341 *
-## Residuals 49 22.0521 0.45004                 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
+# Diet       4  5.1059 1.27647  2.8363 0.0341 *
+# Residuals 49 22.0521 0.45004                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 - Or use a specific function called `aov()`
 
 ```r
-aov1 &lt;- aov(logMaxAbund ~ Diet, 
+aov1 &lt;- aov(logMaxAbund ~ Diet,
             data = bird)
 summary(aov1)
+#             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+# Diet         4  5.106   1.276   2.836 0.0341 *
+# Residuals   49 22.052   0.450                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-```
-##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
-## Diet         4  5.106   1.276   2.836 0.0341 *
-## Residuals   49 22.052   0.450                 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-- Try it and compare the outputs! 
+- Try it and compare the outputs!
 
 ---
-## Running a one-way ANOVA in R 
+## Running a one-way ANOVA in R
 
-- Compare outputs 
+- Compare outputs
 
 ```r
 anova(anov1)
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
-## Diet       4  5.1059 1.27647  2.8363 0.0341 *
-## Residuals 49 22.0521 0.45004                 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
+# Diet       4  5.1059 1.27647  2.8363 0.0341 *
+# Residuals 49 22.0521 0.45004                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ```r
 summary(aov1)
-```
-
-```
-##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
-## Diet         4  5.106   1.276   2.836 0.0341 *
-## Residuals   49 22.052   0.450                 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+# Diet         4  5.106   1.276   2.836 0.0341 *
+# Residuals   49 22.052   0.450                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ---
 ## Did we violate the model assumptions?
 
-- **Bartlett test**: equality of variance among groups 
+- **Bartlett test**: equality of variance among groups
 
 ```r
-bartlett.test(logMaxAbund ~ Diet, 
+bartlett.test(logMaxAbund ~ Diet,
               data = bird)
-```
-
-```
-## 
-## 	Bartlett test of homogeneity of variances
-## 
-## data:  logMaxAbund by Diet
-## Bartlett's K-squared = 7.4728, df = 4, p-value = 0.1129
+# 
+# 	Bartlett test of homogeneity of variances
+# 
+# data:  logMaxAbund by Diet
+# Bartlett's K-squared = 7.4728, df = 4, p-value = 0.1129
 ```
 
 - **Shapiro-Wilk test**:  Normality of residuals
 
 ```r
 shapiro.test(resid(anov1))
-```
-
-```
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  resid(anov1)
-## W = 0.97995, p-value = 0.4982
+# 
+# 	Shapiro-Wilk normality test
+# 
+# data:  resid(anov1)
+# W = 0.97995, p-value = 0.4982
 ```
 
 - Both tests are non-significant; variances assumed to be equal and residuals assumed to be normally distributed
@@ -1040,7 +951,7 @@ shapiro.test(resid(anov1))
 ```r
 data$logY &lt;- log10(data$Y)
 ```
-* see Workshop 1 for rules on data transformation 
+* see Workshop 1 for rules on data transformation
 * re-run your data with the transformed variables and verify the assumptions once again
 
 **Kruskal-Wallis Test**: non-parametric equivalent to ANOVA if you cannot *(or do not wish to)* transform the data
@@ -1050,44 +961,41 @@ kruskal.test(Y~X, data)
 ```
 
 ---
-## Output of our ANOVA model 
+## Output of our ANOVA model
 
 - Factor levels in alphabetical order and all levels are compared to the reference level ("Insect")
 
 
 ```r
 summary(anov1)
-```
-
-```
-## 
-## Call:
-## lm(formula = logMaxAbund ~ Diet, data = bird)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.85286 -0.32972 -0.08808  0.47375  1.56075 
-## 
-## Coefficients:
-##                 Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)       1.1539     0.1500   7.692 5.66e-10 ***
-## DietInsectVert   -0.6434     0.4975  -1.293   0.2020    
-## DietPlant         0.2410     0.4975   0.484   0.6303    
-## DietPlantInsect   0.4223     0.2180   1.938   0.0585 .  
-## DietVertebrate   -0.3070     0.2450  -1.253   0.2161    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.6709 on 49 degrees of freedom
-## Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
-## F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
+# 
+# Call:
+# lm(formula = logMaxAbund ~ Diet, data = bird)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -1.85286 -0.32972 -0.08808  0.47375  1.56075 
+# 
+# Coefficients:
+#                 Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept)       1.1539     0.1500   7.692 5.66e-10 ***
+# DietInsectVert   -0.6434     0.4975  -1.293   0.2020    
+# DietPlant         0.2410     0.4975   0.484   0.6303    
+# DietPlantInsect   0.4223     0.2180   1.938   0.0585 .  
+# DietVertebrate   -0.3070     0.2450  -1.253   0.2161    
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.6709 on 49 degrees of freedom
+# Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
+# F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
 ```
 
 ```r
 summary.lm(aov1)
 ```
 
-Significant difference between Diet groups, but we don't know which ones! 
+Significant difference between Diet groups, but we don't know which ones!
 
 ---
 ## A posteriori test
@@ -1097,40 +1005,37 @@ Significant difference between Diet groups, but we don't know which ones!
 
 ```r
 TukeyHSD(aov(anov1),
-         ordered=T) 
+         ordered=T)
+#   Tukey multiple comparisons of means
+#     95% family-wise confidence level
+#     factor levels have been ordered
+# 
+# Fit: aov(formula = anov1)
+# 
+# $Diet
+#                             diff         lwr      upr     p adj
+# Vertebrate-InsectVert  0.3364295 -1.11457613 1.787435 0.9645742
+# Insect-InsectVert      0.6434334 -0.76550517 2.052372 0.6965047
+# Plant-InsectVert       0.8844338 -1.01537856 2.784246 0.6812494
+# PlantInsect-InsectVert 1.0657336 -0.35030287 2.481770 0.2235587
+# Insect-Vertebrate      0.3070039 -0.38670951 1.000717 0.7204249
+# Plant-Vertebrate       0.5480043 -0.90300137 1.999010 0.8211024
+# PlantInsect-Vertebrate 0.7293041  0.02128588 1.437322 0.0405485
+# Plant-Insect           0.2410004 -1.16793813 1.649939 0.9884504
+# PlantInsect-Insect     0.4223003 -0.19493574 1.039536 0.3117612
+# PlantInsect-Plant      0.1812999 -1.23473664 1.597336 0.9961844
 ```
 
-```
-##   Tukey multiple comparisons of means
-##     95% family-wise confidence level
-##     factor levels have been ordered
-## 
-## Fit: aov(formula = anov1)
-## 
-## $Diet
-##                             diff         lwr      upr     p adj
-## Vertebrate-InsectVert  0.3364295 -1.11457613 1.787435 0.9645742
-## Insect-InsectVert      0.6434334 -0.76550517 2.052372 0.6965047
-## Plant-InsectVert       0.8844338 -1.01537856 2.784246 0.6812494
-## PlantInsect-InsectVert 1.0657336 -0.35030287 2.481770 0.2235587
-## Insect-Vertebrate      0.3070039 -0.38670951 1.000717 0.7204249
-## Plant-Vertebrate       0.5480043 -0.90300137 1.999010 0.8211024
-## PlantInsect-Vertebrate 0.7293041  0.02128588 1.437322 0.0405485
-## Plant-Insect           0.2410004 -1.16793813 1.649939 0.9884504
-## PlantInsect-Insect     0.4223003 -0.19493574 1.039536 0.3117612
-## PlantInsect-Plant      0.1812999 -1.23473664 1.597336 0.9961844
-```
-
-Only "Vertebrate" and "PlantInsect" differ 
+Only "Vertebrate" and "PlantInsect" differ
 
 ---
-## Graphical representation 
+## Graphical representation
 
-- The ANOVA results can be graphically illustrated using the `barplot()` function 
+- The ANOVA results can be graphically illustrated using the `barplot()` function
 
 
 ```r
-sd &lt;- tapply(bird$logMaxAbund, list(bird$Diet), sd) 
+sd &lt;- tapply(bird$logMaxAbund, list(bird$Diet), sd)
 means &lt;- tapply(bird$logMaxAbund, list(bird$Diet), mean)
 n &lt;- length(bird$logMaxAbund)
 se &lt;- 1.96*sd/sqrt(n)
@@ -1141,7 +1046,7 @@ segments(bp - epsilon, means - se, bp + epsilon, means - se, lwd = 2)
 segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-43-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-43-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1154,11 +1059,11 @@ The "*" symbol indicates that the main effects as well as their interaction will
 Analysis of Variance Table
 
 Response: Y
-Df Sum Sq Mean Sq F value Pr(&gt;F) 
+Df Sum Sq Mean Sq F value Pr(&gt;F)
 X 4 5.1059 1.27647 3.0378 0.02669 *
-Z 1 0.3183 0.31834 0.7576 0.38870 
+Z 1 0.3183 0.31834 0.7576 0.38870
 X:Z 3 2.8250 0.94167 2.2410 0.10689
-Residuals 45 18.9087 0.42019 
+Residuals 45 18.9087 0.42019
 ---
 Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
@@ -1175,9 +1080,7 @@ Example of a non-significant interaction
 If use the "+" symbol, the **main effects**, but *not* their interaction are included
 
 ---
-## Challenge 2
-
-&lt;img style="float: right; width: 350px;" src="images/rubicub.png"&gt;
+## Challenge 2 ![:cube]()
 
 ### Evaluate how `log(MaxAbund)` varies with Diet and Aquatic
 
@@ -1187,58 +1090,49 @@ e.g. `lm(Y ~ A*B)`
 where A is your first factor, B is your second and "*" is the command for interaction in R
 
 ---
-## Challenge 2 - Solution
+## Challenge 2 - Solution ![:cube]()
 
 ```r
-anov2 &lt;- lm(logMaxAbund ~ Diet*Aquatic, 
+anov2 &lt;- lm(logMaxAbund ~ Diet*Aquatic,
             data = bird)
 summary(anov2)
-```
-
-```
-## 
-## Call:
-## lm(formula = logMaxAbund ~ Diet * Aquatic, data = bird)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -1.9508 -0.2447  0.0000  0.3584  1.1558 
-## 
-## Coefficients: (1 not defined because of singularities)
-##                         Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)              1.23447    0.17324   7.126 6.64e-09 ***
-## DietInsectVert          -0.86989    0.67097  -1.296   0.2014    
-## DietPlant                0.16043    0.49001   0.327   0.7449    
-## DietPlantInsect          0.35358    0.23395   1.511   0.1377    
-## DietVertebrate          -0.95449    0.33772  -2.826   0.0070 ** 
-## Aquatic                 -0.26858    0.31630  -0.849   0.4003    
-## DietInsectVert:Aquatic   0.56034    0.96976   0.578   0.5663    
-## DietPlant:Aquatic             NA         NA      NA       NA    
-## DietPlantInsect:Aquatic  0.05516    0.73821   0.075   0.9408    
-## DietVertebrate:Aquatic   1.24044    0.49408   2.511   0.0157 *  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.6482 on 45 degrees of freedom
-## Multiple R-squared:  0.3038,	Adjusted R-squared:   0.18 
-## F-statistic: 2.454 on 8 and 45 DF,  p-value: 0.02688
-```
-
-```r
+# 
+# Call:
+# lm(formula = logMaxAbund ~ Diet * Aquatic, data = bird)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -1.9508 -0.2447  0.0000  0.3584  1.1558 
+# 
+# Coefficients: (1 not defined because of singularities)
+#                         Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept)              1.23447    0.17324   7.126 6.64e-09 ***
+# DietInsectVert          -0.86989    0.67097  -1.296   0.2014    
+# DietPlant                0.16043    0.49001   0.327   0.7449    
+# DietPlantInsect          0.35358    0.23395   1.511   0.1377    
+# DietVertebrate          -0.95449    0.33772  -2.826   0.0070 ** 
+# Aquatic                 -0.26858    0.31630  -0.849   0.4003    
+# DietInsectVert:Aquatic   0.56034    0.96976   0.578   0.5663    
+# DietPlant:Aquatic             NA         NA      NA       NA    
+# DietPlantInsect:Aquatic  0.05516    0.73821   0.075   0.9408    
+# DietVertebrate:Aquatic   1.24044    0.49408   2.511   0.0157 *  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.6482 on 45 degrees of freedom
+# Multiple R-squared:  0.3038,	Adjusted R-squared:   0.18 
+# F-statistic: 2.454 on 8 and 45 DF,  p-value: 0.02688
 anova(anov2)
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##              Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
-## Diet          4  5.1059 1.27647  3.0378 0.02669 *
-## Aquatic       1  0.3183 0.31834  0.7576 0.38870  
-## Diet:Aquatic  3  2.8250 0.94167  2.2410 0.09644 .
-## Residuals    45 18.9087 0.42019                  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#              Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+# Diet          4  5.1059 1.27647  3.0378 0.02669 *
+# Aquatic       1  0.3183 0.31834  0.7576 0.38870  
+# Diet:Aquatic  3  2.8250 0.94167  2.2410 0.09644 .
+# Residuals    45 18.9087 0.42019                  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 
@@ -1260,8 +1154,8 @@ anova(anov2)
 ```
 Y = μ + Main Effects of Factors
       + Interactions between factors
-      + Main effects of covariates 
-      + Interactions between covariates and factors 
+      + Main effects of covariates
+      + Interactions between covariates and factors
       + Residuals
 ```
 ---
@@ -1290,7 +1184,7 @@ Frequently used ANCOVA
 2) One covariate and two factors
 3) Two covariates and one factor
 
-* We will only see the first case today, but the two others are pretty similar! 
+* We will only see the first case today, but the two others are pretty similar!
 
 ---
 ## ANCOVA with one covariate and one factor
@@ -1301,7 +1195,7 @@ Different possible goals of this analysis:
 2) Effect of factor on the response variable after removing effect of covariate
 3) Effect of covariate on response variable while controlling for the effect of factor
 
-* You can only meet these goals if you have no interaction between your factor and covariate! 
+* You can only meet these goals if you have no interaction between your factor and covariate!
 
 ---
 ## ANCOVA with one covariate and one factor
@@ -1311,8 +1205,8 @@ If your covariate and factor are significant, you will have a scenario that look
 If the interaction is significant, outputs will look like these:
 
 No interaction
-One level of the factor has a different slope 
-Many levels have different slopes 
+One level of the factor has a different slope
+Many levels have different slopes
 
 ---
 ## ANCOVA with one covariate and one factor
@@ -1344,7 +1238,7 @@ Verify assumptions!
 - Very similar to what we have done so far!
 
 ---
-## Running an ANCOVA in R 
+## Running an ANCOVA in R
 
 ### Is Max Abund a function of Diet and Mass?
 
@@ -1353,7 +1247,7 @@ Explanatory variables: **Diet** / factor with 5 levels
                        **Mass** / numeric continuous
 ```
 'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"... 
+ $ Family   : Factor w/ 53 levels "Anhingas"...
  $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
  $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
  $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
@@ -1363,8 +1257,7 @@ Explanatory variables: **Diet** / factor with 5 levels
 ```
 
 ---
-## Challenge 3 
-&lt;img style="float: right; width: 350px;" src="images/rubicub.png"&gt;
+## Challenge 3 ![:cube]()
 
 1- Run an ANCOVA to test the effect of Diet and Mass (as well as their interaction) on Maximum abundance
 
@@ -1380,51 +1273,45 @@ ancova.exemple2 &lt;- lm(Y~X+Z, data=data)
 ```
 
 ---
-## Challenge 3 - Solution
+## Challenge 3 - Solution ![:cube]()
 
 ```r
-ancov1 &lt;- lm(logMaxAbund ~ logMass*Diet, 
+ancov1 &lt;- lm(logMaxAbund ~ logMass*Diet,
              data = bird)
 anova(ancov1)
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##              Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
-## logMass       1  1.9736 1.97357  4.6054 0.03743 *
-## Diet          4  3.3477 0.83691  1.9530 0.11850  
-## logMass:Diet  4  2.9811 0.74527  1.7391 0.15849  
-## Residuals    44 18.8556 0.42854                  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#              Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+# logMass       1  1.9736 1.97357  4.6054 0.03743 *
+# Diet          4  3.3477 0.83691  1.9530 0.11850  
+# logMass:Diet  4  2.9811 0.74527  1.7391 0.15849  
+# Residuals    44 18.8556 0.42854                  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 Interaction btw logMass and Diet is non-significant
 
 ---
-## Challenge 3 - Solution
+## Challenge 3 - Solution ![:cube]()
 
 - Remove the interaction term and re-evaluate the model (with only the main effects of Diet and logMass)
 
 
 ```r
-ancov2 &lt;- lm(logMaxAbund ~ logMass + Diet, 
+ancov2 &lt;- lm(logMaxAbund ~ logMass + Diet,
              data = bird)
 anova(ancov2)
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
-## logMass    1  1.9736 1.97357  4.3382 0.04262 *
-## Diet       4  3.3477 0.83691  1.8396 0.13664  
-## Residuals 48 21.8367 0.45493                  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+# logMass    1  1.9736 1.97357  4.3382 0.04262 *
+# Diet       4  3.3477 0.83691  1.8396 0.13664  
+# Residuals 48 21.8367 0.45493                  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ---
@@ -1469,79 +1356,73 @@ Dickcissel &lt;- read.csv("dickcissel.csv")
 
 ```r
 str(Dickcissel)
-```
-
-```
-## 'data.frame':	646 obs. of  15 variables:
-##  $ abund    : num  5 0.2 0.4 0 0 0 0 0 0 0 ...
-##  $ Present  : Factor w/ 2 levels "Absent","Present": 1 1 1 2 2 2 2 2 2 2 ...
-##  $ clDD     : num  5543 5750 5395 5920 6152 ...
-##  $ clFD     : num  83.5 67.5 79.5 66.7 57.6 59.2 59.5 51.5 47.4 46.3 ...
-##  $ clTmi    : num  9 9.6 8.6 11.9 11.6 10.8 10.8 11.6 13.6 13.5 ...
-##  $ clTma    : num  32.1 31.4 30.9 31.9 32.4 32.1 32.3 33 33.5 33.4 ...
-##  $ clTmn    : num  15.2 15.7 14.8 16.2 16.8 ...
-##  $ clP      : num  140 147 148 143 141 ...
-##  $ NDVI     : int  -56 -44 -36 -49 -42 -49 -48 -50 -64 -58 ...
-##  $ broadleaf: num  0.3866 0.9516 0.9905 0.0506 0.2296 ...
-##  $ conif    : num  0.0128 0.0484 0 0.9146 0.7013 ...
-##  $ grass    : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ crop     : num  0.2716 0 0 0.0285 0.044 ...
-##  $ urban    : num  0.2396 0 0 0 0.0157 ...
-##  $ wetland  : num  0 0 0 0 0 0 0 0 0 0 ...
+# 'data.frame':	646 obs. of  15 variables:
+#  $ abund    : num  5 0.2 0.4 0 0 0 0 0 0 0 ...
+#  $ Present  : Factor w/ 2 levels "Absent","Present": 1 1 1 2 2 2 2 2 2 2 ...
+#  $ clDD     : num  5543 5750 5395 5920 6152 ...
+#  $ clFD     : num  83.5 67.5 79.5 66.7 57.6 59.2 59.5 51.5 47.4 46.3 ...
+#  $ clTmi    : num  9 9.6 8.6 11.9 11.6 10.8 10.8 11.6 13.6 13.5 ...
+#  $ clTma    : num  32.1 31.4 30.9 31.9 32.4 32.1 32.3 33 33.5 33.4 ...
+#  $ clTmn    : num  15.2 15.7 14.8 16.2 16.8 ...
+#  $ clP      : num  140 147 148 143 141 ...
+#  $ NDVI     : int  -56 -44 -36 -49 -42 -49 -48 -50 -64 -58 ...
+#  $ broadleaf: num  0.3866 0.9516 0.9905 0.0506 0.2296 ...
+#  $ conif    : num  0.0128 0.0484 0 0.9146 0.7013 ...
+#  $ grass    : num  0 0 0 0 0 0 0 0 0 0 ...
+#  $ crop     : num  0.2716 0 0 0.0285 0.044 ...
+#  $ urban    : num  0.2396 0 0 0 0.0157 ...
+#  $ wetland  : num  0 0 0 0 0 0 0 0 0 0 ...
 ```
 
 ---
-## Verify assumptions! 
+## Verify assumptions!
 
-Collinearity: 
+Collinearity:
 - Verify collinearity of all explanatory variables
 
 ```r
-plot(Dickcissel) # May take some time 
+plot(Dickcissel) # May take some time
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-54-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
-- If you see a pattern between any two variables, they may be collinear! 
+- If you see a pattern between any two variables, they may be collinear!
 - They are likely to explain the same variability of the response variable and the effect of one variable will be masked by the other
 
-Possible solutions: 
+Possible solutions:
 - Keep only **one** of the collinear variables
 - Try multivariate analyses (see *Ordination Workshop*)
 - Try a pseudo-orthogonal analysis
 
 ---
-## Multiple linear regression in R 
+## Multiple linear regression in R
 
-- Run the multiple linear regression in R with abund as a function of clTma + NDVI + grass 
+- Run the multiple linear regression in R with abund as a function of clTma + NDVI + grass
 
 ```r
-lm.mult &lt;- lm(abund ~ clTma + NDVI + grass, 
+lm.mult &lt;- lm(abund ~ clTma + NDVI + grass,
               data = Dickcissel)
 summary(lm.mult)
-```
-
-```
-## 
-## Call:
-## lm(formula = abund ~ clTma + NDVI + grass, data = Dickcissel)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -35.327 -11.029  -4.337   2.150 180.725 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -83.60813   11.57745  -7.222 1.46e-12 ***
-## clTma         3.27299    0.40677   8.046 4.14e-15 ***
-## NDVI          0.13716    0.05486   2.500   0.0127 *  
-## grass        10.41435    4.68962   2.221   0.0267 *  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 22.58 on 642 degrees of freedom
-## Multiple R-squared:  0.117,	Adjusted R-squared:  0.1128 
-## F-statistic: 28.35 on 3 and 642 DF,  p-value: &lt; 2.2e-16
+# 
+# Call:
+# lm(formula = abund ~ clTma + NDVI + grass, data = Dickcissel)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -35.327 -11.029  -4.337   2.150 180.725 
+# 
+# Coefficients:
+#              Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept) -83.60813   11.57745  -7.222 1.46e-12 ***
+# clTma         3.27299    0.40677   8.046 4.14e-15 ***
+# NDVI          0.13716    0.05486   2.500   0.0127 *  
+# grass        10.41435    4.68962   2.221   0.0267 *  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 22.58 on 642 degrees of freedom
+# Multiple R-squared:  0.117,	Adjusted R-squared:  0.1128 
+# F-statistic: 28.35 on 3 and 642 DF,  p-value: &lt; 2.2e-16
 ```
 
 - Verify diagnostic plots, as you did for the simple linear regression
@@ -1551,50 +1432,47 @@ par(mfrow=c(2,2))
 plot(lm.mult)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-56-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-56-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
-## Find the best-fit model 
+## Find the best-fit model
 
 - Recall the principle of parcimony: Most variance explained using the least number of terms possible
-- Remove the weakest variable 
+- Remove the weakest variable
 
 
 ```r
 summary(lm.mult)
+# 
+# Call:
+# lm(formula = abund ~ clTma + NDVI + grass, data = Dickcissel)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -35.327 -11.029  -4.337   2.150 180.725 
+# 
+# Coefficients:
+#              Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept) -83.60813   11.57745  -7.222 1.46e-12 ***
+# clTma         3.27299    0.40677   8.046 4.14e-15 ***
+# NDVI          0.13716    0.05486   2.500   0.0127 *  
+# grass        10.41435    4.68962   2.221   0.0267 *  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 22.58 on 642 degrees of freedom
+# Multiple R-squared:  0.117,	Adjusted R-squared:  0.1128 
+# F-statistic: 28.35 on 3 and 642 DF,  p-value: &lt; 2.2e-16
 ```
 
-```
-## 
-## Call:
-## lm(formula = abund ~ clTma + NDVI + grass, data = Dickcissel)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -35.327 -11.029  -4.337   2.150 180.725 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -83.60813   11.57745  -7.222 1.46e-12 ***
-## clTma         3.27299    0.40677   8.046 4.14e-15 ***
-## NDVI          0.13716    0.05486   2.500   0.0127 *  
-## grass        10.41435    4.68962   2.221   0.0267 *  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 22.58 on 642 degrees of freedom
-## Multiple R-squared:  0.117,	Adjusted R-squared:  0.1128 
-## F-statistic: 28.35 on 3 and 642 DF,  p-value: &lt; 2.2e-16
-```
-
-All 3 variables are significant 
+All 3 variables are significant
 
 Model explains ~11% of the dickcissel variance ($R^2$-adj =0.11)
 
 ---
-## 
+##
 
-- However, the response variable (abund) is not linearly related to the explanatory variables. 
+- However, the response variable (abund) is not linearly related to the explanatory variables.
 
 
 ```r
@@ -1604,157 +1482,151 @@ plot(abund ~ NDVI,  data = Dickcissel)
 plot(abund ~ grass, data = Dickcissel)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-58-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-58-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 * See **Advanced section** on **polynomial regression** for solution!
 
 ---
 ## Stepwise regression
 
-- Run a model with everything in except the "Present/ absence" variable 
-- Use `step()` to iteratively select the best model, 
+- Run a model with everything in except the "Present/ absence" variable
+- Use `step()` to iteratively select the best model,
   - i.e. model with lowest Akaike's Information Criterion (AIC)
 
 
 ```r
-lm.full &lt;- lm(abund ~ . - Present, 
-              data = Dickcissel) 
+lm.full &lt;- lm(abund ~ . - Present,
+              data = Dickcissel)
 lm.step &lt;- step(lm.full)
-```
-
-```
-## Start:  AIC=3878.03
-## abund ~ (Present + clDD + clFD + clTmi + clTma + clTmn + clP + 
-##     NDVI + broadleaf + conif + grass + crop + urban + wetland) - 
-##     Present
-## 
-##             Df Sum of Sq    RSS    AIC
-## - wetland    1       0.7 250346 3876.0
-## - conif      1      10.6 250356 3876.1
-## - crop       1      26.1 250372 3876.1
-## - NDVI       1      50.8 250396 3876.2
-## - broadleaf  1      56.3 250402 3876.2
-## - clTmn      1     318.4 250664 3876.9
-## - clDD       1     444.7 250790 3877.2
-## - urban      1     739.8 251085 3877.9
-## &lt;none&gt;                   250346 3878.0
-## - grass      1    1674.6 252020 3880.3
-## - clTma      1    2551.3 252897 3882.6
-## - clP        1    3282.3 253628 3884.4
-## - clFD       1   14680.0 265026 3912.8
-## - clTmi      1   30976.1 281322 3951.4
-## 
-## Step:  AIC=3876.03
-## abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + NDVI + broadleaf + 
-##     conif + grass + crop + urban
-## 
-##             Df Sum of Sq    RSS    AIC
-## - conif      1      10.4 250357 3874.1
-## - crop       1      26.3 250373 3874.1
-## - NDVI       1      51.3 250398 3874.2
-## - broadleaf  1      55.9 250402 3874.2
-## - clTmn      1     317.7 250664 3874.9
-## - clDD       1     444.1 250790 3875.2
-## - urban      1     740.4 251087 3875.9
-## &lt;none&gt;                   250346 3876.0
-## - grass      1    1674.2 252021 3878.3
-## - clTma      1    2553.9 252900 3880.6
-## - clP        1    3349.8 253696 3882.6
-## - clFD       1   14692.2 265039 3910.9
-## - clTmi      1   30976.3 281323 3949.4
-## 
-## Step:  AIC=3874.06
-## abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + NDVI + broadleaf + 
-##     grass + crop + urban
-## 
-##             Df Sum of Sq    RSS    AIC
-## - broadleaf  1      48.4 250405 3872.2
-## - NDVI       1      52.0 250409 3872.2
-## - crop       1      85.4 250442 3872.3
-## - clTmn      1     319.1 250676 3872.9
-## - clDD       1     445.6 250802 3873.2
-## - urban      1     763.2 251120 3874.0
-## &lt;none&gt;                   250357 3874.1
-## - grass      1    1981.7 252338 3877.2
-## - clTma      1    2627.9 252985 3878.8
-## - clP        1    3492.5 253849 3881.0
-## - clFD       1   14686.7 265043 3908.9
-## - clTmi      1   31159.9 281517 3947.8
-## 
-## Step:  AIC=3872.18
-## abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + NDVI + grass + 
-##     crop + urban
-## 
-##         Df Sum of Sq    RSS    AIC
-## - NDVI   1        76 250482 3870.4
-## - crop   1       249 250654 3870.8
-## - clTmn  1       328 250733 3871.0
-## - clDD   1       458 250863 3871.4
-## - urban  1       766 251171 3872.2
-## &lt;none&gt;               250405 3872.2
-## - grass  1      1986 252391 3875.3
-## - clTma  1      2597 253002 3876.8
-## - clP    1      3498 253903 3879.1
-## - clFD   1     15935 266340 3910.0
-## - clTmi  1     32524 282930 3949.1
-## 
-## Step:  AIC=3870.38
-## abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + grass + crop + 
-##     urban
-## 
-##         Df Sum of Sq    RSS    AIC
-## - crop   1       295 250777 3869.1
-## - clTmn  1       338 250819 3869.3
-## - clDD   1       471 250952 3869.6
-## - urban  1       754 251235 3870.3
-## &lt;none&gt;               250482 3870.4
-## - grass  1      2032 252514 3873.6
-## - clTma  1      2534 253015 3874.9
-## - clP    1      4161 254643 3879.0
-## - clFD   1     16251 266732 3909.0
-## - clTmi  1     34431 284913 3951.6
-## 
-## Step:  AIC=3869.14
-## abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + grass + urban
-## 
-##         Df Sum of Sq    RSS    AIC
-## - clTmn  1       366 251143 3868.1
-## - clDD   1       503 251280 3868.4
-## - urban  1       732 251508 3869.0
-## &lt;none&gt;               250777 3869.1
-## - grass  1      2389 253166 3873.3
-## - clTma  1      2460 253237 3873.4
-## - clP    1      4286 255063 3878.1
-## - clFD   1     16263 267040 3907.7
-## - clTmi  1     34359 285136 3950.1
-## 
-## Step:  AIC=3868.08
-## abund ~ clDD + clFD + clTmi + clTma + clP + grass + urban
-## 
-##         Df Sum of Sq    RSS    AIC
-## - urban  1       709 251852 3867.9
-## &lt;none&gt;               251143 3868.1
-## - clTma  1      2359 253502 3872.1
-## - grass  1      2390 253533 3872.2
-## - clP    1      4476 255619 3877.5
-## - clDD   1     15790 266933 3905.5
-## - clFD   1     16601 267744 3907.4
-## - clTmi  1     34726 285869 3949.7
-## 
-## Step:  AIC=3867.91
-## abund ~ clDD + clFD + clTmi + clTma + clP + grass
-## 
-##         Df Sum of Sq    RSS    AIC
-## &lt;none&gt;               251852 3867.9
-## - clTma  1      2391 254243 3872.0
-## - grass  1      2444 254296 3872.1
-## - clP    1      4339 256191 3876.9
-## - clDD   1     15602 267454 3904.7
-## - clFD   1     16405 268257 3906.7
-## - clTmi  1     34375 286227 3948.6
-```
-
-```r
+# Start:  AIC=3878.03
+# abund ~ (Present + clDD + clFD + clTmi + clTma + clTmn + clP + 
+#     NDVI + broadleaf + conif + grass + crop + urban + wetland) - 
+#     Present
+# 
+#             Df Sum of Sq    RSS    AIC
+# - wetland    1       0.7 250346 3876.0
+# - conif      1      10.6 250356 3876.1
+# - crop       1      26.1 250372 3876.1
+# - NDVI       1      50.8 250396 3876.2
+# - broadleaf  1      56.3 250402 3876.2
+# - clTmn      1     318.4 250664 3876.9
+# - clDD       1     444.7 250790 3877.2
+# - urban      1     739.8 251085 3877.9
+# &lt;none&gt;                   250346 3878.0
+# - grass      1    1674.6 252020 3880.3
+# - clTma      1    2551.3 252897 3882.6
+# - clP        1    3282.3 253628 3884.4
+# - clFD       1   14680.0 265026 3912.8
+# - clTmi      1   30976.1 281322 3951.4
+# 
+# Step:  AIC=3876.03
+# abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + NDVI + broadleaf + 
+#     conif + grass + crop + urban
+# 
+#             Df Sum of Sq    RSS    AIC
+# - conif      1      10.4 250357 3874.1
+# - crop       1      26.3 250373 3874.1
+# - NDVI       1      51.3 250398 3874.2
+# - broadleaf  1      55.9 250402 3874.2
+# - clTmn      1     317.7 250664 3874.9
+# - clDD       1     444.1 250790 3875.2
+# - urban      1     740.4 251087 3875.9
+# &lt;none&gt;                   250346 3876.0
+# - grass      1    1674.2 252021 3878.3
+# - clTma      1    2553.9 252900 3880.6
+# - clP        1    3349.8 253696 3882.6
+# - clFD       1   14692.2 265039 3910.9
+# - clTmi      1   30976.3 281323 3949.4
+# 
+# Step:  AIC=3874.06
+# abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + NDVI + broadleaf + 
+#     grass + crop + urban
+# 
+#             Df Sum of Sq    RSS    AIC
+# - broadleaf  1      48.4 250405 3872.2
+# - NDVI       1      52.0 250409 3872.2
+# - crop       1      85.4 250442 3872.3
+# - clTmn      1     319.1 250676 3872.9
+# - clDD       1     445.6 250802 3873.2
+# - urban      1     763.2 251120 3874.0
+# &lt;none&gt;                   250357 3874.1
+# - grass      1    1981.7 252338 3877.2
+# - clTma      1    2627.9 252985 3878.8
+# - clP        1    3492.5 253849 3881.0
+# - clFD       1   14686.7 265043 3908.9
+# - clTmi      1   31159.9 281517 3947.8
+# 
+# Step:  AIC=3872.18
+# abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + NDVI + grass + 
+#     crop + urban
+# 
+#         Df Sum of Sq    RSS    AIC
+# - NDVI   1        76 250482 3870.4
+# - crop   1       249 250654 3870.8
+# - clTmn  1       328 250733 3871.0
+# - clDD   1       458 250863 3871.4
+# - urban  1       766 251171 3872.2
+# &lt;none&gt;               250405 3872.2
+# - grass  1      1986 252391 3875.3
+# - clTma  1      2597 253002 3876.8
+# - clP    1      3498 253903 3879.1
+# - clFD   1     15935 266340 3910.0
+# - clTmi  1     32524 282930 3949.1
+# 
+# Step:  AIC=3870.38
+# abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + grass + crop + 
+#     urban
+# 
+#         Df Sum of Sq    RSS    AIC
+# - crop   1       295 250777 3869.1
+# - clTmn  1       338 250819 3869.3
+# - clDD   1       471 250952 3869.6
+# - urban  1       754 251235 3870.3
+# &lt;none&gt;               250482 3870.4
+# - grass  1      2032 252514 3873.6
+# - clTma  1      2534 253015 3874.9
+# - clP    1      4161 254643 3879.0
+# - clFD   1     16251 266732 3909.0
+# - clTmi  1     34431 284913 3951.6
+# 
+# Step:  AIC=3869.14
+# abund ~ clDD + clFD + clTmi + clTma + clTmn + clP + grass + urban
+# 
+#         Df Sum of Sq    RSS    AIC
+# - clTmn  1       366 251143 3868.1
+# - clDD   1       503 251280 3868.4
+# - urban  1       732 251508 3869.0
+# &lt;none&gt;               250777 3869.1
+# - grass  1      2389 253166 3873.3
+# - clTma  1      2460 253237 3873.4
+# - clP    1      4286 255063 3878.1
+# - clFD   1     16263 267040 3907.7
+# - clTmi  1     34359 285136 3950.1
+# 
+# Step:  AIC=3868.08
+# abund ~ clDD + clFD + clTmi + clTma + clP + grass + urban
+# 
+#         Df Sum of Sq    RSS    AIC
+# - urban  1       709 251852 3867.9
+# &lt;none&gt;               251143 3868.1
+# - clTma  1      2359 253502 3872.1
+# - grass  1      2390 253533 3872.2
+# - clP    1      4476 255619 3877.5
+# - clDD   1     15790 266933 3905.5
+# - clFD   1     16601 267744 3907.4
+# - clTmi  1     34726 285869 3949.7
+# 
+# Step:  AIC=3867.91
+# abund ~ clDD + clFD + clTmi + clTma + clP + grass
+# 
+#         Df Sum of Sq    RSS    AIC
+# &lt;none&gt;               251852 3867.9
+# - clTma  1      2391 254243 3872.0
+# - grass  1      2444 254296 3872.1
+# - clP    1      4339 256191 3876.9
+# - clDD   1     15602 267454 3904.7
+# - clFD   1     16405 268257 3906.7
+# - clTmi  1     34375 286227 3948.6
 ?step
 ```
 
@@ -1763,69 +1635,66 @@ lm.step &lt;- step(lm.full)
 
 
 ```
-## 
-## Call:
-## lm(formula = abund ~ . - Present, data = Dickcissel)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -32.151  -9.847  -2.864   4.215 170.774 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -444.39158   35.48446 -12.524  &lt; 2e-16 ***
-## clDD           0.35577    0.33576   1.060  0.28973    
-## clFD           1.06739    0.17534   6.088 1.99e-09 ***
-## clTmi         -6.73898    0.76207  -8.843  &lt; 2e-16 ***
-## clTma          3.40939    1.34342   2.538  0.01139 *  
-## clTmn       -110.10517  122.81542  -0.897  0.37032    
-## clP            0.14624    0.05080   2.879  0.00413 ** 
-## NDVI           0.01949    0.05446   0.358  0.72048    
-## broadleaf      1.38425    3.67225   0.377  0.70634    
-## conif          0.65936    4.02652   0.164  0.86998    
-## grass         10.66584    5.18745   2.056  0.04018 *  
-## crop          -0.86060    3.35285  -0.257  0.79751    
-## urban        -31.01974   22.69841  -1.367  0.17224    
-## wetland       34.06486  806.29941   0.042  0.96631    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 19.9 on 632 degrees of freedom
-## Multiple R-squared:  0.3248,	Adjusted R-squared:  0.3109 
-## F-statistic: 23.39 on 13 and 632 DF,  p-value: &lt; 2.2e-16
+# 
+# Call:
+# lm(formula = abund ~ . - Present, data = Dickcissel)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -32.151  -9.847  -2.864   4.215 170.774 
+# 
+# Coefficients:
+#               Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept) -444.39158   35.48446 -12.524  &lt; 2e-16 ***
+# clDD           0.35577    0.33576   1.060  0.28973    
+# clFD           1.06739    0.17534   6.088 1.99e-09 ***
+# clTmi         -6.73898    0.76207  -8.843  &lt; 2e-16 ***
+# clTma          3.40939    1.34342   2.538  0.01139 *  
+# clTmn       -110.10517  122.81542  -0.897  0.37032    
+# clP            0.14624    0.05080   2.879  0.00413 ** 
+# NDVI           0.01949    0.05446   0.358  0.72048    
+# broadleaf      1.38425    3.67225   0.377  0.70634    
+# conif          0.65936    4.02652   0.164  0.86998    
+# grass         10.66584    5.18745   2.056  0.04018 *  
+# crop          -0.86060    3.35285  -0.257  0.79751    
+# urban        -31.01974   22.69841  -1.367  0.17224    
+# wetland       34.06486  806.29941   0.042  0.96631    
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 19.9 on 632 degrees of freedom
+# Multiple R-squared:  0.3248,	Adjusted R-squared:  0.3109 
+# F-statistic: 23.39 on 13 and 632 DF,  p-value: &lt; 2.2e-16
 ```
 
-Variables selected by the `step()` function 
+Variables selected by the `step()` function
 
 ```r
 summary(lm.step)
-```
-
-```
-## 
-## Call:
-## lm(formula = abund ~ clDD + clFD + clTmi + clTma + clP + grass, 
-##     data = Dickcissel)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -30.913  -9.640  -3.070   4.217 172.133 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -4.457e+02  3.464e+01 -12.868  &lt; 2e-16 ***
-## clDD         5.534e-02  8.795e-03   6.292 5.83e-10 ***
-## clFD         1.090e+00  1.690e-01   6.452 2.19e-10 ***
-## clTmi       -6.717e+00  7.192e-01  -9.339  &lt; 2e-16 ***
-## clTma        3.172e+00  1.288e+00   2.463 0.014030 *  
-## clP          1.562e-01  4.707e-02   3.318 0.000959 ***
-## grass        1.066e+01  4.280e+00   2.490 0.013027 *  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 19.85 on 639 degrees of freedom
-## Multiple R-squared:  0.3207,	Adjusted R-squared:  0.3144 
-## F-statistic: 50.29 on 6 and 639 DF,  p-value: &lt; 2.2e-16
+# 
+# Call:
+# lm(formula = abund ~ clDD + clFD + clTmi + clTma + clP + grass, 
+#     data = Dickcissel)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -30.913  -9.640  -3.070   4.217 172.133 
+# 
+# Coefficients:
+#               Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept) -4.457e+02  3.464e+01 -12.868  &lt; 2e-16 ***
+# clDD         5.534e-02  8.795e-03   6.292 5.83e-10 ***
+# clFD         1.090e+00  1.690e-01   6.452 2.19e-10 ***
+# clTmi       -6.717e+00  7.192e-01  -9.339  &lt; 2e-16 ***
+# clTma        3.172e+00  1.288e+00   2.463 0.014030 *  
+# clP          1.562e-01  4.707e-02   3.318 0.000959 ***
+# grass        1.066e+01  4.280e+00   2.490 0.013027 *  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 19.85 on 639 degrees of freedom
+# Multiple R-squared:  0.3207,	Adjusted R-squared:  0.3144 
+# F-statistic: 50.29 on 6 and 639 DF,  p-value: &lt; 2.2e-16
 ```
 
 The model now accounts for 31.44% of the Dickcissel abundance variability
@@ -1835,56 +1704,35 @@ The model now accounts for 31.44% of the Dickcissel abundance variability
 
 1. Interpreting contrasts
 2. Unbalanced ANOVA
-3. Polynomial regression 
+3. Polynomial regression
 4. Variance partitioning
 
 ---
 ## Interpreting contrasts
 
 - DEFAULT contrast compares each level of a factor to baseline level
-- The intercept is the baseline group and corresponds to the mean of the first (alphabetically) Diet level (Insect) 
+- The intercept is the baseline group and corresponds to the mean of the first (alphabetically) Diet level (Insect)
 
-- Add Intercept + coefficient estimates of each Diet level 
+- Add Intercept + coefficient estimates of each Diet level
 
 
 ```r
-tapply(bird$logMaxAbund, 
-       bird$Diet, 
+tapply(bird$logMaxAbund,
+       bird$Diet,
        mean)
-```
-
-```
-##      Insect  InsectVert       Plant PlantInsect  Vertebrate 
-##   1.1538937   0.5104603   1.3948941   1.5761940   0.8468898
-```
-
-```r
+#      Insect  InsectVert       Plant PlantInsect  Vertebrate 
+#   1.1538937   0.5104603   1.3948941   1.5761940   0.8468898
 coef(anov1)
-```
-
-```
-##     (Intercept)  DietInsectVert       DietPlant DietPlantInsect 
-##       1.1538937      -0.6434334       0.2410004       0.4223003 
-##  DietVertebrate 
-##      -0.3070039
-```
-
-```r
+#     (Intercept)  DietInsectVert       DietPlant DietPlantInsect 
+#       1.1538937      -0.6434334       0.2410004       0.4223003 
+#  DietVertebrate 
+#      -0.3070039
 coef(anov1)[1] + coef(anov1)[2] # InsectVert
-```
-
-```
-## (Intercept) 
-##   0.5104603
-```
-
-```r
+# (Intercept) 
+#   0.5104603
 coef(anov1)[1] + coef(anov1)[3] # Plant
-```
-
-```
-## (Intercept) 
-##    1.394894
+# (Intercept) 
+#    1.394894
 ```
 
 - What did you notice?
@@ -1892,7 +1740,7 @@ coef(anov1)[1] + coef(anov1)[3] # Plant
 ---
 ## Interpreting contrasts
 
-- We may want to relevel the baseline: 
+- We may want to relevel the baseline:
 
 1) Compare the Plant diet to all other diet levels
 
@@ -1900,121 +1748,94 @@ coef(anov1)[1] + coef(anov1)[3] # Plant
 bird$Diet2 &lt;- relevel(bird$Diet, ref="Plant")
 anov2 &lt;- lm(logMaxAbund ~ Diet2,
             data = bird)
-summary(anov2) 
-```
-
-```
-## 
-## Call:
-## lm(formula = logMaxAbund ~ Diet2, data = bird)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.85286 -0.32972 -0.08808  0.47375  1.56075 
-## 
-## Coefficients:
-##                  Estimate Std. Error t value Pr(&gt;|t|)   
-## (Intercept)        1.3949     0.4744   2.941  0.00499 **
-## Diet2Insect       -0.2410     0.4975  -0.484  0.63026   
-## Diet2InsectVert   -0.8844     0.6709  -1.318  0.19351   
-## Diet2PlantInsect   0.1813     0.5000   0.363  0.71848   
-## Diet2Vertebrate   -0.5480     0.5124  -1.070  0.29006   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.6709 on 49 degrees of freedom
-## Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
-## F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
-```
-
-```r
-anova(anov2) 
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
-## Diet2      4  5.1059 1.27647  2.8363 0.0341 *
-## Residuals 49 22.0521 0.45004                 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+summary(anov2)
+# 
+# Call:
+# lm(formula = logMaxAbund ~ Diet2, data = bird)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -1.85286 -0.32972 -0.08808  0.47375  1.56075 
+# 
+# Coefficients:
+#                  Estimate Std. Error t value Pr(&gt;|t|)   
+# (Intercept)        1.3949     0.4744   2.941  0.00499 **
+# Diet2Insect       -0.2410     0.4975  -0.484  0.63026   
+# Diet2InsectVert   -0.8844     0.6709  -1.318  0.19351   
+# Diet2PlantInsect   0.1813     0.5000   0.363  0.71848   
+# Diet2Vertebrate   -0.5480     0.5124  -1.070  0.29006   
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.6709 on 49 degrees of freedom
+# Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
+# F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
+anova(anov2)
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
+# Diet2      4  5.1059 1.27647  2.8363 0.0341 *
+# Residuals 49 22.0521 0.45004                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 2) Reorder multiple levels according to median
 
 ```r
-bird$Diet2 &lt;- factor(bird$Diet, levels=names(med)) 
-anov2 &lt;- lm(logMaxAbund ~ Diet2, 
+bird$Diet2 &lt;- factor(bird$Diet, levels=names(med))
+anov2 &lt;- lm(logMaxAbund ~ Diet2,
             data = bird)
-summary(anov2) 
+summary(anov2)
+# 
+# Call:
+# lm(formula = logMaxAbund ~ Diet2, data = bird)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -1.85286 -0.32972 -0.08808  0.47375  1.56075 
+# 
+# Coefficients:
+#                  Estimate Std. Error t value Pr(&gt;|t|)  
+# (Intercept)        0.5105     0.4744   1.076   0.2872  
+# Diet2Vertebrate    0.3364     0.5124   0.657   0.5145  
+# Diet2Insect        0.6434     0.4975   1.293   0.2020  
+# Diet2Plant         0.8844     0.6709   1.318   0.1935  
+# Diet2PlantInsect   1.0657     0.5000   2.131   0.0381 *
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.6709 on 49 degrees of freedom
+# Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
+# F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
+anova(anov2)
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
+# Diet2      4  5.1059 1.27647  2.8363 0.0341 *
+# Residuals 49 22.0521 0.45004                 
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-```
-## 
-## Call:
-## lm(formula = logMaxAbund ~ Diet2, data = bird)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.85286 -0.32972 -0.08808  0.47375  1.56075 
-## 
-## Coefficients:
-##                  Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)        0.5105     0.4744   1.076   0.2872  
-## Diet2Vertebrate    0.3364     0.5124   0.657   0.5145  
-## Diet2Insect        0.6434     0.4975   1.293   0.2020  
-## Diet2Plant         0.8844     0.6709   1.318   0.1935  
-## Diet2PlantInsect   1.0657     0.5000   2.131   0.0381 *
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.6709 on 49 degrees of freedom
-## Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
-## F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
-```
-
-```r
-anova(anov2) 
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##           Df  Sum Sq Mean Sq F value Pr(&gt;F)  
-## Diet2      4  5.1059 1.27647  2.8363 0.0341 *
-## Residuals 49 22.0521 0.45004                 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-- Did you see change in the significance of each Diet level? 
+- Did you see change in the significance of each Diet level?
 
 ---
 ## Interpreting contrasts
 
 - Note, the DEFAULT contrast ("contr.treatment") is NOT orthogonal
-- To be orthogonal, 
+- To be orthogonal,
 1) coefficients must sum to 0
 2) any two contrast columns must sum to 0
 
 
 ```r
 sum(contrasts(bird$Diet)[,1])
-```
-
-```
-## [1] 1
-```
-
-```r
+# [1] 1
 sum(contrasts(bird$Diet)[,1]*contrasts(bird$Diet)[,2])
-```
-
-```
-## [1] 0
+# [1] 0
 ```
 
 Change the contrast to make levels orthogonal (e.g. Helmert contrast will contrast the second level with the first, the third with the average of the first two, and so on)
@@ -2022,49 +1843,34 @@ Change the contrast to make levels orthogonal (e.g. Helmert contrast will contra
 
 ```r
 options(contrasts=c("contr.helmert", "contr.poly"))
-sum(contrasts(bird$Diet)[,1]) 
-```
-
-```
-## [1] 0
-```
-
-```r
-sum(contrasts(bird$Diet)[,1]*contrasts(bird$Diet)[,2]) 
-```
-
-```
-## [1] 0
-```
-
-```r
-anov3 &lt;- lm(logMaxAbund ~ Diet, 
+sum(contrasts(bird$Diet)[,1])
+# [1] 0
+sum(contrasts(bird$Diet)[,1]*contrasts(bird$Diet)[,2])
+# [1] 0
+anov3 &lt;- lm(logMaxAbund ~ Diet,
             data = bird)
 summary(anov3)
-```
-
-```
-## 
-## Call:
-## lm(formula = logMaxAbund ~ Diet, data = bird)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.85286 -0.32972 -0.08808  0.47375  1.56075 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.09647    0.14629   7.495 1.14e-09 ***
-## Diet1       -0.32172    0.24876  -1.293   0.2020    
-## Diet2        0.18757    0.17854   1.051   0.2986    
-## Diet3        0.13911    0.06960   1.999   0.0512 .  
-## Diet4       -0.06239    0.05238  -1.191   0.2393    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.6709 on 49 degrees of freedom
-## Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
-## F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
+# 
+# Call:
+# lm(formula = logMaxAbund ~ Diet, data = bird)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -1.85286 -0.32972 -0.08808  0.47375  1.56075 
+# 
+# Coefficients:
+#             Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept)  1.09647    0.14629   7.495 1.14e-09 ***
+# Diet1       -0.32172    0.24876  -1.293   0.2020    
+# Diet2        0.18757    0.17854   1.051   0.2986    
+# Diet3        0.13911    0.06960   1.999   0.0512 .  
+# Diet4       -0.06239    0.05238  -1.191   0.2393    
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.6709 on 49 degrees of freedom
+# Multiple R-squared:  0.188,	Adjusted R-squared:  0.1217 
+# F-statistic: 2.836 on 4 and 49 DF,  p-value: 0.0341
 ```
 
 
@@ -2073,7 +1879,7 @@ summary(anov3)
 
 1. Interpreting contrasts
 2. Unbalanced ANOVA
-3. Polynomial regression 
+3. Polynomial regression
 4. Variance partitioning
 
 ---
@@ -2084,12 +1890,9 @@ summary(anov3)
 
 ```r
 table(bird$Aquatic)
-```
-
-```
-## 
-##  0  1 
-## 39 15
+# 
+#  0  1 
+# 39 15
 ```
 - Which means the order of the covariates changes the values of Sums of Squares
 
@@ -2098,34 +1901,25 @@ table(bird$Aquatic)
 unb.anov1 &lt;- lm(logMaxAbund ~ Aquatic + Diet, data = bird)
 unb.anov2 &lt;- lm(logMaxAbund ~ Diet + Aquatic, data = bird)
 anova(unb.anov1)
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
-## Aquatic    1  0.2316 0.23157  0.5114 0.47798  
-## Diet       4  5.1926 1.29816  2.8671 0.03291 *
-## Residuals 48 21.7337 0.45279                  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-```r
-anova(unb.anov2) 
-```
-
-```
-## Analysis of Variance Table
-## 
-## Response: logMaxAbund
-##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
-## Diet       4  5.1059 1.27647  2.8191 0.03517 *
-## Aquatic    1  0.3183 0.31834  0.7031 0.40591  
-## Residuals 48 21.7337 0.45279                  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+# Aquatic    1  0.2316 0.23157  0.5114 0.47798  
+# Diet       4  5.1926 1.29816  2.8671 0.03291 *
+# Residuals 48 21.7337 0.45279                  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+anova(unb.anov2)
+# Analysis of Variance Table
+# 
+# Response: logMaxAbund
+#           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+# Diet       4  5.1059 1.27647  2.8191 0.03517 *
+# Aquatic    1  0.3183 0.31834  0.7031 0.40591  
+# Residuals 48 21.7337 0.45279                  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 - Now try type III ANOVA using the `Anova()` function. What have you noticed when using `Anova()`?
@@ -2133,52 +1927,28 @@ anova(unb.anov2)
 
 ```r
 library(car)
-```
-
-```
-## Warning: package 'car' was built under R version 3.4.4
-```
-
-```
-## Loading required package: carData
-```
-
-```
-## Warning: package 'carData' was built under R version 3.4.4
-```
-
-```r
 Anova(unb.anov1, type = "III")
-```
-
-```
-## Anova Table (Type III tests)
-## 
-## Response: logMaxAbund
-##              Sum Sq Df F value    Pr(&gt;F)    
-## (Intercept) 18.9349  1 41.8186 4.837e-08 ***
-## Aquatic      0.3183  1  0.7031   0.40591    
-## Diet         5.1926  4  2.8671   0.03291 *  
-## Residuals   21.7337 48                      
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-```r
-Anova(unb.anov2, type = "III") 
-```
-
-```
-## Anova Table (Type III tests)
-## 
-## Response: logMaxAbund
-##              Sum Sq Df F value    Pr(&gt;F)    
-## (Intercept) 18.9349  1 41.8186 4.837e-08 ***
-## Diet         5.1926  4  2.8671   0.03291 *  
-## Aquatic      0.3183  1  0.7031   0.40591    
-## Residuals   21.7337 48                      
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# Anova Table (Type III tests)
+# 
+# Response: logMaxAbund
+#              Sum Sq Df F value    Pr(&gt;F)    
+# (Intercept) 18.9349  1 41.8186 4.837e-08 ***
+# Aquatic      0.3183  1  0.7031   0.40591    
+# Diet         5.1926  4  2.8671   0.03291 *  
+# Residuals   21.7337 48                      
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Anova(unb.anov2, type = "III")
+# Anova Table (Type III tests)
+# 
+# Response: logMaxAbund
+#              Sum Sq Df F value    Pr(&gt;F)    
+# (Intercept) 18.9349  1 41.8186 4.837e-08 ***
+# Diet         5.1926  4  2.8671   0.03291 *  
+# Aquatic      0.3183  1  0.7031   0.40591    
+# Residuals   21.7337 48                      
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ---
@@ -2186,7 +1956,7 @@ Anova(unb.anov2, type = "III")
 
 1. Interpreting contrasts
 2. Unbalanced ANOVA
-3. Polynomial regression 
+3. Polynomial regression
 4. Variance partitioning
 
 
@@ -2197,7 +1967,7 @@ Anova(unb.anov2, type = "III")
 - To test for non-linear relationships, polynomial models of different degrees are compared.
 
 A polynomial model looks like this:
-`\(2x^4+3x-2\)` 
+`\(2x^4+3x-2\)`
 terms
 
 this polynomial has 3 terms
@@ -2205,9 +1975,9 @@ this polynomial has 3 terms
 ---
 ## Polynomial regression
 
-For a polynomial with one variable (x), the *degree* is the largest exponent of that variable 
+For a polynomial with one variable (x), the *degree* is the largest exponent of that variable
 
-`\(2x^4+3x-2\)` 
+`\(2x^4+3x-2\)`
 
 this makes the degree 4
 
@@ -2260,7 +2030,7 @@ this makes the degree 4
 ---
 ## Polynomial regression
 
-- Using the *Dickcissel* dataset, test the non-linear relationship between max abundance and temperature by comparing three sets of nested polynomial models (of degrees 0, 1, and 3): 
+- Using the *Dickcissel* dataset, test the non-linear relationship between max abundance and temperature by comparing three sets of nested polynomial models (of degrees 0, 1, and 3):
 
 
 ```r
@@ -2272,7 +2042,7 @@ lm.cubic  &lt;- lm(abund ~ clDD + I(clDD^2) + I(clDD^3), data = Dickcissel)
 ---
 ## Polynomial regression
 
-- Compare the polynomial models and determine which nested model we should keep 
+- Compare the polynomial models and determine which nested model we should keep
 - Run a summary of this model, report the regression formula, p-values and `\(R^2\)`-adj
 
 
@@ -2281,26 +2051,22 @@ lm.cubic  &lt;- lm(abund ~ clDD + I(clDD^2) + I(clDD^3), data = Dickcissel)
 
 1. Interpreting contrasts
 2. Unbalanced ANOVA
-3. Polynomial regression 
+3. Polynomial regression
 4. Variance partitioning
 
 
 ---
-## Variance Partitioning 
-- Some of the selected explanatory variables in the **multiple linear regression** section were highly correlated 
-- Collinearity between explanatory variables can be assessed using the variance inflation factor `vif()` function of package ‘HH’
+## Variance Partitioning
+- Some of the selected explanatory variables in the **multiple linear regression** section were highly correlated
+- Collinearity between explanatory variables can be assessed using the variance inflation factor `vif()` function of package `car`
   - Variable with VIF &gt;&gt; 5 are considered collinearity
-  
+
 
 ```r
-library(HH)
-vif(clDD ~ clFD + clTmi + clTma + clP + grass, 
-    data = Dickcissel)
-```
-
-```
-##      clFD     clTmi     clTma       clP     grass 
-## 13.605855  9.566169  4.811837  3.196599  1.165775
+mod &lt;- lm(clDD ~ clFD + clTmi + clTma + clP + grass, data = Dickcissel)
+vif(mod)
+#      clFD     clTmi     clTma       clP     grass 
+# 13.605855  9.566169  4.811837  3.196599  1.165775
 ```
 
 ---
@@ -2312,50 +2078,46 @@ vif(clDD ~ clFD + clTmi + clTma + clP + grass,
 
 ```r
 library(vegan)
-part.lm = varpart(Dickcissel$abund, 
-                  Dickcissel[ ,c("clDD","clFD","clTmi","clTma","clP")], 
-                  Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")]) 
+part.lm = varpart(Dickcissel$abund,
+                  Dickcissel[ ,c("clDD","clFD","clTmi","clTma","clP")],
+                  Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")])
 part.lm
-```
+# 
+# Partition of variance in RDA 
+# 
+# Call: varpart(Y = Dickcissel$abund, X = Dickcissel[, c("clDD",
+# "clFD", "clTmi", "clTma", "clP")], Dickcissel[, c("broadleaf",
+# "conif", "grass", "crop", "urban", "wetland")])
+# 
+# Explanatory tables:
+# X1:  Dickcissel[, c("clDD", "clFD", "clTmi", "clTma", "clP")]
+# X2:  Dickcissel[, c("broadleaf", "conif", "grass", "crop", "urban", "wetland")] 
+# 
+# No. of explanatory tables: 2 
+# Total variation (SS): 370770 
+#             Variance: 574.84 
+# No. of observations: 646 
+# 
+# Partition table:
+#                      Df R.squared Adj.R.squared Testable
+# [a+b] = X1            5   0.31414       0.30878     TRUE
+# [b+c] = X2            6   0.03654       0.02749     TRUE
+# [a+b+c] = X1+X2      11   0.32378       0.31205     TRUE
+# Individual fractions                                    
+# [a] = X1|X2           5                 0.28456     TRUE
+# [b]                   0                 0.02423    FALSE
+# [c] = X2|X1           6                 0.00327     TRUE
+# [d] = Residuals                         0.68795    FALSE
+# ---
+# Use function 'rda' to test significance of fractions of interest
 
-```
-## 
-## Partition of variance in RDA 
-## 
-## Call: varpart(Y = Dickcissel$abund, X = Dickcissel[, c("clDD",
-## "clFD", "clTmi", "clTma", "clP")], Dickcissel[, c("broadleaf",
-## "conif", "grass", "crop", "urban", "wetland")])
-## 
-## Explanatory tables:
-## X1:  Dickcissel[, c("clDD", "clFD", "clTmi", "clTma", "clP")]
-## X2:  Dickcissel[, c("broadleaf", "conif", "grass", "crop", "urban", "wetland")] 
-## 
-## No. of explanatory tables: 2 
-## Total variation (SS): 370770 
-##             Variance: 574.84 
-## No. of observations: 646 
-## 
-## Partition table:
-##                      Df R.squared Adj.R.squared Testable
-## [a+b] = X1            5   0.31414       0.30878     TRUE
-## [b+c] = X2            6   0.03654       0.02749     TRUE
-## [a+b+c] = X1+X2      11   0.32378       0.31205     TRUE
-## Individual fractions                                    
-## [a] = X1|X2           5                 0.28456     TRUE
-## [b]                   0                 0.02423    FALSE
-## [c] = X2|X1           6                 0.00327     TRUE
-## [d] = Residuals                         0.68795    FALSE
-## ---
-## Use function 'rda' to test significance of fractions of interest
-```
-
-```r
 showvarparts(2)
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-73-1.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-73-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ```r
+
 plot(part.lm,
      digits = 2,
      bg = rgb(48,225,210,80,
@@ -2363,7 +2125,7 @@ plot(part.lm,
      col = "turquoise4")
 ```
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-73-2.png" width="672" /&gt;
+&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-73-2.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Variance Partitioning
@@ -2377,56 +2139,48 @@ Test significance of each fraction
 
 ```r
 # Climate set
-out.1 = rda(Dickcissel$abund, 
-            Dickcissel[ ,c("clDD", "clFD","clTmi","clTma","clP")], 
+out.1 = rda(Dickcissel$abund,
+            Dickcissel[ ,c("clDD", "clFD","clTmi","clTma","clP")],
             Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")])
-anova(out.1, 
-      step = 1000, 
+anova(out.1,
+      step = 1000,
       perm.max = 1000)
-```
+# Permutation test for rda under reduced model
+# Permutation: free
+# Number of permutations: 999
+# 
+# Model: rda(X = Dickcissel$abund, Y = Dickcissel[, c("clDD", "clFD", "clTmi", "clTma", "clP")], Z = Dickcissel[, c("broadleaf", "conif", "grass", "crop", "urban", "wetland")])
+#           Df Variance      F Pr(&gt;F)    
+# Model      5   165.12 53.862  0.001 ***
+# Residual 634   388.72                  
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-```
-## Permutation test for rda under reduced model
-## Permutation: free
-## Number of permutations: 999
-## 
-## Model: rda(X = Dickcissel$abund, Y = Dickcissel[, c("clDD", "clFD", "clTmi", "clTma", "clP")], Z = Dickcissel[, c("broadleaf", "conif", "grass", "crop", "urban", "wetland")])
-##           Df Variance      F Pr(&gt;F)    
-## Model      5   165.12 53.862  0.001 ***
-## Residual 634   388.72                  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-```r
 # Land cover set
-out.2 = rda(Dickcissel$abund, 
-            Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban", "wetland")], 
+out.2 = rda(Dickcissel$abund,
+            Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban", "wetland")],
             Dickcissel[ ,c("clDD","clFD","clTmi", "clTma","clP")])
-anova(out.2, 
-      step = 1000, 
-      perm.max = 1000) 
-```
-
-```
-## Permutation test for rda under reduced model
-## Permutation: free
-## Number of permutations: 999
-## 
-## Model: rda(X = Dickcissel$abund, Y = Dickcissel[, c("broadleaf", "conif", "grass", "crop", "urban", "wetland")], Z = Dickcissel[, c("clDD", "clFD", "clTmi", "clTma", "clP")])
-##           Df Variance      F Pr(&gt;F)
-## Model      6     5.54 1.5063  0.176
-## Residual 634   388.72
+anova(out.2,
+      step = 1000,
+      perm.max = 1000)
+# Permutation test for rda under reduced model
+# Permutation: free
+# Number of permutations: 999
+# 
+# Model: rda(X = Dickcissel$abund, Y = Dickcissel[, c("broadleaf", "conif", "grass", "crop", "urban", "wetland")], Z = Dickcissel[, c("clDD", "clFD", "clTmi", "clTma", "clP")])
+#           Df Variance      F Pr(&gt;F)
+# Model      6     5.54 1.5063  0.176
+# Residual 634   388.72
 ```
 
 - **Conclusion**: the land cover fraction is non-significant once climate data is accounted for
 
 ---
-## Thank you for attending!
+class: inverse, center, bottom
 
-![:scale 40%](images/QCBS_logo_text.png)
+# Thank you for attending!
 
-We want your [feedback](https://docs.googlgithube.com/spreadsheets/d/1BUZ24UZEMvsF16gxWOm8yAvM_A9DdIeSaOk6b61bzxQ/edit#gid=0)!
+![:scale 50%](images/qcbs_logo.png)
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="qcbsR-macros.js"></script>
@@ -2441,23 +2195,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

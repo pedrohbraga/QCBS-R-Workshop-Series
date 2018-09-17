@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>QCBS R Workshop 1: Introduction to R</title>
+    <title>Workshop 1: Introduction to R</title>
     <meta charset="utf-8">
     <meta name="author" content="Québec Centre for Biodiversity Science" />
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
@@ -18,7 +18,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# QCBS R Workshop 1: Introduction to R
+# Workshop 1: Introduction to R
 ## QCBS R Workshop Series
 ### Québec Centre for Biodiversity Science
 
@@ -57,8 +57,8 @@ class: inverse, center, middle
 R is an open source programming language designed for statistical analysis, data mining, and data visualization.
 ]
 
-.pull.right[
-![:scale 40%](images/R_logo.png)
+.pull-right[
+![:scale 50%](images/R_logo.png)
 ]
 
 ---
@@ -93,15 +93,15 @@ R works on most existing operating systems
 
 What people have traditionally done to analyze their data:
 
-<div id="htmlwidget-00572ba8e37e91903622" style="width:576px;height:576px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-00572ba8e37e91903622">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7a47312f8cf5c17b2406" style="width:576px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7a47312f8cf5c17b2406">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Why use R?
 
 R allows you to do everything with one program, which is nice!
-<div id="htmlwidget-4a5f9041501d1889b7b1" style="width:576px;height:576px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4a5f9041501d1889b7b1">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4681301e2cd70d151c37" style="width:576px;height:576px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4681301e2cd70d151c37">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 
 
@@ -275,7 +275,7 @@ class: inverse, center, middle
 ```
 
 ---
-## Challenge 2 &lt;img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /&gt;
+## Challenge 2 ![:cube]()
 
 
 Use R to calculate the following skill testing question:
@@ -357,7 +357,7 @@ What is the area of this circle, with a radius of `\(5\ cm\)`?
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
-## Challenge 4: Solution &lt;img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /&gt;
+## Challenge 4: Solution ![:cube]()
 
 
 What is the area of a circle, with a radius of `\(5\ cm\)`?
@@ -568,12 +568,12 @@ bool.vector2
 ```
 
 ---
-## Challenge 7 &lt;img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /&gt;
+## Challenge 7 ![:cube]()
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
 
 ---
-## Challenge 7: Solution &lt;img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /&gt;
+## Challenge 7: Solution ![:cube]()
 
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
@@ -990,7 +990,7 @@ If the name is not present, the order of the arguments does matter.
 If the name is present, the order does not matter.
 
 ---
-## Challenge 12
+## Challenge 12 ![:cube]()
 
 `plot` is a function that draws a graph of y as a function of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
 
@@ -1005,12 +1005,12 @@ plot(y = b, x = a)
 ```
 
 ---
-## Challenge 12: Solution
+## Challenge 12: Solution ![:cube]()
 
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-52-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
-## Challenge 12: Solution
+## Challenge 12: Solution ![:cube]()
 
 .pull-left[
 
@@ -1033,7 +1033,7 @@ plot(b,a)
 The shape of the plot changes, as we did not provided the arguments names, the order is important.
 
 ---
-## Challenge 12: Solution
+## Challenge 12: Solution ![:cube]()
 
 .pull-left[
 
@@ -1278,7 +1278,7 @@ Here are some tips on how to use them efficiently:
 - Don't hesitate to search again using different keywords!
 
 ---
-## Challenge 14 &lt;img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" /&gt;
+## Challenge 14 ![:cube]()
 
 Find the appropriate functions to perform the following operations:
 
@@ -1343,9 +1343,7 @@ class: inverse, center, bottom
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="qcbsR-macros.js"></script>
-<script>var slideshow = remark.create({
-"highlightLines": false
-});
+<script>var slideshow = remark.create();
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });

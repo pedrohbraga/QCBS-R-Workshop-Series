@@ -1,5 +1,5 @@
 ---
-title: "QCBS R Workshop 1: Introduction to R"
+title: "Workshop 1: Introduction to R"
 subtitle: "QCBS R Workshop Series"
 author: "Québec Centre for Biodiversity Science"
 output:
@@ -11,7 +11,6 @@ output:
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
       beforeInit: "qcbsR-macros.js"
-      highlightLines: false
 ---
 
 ```{r setup, echo = F}
@@ -62,8 +61,8 @@ class: inverse, center, middle
 R is an open source programming language designed for statistical analysis, data mining, and data visualization.
 ]
 
-.pull.right[
-![:scale 40%](images/R_logo.png)
+.pull-right[
+![:scale 50%](images/R_logo.png)
 ]
 
 ---
@@ -302,7 +301,7 @@ class: inverse, center, middle
 ```
 
 ---
-## Challenge 2 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+## Challenge 2 ![:cube]()
 
 
 Use R to calculate the following skill testing question:
@@ -387,7 +386,7 @@ text(.5, .1, "radius = 5 cm", cex = 1)
 ```
 
 ---
-## Challenge 4: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+## Challenge 4: Solution ![:cube]()
 
 
 What is the area of a circle, with a radius of $5\ cm$?
@@ -579,12 +578,12 @@ bool.vector2
 ```
 
 ---
-## Challenge 7 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+## Challenge 7 ![:cube]()
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
 
 ---
-## Challenge 7: Solution <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+## Challenge 7: Solution ![:cube]()
 
 
 Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
@@ -952,7 +951,7 @@ If the name is not present, the order of the arguments does matter.
 If the name is present, the order does not matter.
 
 ---
-## Challenge 12
+## Challenge 12 ![:cube]()
 
 `plot` is a function that draws a graph of y as a function of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
 
@@ -966,7 +965,7 @@ plot(y = b, x = a)
 ```
 
 ---
-## Challenge 12: Solution
+## Challenge 12: Solution ![:cube]()
 
 ```{r, echo = F}
 a <- 1:100
@@ -979,7 +978,7 @@ plot(y = b, x = a)
 ```
 
 ---
-## Challenge 12: Solution
+## Challenge 12: Solution ![:cube]()
 
 .pull-left[
 ```{r,eval=F}
@@ -1006,7 +1005,7 @@ plot(b,a)
 The shape of the plot changes, as we did not provided the arguments names, the order is important.
 
 ---
-## Challenge 12: Solution
+## Challenge 12: Solution ![:cube]()
 
 .pull-left[
 ```{r,eval=F}
@@ -1240,7 +1239,7 @@ Here are some tips on how to use them efficiently:
 - Don't hesitate to search again using different keywords!
 
 ---
-## Challenge 14 <img style="float: right; margin: 0px 0px 5px 55px;" src="images/rubicub.png"  width="150" />
+## Challenge 14 ![:cube]()
 
 Find the appropriate functions to perform the following operations:
 

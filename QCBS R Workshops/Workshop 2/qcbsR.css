@@ -7,7 +7,7 @@
   border-left: 5px solid #303940;
   padding: .2em;
   margin: .15em;
-  font-size: 24px;
+  font-size: 25px;
   color: #32454f;
 }
 
@@ -21,7 +21,7 @@
 
 
 .remark-slide-content p, .remark-slide-content ul, .remark-slide-content ol {
-  margin: .15em;
+  margin: 1em;
 }
 
 .remark-slide-content h1 {
@@ -32,7 +32,7 @@
 
 .remark-slide-content h2 {
   font-size: 46px;
-  margin: .28em .1em;
+  margin: .28em .5em;
 }
 
 .remark-slide-content h3 {
@@ -69,11 +69,18 @@ a, a > code {
 
 
 .remark-code, .remark-inline-code {
-    color: #303940;
-    background-color: #f3f3f3;  font-size: 90%;
+    color: #256982;
+    background-color: #f3f3f3 !important;
+    font-size: 90%;
 }
 
 
+.remark-code-line {
+  color: #256982;
+  margin: .2em .2em;
+}
+
+.mjx-chtml{ font-size: 100% !important; }
 
 
 
@@ -84,8 +91,7 @@ a, a > code {
 }
 
 .comment {
-  color: #8555b4;
-  font-style: italic;
+  color: #645193;
 }
 
 
@@ -99,11 +105,11 @@ a, a > code {
 }
 
 .small {
-  font-size: .8em;
+  font-size: .9em;
 }
 
 .tiny {
-  font-size: .5em;
+  font-size: .6em;
 }
 
 .footnote {
@@ -113,15 +119,23 @@ a, a > code {
   font-size: 60%;
 }
 
-.column:first-of-type {
-  float:left;
-  width: 50%;
-  padding: .1em .5em .1em .1em
+
+.pull-left {
+  float: left;
+  width: 47%;
 }
-.column:last-of-type {
-  float:right;
-  width: 50%;
-  padding:  .1em .1em .1em .5em
+.pull-right {
+  float: right;
+  width: 47%;
+}
+
+.pull-left2 {
+  float: left;
+  width: 67%;
+}
+.pull-right2 {
+  float: right;
+  width: 27%;
 }
 
 
@@ -129,11 +143,6 @@ a, a > code {
   font-size: 1.1em;
   padding-left: 1em;
 }
-
-
-
-
-
 
 
 
@@ -190,7 +199,6 @@ table {
   content: url(https://qcbs.ca/wp-content/uploads/2010/05/logo_small_grey-01.png);
   transform: scale(.25);
 }
-
 
 
 

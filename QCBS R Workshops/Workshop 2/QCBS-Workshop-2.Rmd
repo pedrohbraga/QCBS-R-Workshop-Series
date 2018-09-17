@@ -1,5 +1,5 @@
 ---
-title: "QCBS R Workshop 2: Loading and Manipulating Data"
+title: "Workshop 2: Loading and Manipulating Data"
 subtitle: "QCBS R Workshop Series"
 author: "Québec Centre for Biodiversity Science"
 output:
@@ -13,13 +13,28 @@ output:
       beforeInit: "qcbsR-macros.js"
 ---
 
-## Quebec Centre for Biodiversity Science
-<!-- <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Logos_and_icons/QCBS_logo_notext_2.png"  width="150" /> -->
-R Workshop Series
-Workshop 2:
-Loading and manipulating data
+```{r setup, echo = F}
+knitr::opts_chunk$set(
+  comment = "#",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width=5, fig.height=5,
+  fig.align = 'center'
+)
+```
 
-Website: http://qcbs.ca/wiki/r/workshop2
+```{r, echo =F}
+options(repos=structure(c(CRAN="http://cran.r-project.org")))
+```
+
+```{r, include = FALSE}
+if (!require(DiagrammeR)) install.packages("DiagrammeR")
+library(DiagrammeR)
+if (!require(widgetframe)) install.packages("widgetframe")
+library(widgetframe)
+```
+
 
 ## Learning Objectives
 
@@ -27,34 +42,45 @@ Website: http://qcbs.ca/wiki/r/workshop2
 2. Loading, exploring and saving data
 3. Fixing a broken data frame
 
+
+---
 ## R Scripts
 
 * What is this?
-A text file that contains all of the commands that you will use
+   - A text file that contains all of the commands that you will use
 
 * Once written and saved, your script file allows you to make changes and re-run analyses with minimal effort!
-Just highlight text and click "run" or press command+enter (Mac) or ctrl+enter (PC)
+  - Just highlight text and click "run" or press command+enter (Mac) or ctrl+enter (PC)
 
 
+---
 ## Create an R script
 
-<div style="text-align: center"><img src="images/1_Create_an_R_script.png" /></div>
+.center[
+![:scale 80%](images/1_Create_an_R_script.png)
+]
 
 
+---
 ## Create an R script
 
-<div style="text-align: center"><img src="images/2_Create_an_R_script2.Mod_arrow.png" width="800px" /></div>
+
+.center[
+![:scale 90%](images/2_Create_an_R_script2.Mod_arrow.png)
+]
 
 
+---
 ## Commands & comments
-The '#' symbol in a script tells R to ignore anything remaining on this line of the script when running commands
+The `#` symbol in a script tells R to ignore anything remaining on this line of the script when running commands
 
 ```{r, eval = FALSE}
 # This is a comment not a command
 ```
 
 
-### commenting / documenting
+---
+## Commenting / documenting
 
 * annotating someone’s script is a good way to learn
 * remember what you did
@@ -62,43 +88,56 @@ The '#' symbol in a script tells R to ignore anything remaining on this line of 
 * good step towards reproducible science
 
 
+---
 ## Header
+
 It is recommended that you start your script with a header using comments:
 
-<div style="text-align: center"><img src="images/3_Header.Mod_arrow.png" width="700px" /></div>
+.center[
+![:scale 75%](images/3_Header.Mod_arrow.png)
+]
 
 
-
+---
 ## Section Headings
-You can make a section heading in R Studio four # signs
+
+You can make a section heading in R Studio four `#` signs
 
 ```{r, eval = FALSE}
-#### Heading name ####
+##
+## Heading name ####
 ```
 
-Allows you to move quickly between sections and hide sections
+This allows you to move quickly between sections and hide sections
 
-<div style="text-align: center"><img src="images/4_Section_headings_Mod_arrow 2.png" width="600px" /></div>
+.center[
+![:scale 70%](images/4_Section_headings_Mod_arrow 2.png)
+]
 
 
+---
 ## Housekeeping
-The first command at the top of all scripts should be: rm(list = ls()). This:
+
+The first command at the top of all scripts should be: `rm(list = ls())`. This:
 
 * Clears R memory
 * Prevents errors such as use of older data
 
-### Clearing the workspace
+---
+## Clearing the workspace
 
 ```{r, eval = FALSE}
 # Clear the R workspace
-rm(list=ls())
+rm(list = ls())
 ?rm
 ?ls
 ```
 
+---
 ## Housekeeping
-Demo – add some test data to R and then see how rm(list=ls()) removes it
-commenting/documenting
+
+Demo – Try to add some test data to R and then see how `rm(list = ls())` removes it
+
 
 ```{r, eval = TRUE, error = TRUE}
 A <- "Test"
@@ -107,14 +146,19 @@ rm(list=ls())
 A
 ```
 
-### Remember
+---
+## Remember
 
-* R is ready for commands when you see the chevron '>' in the console. If you don't see it, press ESC
+* R is ready for commands when you see the chevron `>` in the console. If you don't see it, press ESC
 * R is case sensitive!
 
 
-## Loading, exploring and saving data
+---
+class: inverse, center, middle
 
+# Loading, exploring and saving data
+
+---
 ## Download today's data
 
 You can download the data & script from:
@@ -124,6 +168,7 @@ http://qcbs.ca/wiki/r/workshop2
 Save the files somewhere convenient on your computer and remember the path to the directory that contains the files.
 
 
+---
 ## Working Directory
 
 Tells R where your scripts and data are. You need to set the right working directory to load a data file.
@@ -137,39 +182,39 @@ When you load a script, RStudio automatically sets the directory to the folder c
 
 a “/” separates folders and file
 
+---
 ## Setting working directory
 
-<div id="right style="width:100%;"">
-<img style="float: left; margin: -8px 30px 15px 0px;" src="images/Logos_and_icons/apple_logo.png" width=50px>
-<p style="line-height:15px;">
-```{r, eval = FALSE}
-setwd('/Users/vincentfugere/Desktop/QCBS_R')
-```
-</p>
-</div>
+![:scale 5%](images/Logos_and_icons/apple_logo.png)
 
-<div id="right style="width:100%;"">
-<img style="float: left; margin: 0px 30px 15px 0px;" src="images/Logos_and_icons/Windows_logo.png" width=50px>
-<p style="line-height:15px;">
 ```{r, eval = FALSE}
-setwd('C:/Users/Johanna/Documents/PhD/R_Workshop2')
+setwd('/Users/Garou/Desktop/QCBS_R')
 ```
-</p>
-</div>
 
+
+![:scale 5%](images/Logos_and_icons/Windows_logo.png)
+
+```{r, eval = FALSE}
+setwd('C:/Users/Britney/Documents/PhD/R_Workshop2')
+```
+
+---
+## Setting working directory
 
 Alternatively:
-```{r, eval = FALSE}
+```r
 setwd(choose.dir())
 ```
+
 This gives you a pop up to navigate to appropriate directory (might not work on a mac).
 
 You can also set your working directory by clicking on session / set working directory / choose directory
 
 
+---
 ## Display contents of the directory
 
-You can display contents of the working directory using dir().
+You can display contents of the working directory using `dir()`.
 
 ```{r, eval = FALSE}
 dir()
@@ -181,33 +226,42 @@ It helps to:
 * Check for correct spelling (e.g. "co2_good.csv" instead of "CO2_good.csv")
 
 
+---
 ## Importing Data
 
-Import data into R using read.csv:
+Import data into R using `read.csv`:
 
 ```{r, eval = TRUE}
 CO2 <- read.csv("co2_good.csv", header=TRUE)
 ```
 
 New object in R
+
 File name within quotation marks ('file' or "file")
-Tells R that first line contains column names not data
 
-Recall: to find out what arguments the function requires, use help “?”
+`header=TRUE` Tells R that the first line contains column names not data
 
-```{r, eval = FALSE}
-?read.csv2
-```
-
-Important: if your operating system or CSV editor (e.g. Excel) is in French, then use read.csv2
-
-```{r, eval = FALSE}
-?read.csv2
-```
-
+---
 ## Importing Data
 
-<div style="text-align: center"><img src="images/5_Importing_data_Mod_arrow.png" width="900px" /></div>
+.alert[Recall] to find out what arguments the function requires, use help “?”
+
+```{r, eval = FALSE}
+?read.csv
+```
+
+.alert[Important] if your operating system or CSV editor (e.g. Excel) is in French, then use `read.csv2`
+
+```{r, eval = FALSE}
+?read.csv2
+```
+
+---
+## Importing Data
+
+.center[
+![](images/5_Importing_data_Mod_arrow.png)
+]
 
 
 Notice that R-Studio now provides information on the CO2 data in your workspace
@@ -215,29 +269,35 @@ Notice that R-Studio now provides information on the CO2 data in your workspace
 The workspace refers to all the objects that you create during an R session.
 
 
+---
 ## Looking at Data
 
 R code  					| action
 ----------------- | -------------
-CO2					  		| look at the whole dataframe
-head(CO2)		  		| look at the first few rows
-names(CO2)				| names of the columns in the dataframe
-attributes(CO2)		| attributes of the dataframe
-ncol(CO2)					| number of columns
-nrow(CO2)					| number of rows
-summary(CO2)			| summary statistics
-
-Note: the CO2 dataset includes repeated measurements of CO2 uptake from six plants from Quebec and six plants from Mississippi at several levels of ambient CO2 concentration. Half the plants of each type were chilled overnight before the experiment was conducted.
+`CO2`					  		| look at the whole dataframe
+`head(CO2)`		  		| look at the first few rows
+`names(CO2)`				| names of the columns in the dataframe
+`attributes(CO2)`		| attributes of the dataframe
+`ncol(CO2)`					| number of columns
+`nrow(CO2)`					| number of rows
+`summary(CO2)`			| summary statistics
 
 
+
+---
 ## Looking at Data
 
 ```{r, eval = TRUE}
 str(CO2)
 ```
 This shows the structure of the dataframe.
-
 Very useful to check data type (mode) of all columns to make sure R loaded data properly.
+
+.small[Note: the CO2 dataset includes repeated measurements of CO2 uptake from 6 plants from Quebec and 6 plants from Mississippi at several levels of CO2 concentration. Half the plants of each type were chilled overnight before the experiment was conducted.]
+
+
+---
+## Looking at Data
 
 **Common problems:**
 
@@ -246,44 +306,41 @@ Very useful to check data type (mode) of all columns to make sure R loaded data 
 * Data (integer or numeric) is loaded as character because of typo (e.g. a space or a "," instead of a "." for decimal numbers)
 
 
+---
 ## Looking at Data
 
-data(), head(), str(), names(), attributes(), summary(), ncol(), nrow()
+`data()`, `head()`, `str()`, `names()`, `attributes()`, `summary()`, `ncol()`, `nrow()`
 
 Load the data with:
 
 ```{r, eval = FALSE}
 CO2 <- read.csv("CO2_good.csv", header = FALSE)
 ```
-Check data types with str() again. What is wrong here?
+Check data types with `str()` again. What is wrong here?
 
-*(Don't forget to re-load data with* **header = T** *afterward)*
+.comment[Don't forget to re-load data with* **header = T** *afterward]
 
-## Reminder from Workshop 1: Accessing data
+---
+## Reminder : Accessing data
 
 A data frame called *mydata*
 
-<img style="float: right; margin: 0px 0px 5px 55px;" src="images/Table_Reminder_from_Workshop_1_Accessing_data.png"  width="350px" />
-
 ```{r, eval = FALSE}
-mydata[1,]
-```
-Extracts the first row
+mydata[1,] # Extracts the first row
 
-```{r, eval = FALSE}
-mydata[2,3]
-```
-Extracts the content of row 2 / column 3
+mydata[2,3] # Extracts the content of row 2 / column 3
 
-```{r, eval = FALSE}
-mydata[,1]
+mydata[,1] # Extracts the first column
+
+mydata$Variable1 # Also extracts the first column
 ```
-```{r, eval = FALSE}
-mydata$Variable1
-```
-Both extract the first column
+
+.center[
+![:scale 45%](images/Table_Reminder_from_Workshop_1_Accessing_data.png)
+]
 
 
+---
 ## Data exploration
 Plot of all variable combinations (very useful!)
 
@@ -291,26 +348,34 @@ Plot of all variable combinations (very useful!)
 plot(CO2)
 ```
 
-Want to see if one of your variable is normally distributed? Try hist()
+Want to see if one of your variable is normally distributed? Try `hist()`
 
 ```{r, eval = FALSE}
 hist(CO2$uptake)
 ```
 
-*Recall from workshop 1 that the dollar sign is used to extract a column from a data frame.
+.comment[Recall from workshop 1 that the `$` sign is used to extract a column from a data frame.]
 
 
-## Data exploration
+---
+## Data exploration ![:cube]()
 
 Calculate and save the mean of one of your columns
 
 ```{r, eval = TRUE}
 conc_mean <- mean(CO2$conc)
 ```
-New object (name)
-Function
-Data frame (name)
-Column (name)
+
+`conc_mean` ![:faic](arrow-right) New object (name)
+
+`mean()` ![:faic](arrow-right) Function 
+
+`CO2` ![:faic](arrow-right) Data frame (name)
+
+`conc` ![:faic](arrow-right) Column (name)
+
+---
+## Data exploration ![:cube]()
 
 Run object name to see output
 
@@ -326,60 +391,61 @@ sd(CO2$conc)
 Mean concentration is 435 and standard deviation is 295.92!
 
 
-## Data exploration <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
+---
+## Data exploration ![:cube]()
 
 
-Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
+Use `apply()` to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
+
+```{r, eval = FALSE}
+?apply
+```
+
+
+---
+## Data exploration ![:cube]()
+
+Use `apply()` to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
 
 ```{r, eval = FALSE}
 ?apply
 ```
 
-
-## Data exploration <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
-
-Use apply() to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
-
-```{r, eval = FALSE}
-?apply
-```
-```{r, eval = FALSE}
+```{r}
 apply(CO2[,4:5], MARGIN = 2, FUN = mean)
 ```
 
 
+---
 ## Saving your Workspace
 
-Save
 
 ```{r, eval = TRUE}
 # Saving an R workspace file
 save.image(file="CO2_project_Data.RData")
-```
 
-Clear
 
-```{r, eval = TRUE}
 # Clear your memory
 rm(list = ls())
-```
 
-Reload
-
-```{r, eval = TRUE}
+ 
 # Reload your data
 load("CO2_project_Data.RData")
 head(CO2) # looking good!
 ```
 
+---
 ## Exporting data
 
 ```{r, eval = TRUE}
-write.csv(CO2,file="CO2_new.csv")
+write.csv(CO2, file = "CO2_new.csv")
 ```
-Object (name)
-File to write (name)
 
+`CO2` ![:faic](arrow-right) Object (name)
+
+`"CO2_new.csv"` ![:faic](arrow-right) File to write (name)
+
+---
 ## Preparing data for R
 
 Comma separated files (.csv) in Data folder
@@ -387,63 +453,93 @@ Comma separated files (.csv) in Data folder
 * can be created from almost all applications (Excel, LibreOffice, GoogleDocs)
 * file -> save as csv…
 
-<div style="text-align: center"><img src="images/Excel_csv_good_bad/excel_vs_csv_wrong_good2.png" width="700px" /></div>
+.center[
+![:scale 85%](images/Excel_csv_good_bad/excel_vs_csv.png)
+]
 
 
+
+---
 ## Preparing data for R
+
 Short informative column headings
-> - starting with a letter
-> - no spaces
+- starting with a letter
+- no spaces
 
-<div style="text-align: center"><img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_good2.png" width="650px" /></div>
+.center[
+![:scale 50%](images/Excel_csv_good_bad/excel_colnames.png)
+]
 
-
-
+---
 ## Preparing data for R
 
 Column values match their intended use
 
 * No text in numeric columns
-    * do not include spaces!
-    * NA (not available) is allowed, but blank entries will automatically be replaced with NA so no need to add yourself.
-* Avoid numeric values for data that does not have numeric meaning
-    * Subject, Replicate, Treatment: 1,2,3 -> A,B,C or S1,S2,S3 or …
+  * do not include spaces!
+  * NA (not available) is allowed, but blank entries will automatically be replaced with NA so no need to add yourself.
 
-<div style="text-align: center"><img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_wrong2.png" width="700px" /></div>
+.center[
+![:scale 90%](images/Excel_csv_good_bad/excel_values.png)
+]
 
 
-
+---
 ## Preparing data for R
+
+Column values match their intended use
+
+
+* No text in numeric columns
+  * do not include spaces!
+  * NA (not available) is allowed, but blank entries will automatically be replaced with NA so no need to add yourself.
+* Avoid numeric values for data that does not have numeric meaning
+  * Subject, Replicate, Treatment: 1,2,3 -> A,B,C or S1,S2,S3 or …
+
+
+
+---
+## Preparing data for R
+
 * no notes!
 * no additional headings!
 * no merged cells!
 
-<div style="text-align: center"><img src="images/Excel_csv_good_bad/excel_vs_excel_wrong_badDB.png" width="700px" /></div>
+.center[
+![:scale 80%](images/Excel_csv_good_bad/excel_notes.png)
+]
 
 
+---
 ## Preparing data for R
 
 It is possible to do all your data preparation work within R
 
 * Saves time for large datasets
 * Keeps original data intact
+* Keeps track of the manipulation and transformation you did
 * Can switch between long and wide easily (more on this in workshop 4)
 * Useful page: https://www.zoology.ubc.ca/~schluter/R/data/
 
 
-## Use your data <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
+---
+## Use your data ![:cube]()
 
 * Try to load, explore, plot, and save your own data in R*
 * If it doesn’t load properly, try to make the appropriate changes
 * Remember to clear your workspace first!
 * When you are finished, try opening your exported data in excel
 
-*If you don’t have your own data, work with your neighbour
+.comment[*If you don’t have your own data, work with your neighbour]
 
 
-## Fixing a broken data frame
+---
+class: inverse, center, middle
 
-##Harder Challenge <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
+# Fixing a broken data frame
+
+---
+## Harder Challenge ![:cube]()
 
 Read in the file "CO2_broken.csv"
 
@@ -452,45 +548,40 @@ CO2 <- read.csv("co2_broken.csv")
 head(CO2)
 ```
 
-##Harder Challenge <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
-```{r, eval = FALSE}
-CO2
-```
-
-```{r, eval = TRUE, echo=F}
-CO2[1:4,]
-```
+---
+## Harder Challenge ![:cube]()
 
 * This is probably what your data or the data you downloaded looks like
 * You can fix the data frame in R (or not…)
 * Please give it a try before looking at the script provided
 * Work with your neighbors and have FUN!
 
-
-## Fixing CO2_broken <img style="float: right; margin: 0px 0px 5px 55px;" src="images/Looking_at_data_Rubik_cube.png"  width="150" />
-
-*   ?read.csv - look at some of the options for how to load a .csv
-
-*   head()
-
-*   str()
-
-*   class()
-
-*   unique()
-
-*   levels()
-
-*   which()
-
-*   droplevels()
-
-HINT: There are 4 problems!
+```{r, eval = TRUE, echo=F}
+CO2[1:4,]
+```
 
 
+
+---
+## Fixing CO2_broken ![:cube]()
+
+Some useful functions:
+
+* `?read.csv` - look at some of the options for how to load a .csv
+* `head()`
+* `str()`
+* `class()`
+* `unique()`
+* `levels()`
+* `which()`
+* `droplevels()`
+
+.alert[HINT] There are 4 problems!
+
+---
 ## Broken data
 
-ERROR 1
+.alert[ERROR 1]
 
 The data appears to be lumped into one column
 
@@ -498,9 +589,10 @@ The data appears to be lumped into one column
 head(CO2)
 ```
 
+---
 ## Broken data
 
-ERROR 1 - Solution
+.alert[ERROR 1] - Solution
 
 * Re-import the data, but specify the separation among entries
 * The sep argument tells R what character separates the values on each line of the file
@@ -510,9 +602,10 @@ ERROR 1 - Solution
 CO2 <- read.csv("co2_broken.csv",sep = "")
 ```
 
+---
 ## Broken data
 
-ERROR 2
+.alert[ERROR 2]
 
 The data does not start until the third line of the file, so you end up with notes on the file as the headings.
 
@@ -521,9 +614,10 @@ head(CO2)
 ```
 
 
+---
 ## Broken data
 
-SOLUTION
+.alert[ERROR 2] - Solution
 
 Skip two lines when loading the file using the "skip" argument:
 
@@ -532,11 +626,12 @@ CO2<-read.csv("co2_broken.csv", sep = "", skip = 2)
 head(CO2)
 ```
 
+---
 ## Broken data
 
-ERROR 3
+.alert[ERROR 3]
 
-"conc" and "uptake" variables are considered factors instead of numbers, because there are comments in the numeric columns
+`conc` and `uptake` variables are considered factors instead of numbers, because there are comments in the numeric columns
 
 ```{r, eval = TRUE}
 str(CO2)
@@ -545,38 +640,34 @@ str(CO2)
 * Due to missing values entered as "cannot_read_notes" and "na"
 * Recall that R only recognizes "NA" (capital)
 
-## read.csv
+---
+## `?read.csv`
 
-```{r, eval = FALSE}
-?read.csv
-```
+![:scale 80%](images/read_table_help1.png)
 
-![](images/read_table_help1.png){width=750px}
-
-![](images/read_table_help2.png){width=750px}
+![:scale 80%](images/read_table_help2.png)
 
 
+---
 ## Broken data
 
-ERROR 3 - SOLUTION
+.alert[ERROR 3] - Solution
 
-Tell R that all of NA, "na", and "cannot_read_notes" should be considered NA. Then because all other values in those columns are numbers, $conc and $uptake will be loaded as numeric/integer.
+Tell R that all of NA, "na", and "cannot_read_notes" should be considered NA. Then because all other values in those columns are numbers, `conc` and `uptake` will be loaded as numeric/integer.
 
 
 ```{r, eval = TRUE}
-CO2 <- read.csv("co2_broken.csv",
-sep = "",
-skip = 2,
-na.strings = c("NA","na","cannot_read_notes"))
-
+CO2 <- read.csv("co2_broken.csv", sep = "", skip = 2,
+                na.strings = c("NA","na","cannot_read_notes"))
 str(CO2)
 ```
 
+---
 ## Broken data
 
-ERROR 4
+.alert[ERROR 4]
 
-There are only two treatments (chilled and nonchilled) but there are spelling errors causing it to look like 4 different treatments.
+There are only 2 treatments (chilled and nonchilled) but there are spelling errors causing it to look like 4 different treatments.
 
 ```{r, eval = FALSE}
 str(CO2)
@@ -587,22 +678,20 @@ levels(CO2$Treatment)
 unique(CO2$Treatment)
 ```
 
+---
 ## Broken data
 
-ERROR 4 - SOLUTION
+.alert[ERROR 4] - Solution
 
-Identify all rows that contain "nnchilled" and replace with "nonchilled"
+
 ```{r, eval = TRUE}
+# Identify all rows that contain "nnchilled" and replace with "nonchilled"
 CO2$Treatment[CO2$Treatment=="nnchilled"] <- "nonchilled"
-```
 
-Identify all rows that contain "chiled" and replace with "chilled"
-```{r, eval = TRUE}
+# Identify all rows that contain "chiled" and replace with "chilled"
 CO2$Treatment[CO2$Treatment=="chiled"] <- "chilled"
-```
 
-Drop unused levels from factor
-```{r, eval = TRUE}
+# Drop unused levels from factor
 CO2 <- droplevels(CO2)
 str(CO2)
 ```
@@ -610,8 +699,9 @@ str(CO2)
 Fixed!
 
 
-## Thank you for attending, and please provide us with feedback to help us improve the workshop series!
+---
+class: inverse, center, bottom
 
-Feedback: http://tinyurl.com/QCBS-R-Comment
+# Thank you for attending!
 
-![](images/Logos_and_icons/QCBS_logo_notext_2.png){width=250px}
+![:scale 50%](images/qcbs_logo.png)

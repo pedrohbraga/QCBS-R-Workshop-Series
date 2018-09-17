@@ -4,6 +4,13 @@ remark.macros.scale = function (percentage) {
   return '<img src="' + url + '" style="width: ' + percentage + '" />';
 };
 
+// Image top right
+remark.macros.cube = function () {
+  var url = "images/rubicub.png";
+  return '<img style="float: right; margin: 0px 0px 5px 55px; width:150px" src="' + url + '"/>';
+};
+
+
 // Font-awesome icons (versio 4.7)
 remark.macros.faic = function (size = 2) {
   var name = this;

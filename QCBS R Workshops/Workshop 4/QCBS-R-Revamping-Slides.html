@@ -181,14 +181,17 @@ The output will provide the four built-in diagnostic plots of the `lm()` functio
 Example of independence (what we want!)
 
 - Should show a scatter across and no pattern 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.16.png)
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-8-1.png" width="672" /&gt;
+
 
 ---
 ## Diagnostic plot # 1 - Residuals vs Fitted
 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.25.png)
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.32.png)
 
-&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-9-1.png" width="672" /&gt;
+
 
 - Solution: Transform your data or try another distribution than linear (Gaussian) (i.e., a generalized linear model (GLM): Poisson, binomial, negative binomial, etc.)
 
@@ -196,6 +199,9 @@ Example of independence (what we want!)
 ## Diagnostic plot # 2 - Scale Location
 
 - Should show a scatter across and no pattern 
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.41.png)
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.54.png)
 
 No pattern in the residuals 
 
@@ -207,6 +213,7 @@ Strong pattern in the residuals
 - Compares the distribution (quantiles) of the residuals of the current model to those of a normal distribution 
 - If points lie linearly on the 1:1 line, data follow a normal distribution 
 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.03.png)
 ---
 ## Diagnostic plot # 4 - Residuals vs Leverage 
 - Looks for influential values
@@ -225,7 +232,7 @@ Strong pattern in the residuals
 
 - High leverage
 - High influence
-
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.15.png)
 ---
 
 No influential values
@@ -233,11 +240,15 @@ No influential values
 High leverage point and reasonable influence
 - Here, point 32 has high leverage but its influence is acceptable (inside the 0.5 Cook's distance limits)
 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.48.png)
+
 ---
 
 High leverage point and high influence
 - Points are outside the 0.5 limit of Cook's distance
 - These points have too much influence on the regression
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.08.png)
 
 ** Note: you should never remove outliers if you don't have good reasons to do so (ex: error of measurement)
 
@@ -251,6 +262,7 @@ plot(lm1)
 
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-1.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-2.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-3.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-10-4.png" width="672" /&gt;
 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.17.png)
 
 ---
 ## Assumptions not met - where did we go wrong?
@@ -284,6 +296,8 @@ hist(bird$Mass)
 
 - The function `abline()` adds the best-fit line
 - The function `hist()` produces a histogram of the variable
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.26.png)
 
 ---
 ## Assumptions not met - where did we go wrong?
@@ -364,6 +378,7 @@ plot(lm2)
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-1.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-2.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-3.png" width="672" /&gt;&lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-17-4.png" width="672" /&gt;
 
 - Much improved! 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.37.png)
 
 ---
 **Step 2**: Verify assumptions of model `lm2`
@@ -387,6 +402,9 @@ hist(log10(bird$Mass))
 ```
 
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-18-3.png" width="672" /&gt;
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.47.png)
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.54.png)
 
 ---
 
@@ -482,6 +500,8 @@ plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
 ## Plot
 
 - R2-adj changed from 0.05 to 0.25 when we dropped aquatic birds: 
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.05.png)
 
 ---
 ## Challenge 1
@@ -677,6 +697,8 @@ boxplot(logMass ~ Aquatic,
 ```
 
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-24-1.png" width="672" /&gt;
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.19.png)
 
 ---
 ## Running a t-test in R
@@ -925,7 +947,7 @@ boxplot(logMaxAbund ~ factor(Diet,
 
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-31-1.png" width="672" /&gt;
 
-
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.33.png)
 ---
 ## Running a one-way ANOVA in R 
 
@@ -1143,6 +1165,7 @@ segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2)
 
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-43-1.png" width="672" /&gt;
 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.44.png)
 
 ---
 ## Two-way ANOVA
@@ -1310,6 +1333,8 @@ If your covariate and factor are significant, you will have a scenario that look
 
 If the interaction is significant, outputs will look like these:
 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.42.07.png)
+
 No interaction
 One level of the factor has a different slope 
 Many levels have different slopes 
@@ -1332,6 +1357,9 @@ library(effects)
 adj.means.ex &lt;- effect('Z', ancova.exemple)
 plot(adj.means.ex)
 ```
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.42.22.png)
+
 
 ---
 ## ANCOVA with one covariate and one factor
@@ -1605,6 +1633,8 @@ plot(abund ~ grass, data = Dickcissel)
 ```
 
 &lt;img src="QCBS-R-Revamping-Slides_files/figure-html/unnamed-chunk-58-1.png" width="672" /&gt;
+
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.42.43.png)
 
 * See **Advanced section** on **polynomial regression** for solution!
 
@@ -2369,6 +2399,8 @@ plot(part.lm,
 ## Variance Partitioning
 - Proportion of variance explained by climate alone is 28.5% (given by X1|X2), by land cover alone is ~0% (X2|X1), and by both combined is 2.4%
 
+![:scale 40%](images/Screen Shot 2018-09-22 at 21.43.15.png)
+
 ---
 ## Variance Partitioning
 
@@ -2415,7 +2447,7 @@ anova(out.2,
 ## 
 ## Model: rda(X = Dickcissel$abund, Y = Dickcissel[, c("broadleaf", "conif", "grass", "crop", "urban", "wetland")], Z = Dickcissel[, c("clDD", "clFD", "clTmi", "clTma", "clP")])
 ##           Df Variance      F Pr(&gt;F)
-## Model      6     5.54 1.5063  0.176
+## Model      6     5.54 1.5063  0.192
 ## Residual 634   388.72
 ```
 

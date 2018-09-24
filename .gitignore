@@ -10,3 +10,7 @@ QCBS-R-Revamping-Slides.html
 
 *.pptx
 *.pdf
+*.html
+
+!*commentsR.pdf
+!*qcbsR-header.html

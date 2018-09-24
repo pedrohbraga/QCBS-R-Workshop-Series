@@ -1,316 +1,1550 @@
 ---
-title: "Workshop 1: QCBS R Workshop Series"
-author: Québec Centre for Biodiversity Science
+title: "Workshop 5: Programming in R"
+subtitle: "QCBS R Workshop Series"
+author: "Québec Centre for Biodiversity Science"
 output:
-  revealjs::revealjs_presentation:
-    css: custom-qcbs.css
-    fig_caption: yes
-    theme: white
-    highlight: haddock
-    center: true
-    transition: fade
-    background_transition: fade
-    self_contained: false
-    pandoc_args: [ "--slide-level", "2" ]
-    reveal_plugins: ["notes", "search", "zoom"]
+  xaringan::moon_reader:
+    includes:
+      in_header: qcbsR-header.html
+    lib_dir: assets
+    seal: true
+    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
+    nature:
+      beforeInit: "qcbsR-macros.js"
+
 ---
 
 
-## R Markdown
+```{r setup, echo = F}
+knitr::opts_chunk$set(
+  comment = "#",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE, 
+  fig.width=6, fig.height=6,
+  fig.align = 'center'
+)
+```
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Outline
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+- Control Flow
+- Writing functions in R
+- Speeding up your code
+- Useful R packages for biologists
 
-<small>This sentence will appear smaller.</small>
+---
+class: inverse, center, middle
 
-# Section Title Slide
+# Control flow
 
-## Vertical Slide with Incremental Bullets
+---
 
-> - Bullet 1
-> - Bullet 2
-> - Bullet 3
+## Control flow
 
-### Begins a new header within a slide
+Program flow control can be simply defined as the order in which a program is executed
 
-## Vertical Slide with Incremental Bullets
-> - Level 1 item
->      * Level 2 item
->      * Level 2 item
-> - Level 1 item
+### Why is it advantageous to have structured programs?
 
-## Vertical Slide with Normal Text and Small Text
+- It decreases the complexity and time of the task at hand
+- This logical structure also means that the code has increased clarity
+- It also means that many programmers can work on one program.
 
-This is a normal text.
+**This means increased productivity**
 
-<small>This sentence will appear smaller.</small>
+---
+## Control flow
 
-## Vertical Slide with Text Aligned to the Right
+Flowcharts can be used to plan programs and represent their structure
 
-<div id="right">
+<br>
 
-- You can place two graphs on a slide
-- Or two columns of text
-- These are all created with div elements
+![](images/flowchart1.png)
 
-</div>
 
-## Vertical Slide with Text Aligned to the Left
 
-<div id="left">
+---
+## Representing structure
 
-- You can place two graphs on a slide
-- Or two columns of text
-- These are all created with div elements
+The two basic building blocks of codes are the following:
 
-</div>
+.pull-left[
 
-## Vertical Slide with Quote Text
+#### Selection
 
-> R Markdown is amazing!
+Program’s execution determined by statements
 
-## Vertical Slide with Images
+```r
+if
+if else
+```
 
-[Caption for the picture.](/images/logo_text.png)
+]
 
-# Code Section
+.pull-right[
 
-## Slide with R Code and Output
+#### Iteration
+
+Repetition, where the statement will **loop** until a criteria is met
+
+```r
+for
+while
+repeat
+```
+]
+
+---
+## Decision making
+
+.pull-left[
+
+**If statement**
+
+```R
+if(condition) {
+expression
+}
+```
+.center[
+![:scale 55%](images/if.png)
+]
+]
+
+.pull-right[
+
+**If...else statement**
+
+```r
+if(condition) {
+expression 1
+} else {
+expression 2
+}
+```
+.center[
+![:scale 65%](images/ifelse.png)
+]
+]
+
+
+---
+## What if you want to test more than one thing?
+
+- `if` and `if`/`else` test a single condition
+- Use `ifelse` function to:
+- test a vector of conditions
+- apply a function only under certain conditions
+
+```r
+a <- 1:10
+ifelse(a > 5, "yes", "no")
+
+a <- (-4):5
+sqrt(ifelse(a >= 0, a, NA))
+```
+
+---
+## Nested `if...else` statement
+
+```r
+if (test_expression1) {
+statement1
+} else if (test_expression2) {
+statement2
+} else if (test_expression3) {
+statement3
+} else {
+statement4
+}
+```
+.center[
+![:scale 52%](images/nested_ifelse.png)]
+
+---
+## Challenge 1 ![:cube]()
+
+```R
+Paws <- "cat"
+Scruffy <- "dog"
+Sassy <- "cat"
+animals <- c(Paws, Scruffy, Sassy)
+```
+
+1. Use an `if` statement to print “meow” if `Paws` is a “cat”.
+2. Use an `if`/`else` statement to print “woof” if you supply an object that is a “dog” and “meow” if it is not. Try it out with `Paws` and `Scruffy`.
+3. Use the `ifelse` function to display “woof” for `animals` that are dogs and “meow” for `animals` that are cats.
+
+---
+## Beware of R’s expression parsing!
+
+Use curly brackets `{}` so that R knows to expect more input. Try:
+
+```r
+if (2+2) == 4 print("Arithmetic works.")
+else print("Houston, we have a problem.")
+```
+
+.alert[This doesn't work because R evaluates the first line and doesn't know that you are going to use an `else` statement]
+
+Instead use:
+
+```R
+if (2+2) == 4 {
+print("Arithmetic works.")
+} else {
+print("Houston, we have a problem.")
+}
+```
+---
+## Remember the logical operators
+
+
+
+| command  | meaning |
+| ------------- | ------------- |
+| `==`  | equal to  |
+| `!=`  | not x  |
+| `<`   | less than  |
+| `<=`  | less than or equal to  |
+| `>`   | greater than  |
+| `>=`  | greater than or equal to  |
+| `x&y` | x AND y |
+| `x`&#124;`y`  | x OR y  |
+| `isTRUE(x)`  | test if X is true |
+
+
+---
+## Iteration
+
+Every time some operations have to be repeated, a loop may come in handy
+
+Loops are good for:
+
+- doing something for every element of an object
+- doing something until the processed data runs out
+- doing something for every file in a folder
+- doing something that can fail, until it succeeds
+- iterating a calculation until it converges
+
+---
+## `for` loop
+
+```R
+for(val in sequence) {
+statement
+}
+```
+
+.center[
+![:scale 60%](images/forloop.png)
+]
+
+
+---
+## `for` loop
+
+The letter `i` can be replaced with any variable name and the sequence can be almost anything, even a list of vectors
+
+```r
+for (a in c("Hello", "R", "Programmers")) {
+print(a)
+}
+
+for (z in 1:30) {
+a <- rnorm(n = 1, mean = 5, sd = 2)
+print(a)
+}
+
+elements <- list(1:3, 4:10)
+for (element in elements) {
+print(element)
+}
+```
+
+---
+## `for` loop
+
+In the example below, R would evaluate the expression 5 times:
+
+```R
+for(i in 1:5) {
+expression
+}
+```
+
+In this secod example, in the first iteration, R would replace every instance of `i` with `2`. In the second iteration `i` would be replaced with `4`, then 6, and so on. 
+
+```R
+for(m in 1:10) {
+print(m*2)
+}
+```
+
+---
+## `for` loop
+
+
+```r
+x <- c(2,5,3,9,6)
+count <- 0
+for (val in x) {
+if(val %% 2 == 0) {
+count = count+1 
+}
+}
+print(count)
+```
+
+.center[
+![:scale 50%](images/forexample.png)
+]
+
+
+
+---
+## `for` loop
+
+For loops are often used to loop over a dataset. We will use loops to perform functions on the `CO2` dataset which is built in R.
+
+```R
+data(CO2) # This loads the built in dataset
+
+for (i in 1:length(CO2[,1])) { # for each row in the CO2 dataset
+print(CO2$conc[i]) # print the CO2 concentration
+}
+
+for (i in 1:length(CO2[,1])) { # for each row in the CO2 dataset
+if(CO2$Type[i] == "Quebec") { # if the type is "Quebec"
+print(CO2$conc[i]) # print the CO2 concentration 
+}
+}
+```
+
+---
+## `for` loop
+
+.alert[Tip 1] to loop over the number of rows of a data frame, we can use the function `nrow()`
+
+```r
+for (i in 1:nrow(CO2)) { # for each row in the CO2 dataset
+print(CO2$conc[i]) # print the CO2 concentration
+}
+```
+
+.alert[Tip 2] if we want to perform operations on the elements of one column, we can directly iterate over it
+
+```r
+for (i in 1:CO2$conc) { # for each row of the column conc of the CO2 df
+print(i) # print the ith element
+}
+```
+
+---
+## `for` loop
+
+The expression part of the loop can be almost anything and is usually a compound statement containing many commands.
+
+```r
+for (i in 4:5) { # for i in 4 to 5
+print(colnames(CO2)[i])  
+print(mean(CO2[,i])) # print the mean of that column from the CO2 dataset
+}
+```
+
+---
+## Nested `for` loop
+
+In some cases, you may want to use nested loops to accomplish a task. When using nested loops, it is important to use different variables as counters for each of your loops. Here we used *i* and *n* :
+
+```r
+for (i in 1:5) {
+for (n in 1:5) {
+print (i*n)
+}
+}
+```
+
+---
+## Challenge 2 ![:cube]()
+
+You have realized that your tool for measuring uptake was not calibrated properly at Quebec sites and all measurements are 2 units higher than they should be. 
+
+1. Use a loop to correct these measurements for all Quebec sites.
+
+2. Use a vectorisation-based method to calculate the mean CO2-uptake in both areas.
+
+---
+## Challenge 2: Solution ![:cube]()
+
+```r
+for (i in 1:length(CO2[,1])) {
+if(CO2$Type[i] == "Quebec") {
+CO2$uptake[i] <- CO2$uptake[i] - 2
+}
+}
+tapply(CO2$uptake, CO2$Type, mean)
+```
+<!-- remove tapply from the exercice or explain it before -->
+
+---
+## Modifying iterations
+
+Normally, loops iterate over and over until they finish
+
+To change this behavior break out of the loop entirely using `break` or stop executing the current iterationand jump to the next using `next`
+
+---
+## Modifying iterations: `break`
+
+```r
+for(val in x) {
+if(condition) { break }
+statement
+}
+```
+
+![](images/break.png)
+
+---
+## Modifying iterations: `next`
+
+```r
+for(val in x) {
+if(condition) { next }
+statement
+}
+```
+
+![](images/next.png)
+
+---
+## Modifying iterations: example
+
+Print the CO2 concentrations for "chilled" treatments and keep count of how many replications there were.
+
+```r
+count <- 0 # count is being set at zero so that we can edit this object in the loop to keep track of how many iterations were performed
+
+for (i in 1:nrow(CO2)) {
+if (CO2$Treatment[i] == "nonchilled") next 
+# Skip to next iteration if treatment is nonchilled
+count <- count + 1
+print(CO2$conc[i])
+}
+print(count) # The count and print command were performed 42 times.
+
+```
+
+---
+## Modifying iterations: example
+
+This could be equivalently written using a repeat loop: 
+
+```r
+count <- 0
+i <- 0
+repeat {
+i <- i + 1
+if (CO2$Treatment[i] == "nonchilled") next  # skip this loop
+count <- count + 1
+print(CO2$conc[i])
+if (i == nrow(CO2)) break     # stop looping
+}  
+
+print(count) 
+```
+
+---
+## Modifying iterations: example
+
+This could also be written using a while loop: 
+
+```r 
+i <- 0
+count <- 0
+while (i < nrow(CO2))
+{
+i <- i + 1
+if (CO2$Treatment[i] == "nonchilled") next  # skip this loop
+count <- count + 1
+print(CO2$conc[i])
+}
+print(count) 
+```
+
+---
+## Challenge 3 ![:cube]()
+
+You have realized that your tool for measuring concentration didn't work properly. At Mississippi sites, concentrations less than 300 were measured correctly but concentrations >= 300 were overestimated by 20 units. 
+
+Use a loop to correct these measurements for all Mississippi sites.
+<br>
+
+Make sure you reload the data so that we are working with the raw data for the rest of the exercise:
+
+```r
+data(CO2)
+```
+
+---
+## Challenge 3: Solution ![:cube]()
+
+```r
+for (i in 1:nrow(CO2)) {
+if(CO2$Type[i] == "Mississippi") {
+if(CO2$conc[i] < 300) next 
+CO2$conc[i] <- CO2$conc[i] - 20 
+}
+}
+``` 
+.comment[Note : We could also have written it that way, which is more concise and clear]
+
+```r
+for (i in 1:nrow(CO2)) {
+if(CO2$Type[i] == "Mississippi" && CO2$conc[i] >= 300) {
+CO2$conc[i] <- CO2$conc[i] - 20 
+}
+}
+```
+
+---
+## Create a plot using `for` loop and `if` 
+
+Let's plot uptake vs concentration with points of different colors according to their type (Quebec or Mississippi) and treatment (chilled or nonchilled).
+
+.small[
+
+```{r, eval=F}
+plot(x = CO2$conc, y = CO2$uptake, type = "n", cex.lab=1.4, 
+     xlab = "CO2 concentration", ylab = "CO2 uptake") 
+# Type "n" tells R to not actually plot the points.
+for (i in 1:length(CO2[,1])) {
+  if (CO2$Type[i] == "Quebec" & CO2$Treatment[i] == "nonchilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "red")
+  }
+  if (CO2$Type[i] == "Quebec" & CO2$Treatment[i] == "chilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "blue")
+  }
+  if (CO2$Type[i] == "Mississippi" & CO2$Treatment[i] == "nonchilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "orange")
+  }
+  if (CO2$Type[i] == "Mississippi" & CO2$Treatment[i] == "chilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "green")
+  }
+}
+```
+] 
+
+---
+## Create a plot using `for` loop and `if` 
+
+```{r, eval=T, echo = F, fig.height=5.5, fig.width=6}
+plot(x=CO2$conc, y=CO2$uptake, type="n", cex.lab=1.4, xlab="CO2 concentration", ylab="CO2 uptake") # Type "n" tells R to not actually plot the points.
+
+for (i in 1:length(CO2[,1])) {
+  if (CO2$Type[i] == "Quebec" & CO2$Treatment[i] == "nonchilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "red")
+  }
+  if (CO2$Type[i] == "Quebec" & CO2$Treatment[i] == "chilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "blue")
+  }
+  if (CO2$Type[i] == "Mississippi" & CO2$Treatment[i] == "nonchilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "orange")
+  }
+  if (CO2$Type[i] == "Mississippi" & CO2$Treatment[i] == "chilled") {
+    points(CO2$conc[i], CO2$uptake[i], col = "green")
+  }
+}
+``` 
+
+---
+## Challenge 4 ![:cube]()
+
+Generate a plot of showing concentration versus uptake where each plant is shown using a different colour point. Bonus points for doing it with nested loops!
+
+---
+## Challenge 4: Solution ![:cube]()
+
+```{r, eval = F}
+plot(x = CO2$conc, y = CO2$uptake, type = "n", cex.lab=1.4, 
+     xlab = "CO2 concentration", ylab = "CO2 uptake") 
+# Type "n" tells R to not actually plot the points.
+
+plants <- unique(CO2$Plant)
+
+for (i in 1:nrow(CO2)){
+  for (p in 1:length(plants)) { 
+    if (CO2$Plant[i] == plants[p]) {
+      points(CO2$conc[i], CO2$uptake[i], col = p)
+    }
+  }
+}
+
+```
+
+---
+## Challenge 4: Solution ![:cube]()
+
+```{r, eval = T, echo=F}
+plot(x = CO2$conc, y = CO2$uptake, type = "n", cex.lab = 1.4, 
+     xlab = "CO2 concentration", ylab = "CO2 uptake") 
+
+plants <- unique(CO2$Plant)
+
+for (i in 1:nrow(CO2)){
+  for (p in 1:length(plants)) { 
+    if (CO2$Plant[i] == plants[p]) {
+      points(CO2$conc[i], CO2$uptake[i], col = p)
+    }
+  }
+}
+
+```
+
+---
+class: inverse, center, middle
+
+# Writing functions
+
+---
+## Why write functions?
+
+Much of the heavy lifting in R is done by functions. They are useful for:
+
+- performing a task repeatedly, but configurably
+- making your code more readable
+- make your code easier to modify and maintain
+- sharing code between different analyses
+- sharing code with other people
+- modifying R’s built-in functionality
+
+---
+## What is a function?
+
+<br>
+<br>
+.center[
+![](images/function.png)
+]
+
+
+---
+## Syntax of a function
+
+```r
+function_name <- function(argument1, argument2, ...) {
+expression...  # What we want the function to do
+return(value)  # Optional
+}
+```
+
+---
+## Arguments of a function
+
+```r
+function_name <- function(argument1, argument2, ...) {
+expression...  
+return(value) 
+}
+```
+
+Arguments are the entry values of your function. They are the information your function needs to be able to perform correctly. A function can have between 0 and an infinity of arguments.
+
+---
+## Example of arguments
 
 ```{r}
-summary(cars)
+operations <- function(number1, number2, number3) {
+  result <- (number1 + number2) * number3
+  print(result)
+}
+
+operations(1, 2, 3)
 ```
 
-## Slide with Plot
+---
+## Challenge 5 ![:cube]()
 
-```{r, echo=FALSE}
-plot(cars)
+Using what you learned previously on flow control, create a function print_animal that takes an animal as argument and gives the following results :
+
+```{r, echo=F}
+print_animal <- function(animal) {
+  if (animal == "dog") {
+    print("woof")
+  } else if (animal == "cat") {
+    print("meow")
+  }
+}
 ```
 
-## Slide with R Code and No Output
+```{r}
+Scruffy <- "dog"
+Paws <- "cat"
 
-```{r, eval = FALSE}
-summary(cars)
+print_animal(Scruffy)
+
+print_animal(Paws)
 ```
 
-## Slide with a ggplot2 plot
 
+---
+## Challenge 5: Solution ![:cube]()
 
-```{r, echo = TRUE}
-library(ggplot2)
-data(diamonds)
-diamonds <- diamonds[sample(1:nrow(diamonds),2000),]
-
-ggplot(diamonds, 
-       aes(carat, price)) +
-  geom_point(color="firebrick")
+```r
+print_animal <- function(animal) {
+if (animal == "dog") {
+print("woof")
+} else if (animal == "cat") {
+print("meow")
+}
+}
 ```
 
-## Use a zoom transition, ggplot and plotly! {data-transition="zoom"}
+---
+## Default values in a function
 
-_It is interactive!!!_
+Arguments can also be optional and be provided with a default value. This is useful when using a function often with the same settings as you can omit always repeating the same argument but it still provides the flexibility to change it if needed.
 
+```{r}
+operations <- function(number1, number2, number3 = 3) {
+  result <- (number1 + number2) * number3
+  print(result)
+}
 
-```{r plotly, message = FALSE, echo = FALSE}
-library(ggplot2)
-library(plotly)
-g <- ggplot(mpg, 
-            aes(x = -cty, 
-                y = hwy, 
-                colour = as.factor(cyl))) +
-  geom_point()
-ggplotly(g)
+operations(1, 2, 3) # is equivalent to
+operations(1, 2)
+operations(1, 2, 2) # we can still change the value of number3 if needed
 ```
 
-## Use a faster speed {data-transition-speed="fast"}
+---
+## Argument `...`
 
-This slide has a figure caption.
+The special argument `...` allows you to pass on arguments to another function used inside your function. Here we use `...` to pass on arguments to `plot()` and `points()`
 
-```{r,echo = FALSE, warning = FALSE,message=FALSE, fig.cap= "Cars"}
-
-library(ggplot2)
-data(mtcars)
-g <- ggplot(mpg, aes(class))
-g <- g + geom_bar()
-
-print(g)
-
-```
-
-## Incrementaly reveal code
-
-```{r cache=F,echo=F}
-s0 <- knitr::knit_hooks$get('source')
-o0 <- knitr::knit_hooks$get('output')
-
-knitr::knit_hooks$set(
-  list(
-    source=function(x,options){
-      if (is.null(options$class)) s0(x, options)
-      else
-        paste0(
-          paste0("<div class='", options$class, "'><pre><code>")
-          ,x
-          ,'</code></pre>\n'
-        )
+```{r, eval=F}
+plot.CO2 <- function(CO2, ...) {
+  plot(x=CO2$conc, y=CO2$uptake, type="n", ...) 
+  for (i in 1:length(CO2[,1])){
+    if (CO2$Type[i] == "Quebec") {
+      points(CO2$conc[i], CO2$uptake[i], col = "red", type = "p", ...) 
+    } else if (CO2$Type[i] == "Mississippi") {
+      points(CO2$conc[i], CO2$uptake[i], col = "blue", type = "p", ...) 
     }
-    ,output = function(x,options){
-      if (is.null(options$class)) o0(x, options)
-      else 
-        paste0(
-          "<pre><code>"
-          ,x
-          ,'</code></pre></div>\n'
-        )
+  }
+}
+plot.CO2(CO2, cex.lab=1.2, xlab="CO2 concentration", ylab="CO2 uptake")
+plot.CO2(CO2, cex.lab=1.2, xlab="CO2 concentration", ylab="CO2 uptake", 
+         pch=20)
+```
+
+
+---
+## Argument `...`
+
+The special argument `...` allows you to pass on arguments to another function used inside your function. Here we use `...` to pass on arguments to `plot()` and `points()`
+
+```{r, echo=F, fig.height=3.5, fig.width=8}
+plot.CO2 <- function(CO2, ...) {
+  plot(x = CO2$conc, y = CO2$uptake, type = "n", ...) 
+  
+  for (i in 1:length(CO2[,1])){
+    if (CO2$Type[i] == "Quebec") {
+      points(CO2$conc[i], CO2$uptake[i], col="red", type="p", ...) 
+    } else if (CO2$Type[i] == "Mississippi") {
+      points(CO2$conc[i], CO2$uptake[i], col="blue", type="p", ...) 
     }
-  )
-)
+  }
+}
+par(mfrow=c(1,2), mar = c(4,4,1,1)) 
+plot.CO2(CO2, cex.lab=1.2, xlab="CO2 concentration", ylab="CO2 uptake")
+plot.CO2(CO2, cex.lab=1.2, xlab="CO2 concentration", ylab="CO2 uptake", pch=20)
 ```
 
-What is the `mean(1:3)`?
+---
+## Argument `...`
 
-```{r class="fragment"}
-mean(1:3)
+The special argument `...` allows you to input an indefinite number of arguments.
+
+```{r}
+sum2 <- function(...){
+  args <- list(...)
+  result <- 0
+  for (i in args)  {
+    result <- result + i
+  }
+  return (result)
+}
+
+sum2(2, 3)
+sum2(2, 4, 5, 7688, 1)
 ```
 
-<div class="fragment">
-  This works fine! The `div` does not appear until you click forward in the deck. But you cannot put the `div` tags around a code fragment!
-</div>
+---
+## Return values
 
-<div class="fragment">
-What do we type to get the mean from a vector that goes from 1 to 5?
-</div>
+The last expression evaluated in a `function` becomes the return value.
 
-```{r class="fragment"}
-mean(1:5)
+```{r}
+myfun <- function(x) {
+  if (x < 10) {
+    0
+  } else {
+    10
+  }
+}
+
+myfun(5)
+myfun(15)
 ```
 
-## Incrementaly reveal plots
+Functions can return only a single object. But this is not a limitation because you can return a list containing any number of objects.
 
-```{r cache=F,echo=F}
-c0 <- knitr::knit_hooks$get('chunk')
+---
+## Return values
 
-knitr::knit_hooks$set(
-  list(
-    chunk=function(x,options){
-      if(is.null(options$class) & is.null(options$fragIndex)){
-        c0(x, options)
-      } else if(is.null(options$fragIndex)) {
-        classidx <- which(names(options)=="class")
-        paste0(
-          paste0("<span class='", options$class, "'>"),
-          c0(x, options[-classidx]),
-          '</span>\n'
-        )
-      }
-      else if(length(options$fragIndex)==1) {
-        classidx <- which(names(options)%in%c("class", "fragIndex"))
-        str_replace(
-          paste0(
-            paste0("<span class='", options$class, "' data-fragment-index=", options$fragIndex,">"),
-            c0(x, options[-classidx]),
-            '</span>\n'
-          ),
-          "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
-          "\\2"
-        )
-      } else {
-        classidx <- which(names(options)%in%c("class", "fragIndex"))
-        str_replace(
-          paste0(
-            paste0("<span class='", options$class, " fade-in' data-fragment-index=", options$fragIndex[1],">"),
-            paste0(
-              paste0("<span class='", options$class, " fade-out' data-fragment-index=", options$fragIndex[2],">"),
-              c0(x, options[-classidx]),
-              '</span>\n'
-              ),
-            '</span>\n'
-            ),
-          "<div class=\"chunk\" id=\"(.*?)\">\\s*<div class=\"rimage default\">(.*)</div>\\s*</div>",
-          "\\2"
-        )
-        
-      }
-        
+`function()` itself returns the last evaluated value even without including `return()` function.
+It can be useful to include an explicit `return()` if the routine should end early, jump out of the function and return a value.
+
+```r
+myfun <- function(x) {
+if (x<0) return(x)
+
+complicated processing here
+}
+
+```
+
+---
+## Challenge 6 ![:cube]()
+
+Using what you learned so far on functions and control flow, create a function `bigsum` that takes two arguments a and b and :
+
+- returns 0 if the sum of a and b is strictly less than 50
+- returns the sum of a and b otherwise
+
+---
+## Challenge 6: Solution ![:cube]()
+
+<br>
+
+.pull-left[
+**Answer 1**
+```r
+bigsum <- function(a, b) {
+result <- a + b
+if (result < 50) {
+return(0)
+} else {
+return (result)
+}
+}
+```
+]
+
+.pull-right[
+**Answer 2**
+```r
+bigsum <- function(a, b) {
+result <- a + b
+if (result < 50) {
+0
+} else {
+result
+}
+}
+```
+]
+
+
+---
+## Accessibility of variables
+
+It is essential to always keep in mind where your variables are and whether they are defined and accessible:
+
+![:faic](arrow-right) Variables defined .alert[inside] a function are not accessible outside
+
+![:faic](arrow-right) Variables defined .alert[outside] a function are accessible inside. But it is NEVER a good idea, as your function won't function if the outside variable is erased.
+
+---
+## Accessibility of variables
+
+```{r, error=T}
+var1 <- 3     # var1 is defined outside our function
+vartest <- function() {
+  a <- 4      # 'a' is defined inside
+  print(a)    # print 'a'
+  print(var1) # print var1
+}
+
+a             # we cannot print 'a' as it exists only inside the function
+
+vartest()     # calling vartest() will print a and var1 
+
+rm(var1)      # remove var1
+vartest()     # calling the function again doesn't work anymore
+```
+
+---
+## Accessibility of variables
+
+Instead, use arguments!! Inside a function, arguments names will take over other variable names.
+
+```{r}
+var1 <- 3     # var1 is defined outside our function
+vartest <- function(var1) {
+  print(var1) # print var1
+}
+
+vartest(8)    # Inside our function var1 is now our argument and takes its value
+
+var1          # var1 still has the same value
+```
+
+---
+
+## Accessibility of variables
+
+Be very careful when creating variables inside a conditionnal statement as the variable may never have been created and cause errors
+
+```r
+a <- 3
+if (a > 5) { 
+b <- 2
+} 
+a + b
+# Error in eval(expr, envir, enclos): object 'b' not found
+```
+
+---
+
+## Accessibility of variables
+
+It is good practice to define variables outside the conditions and then modify their value to avoid any problem
+
+```{r}
+a <- 3
+b <- 0
+if (a > 5) {  
+  b <- 2
+} 
+a + b
+```
+
+---
+
+class: inverse, center, middle
+
+# Good programming practices
+
+---
+
+## Why?
+
+- To make your life easier 
+- To achieve greater readability and makes sharing and reusing your code a lot less painful
+- To reduce the time you'll spend to understand your code.
+
+---
+
+## Keep a clean and nice code
+
+Proper indentation and spacing is the first step to get an easy to read code:
+
+- Use spaces between and after you operators
+- Use consistentely the same assignation operator. `<-` is often preferred, `=` is ok but don't switch all the time between the two
+- Use brackets when using flow control statements
+- Inside brackets, indent by at least two spaces. 
+- Put closing brackets on a separate line, except when preceding an `else` statement. 
+- Define each variable on its own line
+
+
+---
+
+## Keep a clean and nice code
+
+Here is some hard to read code
+
+```r
+a<-4;b=3
+if(a<b){
+if(a==0)print("a zero") } else {
+if(b==0){print("b zero")} else print(b)}
+```
+
+---
+
+## Keep a clean and nice code
+
+Here is a little easier-to-read version. It takes more space but it is easier to see the flow of the code.
+
+```r
+a <- 4
+b <- 3
+if(a < b){
+if(a == 0) {
+print("a zero")
+}
+} else {
+if(b == 0){
+print("b zero")
+} else {
+print(b)
+}
+}
+```
+
+---
+
+## Use functions to simplify your code
+
+Write your own function:
+- when some portion of code is repeated more than twice in your script;
+- if only a part of the code change and include options for different arguments.
+
+This would reduce the number of errors done by copying/pasting and the time needed to correct them.
+
+---
+
+## Use functions to simplify your code
+
+Let's modify the example from **Challenge 3** and suppose that all CO2 uptake from Mississipi were overestimated by 20 and Quebec underestimated by 50. We could write this:
+
+```r
+for (i in 1:length(CO2[,1])) {
+if(CO2$Type[i] == "Mississippi") {
+CO2$conc[i] <- CO2$conc[i] - 20 
+}
+}
+for (i in 1:length(CO2[,1])) {
+if(CO2$Type[i] == "Quebec") {
+CO2$conc[i] <- CO2$conc[i] + 50 
+}
+}
+```
+
+---
+## Use functions to simplify your code
+
+Or this:
+
+```r
+recalibrate <- function(CO2, type, bias) {
+for (i in 1:nrow(CO2)) {
+if(CO2$Type[i] == type) {
+CO2$conc[i] <- CO2$conc[i] + bias 
+}
+}
+# we have to return our new dataset because the original is not modified
+return (CO2)
+}
+
+# Now we can use the function:
+newCO2 <- recalibrate(CO2, "Mississipi", -20)
+# Note that we recalibrate our newCO2 dataset here because the original CO2 is not modified
+newCO2 <- recalibrate(newCO2, "Quebec", +50)
+```
+
+---
+## Use meaningful variable and function names
+
+Same function but vague names
+
+```r
+rc <- function(c, t, b) {
+for (i in 1:nrow(c)) {
+if(c$Type[i] == t) {
+c$uptake[i] <- c$uptake[i] + b 
+}
+}
+return (c)
+}
+```
+
+.comment[Where possible, avoid using names of existing R functions and variables.]
+
+---
+## Use comments
+
+Add comment to describe what your code does, how to use its arguments or a detailed step by step of the function.
+
+.small[
+```r
+# recalibrates the CO2 dataset by modifying the CO2 uptake concentration
+# by a fixed amount depending on the region of sampling
+
+# Arguments
+# CO2: the CO2 dataset
+# type: the type ("Mississippi" or "Quebec") that need to be recalibrated. 
+# bias: the amount to add or remove to the concentration uptake
+
+recalibrate <- function(CO2, type, bias) {
+for (i in 1:nrow(CO2)) {
+if(CO2$Type[i] == type) {
+CO2$uptake[i] <- CO2$uptake[i] + bias 
+}
+}
+return (CO2)
+}
+```
+]
+
+
+---
+class: inverse, center, middle
+
+# Speeding up your code
+
+---
+## Profiling
+
+Because if we want to optimize, we will need to know how much time it takes!
+```{r eval=FALSE}
+system.time({
+  a <- 0
+  for (i in 1:1000) {
+    a <- a + i
+  }
+})
+```
+
+Repeating our code might be necessary for time to be measurable
+
+```{r eval=FALSE}
+system.time(replicate(1000, {
+  a <- 0
+  for (i in 1:1000) {a <- a + i
+  }
+}))
+```
+
+---
+## Profiling
+
+To have a more detailed output of the time spent in each function, you can use the function Rprof()
+
+```{r eval=FALSE}
+Rprof("profile.txt") # Saves results in file profile.txt
+a <- 0
+for (i in 1:1000000) {
+  a <- a + i
+}
+
+Rprof(NULL) # Ends the profiling
+
+summaryRprof("profile.txt") # Display the result of profiling
+```
+
+---
+## Profiling 
+
+To compare the efficiency of several functions with accurate precision, you can use the package **microbenchmark**
+
+```{r eval=FALSE}
+install.packages("microbenchmark")
+library(microbenchmark)
+
+f1 <- function() {
+  a <- 0
+  for (i in 1:1000) {
+    a <- a + i
+  }
+}
+
+# The argument times sets the number of iterations
+microbenchmark(f1(), times=1000) 
+
+```
+
+---
+## First step : thinking
+
+When we want to speed up our code, the first thing we should do is look at it and ask ourselves the following questions: 
+
+Is my code ok?
+Is everything useful?
+Do I repeat some tasks needlessly?
+Are there other ways to do that?
+
+To program efficiently, we have to think efficiently first and remove everything that can be removed.
+This might also usually provide a simpler code to read.
+
+
+---
+## First step : thinking
+
+Let's create a function that:
+- Takes a number `a`
+- Adds `a` to every number from 1 to 100
+- If `a` is less than 5, then we will add `2*a` instead
+- Sums of all the elements of the modified sequence.
+
+Here's a way to do it:
+```{r eval=FALSE}
+f2 <- function(a) {
+  result <- 0 # initialize our result
+
+  for (i in 1:100) { # iterate on the sequence from 1 to 100
+    if (a < 5) { # a is < 5, we add 2 * a to the sequence element and to a. 
+                 # We save it in result 
+      result <- result + i + (2 * a)
+    } else { # a is >= 5, we do not add 1 
+      result <- result + i + a 
     }
-  )
-)
+  }
+  return(result)
+}
+f2(4)
 ```
 
-## Slides with Equations
+---
+## First step : thinking
 
-With *equations*:
+Our previous example works well. However, a is constant so it's useless to check if it is less than 5 in each iteration.
+Here's another more efficient way:
 
-$$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+```{r eval=FALSE}
+f3 <- function(a) {
+  result <- 0  # initialize our result
+  if (a < 5) { # Check if a < 5 and add 1 if true
+    a <- 2 * a
+  } 
+  # We don't even need an else here since a remains the same otherwise
+  # iterate on the sequence from 1 to n
+  for (i in 1:100) {
+    result <- result + i + a 
+  }
+  return(result)
+}
+f3(4)
 
-## More equations
-
-Inline equation, just like this $equation$, and...
-
-Display equation:
-
-$$ equation $$
-
-# Special Transitions and Color Effects
-
-## Fade in, Slide out {data-transition="slide-in fade-out"}
-
-## Horizontal Rule / Page Break
-
-Three or more asterisks or dashes:
-
-******
-
-Result in this
-
-------
-
-## Tables
-
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
-
-## Reference Style Links and Images
-
-### Links
-
-A [linked phrase][id].
-At the bottom of the document:
-
-[id]: http://example.com/ "Title"
-
-### Images
-![QCBSLOGO][logo-qcbs]
-
-At the bottom of the document:
-
-[logo-qcbs]: /images/logo_text.png "QCBS Logo"
-
-## Slide in, Fade out {data-transition="fade-in slide-out"}
-
-## CSS color background {data-background=#ff0000}
-
-## CSS color background {data-background=#D3D3D3}
-
-## CSS color background {data-background=#EBF5FB}
-
-Refer to HEX codes in [HTML Color Codes](http://htmlcolorcodes.com/) for other colors.
-
-## Full size image background {data-background="https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png"}
-
-## Video embeded
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wA9OJkCFtLU" frameborder="0" allowfullscreen></iframe>
-
-## {data-background-iframe="http://qcbs.ca/wiki/r"}
-
-# Extra information
-
-## Next Steps {#nextsteps .emphasized}
-
-<span class="emphasized">Pay attention to this!</span>
+microbenchmark(f2(4), f3(4), times=1000)
+```
 
 
+---
+## First step : thinking
+
+Just by thinking a little bit, our code became faster and easier to understand. 
+Now we can do even better with the power of R
+
+```{r eval=FALSE}
+f4 <- function(a) {
+  result <- 0
+  if (a < 5) {
+    a <- a * 2
+  } 
+  result <- sum(1:100 + a)
+  return(result)
+}
+
+f4(4)
+microbenchmark(f3(4), f4(4), times=10000)
+
+```
+
+Wow our code just got ten times faster and also smaller...
+What just happened?
+
+---
+## Vectorization
+
+R is an interpreted language actually written in C.
+
+R code is slower since it has to be decoded into C functions.
+
+Some R functions are direct links to C functions and are therefore way faster and optimized
+
+R is usually optimized for vectorization, i.e. operations on vectors.
+
+So it is usually way faster to perform operation directly on vectors instead of looping over them
+
+
+---
+## Vectorization
+
+Here are some examples of operations on vectors 
+
+```{r eval=FALSE}
+v1 <- 1:5
+v2 <- 2:6
+v3 <- 1:3
+
+v1 + 2  # Addition on a vector : adds 2 to all elements
+v1 + v2 # Adds each element of v2 to v
+v1 + v3 # v3 is recycled since it is shorter than v1
+
+sum(v1)         # Adds all elements of v1 together
+sum(v1, v2)     # Sums all elements of v1 and v2 
+mean(v1)        # Average of elements in v1
+mean(c(v1, v2)) # Average of elements of v1 and v2.
+
+```
+
+---
+## Subsetting / logical indexing
+Extracts data way faster than loops.
+Is done with the `[ ]` operator by providing a set of indexes or conditions returning a set of indexes.
+
+```{r eval=FALSE}
+v1 <- 1:10
+v1[7]             # Extracts the 7th value
+v1[v1 > 5]        # Extracts values > 5 only
+v1[which(v1 > 5)] # same as before
+```
+
+In data frames, the `$` operator allows to access columns directly.
+Remember that columns of a data frame are always vectors 
+
+```{r eval=FALSE}
+data(CO2)
+CO2$Type      # Prints columns Type
+CO2[, "Type"] # Same as above
+CO2[CO2$Type == "Quebec", ] # Subsets the CO2 dataset where Type is "Quebec" 
+```
+
+---
+## Challenge 7
+Create a new function `recalibrate2()` rewrites the function `recalibrate()` seen earlier using subsetting and vectorization techniques. 
+
+The new function should not be longer than 3 lines.
+Reminder:
+
+```{r eval=FALSE}
+recalibrate2 <- function(CO2, type, bias) {
+  for (i in 1:nrow(CO2)) {
+    if(CO2$Type[i] == type){
+      CO2$uptake[i] <- CO2$uptake[i] + bias
+    }
+  }
+  return(CO2)
+}
+
+```
+
+
+---
+## Challenge 7 Solution
+
+```{r eval=FALSE}
+recalibrate2 <- function(CO2, type, bias) {
+  
+  # First get the indexes of the data with the good type
+  # Thinking tip : since we use the indexes twice below, instead of 
+  # using which() twice, let's do it only once and save the result!
+  idx <- CO2$Type == type
+  
+  # Modify only the data concerned using indexes.
+  CO2$uptake[idx] <- CO2$uptake[idx] + bias
+  return (CO2)
+}
+
+# Check the results are the same
+all.equal(recalibrate(CO2, "Quebec", 20), recalibrate2(CO2, "Quebec", 20))
+
+# Check that this is indeed way faster
+microbenchmark(recalibrate(CO2, "Quebec", 20),
+               recalibrate2(CO2, "Quebec", 20))
+```
+
+---
+## Growing objects
+
+Sometimes loops can't be avoided. In these cases, pay extra attention to objects that grow with each iteration.
+Take these two functions
+
+```{r eval=FALSE}
+growing <- function(n) {
+  result <- NULL # declare our result
+  for (i in 1:n) {
+    result <- c(result, i) # create our result by growing our object
+  }
+  return(result)
+}
+growing2 <- function(n) {
+  # declare our result : here we create a vector of length n with 0 in it
+  result <- numeric(n)
+  for (i in 1:n) {
+    # now we just modify our value instead of recreating the vector
+    result[i] <- i
+  }
+  return(result)
+}
+```
+
+---
+## Growing objects
+
+Let's compare their speeds
+
+```{r eval=FALSE}
+system.time({growing(10000)})
+system.time({growing2(10000)})
+
+system.time({growing(50000)})
+system.time({growing2(50000)})
+```
+
+Performance dropped so much because when calling a function, arguments are first copied in memory.
+So as your object grows, the time needed to copy it when calling c() increases.
+This problem is resolved by preallocating your result object and filling it
+
+---
+## Growing objects
+
+The same problems appears with data frames and functions like cbind() or rbind().
+However it is a bit more complex.
+
+```{r eval=FALSE}
+growingdf <- function(n, row) {
+  # preallocate our dataframe
+  df <- data.frame(numeric(n), character(n), stringsAsFactors=FALSE)
+  for (i in 1:n) {
+    df[i,] <- row # replace the ith row with row
+  } return(df)}
+growingdf2 <- function(n, row) {
+  # this is the way to allocate a list with n elements
+  df <- vector("list", n)
+  for (i in 1:n) {
+    df[[i]] <- row # put row in the ith element
+  } return(do.call(rbind, df))}
+# store our row in a list since we have different types
+row <- list(1, "Hello World")
+microbenchmark(growingdf(5000, row), growingdf2(5000, row), times=10)
+```
+
+---
+## The apply family
+
+To prevent the growing object problem.
+Not always the best solution performance-wise (they sometimes hide a for loop)
+Allow to apply easily a function on rows or columns of a data frame 
+
+```{r eval=FALSE}
+df <- data.frame(1:100, 101:200)
+apply(df, 1, sum)  # Sum on rows
+apply(df, 2, mean) # Mean on columns
+
+# we can also supply additional arguments to the function
+apply(df, 2, mean, na.rm=TRUE)
+
+# we can also define a function directly. The first argument is always what 
+# we iterate on. Here each row is treated as a vector of numbers as we can
+# see with the str() function
+apply(df, 1, function(x){str(x)})
+
+# We can also add other arguments
+apply(df, 1, function(x, y){x[2] - x[1] + y}, y = 5)
+```
+
+---
+## The apply family
+
+When looking for speed, The most interesting apply functions are probably lapply(), sapply and vapply() since they are primitives written in C. But they are more complex to use.
+
+```{r eval=FALSE}
+a <- list(1:100, 101:200)
+
+# apply mean to each element of the list
+lapply(a, mean)         # we get a list as a result
+unlist(lapply(a, mean)) # use unlist to get a vector instead
+sapply(a,mean)          # Same result
+
+# the result of mean is a single number, 
+# we tell vapply our result will be a number
+vapply(a, mean, 0) 
+```
+
+---
+## But remember...
+Before spending time speeding up your code, first ask yourselves :
+
+Is it really worth it??
+
+Because, sometimes, spending 1 hour optimizing your code to effectively save 15 seconds on computing time is just not really that good a deal...
+
+---
+class: inverse, center, middle
+
+# Other packages of interest
+
+
+---
+## knitr
+
+- Write R code in Markdown or in Latex
+- Compile or 'knit' code to html, PDF or Word.
+- Shiny: similar concept, but for interactive web documents
+
+![](images/Screen Shot 2018-09-23 at 17.49.53.png)
+
+<!-- --- -->
+<!-- title: "Interesting packages for R / QCB5 Workshop on R programming" -->
+<!-- output: hml_document -->
+<!-- --- -->
+
+---
+## Data table
+A package to facilitate and to improve the efficiency of certain operations in R.
+Data tables are similar to data frames,
+
+```{r}
+library(data.table)
+mydf = data.frame(a = rep(LETTERS, each = 1e5), 
+                  b = rnorm(26*1e5))
+mydt = data.table(mydf)
+# We set the column that will be used as a key for the data table
+setkey(mydt, a) 
+```
+Returns all rows with column a (the key) equal to F
+
+```{r} 
+head(mydt['F'], 3)
+```
+
+Gives the mean value of column b for each letter in column a.
+
+```{r}
+mydt[,mean(b), by=a ]
+```
+
+---
+## Compare
+```{r message=FALSE}
+t1 = system.time(tl <- mydt[,mean(b), by=a])
+# With tapply
+t2 = system.time(t2 <- tapply(mydf$b,mydf$a,mean)) 
+# With reshape2
+library(reshape2)
+meltdf = melt(mydf)
+t3 = system.time(t3 <- dcast(meltdf, a~variable, mean))
+# With plyr
+library(plyr)
+t4 = system.time(t4 <- ddply(mydf, . (a), summarize, mean(b))) 
+
+my.tab.time = as.data.frame(rbind(t1,t2,t3,t4))
+my.tab.time$package = c("Base","tapply","reshape2","plyr")
+my.tab.time
+```
+
+---
+## RgoogleMaps
+
+```{r eval=FALSE}
+library(RgoogleMaps)
+myhome = getGeoCode('Stewart Biology Building, Montreal')
+mymap <- GetMap(center = myhome, zoom = 14)
+PlotOnStaticMap(mymap, 
+                lat = myhome['lat'], lon = myhome['lon'],
+                cex = 5, pch = 10, lwd = 3, col = 'red')
+```
+![:scale 50%](images/maps_Montreal.png)
+
+
+
+---
+class: inverse, center, bottom
+
+# Thank you for attending!
+
+![:scale 50%](images/qcbs_logo.png)

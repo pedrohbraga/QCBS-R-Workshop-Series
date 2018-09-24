@@ -1,19 +1,16 @@
 ---
 title: "Workshop 3: Introduction to ggplot2, tidyr & dplyr"
-author: Québec Centre for Biodiversity Science
+subtitle: "QCBS R Workshop Series"
+author: "Québec Centre for Biodiversity Science"
 output:
-  # revealjs::revealjs_presentation:
-  #   css: custom-qcbs.css
-  #   fig_caption: yes
-  #   theme: white
-  #   highlight: haddock
-  #   center: true
-  #   transition: fade
-  #   background_transition: fade
-  #   self_contained: false
-  #   pandoc_args: [ "--slide-level", "2" ]
-  #   reveal_plugins: ["notes", "search", "zoom"]
-  ioslides_presentation
+  xaringan::moon_reader:
+    includes:
+      in_header: qcbsR-header.html
+    lib_dir: assets
+    seal: true
+    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
+    nature:
+      beforeInit: "qcbsR-macros.js"
 ---
 
 ```{r, include = FALSE}
@@ -32,18 +29,18 @@ require(kableExtra)
 
 ## Introduction
 
-Why use R for plotting? 
+Why use R for plotting?
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/ggplot_divided.png" height=100% width=100%>
 </div>
 
 
 ## Introduction
 
-Why use R for plotting? 
+Why use R for plotting?
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/ggplot_reproducible.png" height=100% width=100%>
 </div>
 
@@ -54,7 +51,7 @@ Why use R for plotting?
 
 Beautiful and flexible graphics!
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/ggplot_flexible.png" height=100% width=100%>
 </div>
 
@@ -73,7 +70,7 @@ Beautiful and flexible graphics!
 
 - To follow along:
 
-Code and HTML available at http://qcbs.ca/wiki/r/workshop3 
+Code and HTML available at http://qcbs.ca/wiki/r/workshop3
 
 - Recommendation:
       * create your own new script
@@ -84,9 +81,9 @@ Code and HTML available at http://qcbs.ca/wiki/r/workshop3
 
 ## ggplot2
 
-The ggplot2 package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots. 
+The ggplot2 package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots.
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/ggplot2_logo.png" height=40% width=40%>
 </div>
 
@@ -198,7 +195,7 @@ qplot(data = CO2,
 ## Tips for expressions
 
 ```{r, fig.align="center", fig.width=4, fig.height=4}
-qplot(data = CO2, x = conc, y = uptake, 
+qplot(data = CO2, x = conc, y = uptake,
       xlab = expression(paste(CO[2]," Concentration (ml/L)")),
       ylab = expression(paste(CO[2]," Uptake (", mu, "mol/", m^2," sec)")),
       main = expression(paste(CO[2]," uptake in grass plants")))
@@ -223,11 +220,11 @@ A graphic is made of elements (layers)
 - Aesthetics (aes), to make data visible
     * x,y : position along the x and y axis
     * colour: the colour of the point
-    * group: what group a point belongs to 
+    * group: what group a point belongs to
     * shape: the figure used to plot a point
     * linetype: the type of line used (solid, dashed, etc)
     * size: the size of the point or line
-    * alpha: the transparency of the point 
+    * alpha: the transparency of the point
 
 ## Grammar of graphics (gg)
 A graphic is made of elements (layers)
@@ -241,19 +238,19 @@ A graphic is made of elements (layers)
     * `geom_boxplot()`: box and whiskers plot for categorical variables
     * `geom_bar()`: bar charts for categorical x axis
     * `geom_histogram()`: histogram for continuous x axis
-    
+
 ## Grammar of graphics (gg)
 Edit any single element to produce a new graph
 e.g., by changing the coordinate system
 
 
-  
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8.5, fig.align='center', fig.height=5}
-plot1 <- ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = cut)) 
 
-plot2 <- ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = cut)) + 
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8.5, fig.align='center', fig.height=5}
+plot1 <- ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = cut))
+
+plot2 <- ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = cut)) +
   coord_polar()
 grid.arrange(plot1, plot2, ncol=2)
 ```
@@ -261,15 +258,15 @@ grid.arrange(plot1, plot2, ncol=2)
 
 ## How it works
 
-Create a simple plot object: 
+Create a simple plot object:
 
   * `plot.object <- ggplot()` OR `qplot()`
 
-Add graphical layers: 
+Add graphical layers:
 
   * `plot.object <- plot.object + layer()`
 
-Repeat step 2 until statisfied, then print: 
+Repeat step 2 until statisfied, then print:
 
   * `print(plot.object)`
 
@@ -416,7 +413,7 @@ CO2.plot
 
 [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/available_geom.png" height=60% width=60%>
 </div>
 
@@ -434,7 +431,7 @@ http://ggplot2.tidyverse.org/reference/
 
 ## Challenge #3
 
-Explore a new geom and other plot elements with your own data or built in data. 
+Explore a new geom and other plot elements with your own data or built in data.
 
 ```{r, eval = FALSE}
 data(msleep)
@@ -452,7 +449,7 @@ box.plot
 
 ## Saving plots in RStudio
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/save_image.png" height=90% width=90%>
 </div>
 
@@ -477,7 +474,7 @@ Other methods to save image
 ## Fine tuning - colours
 
 ```{r, fig.align="center", fig.width=6, fig.height=4}
-CO2.plot + 
+CO2.plot +
   scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
 ```
 
@@ -505,7 +502,7 @@ Wes Anderson colour palette
 install.packages("wesanderson")
 library(wesanderson)
 ```
-  
+
 ## Fine tuning - colours
 
 Wes Anderson colour palette
@@ -515,13 +512,13 @@ Wes Anderson colour palette
 ## Fine tuning - colours
 
 Wes Anderson colour palette
-  
+
 ![](images/wesanderson2.jpg)
 
 ## Fine tuning - colours
 
 Wes Anderson colour palette
-  
+
 ![](images/wesanderson3.jpg)
 
 ## Fine tuning - colours
@@ -529,14 +526,14 @@ Wes Anderson colour palette
 Wes Anderson colour palette
 
 ```{r, fig.align="center", fig.width=5, fig.height=3.5}
-ggplot(data = iris, aes(Sepal.Length, Sepal.Width, color = Species)) + 
-  geom_point(size = 3) + 
-  scale_color_manual(values = wes_palette("GrandBudapest2")) 
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = wes_palette("GrandBudapest2"))
 ```
 
 ## Using `tidyr` to reshape data frames
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/tidyr_logo.png" height=50% width=50%>
 </div>
 
@@ -550,7 +547,7 @@ wide <- data.frame(Species = c("Oak", "Elm", "Ash"),
                    Height = c(56, 85, 55))
 kable(wide, format = "html", align=rep('c', 3)) %>%
   kable_styling(bootstrap_options = c("striped", "bordered"),full_width=F, font_size = 18) %>%
-  column_spec(1:3, width = "5em") 
+  column_spec(1:3, width = "5em")
 ```
 
 <br>
@@ -581,7 +578,7 @@ Tidying allows you to manipulate the structure of your data while preserving all
 
 `spread()` - convert from long to wide format
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/gather-spread.png" height=100% width=100%>
 </div>
 
@@ -679,7 +676,7 @@ head(air.wide)
 
 `separate()` splits a columns by a character string separator
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/separate.png" height=100% width=100%>
 </div>
 
@@ -691,7 +688,7 @@ head(air.wide)
   - `sep` Character which indicates where to separate  
 
 
-## Using `separate()` example 
+## Using `separate()` example
 
 Create a fictional dataset about fish and plankton
 ```{r}
@@ -706,7 +703,7 @@ messy
 ```
 
 
-## Using `separate()` example 
+## Using `separate()` example
 
 First convert the messy data frame from wide to long format
 
@@ -716,13 +713,13 @@ head(messy.long)
 ```
 
 
-## Using `separate()` example 
+## Using `separate()` example
 
-Then we want to split the 2 sampling time (T1 and T2). 
+Then we want to split the 2 sampling time (T1 and T2).
 
 ```{r}
-messy.long.sep <- separate(messy.long, taxa, 
-                           into = c("species", "time"), sep = "\\.") 
+messy.long.sep <- separate(messy.long, taxa,
+                           into = c("species", "time"), sep = "\\.")
 head(messy.long.sep)
 ```
 
@@ -756,35 +753,35 @@ The dataset is in wide format, where measured variables (Ozone, Solar.R, Wind an
 Let's use ggplot to visualize each individual variable and the range it displays for each month in the time series
 
 ```{r}
-fMonth <- factor(airquality$Month) 
-# Convert the Month variable to a factor. 
- 
-ozone.box <- ggplot(airquality, aes(x = fMonth, y = Ozone)) + 
+fMonth <- factor(airquality$Month)
+# Convert the Month variable to a factor.
+
+ozone.box <- ggplot(airquality, aes(x = fMonth, y = Ozone)) +
   geom_boxplot()
 
-solar.box <- ggplot(airquality, aes(x = fMonth, y = Solar.R)) + 
+solar.box <- ggplot(airquality, aes(x = fMonth, y = Solar.R)) +
   geom_boxplot()
 
-temp.box  <- ggplot(airquality, aes(x = fMonth, y = Temp)) + 
+temp.box  <- ggplot(airquality, aes(x = fMonth, y = Temp)) +
   geom_boxplot()
 
-wind.box  <- ggplot(airquality, aes(x = fMonth, y = Wind)) + 
+wind.box  <- ggplot(airquality, aes(x = fMonth, y = Wind)) +
   geom_boxplot()
 ```
 
 ## Exercices with `ggplot` and `tidyr`
 
-You can use `grid.arrange()` in the package `gridExtra` to arrange the 4 separate plots into one panel for viewing. 
+You can use `grid.arrange()` in the package `gridExtra` to arrange the 4 separate plots into one panel for viewing.
 ```{r, eval=F, warning=F}
-combo.box <- grid.arrange(ozone.box, solar.box, temp.box, wind.box, 
-                          nrow = 2) 
+combo.box <- grid.arrange(ozone.box, solar.box, temp.box, wind.box,
+                          nrow = 2)
 # nrow = number of rows you would like the plots displayed on
 ```
 
 ## Exercices with `ggplot` and `tidyr`
 
 ```{r, echo=F, warning=F}
-combo.box <- grid.arrange(ozone.box, solar.box, temp.box, wind.box, nrow = 2) 
+combo.box <- grid.arrange(ozone.box, solar.box, temp.box, wind.box, nrow = 2)
 ```
 
 
@@ -813,7 +810,7 @@ weather
 We can free the y axis in each panel using `scales=free`
 
 ```{r,  warning=F, results="hide"}
-weather <- weather + 
+weather <- weather +
   facet_wrap(~ variable, nrow = 2, scales = "free")
 ```
 
@@ -841,7 +838,7 @@ w2
 
 ## Data manipulation with `dplyr`
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/dplyr.png" height=50% width=50%>
 </div>
 
@@ -853,7 +850,7 @@ w2
 - Fast and efficient
 - Can interface with external databases and translate your R code into SQL queries
 
-Some corresponding R base functions: 
+Some corresponding R base functions:
 `split()`, `subset()`, `apply()`, `sapply()`, `lapply()`, `tapply()` and `aggregate()`
 
 ## Intro to `dplyr`
@@ -871,18 +868,18 @@ These 4 core functions tackle the most common manipulations when working with da
   * `select()`: select columns from a data frame
   * `filter()`: filter rows according to defined criteria
   * `arrange()`: re-order data based on criteria (e.g. ascending, descending)
-  * `mutate()`: create or transform values in a column 
+  * `mutate()`: create or transform values in a column
 
 ## `select` columns
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/select.png" height=80% width=80%></img>
 </div>
 
 `select(data, ...)`
 
   * `...`  Can be column names or positions or complex expressions separated by commas
-  
+
   `select(data, column1, column2)` select columns 1 and 2
   `select(data, c(2:4,6))` select columns 2 to 4 and 6
   `select(data, -column1)` select all columns except column 1
@@ -890,7 +887,7 @@ These 4 core functions tackle the most common manipulations when working with da
 
 ## `select` columns
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/select.helper.png" height=70% width=70%>
 </div>
 
@@ -909,7 +906,7 @@ Extract a subset of rows that meet one or more specific conditions
 
 `filter(dataframe, logical statement 1, logical statement 2, ...)`
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/filter.png" height=90% width=90%>
 
 <img src="images/logic.helper.png" height=80% width=80%>
@@ -963,7 +960,7 @@ Compute and add new columns
 
 `mutate(data, newVar1 = expression1, newVar2 = expression2, ...)`
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/mutate.png" height=100% width=100%>
 </div>
 
@@ -978,7 +975,7 @@ head(airquality_C)
 
 ## `magrittr`
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/magrittr.png" height=40% width=40%>
 </div>
 
@@ -996,7 +993,7 @@ require(magrittr)
 Suppose we want to analyse only the month of June, then convert the temperature variable to degrees Celsius. We can create the required data frame by combining 2 dplyr verbs we learned
 
 ```{r}
-june_C <- mutate(filter(airquality, Month == 6), 
+june_C <- mutate(filter(airquality, Month == 6),
                  Temp_C = (Temp-32)*(5/9))
 ```
 
@@ -1007,7 +1004,7 @@ As we add more operations, wrapping functions one inside the other becomes incre
 Alternatively, we can use maggritr's pipe operator to link these successive operations
 
 ```{r}
-june_C <- airquality %>% 
+june_C <- airquality %>%
     filter(Month == 6) %>%
     mutate(Temp_C = (Temp-32)*(5/9))
 ```
@@ -1020,7 +1017,7 @@ Advantages :
 
 ## `dplyr::group_by` and `summarise`
 
-The `dplyr` verbs become especially powerful when they are are combined using the pipe operator `%>%`. 
+The `dplyr` verbs become especially powerful when they are are combined using the pipe operator `%>%`.
 The following `dplyr` functions allow us to split our data frame into groups on which we can perform operations individually
 
 `group_by()` : group data frame by a factor for downstream operations (usually summarise)
@@ -1029,15 +1026,15 @@ The following `dplyr` functions allow us to split our data frame into groups on 
 
 ## `dplyr` - Split-Apply-Combine
 
-The `group_by` function is key to the Split-Apply-Combine strategy 
+The `group_by` function is key to the Split-Apply-Combine strategy
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/split-apply-combine.png" height=100% width=100%>
 </div>
 
 ## `dplyr` - Split-Apply-Combine
 
-<div style="text-align:center"> 
+<div style="text-align:center">
 <img src="images/summarise.png" height=70% width=70%>
 </div>
 
@@ -1046,8 +1043,8 @@ The `group_by` function is key to the Split-Apply-Combine strategy
 Example: we are interested in the mean temperature and standard deviation within each month if the airquality dataset
 
 ```{r}
-month_sum <- airquality %>% 
-      group_by(Month) %>% 
+month_sum <- airquality %>%
+      group_by(Month) %>%
       summarise(mean_temp = mean(Temp),
                 sd_temp = sd(Temp))
 month_sum
@@ -1055,7 +1052,7 @@ month_sum
 
 ## Chalenge #5
 
-Using the `ChickWeight` dataset, create a summary table which displays the difference in weight between the maximum and minimum weight of each chick in the study. 
+Using the `ChickWeight` dataset, create a summary table which displays the difference in weight between the maximum and minimum weight of each chick in the study.
 
 Employ `dplyr` verbs and the `%>%` operator.
 
@@ -1065,8 +1062,8 @@ Employ `dplyr` verbs and the `%>%` operator.
 2. Use summarise() to calculate the weight gain within each group
 
 ```{r}
-weight_diff <- ChickWeight %>% 
-      group_by(Chick) %>% 
+weight_diff <- ChickWeight %>%
+      group_by(Chick) %>%
       summarise(weight_diff = max(weight) - min(weight))
 head(weight_diff)
 ```
@@ -1074,19 +1071,19 @@ head(weight_diff)
 
 ## Ninja challenge
 
-Using the ChickWeight dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study. 
+Using the ChickWeight dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study.
 
-Employ `dplyr` verbs and the `%>%` operator. 
+Employ `dplyr` verbs and the `%>%` operator.
 
 (Hint: `first()` and `last()` may be useful here.)
 
 ## Ninja solution
 
 ```{r}
-diet_summ <- ChickWeight %>% 
-      group_by(Diet, Chick) %>% 
-      summarise(weight_gain = last(weight) - first(weight)) %>% 
-      group_by(Diet) %>% 
+diet_summ <- ChickWeight %>%
+      group_by(Diet, Chick) %>%
+      summarise(weight_gain = last(weight) - first(weight)) %>%
+      group_by(Diet) %>%
       summarise(mean_gain = mean(weight_gain))
 diet_summ
 ```

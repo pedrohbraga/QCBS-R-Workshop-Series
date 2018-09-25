@@ -54,6 +54,64 @@ library(effects)
 ```
 
 ---
+class: inverse, center, middle
+
+# Important concepts
+
+## mean and variation
+
+---
+
+## Mean
+
+Mean is a measure of the average value of a population (*x*):
+
+$$\bar{x} = \frac{1}{N} \sum_{i=1}^{n} x_{i}$$
+
+---
+## Variation
+
+- Variation is the spread around the mean
+  - Mean deviation
+  - Variance
+  - Standard deviation
+  - Coefficient of deviation
+
+**What is deviation?**
+
+$$D_{i} = |x_{i} - \bar{x}|$$
+
+---
+## Variation
+
+**Deviation**:
+
+$$D_{i} = |x_{i} - \bar{x}|$$
+--
+**Mean deviation**:
+
+$$D = \frac{1}{N} \sum_{i=1}^{n} |x_{i} - \bar{x}|$$
+--
+
+Instead of absolute values, we can also square the value, giving the **variation**:
+
+$$V = \frac{1}{N} \sum_{i=1}^{n} {(x_{i} - \bar{x})}^2$$
+
+---
+## Variation
+
+But by squaring each value, our variables are no longer in meaningful units
+
+So we just root square the **variation** ( $V$ ), giving the **standard variation**:
+
+$$\sigma = \sqrt{V}$$
+--
+
+The relative standard deviation, expressed in percentage, is the **coefficient of variation**:
+
+$$cv = \frac{\sigma}{\bar{x}}$$
+
+---
 ## Learning objectives
 
 .center[

@@ -26,25 +26,24 @@ library(wesanderson)
 require(kableExtra)
 ```
 
-
 ## Introduction
 
 Why use R for plotting?
 
 <div style="text-align:center">
-<img src="images/ggplot_divided.png" height=100% width=100%>
+<img src="images/ggplot_divided.png" height=85% width=85%>
 </div>
 
-
+---
 ## Introduction
 
 Why use R for plotting?
 
 <div style="text-align:center">
-<img src="images/ggplot_reproducible.png" height=100% width=100%>
+<img src="images/ggplot_reproducible.png" height=85% width=85%>
 </div>
 
-
+---
 ## Introduction
 
 Why use R for plotting?
@@ -52,10 +51,10 @@ Why use R for plotting?
 Beautiful and flexible graphics!
 
 <div style="text-align:center">
-<img src="images/ggplot_flexible.png" height=100% width=100%>
+<img src="images/ggplot_flexible.png" height=85% width=85%>
 </div>
 
-
+---
 ## Introduction
 
 - Have you created plots?
@@ -63,30 +62,33 @@ Beautiful and flexible graphics!
       * Which software?
 
 - Have you plotted in R?
-      * base R, lattice?
-      * ggplot2?
+      * `base` R, `lattice`?
+      * `ggplot2`?
 
+---
 ## Introduction
 
 - To follow along:
 
-Code and HTML available at http://qcbs.ca/wiki/r/workshop3
+Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
 
 - Recommendation:
       * create your own new script
       * refer to provided code only if needed
       * avoid copy pasting or running the code directly from script
 
-- ggplot2 is also hosted on github: https://github.com/hadley/ggplot2
+- ggplot2 is also hosted on Github: https://github.com/hadley/ggplot2
 
+---
 ## ggplot2
 
-The ggplot2 package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots.
+The `ggplot2` package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots.
 
 <div style="text-align:center">
 <img src="images/ggplot2_logo.png" height=40% width=40%>
 </div>
 
+---
 
 ## Introduction
 
@@ -96,6 +98,7 @@ install.packages("ggplot2")
 library(ggplot2)
 ```
 
+---
 ## Outline
 1. Your first R plot
     * Basic scatter plot
@@ -108,7 +111,9 @@ library(ggplot2)
 4. Fine tuning your plot
     * Colours
     * Themes
-5. Miscellaneous
+5. Miscellanea
+
+---
 
 ## Basic scatter plot
 ```{r, eval = FALSE}
@@ -116,16 +121,16 @@ library(ggplot2)
 ```
 arguments:
 
-- data
+- `data`
+- `x`
+- `y`
+- `...`
 
-- x
-
-- y
-
-- ...
+---
 
 ## Basic scatter plot
-Look at pre-loaded "iris" dataset:
+
+Look at pre-loaded `iris` dataset:
 ```{r, eval = FALSE}
 ?iris
 head(iris)
@@ -137,6 +142,7 @@ names(iris)
 head(iris)
 ```
 
+---
 ## Basic scatter plot
 
 ```{r, fig.align="center", fig.width=4, fig.height=4}
@@ -145,6 +151,7 @@ qplot(data = iris,
         y = Sepal.Width)
 ```
 
+---
 ## Basic scatter plot
 
 ```{r, fig.align="center", fig.width=4, fig.height=4}
@@ -153,16 +160,16 @@ qplot(data = iris,
         y = Sepal.Width)
 ```
 
+---
 ## Less basic options
 
 arguments:
 
-- xlab
+- `xlab`
+- `ylab`
+- `main`
 
-- ylab
-
-- main
-
+---
 ## Less basic options
 
 ```{r, fig.align="center", fig.width=4, fig.height=4}
@@ -172,6 +179,7 @@ qplot(data = iris,
         main = "Sepal dimensions")
 ```
 
+---
 ## Challenge #1
 
 Produce a basic plot with built in data (5 minutes)
@@ -183,7 +191,9 @@ data(CO2)
 data(BOD)
 ```
 
-## Solution to challenge #1
+---
+
+## Solution to Challenge #1
 
 ```{r, fig.align="center", fig.width=4, fig.height=4}
 qplot(data = CO2,
@@ -192,6 +202,7 @@ qplot(data = CO2,
         main = "CO2 uptake in grass plants")
 ```
 
+---
 ## Tips for expressions
 
 ```{r, fig.align="center", fig.width=4, fig.height=4}
@@ -201,17 +212,21 @@ qplot(data = CO2, x = conc, y = uptake,
       main = expression(paste(CO[2]," uptake in grass plants")))
 ```
 
-## Grammar of graphics (gg)
+---
+## Grammar of Graphics (GG)
+
 A graphic is made of elements (layers)
 
 - Data
-    * aesthetics (aes)
+    * aesthetics (`aes`)
     * transformation
-    * geoms (geometric objects)
+    * geometries (`geoms`)
     * axis (coordinate system)
     * scales
 
 <img src="images/ggplot_grammar.png" height=90% width=90%>
+
+--- 
 
 ## Grammar of graphics (gg)
 A graphic is made of elements (layers)
@@ -226,6 +241,7 @@ A graphic is made of elements (layers)
     * size: the size of the point or line
     * alpha: the transparency of the point
 
+---
 ## Grammar of graphics (gg)
 A graphic is made of elements (layers)
 
@@ -239,11 +255,10 @@ A graphic is made of elements (layers)
     * `geom_bar()`: bar charts for categorical x axis
     * `geom_histogram()`: histogram for continuous x axis
 
+---
 ## Grammar of graphics (gg)
 Edit any single element to produce a new graph
 e.g., by changing the coordinate system
-
-
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8.5, fig.align='center', fig.height=5}
 plot1 <- ggplot(data = diamonds) +
@@ -252,10 +267,11 @@ plot1 <- ggplot(data = diamonds) +
 plot2 <- ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = cut)) +
   coord_polar()
+
 grid.arrange(plot1, plot2, ncol=2)
 ```
 
-
+---
 ## How it works
 
 Create a simple plot object:
@@ -270,6 +286,7 @@ Repeat step 2 until statisfied, then print:
 
   * `print(plot.object)`
 
+---
 ## `qplot()` vs `ggplot()`
 
 ```{r, eval = FALSE, message=FALSE, warning=FALSE}
@@ -287,15 +304,18 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
   ggtitle("Sepal dimensions")
 ```
 
+---
 ## Assign plot to an R object
 
 ```{r, fig.height=3.8, fig.width=3.8, fig.align='center'}
 basic.plot <- ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width)) +
     geom_point()+
-    xlab("Sepal Length (mm)") + ylab("Sepal Width (mm)")+
+    xlab("Sepal Length (mm)") + ylab("Sepal Width (mm)") +
     ggtitle("Sepal dimensions")
 basic.plot
 ```
+
+---
 
 ## Adding colours and shapes
 
@@ -306,6 +326,7 @@ basic.plot <- basic.plot + aes(colour = Species, shape = Species)
 basic.plot
 ```
 
+---
 ## Adding geometric objects
 
 Add linear regressions with geom_smooth()
@@ -315,6 +336,7 @@ linear.smooth.plot <- basic.plot + geom_smooth(method = "lm", se = F)
 linear.smooth.plot
 ```
 
+---
 ## Challenge #2
 
 Produce a colourful plot with linear regression (or other smoother) from built in data such as the CO2 dataset or the msleep dataset
@@ -326,6 +348,7 @@ data(CO2)
 data(msleep)
 ```
 
+---
 ## Solution to challenge #2
 
 Example using loess smoothing
@@ -341,6 +364,7 @@ CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
 CO2.plot
 ```
 
+---
 ## Solution to challenge #2
 
 Example using loess smoothing
@@ -356,7 +380,7 @@ CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
 CO2.plot
 ```
 
-
+---
 ## Adding multiple facets and groups
 
 Data becomes difficult to visualize when there are multiple factors, e.g., the CO2 data set contains data on CO2 uptake for chilled vs non-chilled treatments from two different regions. Let's build a basic plot using this data set:
@@ -370,6 +394,7 @@ CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
 CO2.plot
 ```
 
+---
 ## Adding multiple facets and groups
 
 ```{r, echo=F, fig.align="center", fig.width=6, fig.height=4}
@@ -381,6 +406,7 @@ CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
 CO2.plot
 ```
 
+---
 ## Adding multiple facets and groups
 
 If we want to compare regions, it is useful to make two panels.
@@ -391,6 +417,7 @@ CO2.plot <- CO2.plot + facet_grid(. ~ Type)
 CO2.plot
 ```
 
+---
 ## Adding multiple facets and groups
 
 Now that we have 2 facets, let's observe how the CO2 uptake evolves as CO2 concentrations rise, by adding connecting lines to the points using `geom_line()`:
@@ -398,8 +425,9 @@ Now that we have 2 facets, let's observe how the CO2 uptake evolves as CO2 conce
 ```{r, fig.align="center", fig.width=5.5, fig.height=3.5}
 CO2.plot + geom_line()
 ```
-Wrong! Because each treatment in each region has 3 replicates
+Not good, because each treatment in each region has 3 replicates
 
+---
 ## Adding multiple facets and groups
 
 Specify groups
@@ -409,14 +437,16 @@ CO2.plot <- CO2.plot + geom_line(aes(group = Plant))
 CO2.plot
 ```
 
+---
 ## Available elements
 
 [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
 <div style="text-align:center">
-<img src="images/available_geom.png" height=60% width=60%>
+<img src="images/available_geom.png" height=50% width=50%>
 </div>
 
+---
 ## Additional resources
 
 `help(package = ggplot)`
@@ -428,7 +458,7 @@ http://ggplot2.tidyverse.org/reference/
   <img src="images/grammar_of_graphics.jpg"/>
 </div>
 
-
+---
 ## Challenge #3
 
 Explore a new geom and other plot elements with your own data or built in data.
@@ -438,6 +468,7 @@ data(msleep)
 data(OrchardSprays)
 ```
 
+---
 ## Solution to challenge #3
 
 ```{r, fig.align='center', fig.width=4, fig.height=4}
@@ -447,6 +478,7 @@ box.plot <- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) +
 box.plot
 ```
 
+---
 ## Saving plots in RStudio
 
 <div style="text-align:center">
@@ -454,6 +486,7 @@ box.plot
 </div>
 
 
+---
 ## Saving plots in code
 
 ggsave() will write directly to your working directory all in one line of code and you can specify the name of the file and the dimensions of the plot:
@@ -467,10 +500,13 @@ ggsave("CO2_plot.pdf",
 ```
 Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png, ...)
 
+
+---
 Other methods to save image
 `?pdf`
 `?jpeg`
 
+---
 ## Fine tuning - colours
 
 ```{r, fig.align="center", fig.width=6, fig.height=4}
@@ -478,6 +514,7 @@ CO2.plot +
   scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
 ```
 
+---
 ## Fine tuning - colours
 
 ```{r, eval=FALSE}
@@ -489,11 +526,13 @@ require(RColorBrewer)
 display.brewer.all()
 ```
 
+---
 ## Fine tuning - colours
 ```{r, fig.align="center"}
 CO2.plot + scale_color_brewer(palette = "Dark2")
 ```
 
+---
 ## Fine tuning - colours
 
 Wes Anderson colour palette
@@ -503,6 +542,7 @@ install.packages("wesanderson")
 library(wesanderson)
 ```
 
+---
 ## Fine tuning - colours
 
 Wes Anderson colour palette
@@ -511,18 +551,21 @@ Wes Anderson colour palette
 
 ## Fine tuning - colours
 
+---
 Wes Anderson colour palette
 
 ![](images/wesanderson2.jpg)
 
 ## Fine tuning - colours
 
+---
 Wes Anderson colour palette
 
 ![](images/wesanderson3.jpg)
 
 ## Fine tuning - colours
 
+---
 Wes Anderson colour palette
 
 ```{r, fig.align="center", fig.width=5, fig.height=3.5}
@@ -531,6 +574,7 @@ ggplot(data = iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
   scale_color_manual(values = wes_palette("GrandBudapest2"))
 ```
 
+---
 ## Using `tidyr` to reshape data frames
 
 <div style="text-align:center">
@@ -538,6 +582,7 @@ ggplot(data = iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
 </div>
 
 
+---
 ## Data formats
 
 **Wide format**
@@ -560,6 +605,7 @@ kable(long, format = "html", align=rep('c', 3))  %>%
   column_spec(1:3, width = "5em")
 ```
 
+---
 ## long vs wide format
 
 **Long** data format has a column for possible variables and a column for the values of those variables
@@ -570,6 +616,7 @@ Wide data frame can be used for some basic plotting in `ggplot2`, but more compl
 
 `dplyr`, `lm()`, `glm()`, `gam()` all require long data format
 
+---
 ## Tidying your data
 
 Tidying allows you to manipulate the structure of your data while preserving all original information
@@ -582,6 +629,7 @@ Tidying allows you to manipulate the structure of your data while preserving all
 <img src="images/gather-spread.png" height=100% width=100%>
 </div>
 
+---
 ## `tidyr` installation
 
 ```{r, eval=FALSE}
@@ -589,7 +637,7 @@ install.packages("tidyr")
 library(tidyr)
 ```
 
-
+---
 ## `gather` columns into rows
 
 ```{r}
@@ -606,7 +654,7 @@ library(tidyr)
   - `...` name or numeric index of the columns we wish to gather (e.g. `DBH`, `Height`)
 </span>
 
-
+---
 ## `gather` columns into rows
 
 ```{r}
@@ -615,6 +663,7 @@ long = gather(wide, Measurement, Value, DBH, Height)
 long
 ```
 
+---
 ## `spread` rows into columns
 
 ```{r}
@@ -629,7 +678,7 @@ long
   - `value` Name of the column containing variable values (e.g. `Value`)   
 </span>
 
-
+---
 ## `spread` rows into columns
 
 ```{r}
@@ -638,19 +687,20 @@ wide2 = spread(long, Measurement, Value)
 wide2
 ```
 
-
+---
 ## Challenge #4
 
 1. Using the airquality dataset, `gather` all the columns (except Month and Day) into rows.
 
 2. Then `spread` the resulting data frame to return to the original data format.
 
-```{r}
+```{r, eval = FALSE}
 ?airquality
+
 data(airquality)
 ```
 
-
+---
 ## Solution #4
 
 1. Using the airquality dataset, `gather` all the columns (except Month and Day) into rows.
@@ -663,6 +713,7 @@ Note that the syntax used here indicates that we wish to gather ALL the columns 
 </span>
 
 
+---
 ## Solution #4
 
 2. Then `spread` the resulting data frame to return to the original data format.
@@ -672,6 +723,7 @@ head(air.wide)
 ```
 
 
+---
 ## `separate` columns
 
 `separate()` splits a columns by a character string separator
@@ -687,7 +739,7 @@ head(air.wide)
   - `into` Names of new variables to create
   - `sep` Character which indicates where to separate  
 
-
+---
 ## Using `separate()` example
 
 Create a fictional dataset about fish and plankton
@@ -702,7 +754,7 @@ messy <- data.frame(id = 1:4,
 messy
 ```
 
-
+---
 ## Using `separate()` example
 
 First convert the messy data frame from wide to long format
@@ -712,7 +764,7 @@ messy.long <- gather(messy, taxa, count, -id, -trt)
 head(messy.long)
 ```
 
-
+---
 ## Using `separate()` example
 
 Then we want to split the 2 sampling time (T1 and T2).
@@ -727,7 +779,7 @@ head(messy.long.sep)
 The argument `sep = "\\."` tells R to splits the character string around the period (.). We cannot type directly `"."` because it is a regular expression that matches any single character.
 </span>
 
-
+---
 ## Recap of `tidyr`
 
 A package that reshapes the layout of data sets.
@@ -740,6 +792,7 @@ Split and merge columns with `unite()` and `separate()`
 
 [Data Wrangling with dplyr and tidyr Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 ```{r}
@@ -748,6 +801,7 @@ head(airquality)
 
 The dataset is in wide format, where measured variables (Ozone, Solar.R, Wind and Temp) are each in their own columns.
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 Let's use ggplot to visualize each individual variable and the range it displays for each month in the time series
@@ -769,6 +823,7 @@ wind.box  <- ggplot(airquality, aes(x = fMonth, y = Wind)) +
   geom_boxplot()
 ```
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 You can use `grid.arrange()` in the package `gridExtra` to arrange the 4 separate plots into one panel for viewing.
@@ -778,13 +833,14 @@ combo.box <- grid.arrange(ozone.box, solar.box, temp.box, wind.box,
 # nrow = number of rows you would like the plots displayed on
 ```
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 ```{r, echo=F, warning=F}
 combo.box <- grid.arrange(ozone.box, solar.box, temp.box, wind.box, nrow = 2)
 ```
 
-
+---
 ## Exercices with `ggplot` and `tidyr`
 
 Convert airquality to long format to use `facet_wrap()` for the different variables as opposed to by month
@@ -798,12 +854,14 @@ weather <- ggplot(air.long, aes(x = fMonth.long, y = value)) +
   facet_wrap(~ variable, nrow = 2)
 ```
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 ```{r, echo=F, warning=F}
 weather
 ```
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 `facet_wrap` puts all the individual variables on the same scale, which can be useful in many cases. However, here, we can't see the variability in the `Wind` and `Temp` variables.
@@ -814,12 +872,14 @@ weather <- weather +
   facet_wrap(~ variable, nrow = 2, scales = "free")
 ```
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 ```{r,  warning=F, echo=F}
 weather
 ```
 
+---
 ## Exercices with `ggplot` and `tidyr`
 
 We can also use the long data format to create a plot with all the variables included on a single plot
@@ -830,19 +890,22 @@ w2 <- ggplot(air.long, aes(x = Day, y = value, colour = variable)) +
   facet_wrap(~ Month, nrow = 1) #split observations by month
 ```
 
+
+---
 ## Exercices with `ggplot` and `tidyr`
 
 ```{r,  warning=F, echo=F}
 w2
 ```
 
+---
 ## Data manipulation with `dplyr`
 
 <div style="text-align:center">
 <img src="images/dplyr.png" height=50% width=50%>
 </div>
 
-
+---
 ## Intro to `dplyr`
 
 - Package that contains a set of functions (or “verbs”) for data manipulation such as filtering rows, selecting specific columns, re-ordering rows, adding new columns and summarizing data;
@@ -853,14 +916,15 @@ w2
 Some corresponding R base functions:
 `split()`, `subset()`, `apply()`, `sapply()`, `lapply()`, `tapply()` and `aggregate()`
 
+---
 ## Intro to `dplyr`
-
 
 ```{r, eval=F}
 install.packages("dplyr")
 library(dplyr)
 ```
 
+---
 ## Basic functions in `dplyr`
 
 These 4 core functions tackle the most common manipulations when working with data frames
@@ -870,6 +934,7 @@ These 4 core functions tackle the most common manipulations when working with da
   * `arrange()`: re-order data based on criteria (e.g. ascending, descending)
   * `mutate()`: create or transform values in a column
 
+---
 ## `select` columns
 
 <div style="text-align:center">
@@ -885,12 +950,14 @@ These 4 core functions tackle the most common manipulations when working with da
   `select(data, -column1)` select all columns except column 1
   `select(data, start_with(x.))` select all columns that start with "x."
 
+---
 ## `select` columns
 
 <div style="text-align:center">
 <img src="images/select.helper.png" height=70% width=70%>
 </div>
 
+---
 ## `select` columns
 
 Example: suppose we are only interested in the variation of Ozone over time within the airquality dataset
@@ -900,6 +967,7 @@ ozone <- select(airquality, Ozone, Month, Day)
 head(ozone)
 ```
 
+---
 ## `filter` rows
 
 Extract a subset of rows that meet one or more specific conditions
@@ -912,6 +980,7 @@ Extract a subset of rows that meet one or more specific conditions
 <img src="images/logic.helper.png" height=80% width=80%>
 </div>
 
+---
 ## `filter` rows
 
 Example: we are interested in analyses that focus on the month of August during high temperature events
@@ -922,6 +991,7 @@ august <- filter(airquality, Month == 8, Temp >= 90)
 head(august)
 ```
 
+---
 ## Sort rows with `arrange`
 
 Re-order rows by a particular column, by default in ascending order
@@ -930,7 +1000,7 @@ Use `desc()` for descending order.
 
 `arrange(data, variable1, desc(variable2), ...)`
 
-
+---
 ## Sort rows with `arrange`
 
 Example:
@@ -941,6 +1011,7 @@ air_mess <- sample_frac(airquality, 1)
 head(air_mess)
 ```
 
+---
 ## Sort rows with `arrange`
 
 Example:
@@ -951,9 +1022,9 @@ air_chron <- arrange(air_mess, Month, Day)
 head(air_chron)
 ```
 
-Try :  `arrange(air_mess, Day, Month)` and see the difference
+Try :  `arrange(air_mess, Day, Month)` and see the difference.
 
-
+---
 ## Create new columns using `mutate`
 
 Compute and add new columns
@@ -964,6 +1035,7 @@ Compute and add new columns
 <img src="images/mutate.png" height=100% width=100%>
 </div>
 
+---
 ## Create new columns using `mutate`
 
 Example: we want to convert the temperature variable form degrees Fahrenheit to degrees Celsius
@@ -973,6 +1045,7 @@ airquality_C <- mutate(airquality, Temp_C = (Temp-32)*(5/9))
 head(airquality_C)
 ```
 
+---
 ## `magrittr`
 
 <div style="text-align:center">
@@ -981,6 +1054,7 @@ head(airquality_C)
 
 Usually data manipulation require multiple steps, the magrittr package offers a pipe operator `%>%` which allows us to link multiple operations
 
+---
 ## `magrittr`
 
 ```{r, eval=F}
@@ -988,6 +1062,7 @@ install.packages("magrittr")
 require(magrittr)
 ```
 
+---
 ## `magrittr`
 
 Suppose we want to analyse only the month of June, then convert the temperature variable to degrees Celsius. We can create the required data frame by combining 2 dplyr verbs we learned
@@ -999,6 +1074,7 @@ june_C <- mutate(filter(airquality, Month == 6),
 
 As we add more operations, wrapping functions one inside the other becomes increasingly illegible. But, step by step would be redundant and write a lot of objects to the workspace.
 
+---
 ## `magrittr`
 
 Alternatively, we can use maggritr's pipe operator to link these successive operations
@@ -1012,9 +1088,9 @@ june_C <- airquality %>%
 Advantages :
 
   * less redundant code
-
   * easy to read and write because functions are executed in order
 
+---
 ## `dplyr::group_by` and `summarise`
 
 The `dplyr` verbs become especially powerful when they are are combined using the pipe operator `%>%`.
@@ -1024,6 +1100,7 @@ The following `dplyr` functions allow us to split our data frame into groups on 
 
 `summarise()` : summarise values in a data frame or in groups within the data frame with aggregation functions (e.g. `min()`, `max()`, `mean()`, etc…)
 
+---
 ## `dplyr` - Split-Apply-Combine
 
 The `group_by` function is key to the Split-Apply-Combine strategy
@@ -1032,12 +1109,14 @@ The `group_by` function is key to the Split-Apply-Combine strategy
 <img src="images/split-apply-combine.png" height=100% width=100%>
 </div>
 
+---
 ## `dplyr` - Split-Apply-Combine
 
 <div style="text-align:center">
 <img src="images/summarise.png" height=70% width=70%>
 </div>
 
+---
 ## `dplyr` - Split-Apply-Combine
 
 Example: we are interested in the mean temperature and standard deviation within each month if the airquality dataset
@@ -1050,12 +1129,14 @@ month_sum <- airquality %>%
 month_sum
 ```
 
+---
 ## Chalenge #5
 
 Using the `ChickWeight` dataset, create a summary table which displays the difference in weight between the maximum and minimum weight of each chick in the study.
 
 Employ `dplyr` verbs and the `%>%` operator.
 
+---
 ## Solution #5
 
 1. Use group_by() to divide the dataset by "Chick"
@@ -1068,15 +1149,16 @@ weight_diff <- ChickWeight %>%
 head(weight_diff)
 ```
 
-
+---
 ## Ninja challenge
 
-Using the ChickWeight dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study.
+Using the `ChickWeight` dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study.
 
 Employ `dplyr` verbs and the `%>%` operator.
 
 (Hint: `first()` and `last()` may be useful here.)
 
+---
 ## Ninja solution
 
 ```{r}
@@ -1088,6 +1170,7 @@ diet_summ <- ChickWeight %>%
 diet_summ
 ```
 
+---
 ## More on data manipulation
 
 [Learn more on dplyr](http://r4ds.had.co.nz/transform.html)

@@ -112,32 +112,89 @@ The relative standard deviation, expressed in percentage, is the **coefficient o
 $$cv = \frac{\sigma}{\bar{x}}$$
 
 ---
+class: inverse, center, middle
+
+# Linear models
+
+---
+## What are linear models
+
+Linear relationship between response ( $Y$ ) and explanatory ( $X$ ) variable, using the concepts of **mean** and **variation**
+
+- $Y$ : variable you want to explain (only one response variable)
+- $X$ : explain your response variable (one or more explanatory variables)
+- $Y$ : must be continuous
+- $X$ : continuous or categorical
+- $\epsilon$ : what is not explined by the explanatory variable(s) ![:faic](arrow-right) residuals or error
+
+---
+## Defining linear models
+
+Putting everything together:
+
+$$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i}$$
+
+- $Y_i$ is the response variable
+- $β_0$ is the intercept of the regression line
+- $β_1$ is the coefficient of variation for the first explanatory variable
+- $β_p$ is the coefficient of variation for the *nth* explanatory variable
+- $x_i1$ is the first explanatory variable
+- $x_ip$ is the *nth* explanatory variable
+- $ε_i$ are the residuals of the model
+
+---
+## The goal of linear models
+
+- The goal is to find the **best estimation** of the parameters (the $\beta$ variables) and then assess the goodness of fit of the model
+
+- Several methods to calculate the intercept and coefficients of linear models
+  - the appropriate choice depends on the kind of explanatory variables considered and their number
+
+.center[.large[The general concept behind these methods is that the residuals are minimized]]
+
+---
 ## Learning objectives
 
 .center[
-![:scale 60%](images/schema_slide1.png)
+![:scale 100%](images/schema.png)
 ]
-
 
 ---
-## Review: Simple linear regression
+## Linear model assumptions
 
-Linear relationship between response (Y) and explanatory (X) variable
+1. The residuals are independent
+2. The residuals are normally distributed
+3. The residuals have a mean of 0
+4. The residuals are homoskedastic (they have constant variance)
 
-.pull-left[
-$Y_i = α + βX_i  + ε_i$
+.comment[These assumptions concern the residuals, not the response or explanatory variables]
 
-![](images/graphlm1.png)
+---
+## Work follow
+
+.center[
+![:scale 55%](images/schema.png)
 ]
 
-.pull-right[
-**Assumptions**
-- Continuous explanatory variable
-- Homogeneous and normally distributed error
-- Independent residuals
-- No outlier
-]
+- Plot the data
+- Create a model
+- Test the model assumptions
+- Adjust the model if assumptions are violated
+- Interpret the model results
 
+---
+class: inverse, center, middle
+
+# Simple linear regression
+
+---
+## Simple linear regression
+
+- Type of linear model which contains a single, continuous explanatory variable
+
+- Estimates the **intercept** ( $\beta_0$ ) and a **coefficient of correlation** ( $\beta_1$ )
+
+- Ordinary least squares
 
 ---
 ## Review: Simple linear regression
@@ -475,9 +532,9 @@ summary(lm2)$r.squared
 
 ```
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
+            Estimate Std. Error t value Pr(>|t|)
 (Intercept)   1.6724     0.2472   6.767 1.17e-08 ***
-logMass      -0.2361     0.1170  -2.019   0.0487 *  
+logMass      -0.2361     0.1170  -2.019   0.0487 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 

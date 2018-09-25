@@ -1,42 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Workshop 2: Loading and Manipulating Data</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Québec Centre for Biodiversity Science" />
+    <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/academicons-1.8.1/css/academicons.min.css">
+    <link rel="stylesheet" href="qcbsR.css" type="text/css" />
+    <link rel="stylesheet" href="qcbsR-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Workshop 2: Loading and Manipulating Data
+## QCBS R Workshop Series
+### Québec Centre for Biodiversity Science
+
 ---
-title: "Workshop 2: Loading and Manipulating Data"
-subtitle: "QCBS R Workshop Series"
-author: "Québec Centre for Biodiversity Science"
-output:
-  xaringan::moon_reader:
-    includes:
-      in_header: qcbsR-header.html
-    lib_dir: assets
-    seal: true
-    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
-    nature:
-      beforeInit: "qcbsR-macros.js"
----
 
-```{r setup, echo = F}
-knitr::opts_chunk$set(
-  comment = "#",
-  collapse = TRUE,
-  warning = FALSE,
-  message = FALSE,
-  fig.width=5, fig.height=5,
-  fig.align = 'center'
-)
-```
 
-```{r, echo =F}
-options(repos=structure(c(CRAN="http://cran.r-project.org")))
-```
 
-```{r, include = FALSE}
-if (!require(DiagrammeR)) install.packages("DiagrammeR")
-library(DiagrammeR)
-if (!require(widgetframe)) install.packages("widgetframe")
-library(knitr)
-library(tidyr)
-library(dplyr)
-library(magrittr)
-```
+
+
+
+
 
 ## Learning Objectives
 
@@ -77,7 +66,7 @@ One project = one folder :)
 Dataset should be stored as comma separated files (.csv) in Data folder
 
 * can be created from almost all applications (Excel, LibreOffice, GoogleDocs)
-* file -> save as csv…
+* file -&gt; save as csv…
 
 .center[
 ![:scale 45%](images/Excel_csv_good_bad/excel_vs_csv.png)
@@ -198,10 +187,11 @@ class: inverse, center, middle
 
 
 ---
-## Commands & comments
+## Commands &amp; comments
 The `#` symbol in a script tells R to ignore anything remaining on this line of the script when running commands
 
-```{r, eval = FALSE}
+
+```r
 # This is a comment not a command
 ```
 
@@ -231,7 +221,8 @@ It is recommended that you start your script with a header using comments:
 
 You can make a section heading in R Studio four `#` signs
 
-```{r, eval = FALSE}
+
+```r
 ##
 ## Heading name ####
 ```
@@ -254,7 +245,8 @@ The first command at the top of all scripts should be: `rm(list = ls())`. This:
 ---
 ## Clearing the workspace
 
-```{r, eval = FALSE}
+
+```r
 # Clear the R workspace
 rm(list = ls())
 ?rm
@@ -267,17 +259,20 @@ rm(list = ls())
 Demo – Try to add some test data to R and then see how `rm(list = ls())` removes it
 
 
-```{r, eval = TRUE, error = TRUE}
-A <- "Test"
+
+```r
+A &lt;- "Test"
 A
+# [1] "Test"
 rm(list=ls())
 A
+# Error in eval(expr, envir, enclos): object 'A' not found
 ```
 
 ---
 ## Remember
 
-* R is ready for commands when you see the chevron `>` in the console. If you don't see it, press ESC
+* R is ready for commands when you see the chevron `&gt;` in the console. If you don't see it, press ESC
 * R is case sensitive!
 
 
@@ -289,7 +284,7 @@ class: inverse, center, middle
 ---
 ## Download today's data
 
-You can download the data & script from:
+You can download the data &amp; script from:
 
 http://qcbs.ca/wiki/r/workshop2
 
@@ -301,7 +296,8 @@ Save the files in the folder where your created your R project.
 Tells R where your scripts and data are. You need to set the right working directory to load a data file.
 Type in the console to see your working directory:
 
-```{r, eval = FALSE}
+
+```r
 getwd()
 ```
 
@@ -314,7 +310,8 @@ a “/” separates folders and file
 
 You can display contents of the working directory using `dir()`.
 
-```{r, eval = FALSE}
+
+```r
 dir()
 ```
 
@@ -329,8 +326,9 @@ It helps to:
 
 Import data into R using `read.csv`:
 
-```{r, eval = TRUE}
-CO2 <- read.csv("co2_good.csv", header=TRUE)
+
+```r
+CO2 &lt;- read.csv("co2_good.csv", header=TRUE)
 ```
 
 New object in R
@@ -344,13 +342,15 @@ File name within quotation marks ('file' or "file")
 
 .alert[Recall] to find out what arguments the function requires, use help “?”
 
-```{r, eval = FALSE}
+
+```r
 ?read.csv
 ```
 
 .alert[Important] if your operating system or CSV editor (e.g. Excel) is in French, then use `read.csv2`
 
-```{r, eval = FALSE}
+
+```r
 ?read.csv2
 ```
 
@@ -385,8 +385,15 @@ R code  					| action
 ---
 ## Looking at Data
 
-```{r, eval = TRUE}
+
+```r
 str(CO2)
+# 'data.frame':	84 obs. of  5 variables:
+#  $ Plant    : Factor w/ 12 levels "Mc1","Mc2","Mc3",..: 10 10 10 10 10 10 10 11 11 11 ...
+#  $ Type     : Factor w/ 2 levels "Mississippi",..: 2 2 2 2 2 2 2 2 2 2 ...
+#  $ Treatment: Factor w/ 2 levels "chilled","nonchilled": 2 2 2 2 2 2 2 2 2 2 ...
+#  $ conc     : int  95 175 250 350 500 675 1000 95 175 250 ...
+#  $ uptake   : num  16 30.4 34.8 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...
 ```
 This shows the structure of the dataframe.
 Very useful to check data type (mode) of all columns to make sure R loaded data properly.
@@ -411,8 +418,9 @@ Very useful to check data type (mode) of all columns to make sure R loaded data 
 
 Load the data with:
 
-```{r, eval = FALSE}
-CO2 <- read.csv("co2_good.csv", header = FALSE)
+
+```r
+CO2 &lt;- read.csv("co2_good.csv", header = FALSE)
 ```
 Check data types with `str()` again. What is wrong here?
 
@@ -427,7 +435,8 @@ A data frame called *mydata*
 ![:scale 45%](images/Table_Reminder_from_Workshop_1_Accessing_data.png)
 ]
 
-```{r, eval = FALSE}
+
+```r
 mydata[1,] # Extracts the first row
 mydata[2,3] # Extracts the content of row 2 / column 3
 mydata[,1] # Extracts the first column
@@ -440,14 +449,15 @@ mydata$Variable1 # Also extracts the first column
 
 Variables names can be changed within R. 
 
-```{r, eval = FALSE}
+
+```r
 # First lets make a copy of the dataset to play with
-CO2copy <- CO2
+CO2copy &lt;- CO2
 # names() gives you the names of the variables present in the data frame 
 names(CO2copy)
 
 # Changing from English to French names (make sure you have the same levels!)
-names(CO2copy) <- c("Plante","Categorie", "Traitement", "conc","absortion")
+names(CO2copy) &lt;- c("Plante","Categorie", "Traitement", "conc","absortion")
 ```
 
 ---
@@ -458,10 +468,11 @@ the function `paste()` is very useful for concatenating.
 see `?paste` and `?paste0`
 
 
-```{r, eval = FALSE}
+
+```r
 # Let's create an unique id for our samples:
 # Don't forget to use "" for strings 
-CO2copy$uniqueID <- paste0(CO2copy$Plante,
+CO2copy$uniqueID &lt;- paste0(CO2copy$Plante,
                            "_",CO2copy$Categorie, 
                            "_", CO2copy$Traitement)
 
@@ -474,7 +485,8 @@ head(CO2copy$uniqueID)
 
 Creating new variables works for numbers and mathematical operations as well! 
 
-```{r, eval = FALSE}
+
+```r
 # Let's standardize our variable "absortion" to relative values 
 CO2copy$absortionRel = CO2copy$absortion/max(CO2copy$absortion)  
 
@@ -487,7 +499,8 @@ head(CO2copy$absortionRel)
 
 There are many ways to subset a data frame 
 
-```{r, eval = FALSE}
+
+```r
 # Let's keep working with our CO2copy data frame 
 
 # Select only "Plante" and "absortionRel" columns. (Don't forget the ","!)
@@ -501,15 +514,16 @@ CO2copy[1:50,]
 ---
 ## Subsetting data
 
-```{r, eval = F}
+
+```r
 # Select observations matching only the nonchilled Traitement. 
 CO2copy[CO2copy$Traitement == "nonchilled",] 
 
 # Select observations with absortion higher or equal to 20 
-CO2copy[CO2copy$absortion >= 20, ]  
+CO2copy[CO2copy$absortion &gt;= 20, ]  
 
 # Select observations with absortion higher or equal to 20 
-CO2copy[CO2copy$Traitement  == "nonchilled" & CO2copy$absortion >= 20, ]
+CO2copy[CO2copy$Traitement  == "nonchilled" &amp; CO2copy$absortion &gt;= 20, ]
 
 # We are done playing with the Dataset copy, lets erase it. 
 CO2copy == NULL
@@ -526,7 +540,8 @@ Use the `summary()` function.
 
 This is also useful to spot some errors you might have missed! 
 
-```{r, eval = FALSE}
+
+```r
 summary(CO2)
 ```
 
@@ -537,11 +552,12 @@ You can also use some other functions to calculate basic statistics to specific 
 
 Let's try `mean()`, `sd()`, `hist()` , `print()` functions
 
-```{r, eval = FALSE}
+
+```r
 # Calculate mean and standard deviation of the concentration, 
 # assign it to a new variable
-meanConc <- mean(CO2$conc)
-sdConc <- sd(CO2$conc)
+meanConc &lt;- mean(CO2$conc)
+sdConc &lt;- sd(CO2$conc)
 # print() prints any given value to the R console
 print(paste("the mean of concentration is:", meanConc))
 print(paste("the standard deviation of concentration is:", sdConc))
@@ -559,12 +575,16 @@ hist(CO2$uptake, breaks = 40)
 
 Use `apply()` to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
 
-```{r, eval = FALSE}
+
+```r
 ?apply
 ```
 
-```{r}
+
+```r
 apply(CO2[,4:5], MARGIN = 2, FUN = mean)
+#     conc   uptake 
+# 435.0000  27.2131
 ```
 
 
@@ -572,7 +592,8 @@ apply(CO2[,4:5], MARGIN = 2, FUN = mean)
 ## Saving your Workspace
 
 
-```{r, eval = TRUE}
+
+```r
 # Saving an R workspace file
 save.image(file="co2_project_Data.RData")
 
@@ -584,12 +605,20 @@ rm(list = ls())
 # Reload your data
 load("co2_project_Data.RData")
 head(CO2) # looking good!
+#   Plant   Type  Treatment conc uptake
+# 1   Qn1 Quebec nonchilled   95   16.0
+# 2   Qn1 Quebec nonchilled  175   30.4
+# 3   Qn1 Quebec nonchilled  250   34.8
+# 4   Qn1 Quebec nonchilled  350   37.2
+# 5   Qn1 Quebec nonchilled  500   35.3
+# 6   Qn1 Quebec nonchilled  675   39.2
 ```
 
 ---
 ## Exporting data
 
-```{r, eval = TRUE}
+
+```r
 write.csv(CO2, file = "co2_new.csv")
 ```
 
@@ -624,9 +653,24 @@ let's practice how to solve this common errors.
 
 Read in the file "co2_broken.csv"
 
-```{r, eval = TRUE}
-CO2 <- read.csv("co2_broken.csv")
+
+```r
+CO2 &lt;- read.csv("co2_broken.csv")
 head(CO2)
+#               NOTE..It.rain.a.lot.in.Quebec.during.sampling
+# 1 falling on my notebook numerous values can't be read rain
+# 2                      Plant\tType\tTreatment\tconc\tuptake
+# 3                           Qn1\tQuebec\tnonchilled\t95\t16
+# 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
+# 5           Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
+# 6                        Qn1\tQuebec\tnonchilled\t350\t37.2
+#   due.to.excessive  X X.1 X.2 X.3
+# 1               NA NA  NA  NA  NA
+# 2               NA NA  NA  NA  NA
+# 3               NA NA  NA  NA  NA
+# 4               NA NA  NA  NA  NA
+# 5               NA NA  NA  NA  NA
+# 6               NA NA  NA  NA  NA
 ```
 
 ---
@@ -637,8 +681,18 @@ head(CO2)
 * Please give it a try before looking at the script provided
 * Work with your neighbors and have FUN!
 
-```{r, eval = TRUE, echo=F}
-CO2[1:4,]
+
+```
+#               NOTE..It.rain.a.lot.in.Quebec.during.sampling
+# 1 falling on my notebook numerous values can't be read rain
+# 2                      Plant\tType\tTreatment\tconc\tuptake
+# 3                           Qn1\tQuebec\tnonchilled\t95\t16
+# 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
+#   due.to.excessive  X X.1 X.2 X.3
+# 1               NA NA  NA  NA  NA
+# 2               NA NA  NA  NA  NA
+# 3               NA NA  NA  NA  NA
+# 4               NA NA  NA  NA  NA
 ```
 
 
@@ -665,9 +719,23 @@ Some useful functions:
 
 The data appears to be lumped into one column
 
-```{r, eval = TRUE}
-head(CO2)
 
+```r
+head(CO2)
+#               NOTE..It.rain.a.lot.in.Quebec.during.sampling
+# 1 falling on my notebook numerous values can't be read rain
+# 2                      Plant\tType\tTreatment\tconc\tuptake
+# 3                           Qn1\tQuebec\tnonchilled\t95\t16
+# 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
+# 5           Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
+# 6                        Qn1\tQuebec\tnonchilled\t350\t37.2
+#   due.to.excessive  X X.1 X.2 X.3
+# 1               NA NA  NA  NA  NA
+# 2               NA NA  NA  NA  NA
+# 3               NA NA  NA  NA  NA
+# 4               NA NA  NA  NA  NA
+# 5               NA NA  NA  NA  NA
+# 6               NA NA  NA  NA  NA
 ```
 
 ---
@@ -679,8 +747,9 @@ head(CO2)
 * The sep argument tells R what character separates the values on each line of the file
 * Here, "TAB" was used instead of ","
 
-```{r, eval = TRUE}
-CO2 <- read.csv("co2_broken.csv",sep = "")
+
+```r
+CO2 &lt;- read.csv("co2_broken.csv",sep = "")
 ```
 
 ---
@@ -690,8 +759,23 @@ CO2 <- read.csv("co2_broken.csv",sep = "")
 
 The data does not start until the third line of the file, so you end up with notes on the file as the headings.
 
-```{r, eval = TRUE}
+
+```r
 head(CO2)
+#     NOTE.     It       rain        a               lot    in. Quebec
+# 1 falling     on         my notebook          numerous values  can't
+# 2   Plant   Type  Treatment     conc            uptake              
+# 3     Qn1 Quebec nonchilled       95                16              
+# 4     Qn1 Quebec nonchilled      175              30.4              
+# 5     Qn1 Quebec nonchilled      250 cannot_read_notes              
+# 6     Qn1 Quebec nonchilled      350              37.2              
+#   during sampling.      due to excessive X....
+# 1     be      read rain,,,, NA        NA    NA
+# 2                           NA        NA    NA
+# 3                           NA        NA    NA
+# 4                           NA        NA    NA
+# 5                           NA        NA    NA
+# 6                           NA        NA    NA
 ```
 
 
@@ -702,9 +786,17 @@ head(CO2)
 
 Skip two lines when loading the file using the "skip" argument:
 
-```{r, eval = TRUE}
-CO2<-read.csv("co2_broken.csv", sep = "", skip = 2)
+
+```r
+CO2&lt;-read.csv("co2_broken.csv", sep = "", skip = 2)
 head(CO2)
+#   Plant   Type  Treatment              conc            uptake
+# 1   Qn1 Quebec nonchilled                95                16
+# 2   Qn1 Quebec nonchilled               175              30.4
+# 3   Qn1 Quebec nonchilled               250 cannot_read_notes
+# 4   Qn1 Quebec nonchilled               350              37.2
+# 5   Qn1 Quebec nonchilled               500              35.3
+# 6   Qn1 Quebec nonchilled cannot_read_notes              39.2
 ```
 
 ---
@@ -714,8 +806,15 @@ head(CO2)
 
 `conc` and `uptake` variables are considered factors instead of numbers, because there are comments in the numeric columns
 
-```{r, eval = TRUE}
+
+```r
 str(CO2)
+# 'data.frame':	84 obs. of  5 variables:
+#  $ Plant    : Factor w/ 12 levels "Mc1","Mc2","Mc3",..: 10 10 10 10 10 10 10 11 11 11 ...
+#  $ Type     : Factor w/ 2 levels "Mississippi",..: 2 2 2 2 2 2 2 2 2 2 ...
+#  $ Treatment: Factor w/ 4 levels "chiled","chilled",..: 4 4 4 4 4 4 4 4 4 3 ...
+#  $ conc     : Factor w/ 8 levels "1000","175","250",..: 7 2 3 4 5 8 1 7 2 3 ...
+#  $ uptake   : Factor w/ 77 levels "10.5","10.6",..: 15 39 76 54 50 61 63 9 32 53 ...
 ```
 
 * Due to missing values entered as "cannot_read_notes" and "na"
@@ -737,10 +836,17 @@ str(CO2)
 Tell R that all of NA, "na", and "cannot_read_notes" should be considered NA. Then because all other values in those columns are numbers, `conc` and `uptake` will be loaded as numeric/integer.
 
 
-```{r, eval = TRUE}
-CO2 <- read.csv("co2_broken.csv", sep = "", skip = 2,
+
+```r
+CO2 &lt;- read.csv("co2_broken.csv", sep = "", skip = 2,
                 na.strings = c("NA","na","cannot_read_notes"))
 str(CO2)
+# 'data.frame':	84 obs. of  5 variables:
+#  $ Plant    : Factor w/ 12 levels "Mc1","Mc2","Mc3",..: 10 10 10 10 10 10 10 11 11 11 ...
+#  $ Type     : Factor w/ 2 levels "Mississippi",..: 2 2 2 2 2 2 2 2 2 2 ...
+#  $ Treatment: Factor w/ 4 levels "chiled","chilled",..: 4 4 4 4 4 4 4 4 4 3 ...
+#  $ conc     : int  95 175 250 350 500 NA 1000 95 175 250 ...
+#  $ uptake   : num  16 30.4 NA 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...
 ```
 
 ---
@@ -750,13 +856,18 @@ str(CO2)
 
 There are only 2 treatments (chilled and nonchilled) but there are spelling errors causing it to look like 4 different treatments.
 
-```{r, eval = FALSE}
+
+```r
 str(CO2)
 ```
 
-```{r, eval = TRUE}
+
+```r
 levels(CO2$Treatment)
+# [1] "chiled"     "chilled"    "nnchilled"  "nonchilled"
 unique(CO2$Treatment)
+# [1] nonchilled nnchilled  chilled    chiled    
+# Levels: chiled chilled nnchilled nonchilled
 ```
 
 ---
@@ -765,16 +876,23 @@ unique(CO2$Treatment)
 .alert[ERROR 4] - Solution
 
 
-```{r, eval = TRUE}
+
+```r
 # Identify all rows that contain "nnchilled" and replace with "nonchilled"
-CO2$Treatment[CO2$Treatment=="nnchilled"] <- "nonchilled"
+CO2$Treatment[CO2$Treatment=="nnchilled"] &lt;- "nonchilled"
 
 # Identify all rows that contain "chiled" and replace with "chilled"
-CO2$Treatment[CO2$Treatment=="chiled"] <- "chilled"
+CO2$Treatment[CO2$Treatment=="chiled"] &lt;- "chilled"
 
 # Drop unused levels from factor
-CO2 <- droplevels(CO2)
+CO2 &lt;- droplevels(CO2)
 str(CO2)
+# 'data.frame':	84 obs. of  5 variables:
+#  $ Plant    : Factor w/ 12 levels "Mc1","Mc2","Mc3",..: 10 10 10 10 10 10 10 11 11 11 ...
+#  $ Type     : Factor w/ 2 levels "Mississippi",..: 2 2 2 2 2 2 2 2 2 2 ...
+#  $ Treatment: Factor w/ 2 levels "chilled","nonchilled": 2 2 2 2 2 2 2 2 2 2 ...
+#  $ conc     : int  95 175 250 350 500 NA 1000 95 175 250 ...
+#  $ uptake   : num  16 30.4 NA 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...
 ```
 
 Fixed!
@@ -787,13 +905,14 @@ class: inverse, center, middle
 ---
 ## Using `tidyr` to reshape data frames
 
-```{r, eval = F}
+
+```r
 library(tidyr)
 ```
 
-<div style="text-align:center">
-<img src="images/tidyr_logo.png" height=50% width=50%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/tidyr_logo.png" height=50% width=50%&gt;
+&lt;/div&gt;
 
 ---
 ## Data formats
@@ -801,20 +920,26 @@ library(tidyr)
 
 .pull-left[ 
 **Wide format**
-```{r, echo=FALSE, eval = T}
-# Let's create a new data frame
-wide <- data.frame(Species = c("Oak", "Elm", "Ash"),
-                   DBH = c(12, 20, 13),
-                   Height = c(56, 85, 55))
-wide
+
+```
+#   Species DBH Height
+# 1     Oak  12     56
+# 2     Elm  20     85
+# 3     Ash  13     55
 ```
 ]
 
 .pull-right[ 
 **Long format**
-```{r, echo=FALSE, eval = T}
-long = gather(wide, Measurement, Value, DBH, Height)
-long
+
+```
+#   Species Measurement Value
+# 1     Oak         DBH    12
+# 2     Elm         DBH    20
+# 3     Ash         DBH    13
+# 4     Oak      Height    56
+# 5     Elm      Height    85
+# 6     Ash      Height    55
 ```
 ]
 
@@ -848,7 +973,8 @@ Tidying allows you to manipulate the structure of your data while preserving all
 ---
 ## `tidyr` installation
 
-```{r, eval=FALSE}
+
+```r
 install.packages("tidyr")
 library(tidyr)
 ```
@@ -858,25 +984,38 @@ library(tidyr)
 
 `gather(data, key, value, ...)`
 
-<span style="font-size: 21px;">
+&lt;span style="font-size: 21px;"&gt;
   - `data` A data frame (e.g. `wide`)   
   - `key` name of the new column containing variable names (e.g. `Measurement`)  
   - `value` name of the new column containing variable values (e.g. `Value`)   
   - `...` name or numeric index of the columns we wish to gather (e.g. `DBH`, `Height`)
-</span>
+&lt;/span&gt;
 
 ---
 ## `gather` columns into rows
 
-```{r, echo = T}
-wide <- data.frame(Species = c("Oak", "Elm", "Ash"),
+
+```r
+wide &lt;- data.frame(Species = c("Oak", "Elm", "Ash"),
                    DBH = c(12, 20, 13), Height = c(56, 85, 55))
 wide
+#   Species DBH Height
+# 1     Oak  12     56
+# 2     Elm  20     85
+# 3     Ash  13     55
 ```
 
-```{r}
+
+```r
 long = gather(wide, Measurement, Value, DBH, Height)
 long
+#   Species Measurement Value
+# 1     Oak         DBH    12
+# 2     Elm         DBH    20
+# 3     Ash         DBH    13
+# 4     Oak      Height    56
+# 5     Elm      Height    85
+# 6     Ash      Height    55
 ```
 
 ---
@@ -884,19 +1023,31 @@ long
 
 `spread(data, key, value)`
 
-<span style="font-size: 21px;">
+&lt;span style="font-size: 21px;"&gt;
   - `data` A data frame (e.g. `long`)   
   - `key` Name of the column containing variable names (e.g. `Measurement`)  
   - `value` Name of the column containing variable values (e.g. `Value`)   
-</span>
+&lt;/span&gt;
 
 ---
 ## `spread` rows into columns
 
-```{r}
+
+```r
 long
+#   Species Measurement Value
+# 1     Oak         DBH    12
+# 2     Elm         DBH    20
+# 3     Ash         DBH    13
+# 4     Oak      Height    56
+# 5     Elm      Height    85
+# 6     Ash      Height    55
 wide2 = spread(long, Measurement, Value)
 wide2
+#   Species DBH Height
+# 1     Ash  13     55
+# 2     Elm  20     85
+# 3     Oak  12     56
 ```
 
 ---
@@ -904,9 +1055,9 @@ wide2
 
 `separate()` splits a columns by a character string separator
 
-<div style="text-align:center">
-<img src="images/separate.png" height=100% width=100%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/separate.png" height=100% width=100%&gt;
+&lt;/div&gt;
 
 `separate(data, col, into, sep)`
 
@@ -919,15 +1070,21 @@ wide2
 ## Using `separate()` example
 
 Create a fictional dataset about fish and plankton
-```{r}
+
+```r
 set.seed(8)
-messy <- data.frame(id = 1:4,
+messy &lt;- data.frame(id = 1:4,
                     trt = sample(rep(c('control', 'farm'), each = 2)),
                     zooplankton.T1 = runif(4),
                     fish.T1 = runif(4),
                     zooplankton.T2 = runif(4),
                     fish.T2 = runif(4))
 messy
+#   id     trt zooplankton.T1    fish.T1 zooplankton.T2     fish.T2
+# 1  1 control      0.3215092 0.76914695      0.4323914 0.001301721
+# 2  2 control      0.7189275 0.64449114      0.5449621 0.264458864
+# 3  3    farm      0.2908734 0.45704489      0.1382243 0.276532247
+# 4  4    farm      0.9322698 0.08930101      0.9278123 0.521107042
 ```
 
 ---
@@ -935,9 +1092,17 @@ messy
 
 First convert the messy data frame from wide to long format
 
-```{r}
-messy.long <- gather(messy, taxa, count, -id, -trt)
+
+```r
+messy.long &lt;- gather(messy, taxa, count, -id, -trt)
 head(messy.long)
+#   id     trt           taxa     count
+# 1  1 control zooplankton.T1 0.3215092
+# 2  2 control zooplankton.T1 0.7189275
+# 3  3    farm zooplankton.T1 0.2908734
+# 4  4    farm zooplankton.T1 0.9322698
+# 5  1 control        fish.T1 0.7691470
+# 6  2 control        fish.T1 0.6444911
 ```
 
 ---
@@ -945,15 +1110,23 @@ head(messy.long)
 
 Then we want to split the 2 sampling time (T1 and T2).
 
-```{r}
-messy.long.sep <- separate(messy.long, taxa,
+
+```r
+messy.long.sep &lt;- separate(messy.long, taxa,
                            into = c("species", "time"), sep = "\\.")
 head(messy.long.sep)
+#   id     trt     species time     count
+# 1  1 control zooplankton   T1 0.3215092
+# 2  2 control zooplankton   T1 0.7189275
+# 3  3    farm zooplankton   T1 0.2908734
+# 4  4    farm zooplankton   T1 0.9322698
+# 5  1 control        fish   T1 0.7691470
+# 6  2 control        fish   T1 0.6444911
 ```
 
-<span style="font-size: 18px;">
+&lt;span style="font-size: 18px;"&gt;
 The argument `sep = "\\."` tells R to splits the character string around the period (.). We cannot type directly `"."` because it is a regular expression that matches any single character.
-</span>
+&lt;/span&gt;
 
 ---
 ## Recap of `tidyr`
@@ -976,7 +1149,8 @@ Split and merge columns with `unite()` and `separate()`
 
 2. Then `spread` the resulting data frame to return to the original data format.
 
-```{r, eval = FALSE}
+
+```r
 ?airquality
 
 data(airquality)
@@ -986,31 +1160,47 @@ data(airquality)
 ## Solution
 
 1. Using the airquality dataset, `gather` all the columns (except Month and Day) into rows.
-```{r}
-air.long <- gather(airquality, variable, value, -Month, -Day)
+
+```r
+air.long &lt;- gather(airquality, variable, value, -Month, -Day)
 head(air.long)
+#   Month Day variable value
+# 1     5   1    Ozone    41
+# 2     5   2    Ozone    36
+# 3     5   3    Ozone    12
+# 4     5   4    Ozone    18
+# 5     5   5    Ozone    NA
+# 6     5   6    Ozone    28
 ```
-<span style="font-size: 18px;">
+&lt;span style="font-size: 18px;"&gt;
 Note that the syntax used here indicates that we wish to gather ALL the columns exept *Month* and *Day*. It is equivalent to: `gather(airquality, value, Ozone, Solar.R, Temp, Wind)`
-</span>
+&lt;/span&gt;
 
 
 ---
 ## Solution
 
 2. Then `spread` the resulting data frame to return to the original data format.
-```{r}
-air.wide <- spread(air.long, variable, value)
+
+```r
+air.wide &lt;- spread(air.long, variable, value)
 head(air.wide)
+#   Month Day Ozone Solar.R Temp Wind
+# 1     5   1    41     190   67  7.4
+# 2     5   2    36     118   72  8.0
+# 3     5   3    12     149   74 12.6
+# 4     5   4    18     313   62 11.5
+# 5     5   5    NA      NA   56 14.3
+# 6     5   6    28      NA   66 14.9
 ```
 
 
 ---
 ## Data manipulation with `dplyr`
 
-<div style="text-align:center">
-<img src="images/dplyr.png" height=50% width=50%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/dplyr.png" height=50% width=50%&gt;
+&lt;/div&gt;
 
 ---
 ## Intro to `dplyr`
@@ -1026,7 +1216,8 @@ Some corresponding R base functions:
 ---
 ## Intro to `dplyr`
 
-```{r, eval=F}
+
+```r
 install.packages("dplyr")
 library(dplyr)
 ```
@@ -1044,9 +1235,9 @@ These 4 core functions tackle the most common manipulations when working with da
 ---
 ## `select` columns
 
-<div style="text-align:center">
-<img src="images/select.png" height=60% width=60%></img>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/select.png" height=60% width=60%&gt;&lt;/img&gt;
+&lt;/div&gt;
 
 `select(data, ...)`
 
@@ -1060,18 +1251,26 @@ These 4 core functions tackle the most common manipulations when working with da
 ---
 ## `select` columns
 
-<div style="text-align:center">
-<img src="images/select.helper.png" height=70% width=70%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/select.helper.png" height=70% width=70%&gt;
+&lt;/div&gt;
 
 ---
 ## `select` columns
 
 Example: suppose we are only interested in the variation of Ozone over time within the airquality dataset
 
-```{r}
-ozone <- select(airquality, Ozone, Month, Day)
+
+```r
+ozone &lt;- select(airquality, Ozone, Month, Day)
 head(ozone)
+#   Ozone Month Day
+# 1    41     5   1
+# 2    36     5   2
+# 3    12     5   3
+# 4    18     5   4
+# 5    NA     5   5
+# 6    28     5   6
 ```
 
 ---
@@ -1081,21 +1280,29 @@ Extract a subset of rows that meet one or more specific conditions
 
 `filter(dataframe, logical statement 1, logical statement 2, ...)`
 
-<div style="text-align:center">
-<img src="images/filter.png" height=90% width=90%>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/filter.png" height=90% width=90%&gt;
 
-<img src="images/logic.helper.png" height=80% width=80%>
-</div>
+&lt;img src="images/logic.helper.png" height=80% width=80%&gt;
+&lt;/div&gt;
 
 ---
 ## `filter` rows
 
 Example: we are interested in analyses that focus on the month of August during high temperature events
 
-```{r}
-august <- filter(airquality, Month == 8, Temp >= 90)
-# same as: filter(airquality, Month == 8 & Temp >= 90)
+
+```r
+august &lt;- filter(airquality, Month == 8, Temp &gt;= 90)
+# same as: filter(airquality, Month == 8 &amp; Temp &gt;= 90)
 head(august)
+#   Ozone Solar.R Wind Temp Month Day
+# 1    89     229 10.3   90     8   8
+# 2   110     207  8.0   90     8   9
+# 3    NA     222  8.6   92     8  10
+# 4    76     203  9.7   97     8  28
+# 5   118     225  2.3   94     8  29
+# 6    84     237  6.3   96     8  30
 ```
 
 ---
@@ -1113,9 +1320,17 @@ Use `desc()` for descending order.
 Example:
 1. Let's use the following code to create a scrambled version of the airquality dataset
 
-```{r}
-air_mess <- sample_frac(airquality, 1)
+
+```r
+air_mess &lt;- sample_frac(airquality, 1)
 head(air_mess)
+#     Ozone Solar.R Wind Temp Month Day
+# 35     NA     186  9.2   84     6   4
+# 63     49     248  9.2   85     7   2
+# 93     39      83  6.9   81     8   1
+# 33     NA     287  9.7   74     6   2
+# 99    122     255  4.0   89     8   7
+# 145    23      14  9.2   71     9  22
 ```
 
 ---
@@ -1124,9 +1339,17 @@ head(air_mess)
 Example:
 2. Now let's arrange the data frame back into chronological order, sorting by Month then Day
 
-```{r}
-air_chron <- arrange(air_mess, Month, Day)
+
+```r
+air_chron &lt;- arrange(air_mess, Month, Day)
 head(air_chron)
+#   Ozone Solar.R Wind Temp Month Day
+# 1    41     190  7.4   67     5   1
+# 2    36     118  8.0   72     5   2
+# 3    12     149 12.6   74     5   3
+# 4    18     313 11.5   62     5   4
+# 5    NA      NA 14.3   56     5   5
+# 6    28      NA 14.9   66     5   6
 ```
 
 Try :  `arrange(air_mess, Day, Month)` and see the difference.
@@ -1138,33 +1361,42 @@ Compute and add new columns
 
 `mutate(data, newVar1 = expression1, newVar2 = expression2, ...)`
 
-<div style="text-align:center">
-<img src="images/mutate.png" height=100% width=100%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/mutate.png" height=100% width=100%&gt;
+&lt;/div&gt;
 
 ---
 ## Create new columns using `mutate`
 
 Example: we want to convert the temperature variable form degrees Fahrenheit to degrees Celsius
 
-```{r}
-airquality_C <- mutate(airquality, Temp_C = (Temp-32)*(5/9))
+
+```r
+airquality_C &lt;- mutate(airquality, Temp_C = (Temp-32)*(5/9))
 head(airquality_C)
+#   Ozone Solar.R Wind Temp Month Day   Temp_C
+# 1    41     190  7.4   67     5   1 19.44444
+# 2    36     118  8.0   72     5   2 22.22222
+# 3    12     149 12.6   74     5   3 23.33333
+# 4    18     313 11.5   62     5   4 16.66667
+# 5    NA      NA 14.3   56     5   5 13.33333
+# 6    28      NA 14.9   66     5   6 18.88889
 ```
 
 ---
 ## `magrittr`
 
-<div style="text-align:center">
-<img src="images/magrittr.png" height=40% width=40%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/magrittr.png" height=40% width=40%&gt;
+&lt;/div&gt;
 
-Usually data manipulation require multiple steps, the magrittr package offers a pipe operator `%>%` which allows us to link multiple operations
+Usually data manipulation require multiple steps, the magrittr package offers a pipe operator `%&gt;%` which allows us to link multiple operations
 
 ---
 ## `magrittr`
 
-```{r, eval=F}
+
+```r
 install.packages("magrittr")
 require(magrittr)
 ```
@@ -1174,8 +1406,9 @@ require(magrittr)
 
 Suppose we want to analyse only the month of June, then convert the temperature variable to degrees Celsius. We can create the required data frame by combining 2 dplyr verbs we learned
 
-```{r}
-june_C <- mutate(filter(airquality, Month == 6),
+
+```r
+june_C &lt;- mutate(filter(airquality, Month == 6),
                  Temp_C = (Temp-32)*(5/9))
 ```
 
@@ -1186,9 +1419,10 @@ As we add more operations, wrapping functions one inside the other becomes incre
 
 Alternatively, we can use maggritr's pipe operator to link these successive operations
 
-```{r}
-june_C <- airquality %>%
-    filter(Month == 6) %>%
+
+```r
+june_C &lt;- airquality %&gt;%
+    filter(Month == 6) %&gt;%
     mutate(Temp_C = (Temp-32)*(5/9))
 ```
 
@@ -1200,7 +1434,7 @@ Advantages :
 ---
 ## `dplyr::group_by` and `summarise`
 
-The `dplyr` verbs become especially powerful when they are are combined using the pipe operator `%>%`.
+The `dplyr` verbs become especially powerful when they are are combined using the pipe operator `%&gt;%`.
 The following `dplyr` functions allow us to split our data frame into groups on which we can perform operations individually
 
 `group_by()` : group data frame by a factor for downstream operations (usually summarise)
@@ -1212,28 +1446,37 @@ The following `dplyr` functions allow us to split our data frame into groups on 
 
 The `group_by` function is key to the Split-Apply-Combine strategy
 
-<div style="text-align:center">
-<img src="images/split-apply-combine.png" height=100% width=100%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/split-apply-combine.png" height=100% width=100%&gt;
+&lt;/div&gt;
 
 ---
 ## `dplyr` - Split-Apply-Combine
 
-<div style="text-align:center">
-<img src="images/summarise.png" height=70% width=70%>
-</div>
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/summarise.png" height=70% width=70%&gt;
+&lt;/div&gt;
 
 ---
 ## `dplyr` - Split-Apply-Combine
 
 Example: we are interested in the mean temperature and standard deviation within each month if the airquality dataset
 
-```{r}
-month_sum <- airquality %>%
-      group_by(Month) %>%
+
+```r
+month_sum &lt;- airquality %&gt;%
+      group_by(Month) %&gt;%
       summarise(mean_temp = mean(Temp),
                 sd_temp = sd(Temp))
 month_sum
+# # A tibble: 5 x 3
+#   Month mean_temp sd_temp
+#   &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+# 1     5      65.5    6.85
+# 2     6      79.1    6.60
+# 3     7      83.9    4.32
+# 4     8      84.0    6.59
+# 5     9      76.9    8.36
 ```
 
 ---
@@ -1241,7 +1484,7 @@ month_sum
 
 Using the `ChickWeight` dataset, create a summary table which displays the difference in weight between the maximum and minimum weight of each chick in the study.
 
-Employ `dplyr` verbs and the `%>%` operator.
+Employ `dplyr` verbs and the `%&gt;%` operator.
 
 ---
 ## Solution
@@ -1249,11 +1492,21 @@ Employ `dplyr` verbs and the `%>%` operator.
 1. Use group_by() to divide the dataset by "Chick"
 2. Use summarise() to calculate the weight gain within each group
 
-```{r}
-weight_diff <- ChickWeight %>%
-      group_by(Chick) %>%
+
+```r
+weight_diff &lt;- ChickWeight %&gt;%
+      group_by(Chick) %&gt;%
       summarise(weight_diff = max(weight) - min(weight))
 head(weight_diff)
+# # A tibble: 6 x 2
+#   Chick weight_diff
+#   &lt;ord&gt;       &lt;dbl&gt;
+# 1 18             4.
+# 2 16            16.
+# 3 15            27.
+# 4 13            55.
+# 5 9             58.
+# 6 20            76.
 ```
 
 ---
@@ -1261,20 +1514,28 @@ head(weight_diff)
 
 Using the `ChickWeight` dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study.
 
-Employ `dplyr` verbs and the `%>%` operator.
+Employ `dplyr` verbs and the `%&gt;%` operator.
 
 (Hint: `first()` and `last()` may be useful here.)
 
 ---
 ## Ninja solution
 
-```{r}
-diet_summ <- ChickWeight %>%
-      group_by(Diet, Chick) %>%
-      summarise(weight_gain = last(weight) - first(weight)) %>%
-      group_by(Diet) %>%
+
+```r
+diet_summ &lt;- ChickWeight %&gt;%
+      group_by(Diet, Chick) %&gt;%
+      summarise(weight_gain = last(weight) - first(weight)) %&gt;%
+      group_by(Diet) %&gt;%
       summarise(mean_gain = mean(weight_gain))
 diet_summ
+# # A tibble: 4 x 2
+#   Diet  mean_gain
+#   &lt;fct&gt;     &lt;dbl&gt;
+# 1 1          115.
+# 2 2          174.
+# 3 3          230.
+# 4 4          188.
 ```
 
 ---
@@ -1293,3 +1554,48 @@ class: inverse, center, bottom
 # Thank you for attending!
 
 ![:scale 50%](images/qcbs_logo.png)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="qcbsR-macros.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

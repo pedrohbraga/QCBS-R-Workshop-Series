@@ -13,17 +13,42 @@ output:
       beforeInit: "qcbsR-macros.js"
 ---
 
+```{r setup, echo = F}
+knitr::opts_chunk$set(
+  comment = "#",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width=5, fig.height=5,
+  fig.align = 'center'
+)
+```
+
+```{r, echo = F}
+options(repos=structure(c(CRAN="http://cran.r-project.org")))
+```
+
 ```{r, include = FALSE}
+if(!require(ggplot2)) install.packages("ggplot2")
 library(ggplot2)
+if(!require(knitr)) install.packages("knitr")
 library(knitr)
+if(!require(tidyr)) install.packages("tidyr")
 library(tidyr)
+if(!require(dplyr)) install.packages("dplyr")
 library(dplyr)
+if(!require(magrittr)) install.packages("magrittr")
 library(magrittr)
+if(!require(grid)) install.packages("grid")
 require(grid)
+if(!require(gridExtra)) install.packages("gridExtra")
 require(gridExtra)
-require(RColorBrewer)
-library(wesanderson)
-require(kableExtra)
+if(!require(RColorBrewer)) install.packages("RColorBrewer")
+library(RColorBrewer)
+if(!require(wesanderson)) install.packages("wesanderson")
+require(wesanderson)
+if(!require(kableExtra)) install.packages("kableExtra")
+library(kableExtra)
 ```
 
 ## Introduction
@@ -100,7 +125,7 @@ library(ggplot2)
 
 ---
 ## Outline
-1. Your first R plot
+1. GGplot2 mechanics
     * Basic scatter plot
     * Challenge 1
 2. Grammar of graphics
@@ -133,12 +158,11 @@ arguments:
 Look at pre-loaded `iris` dataset:
 ```{r, eval = FALSE}
 ?iris
-head(iris)
 str(iris)
 names(iris)
 ```
 
-```{r, echo = FALSE}
+```{r, echo = T}
 head(iris)
 ```
 

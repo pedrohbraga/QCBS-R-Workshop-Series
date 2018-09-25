@@ -192,17 +192,18 @@ class: inverse, center, middle
 
 - Type of linear model which contains a single, continuous explanatory variable
 
+$$Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
+
 - Estimates the **intercept** ( $\beta_0$ ) and a **coefficient of correlation** ( $\beta_1$ )
 
-- Ordinary least squares
+- Ordinary least squares methods
+  - Most used method and corresponds to the default function in R
 
 ---
-## Review: Simple linear regression
+## Least squares methods
 
 .pull-left[
-- **Least squares**: most used method and corresponds to the default function in R
-
-![](images/graphlm2.2.png)
+.center[![:scale 80%](images/graph_lm.png)]
 ]
 
 .pull-right[
@@ -216,8 +217,6 @@ class: inverse, center, middle
 - $V_T$ : Total variance
 - $R^2 = \frac{V_R}{V_T}$
 ]
-
-
 
 ---
 ## Running a regression in R
@@ -268,19 +267,8 @@ bird <- read.csv("birdsdiet.csv")
 
 Visualize the data using the structure `str()` command:
 
-```{r, eval = FALSE}
+```{r}
 str(bird)
-```
-
-```
-'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"...
- $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
- $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
- $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
- $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
- $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
- $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
 ```
 
 ---
@@ -290,15 +278,8 @@ Response variable: **Bird abundance**  ![:faic](arrow-right) num: continuous
 
 Explanatory variable: **Bird mass**   ![:faic](arrow-right)  num: continuous
 
-```
-'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"...
- $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
- $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
- $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
- $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
- $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
- $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
+```{r}
+str(bird)
 ```
 
 We first want to test if bird maximum abundance is a function of bird mass
@@ -317,8 +298,8 @@ opar <- par(mfrow=c(2,2))
 plot(lm1)
 ```
 
-- par( ): sets the graphical parameters, for example, the `mfrow` argument sets the number of rows in the frame
-- plot( ): is a generic function to plot graphics in R
+- `par( )`: sets the graphical parameters, for example, the `mfrow` argument sets the number of rows in the frame
+- `plot( )`: is a generic function to plot graphics in R
 
 The output will provide the four built-in diagnostic plots of the `lm()` function
 
@@ -328,14 +309,13 @@ The output will provide the four built-in diagnostic plots of the `lm()` functio
 Example of independence (what we want!)
 
 - Should show a scatter across and no pattern
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.16.png)
 
-```{r eval=FALSE, echo=FALSE, fig.height=4}
-set.seed(1234564)
-x <- rnorm(100,10,10)
-y <- 2*x+0 + rnorm(100)
-lm <- lm(y~x)
-plot(lm, which = 1)
+```{r, echo = FALSE, fig.height=4, fig.width=5}
+  set.seed(1234564)
+  x <- rnorm(100,10,10)
+  y <- 2*x+0 + rnorm(100)
+  lm <- lm(y~x)
+  plot(lm, which = 1)
 ```
 
 ---

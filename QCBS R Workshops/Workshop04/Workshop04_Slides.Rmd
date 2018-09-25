@@ -1180,7 +1180,8 @@ plot(abund ~ grass, data = Dickcissel)
 lm.full <- lm(abund ~ . - Present,
               data = Dickcissel)
 lm.step <- step(lm.full)
-?step
+
+# ?step
 ```
 
 ---

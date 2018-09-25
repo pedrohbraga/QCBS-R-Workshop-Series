@@ -49,7 +49,7 @@ if (!require(car)) install.packages("car")
 library(car)
 
 if (!require(effects)) install.packages("effects")
-library(effects)
+#library(effects)
 
 ```
 

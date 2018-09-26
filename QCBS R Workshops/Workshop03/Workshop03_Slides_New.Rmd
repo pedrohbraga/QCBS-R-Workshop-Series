@@ -30,27 +30,38 @@ options(repos=structure(c(CRAN="http://cran.r-project.org")))
 
 ```{r, include = FALSE}
 if(!require(ggplot2)) install.packages("ggplot2")
-library(ggplot2)
+if(!require(ggplot2)) library(ggplot2)
+
 if(!require(knitr)) install.packages("knitr")
-library(knitr)
+if(!require(knitr)) library(knitr)
+
 if(!require(tidyr)) install.packages("tidyr")
-library(tidyr)
+if(!require(tidyr)) library(tidyr)
+
 if(!require(dplyr)) install.packages("dplyr")
-library(dplyr)
+if(!require(dplyr)) library(dplyr)
+
 if(!require(magrittr)) install.packages("magrittr")
-library(magrittr)
+if(!require(magrittr)) library(magrittr)
+
 if(!require(grid)) install.packages("grid")
-require(grid)
+if(!require(grid)) library(grid)
+
 if(!require(gridExtra)) install.packages("gridExtra")
-require(gridExtra)
+if(!require(gridExtra)) require(gridExtra)
+
 if(!require(RColorBrewer)) install.packages("RColorBrewer")
-library(RColorBrewer)
+if(!require(RColorBrewer)) library(RColorBrewer)
+
 if(!require(kableExtra)) install.packages("kableExtra")
-library(kableExtra)
+if(!require(kableExtra)) library(kableExtra)
+
 if(!require(gridBase)) install.packages("gridBase")
-library(gridBase)
+if(!require(gridBase))library(gridBase)
+
 if(!require(grid)) install.packages("grid")
-library(grid)
+if(!require(grid)) library(grid)
+
 source(file="./scripts/multiplot.R")
 ```
 
@@ -166,7 +177,7 @@ A graphic is made of elements (layers)
 
 ---
 ## Example of use
-```{r}
+```{r, eval = FALSE}
 ggplot(data = iris,             # Data
        aes(x = Sepal.Length,    # Your X-value
            y = Sepal.Width,     # Your Y-value
@@ -179,6 +190,21 @@ ggplot(data = iris,             # Data
                  size=14,
                  face="bold.italic")) # Theme
 ```
+---------|--------
+```{r, echo = FALSE}
+ggplot(data = iris,             # Data
+       aes(x = Sepal.Length,    # Your X-value
+           y = Sepal.Width,     # Your Y-value
+           col = Species)) +    # Aesthtics
+  geom_point() +                # Geometry
+  geom_smooth(method = "lm") +  # Linear regression
+  ggtitle("My fabulous graph")+  # Title
+  theme(plot.title=
+    element_text(color="red",
+                 size=14,
+                 face="bold.italic")) # Theme
+```
+
 
 ---
 ## Importance in data structure for ggplot2
@@ -353,16 +379,34 @@ multiplot(CO2.plot.facet.baline, CO2.plot.facet.line)
   * .alert[put ggplot vs base plot]
 
 ---
-## Fine Tunning
-  * Colour
+## Fine Tunning : Colour
+  * Colour: Manual_colour
 
 ---
-## Fine Tunning
-  * Theme
+## Fine Tunning : Colour
+  * Gradient Colour : scale_fill & scale_color
+
+---
+## Fine Tunning : Colour
+  * Colour: Blind color & black&Withe
+  
+---
+## Fine Tunning : Colour
+  * Colour: Blind color & black&Withe
+```{r, eval=FALSE}
+install.packages("RColorBrewer")
+require(RColorBrewer)
+```
+---
+
+## Fine Tunning : Theme
+  * Theme: classic, blank & black&White
 
 ---
 ## Final Challenge
-
+  * Dataset : any (recommanded: use your dataset)
+  * geom : any
+  * aes : any
 
 ---
 ## Solution of the final Challenge

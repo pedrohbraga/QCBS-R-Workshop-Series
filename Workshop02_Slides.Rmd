@@ -104,7 +104,7 @@ Dataset should be stored as comma separated files (.csv) in Data folder
 
 
 ---
-## Choose variable names wisely
+## Choose filenames names wisely
 
 .pull-left[
 **Good!**
@@ -268,11 +268,7 @@ Demo – Try to add some test data to R and then see how `rm(list = ls())` remov
 
 
 ```{r, eval = TRUE, error = TRUE}
-A<-"Test" # Put some data in workspace 
-A <- "Test" # Note that you can use spaces! 
-A = "Test" # <- or = can be used equally 
-
-#Note that it is best practice to use "<-" for assigment instead of "="
+A <- "Test"
 A
 rm(list=ls())
 A
@@ -480,7 +476,7 @@ Creating new variables works for numbers and mathematical operations as well!
 
 ```{r, eval = FALSE}
 # Let's standardize our variable "absortion" to relative values 
-CO2copy$absortionRel <- CO2copy$absortion/max(CO2copy$absortion)  
+CO2copy$absortionRel = CO2copy$absortion/max(CO2copy$absortion)  
 
 # Observe the results 
 head(CO2copy$absortionRel)
@@ -516,7 +512,7 @@ CO2copy[CO2copy$absortion >= 20, ]
 CO2copy[CO2copy$Traitement  == "nonchilled" & CO2copy$absortion >= 20, ]
 
 # We are done playing with the Dataset copy, lets erase it. 
-CO2copy <- NULL
+CO2copy == NULL
 ```
 
 Go [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html) to check all the logical operators you can use 
@@ -707,7 +703,7 @@ head(CO2)
 Skip two lines when loading the file using the "skip" argument:
 
 ```{r, eval = TRUE}
-CO2 <- read.csv("co2_broken.csv", sep = "", skip = 2)
+CO2<-read.csv("co2_broken.csv", sep = "", skip = 2)
 head(CO2)
 ```
 
@@ -786,7 +782,7 @@ Fixed!
 ---
 class: inverse, center, middle
 
-# Learn to manipulate data with tidyr, dyplr, maggritr 
+# Learn to manipulate data with tidyt, dyplr, maggitr 
 
 ---
 ## Using `tidyr` to reshape data frames

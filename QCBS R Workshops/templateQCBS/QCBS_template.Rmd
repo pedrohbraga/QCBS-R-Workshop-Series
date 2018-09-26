@@ -170,6 +170,19 @@ You can divide a slide in _any way you want_.
 ]
 
 ---
+## Table
+
+Colons can be used to align columns.
+
+<br>
+
+| Tables        | Are           | Cool          |
+| ------------- |:-------------:| -------------:|
+| right-aligned | centered      | right-aligned |
+| stuff         | stuff         | 123           |
+| stuff         | stuff         | 456           |
+
+---
 
 ## Text alignment
 

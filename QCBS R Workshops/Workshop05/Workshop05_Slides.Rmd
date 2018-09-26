@@ -183,8 +183,8 @@ animals <- c(Paws, Scruffy, Sassy)
 ```
 
 1. Use an `if` statement to print “meow” if `Paws` is a “cat”.
-2. Use an `if`/`else` statement to print “woof” if you supply an object that is a “dog” and “meow” if it is not. Try it out with `Paws` and `Scruffy`.
-3. Use the `ifelse` function to display “woof” for `animals` that are dogs and “meow” for `animals` that are cats.
+2. Use an `if`  `else` statement to print “woof” if you supply an object that is a `“dog”` and `“meow”` if it is not. Try it out with `Paws` and `Scruffy`.
+3. Use the `ifelse` function to display `“woof”` for `animals` that are dogs and `“meow”` for `animals` that are cats.
 
 ---
 ## Beware of R’s expression parsing!
@@ -196,7 +196,7 @@ if (2+2) == 4 print("Arithmetic works.")
 else print("Houston, we have a problem.")
 ```
 
-.alert[This doesn't work because R evaluates the first line and doesn't know that you are going to use an `else` statement]
+.center[.alert[This doesn't work because R evaluates the first line and doesn't know that you are going to use an `else` statement]]
 
 Instead use:
 
@@ -210,10 +210,8 @@ if (2+2) == 4 {
 ---
 ## Remember the logical operators
 
-
-
-| command  | meaning |
-| ------------- | ------------- |
+| Command | Meaning |
+| :-------------: | :-------------: |
 | `==`  | equal to  |
 | `!=`  | not x  |
 | `<`   | less than  |
@@ -231,7 +229,6 @@ if (2+2) == 4 {
 Every time some operations have to be repeated, a loop may come in handy
 
 Loops are good for:
-
 - doing something for every element of an object
 - doing something until the processed data runs out
 - doing something for every file in a folder
@@ -1095,7 +1092,7 @@ recalibrate <- function(CO2, type, bias) {
       CO2$uptake[i] <- CO2$uptake[i] + bias 
     }
   }
-  return (CO2)
+  return(CO2)
 }
 ```
 ]

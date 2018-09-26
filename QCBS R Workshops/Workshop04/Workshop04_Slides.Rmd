@@ -18,6 +18,7 @@ output:
 knitr::opts_chunk$set(
   comment = "#",
   collapse = TRUE,
+  #cache = TRUE,
   warning = FALSE,
   message = FALSE,
   fig.width=6, fig.height=6,
@@ -49,45 +50,161 @@ if (!require(car)) install.packages("car")
 library(car)
 
 if (!require(effects)) install.packages("effects")
-library(effects)
+#library(effects)
 
 ```
+
+---
+class: inverse, center, middle
+
+# Important concepts
+
+## mean and variation
+
+---
+
+## Mean
+
+Mean is a measure of the average value of a population (*x*):
+
+$$\bar{x} = \frac{1}{N} \sum_{i=1}^{n} x_{i}$$
+
+---
+## Variation
+
+- Variation is the spread around the mean
+  - Mean deviation
+  - Variance
+  - Standard deviation
+  - Coefficient of deviation
+
+**What is deviation?**
+
+$$D_{i} = |x_{i} - \bar{x}|$$
+
+---
+## Variation
+
+**Deviation**:
+
+$$D_{i} = |x_{i} - \bar{x}|$$
+--
+**Mean deviation**:
+
+$$D = \frac{1}{N} \sum_{i=1}^{n} |x_{i} - \bar{x}|$$
+--
+
+Instead of absolute values, we can also square the value, giving the **variation**:
+
+$$V = \frac{1}{N} \sum_{i=1}^{n} {(x_{i} - \bar{x})}^2$$
+
+---
+## Variation
+
+But by squaring each value, our variables are no longer in meaningful units
+
+So we just root square the **variation** ( $V$ ), giving the **standard variation**:
+
+$$\sigma = \sqrt{V}$$
+--
+
+The relative standard deviation, expressed in percentage, is the **coefficient of variation**:
+
+$$cv = \frac{\sigma}{\bar{x}}$$
+
+---
+class: inverse, center, middle
+
+# Linear models
+
+---
+## What are linear models
+
+Linear relationship between response ( $Y$ ) and explanatory ( $X$ ) variable, using the concepts of **mean** and **variation**
+
+- $Y$ : variable you want to explain (only one response variable)
+- $X$ : explain your response variable (one or more explanatory variables)
+- $Y$ : must be continuous
+- $X$ : continuous or categorical
+- $\epsilon$ : what is not explined by the explanatory variable(s) ![:faic](arrow-right) residuals or error
+
+---
+## Defining linear models
+
+Putting everything together:
+
+$$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i}$$
+
+- $Y_i$ is the response variable
+- $β_0$ is the intercept of the regression line
+- $β_1$ is the coefficient of variation for the first explanatory variable
+- $β_p$ is the coefficient of variation for the *nth* explanatory variable
+- $x_i1$ is the first explanatory variable
+- $x_ip$ is the *nth* explanatory variable
+- $ε_i$ are the residuals of the model
+
+---
+## The goal of linear models
+
+- The goal is to find the **best estimation** of the parameters (the $\beta$ variables) and then assess the goodness of fit of the model
+
+- Several methods to calculate the intercept and coefficients of linear models
+  - the appropriate choice depends on the kind of explanatory variables considered and their number
+
+.center[.large[The general concept behind these methods is that the residuals are minimized]]
 
 ---
 ## Learning objectives
 
 .center[
-![:scale 60%](images/schema_slide1.png)
+![:scale 100%](images/schema.png)
 ]
-
 
 ---
-## Review: Simple linear regression
+## Linear model assumptions
 
-Linear relationship between response (Y) and explanatory (X) variable
+1. The residuals are independent
+2. The residuals are normally distributed
+3. The residuals have a mean of 0
+4. The residuals are homoskedastic (they have constant variance)
 
-.pull-left[
-$Y_i = α + βX_i  + ε_i$
-
-![](images/graphlm1.png)
-]
-
-.pull-right[
-**Assumptions**
-- Continuous explanatory variable
-- Homogeneous and normally distributed error
-- Independent residuals
-- No outlier
-]
-
+.comment[These assumptions concern the residuals, not the response or explanatory variables]
 
 ---
-## Review: Simple linear regression
+## Work follow
+
+.center[
+![:scale 62%](images/schema.png)
+]
+
+- Plot the data
+- Create a model
+- Test the model assumptions
+- Adjust the model if assumptions are violated
+- Interpret the model results
+
+---
+class: inverse, center, middle
+
+# Simple linear regression
+
+---
+## Simple linear regression
+
+- Type of linear model which contains a single, continuous explanatory variable
+
+$$Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
+
+- Estimates the **intercept** ( $\beta_0$ ) and a **coefficient of correlation** ( $\beta_1$ )
+
+- Ordinary least squares methods
+  - Most used method and corresponds to the default function in R
+
+---
+## Least squares methods
 
 .pull-left[
-- **Least squares**: most used method and corresponds to the default function in R
-
-![](images/graphlm2.2.png)
+.center[![:scale 80%](images/graph_lm.png)]
 ]
 
 .pull-right[
@@ -101,8 +218,6 @@ $Y_i = α + βX_i  + ε_i$
 - $V_T$ : Total variance
 - $R^2 = \frac{V_R}{V_T}$
 ]
-
-
 
 ---
 ## Running a regression in R
@@ -153,19 +268,8 @@ bird <- read.csv("birdsdiet.csv")
 
 Visualize the data using the structure `str()` command:
 
-```{r, eval = FALSE}
+```{r}
 str(bird)
-```
-
-```
-'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"...
- $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
- $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
- $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
- $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
- $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
- $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
 ```
 
 ---
@@ -175,15 +279,8 @@ Response variable: **Bird abundance**  ![:faic](arrow-right) num: continuous
 
 Explanatory variable: **Bird mass**   ![:faic](arrow-right)  num: continuous
 
-```
-'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"...
- $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
- $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
- $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
- $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
- $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
- $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
+```{r}
+str(bird)
 ```
 
 We first want to test if bird maximum abundance is a function of bird mass
@@ -202,8 +299,8 @@ opar <- par(mfrow=c(2,2))
 plot(lm1)
 ```
 
-- par( ): sets the graphical parameters, for example, the `mfrow` argument sets the number of rows in the frame
-- plot( ): is a generic function to plot graphics in R
+- `par( )`: sets the graphical parameters, for example, the `mfrow` argument sets the number of rows in the frame
+- `plot( )`: is a generic function to plot graphics in R
 
 The output will provide the four built-in diagnostic plots of the `lm()` function
 
@@ -213,23 +310,19 @@ The output will provide the four built-in diagnostic plots of the `lm()` functio
 Example of independence (what we want!)
 
 - Should show a scatter across and no pattern
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.16.png)
 
-```{r eval=FALSE, echo=FALSE, fig.height=4}
-set.seed(1234564)
-x <- rnorm(100,10,10)
-y <- 2*x+0 + rnorm(100)
-lm <- lm(y~x)
-plot(lm, which = 1)
+```{r, echo = FALSE, fig.height=4.2, fig.width=5.5}
+  set.seed(1234564)
+  x <- rnorm(100,10,10)
+  y <- 2*x+0 + rnorm(100)
+  lm <- lm(y~x)
+  plot(lm, which = 1)
 ```
 
 ---
 ## Diagnostic plot # 1 - Residuals vs Fitted
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.25.png)
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.32.png)
-
-```{r eval=FALSE, echo=FALSE, fig.height=4, warning=FALSE}
+```{r, echo=FALSE, fig.height=4, fig.width=8.5, warning=FALSE}
 par(mfrow=c(1,2))
 set.seed(1234564)
 x = rnorm(100,10,10)
@@ -238,7 +331,7 @@ lm=lm(y~scale(x))
 plot(lm,which = 1, main = "Nonlinear", col.main="red")
 
 x = rnorm(100,10,10)
-y = (x)+0 + rnorm(length(x),0,x)
+y = (x) + 0 + rnorm(length(x), 0, x)
 lm=lm(y~scale(x))
 plot(lm,which = 1, main = "Heteroscedastic", col.main="red")
 ```
@@ -250,12 +343,23 @@ plot(lm,which = 1, main = "Heteroscedastic", col.main="red")
 
 - Should show a scatter across and no pattern
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.41.png)
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.54.png)
+```{r, echo=FALSE, fig.height=3.8, fig.width=8, warning=FALSE}
+par(mfrow=c(1,2))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm,which = 3)
 
-No pattern in the residuals
+set.seed(2)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm,which = 3)
+```
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
 
-  - Strong pattern in the residuals
+.pull-left[.center[No pattern in the residuals]] .pull-right[.center[Strong pattern in the residuals]]
 
 ---
 ## Diagnostic plot # 3 - Normal QQ
@@ -263,9 +367,28 @@ No pattern in the residuals
 - Compares the distribution (quantiles) of the residuals of the current model to those of a normal distribution
 - If points lie linearly on the 1:1 line, data follow a normal distribution
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.03.png)
+```{r, echo=FALSE, fig.height=3, fig.width=8, warning=FALSE}
+par(mfrow=c(1,2), mar = c(4, 4, 1.5, 3))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm, which = 2)
+
+set.seed(2)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm, which = 2)
+```
+
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
+
+.pull-left[.center[Good!]] .pull-right[.center[Not that good...]]
+
 ---
 ## Diagnostic plot # 4 - Residuals vs Leverage
+
 - Looks for influential values
 - **Leverage points**: observations at extreme/ outlying values of the explanatory variable. Because they lack neighboring observations, the regression model passes close to leverage points. **They may OR may not have a high influence on the regression.**
 - High leverage points with high influence can be identified with a **Cook's distance greater than 0.5**
@@ -273,86 +396,135 @@ No pattern in the residuals
 ---
 ## Leverage vs influence
 
+```{r, echo=FALSE, fig.height=6, fig.width=5, warning=FALSE}
+par(mfrow=c(3, 1), mar = c(4, 15, 1, 3), cex = 0.75)
+set.seed(1234564)
+x <- 1:20
+y <- rnorm(x, x, 2)
+lm0 <- lm(y ~ x)
+# plot 1
+plot(x, y, ylim = c(-4, 22)); abline(lm0, col = 2); points(11, -3, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 11); yy <- c(y, -3)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-18, 10, srt=0, adj = 0, labels = '* No leverage \n* Low influence', xpd = TRUE, cex = 1.5)
+# plot 2
+plot(x, y, ylim = c(-4, 32), xlim = c(0, 31)); abline(lm0, col = 2); points(30, 30, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 30); yy <- c(y, 30)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-31, 15, srt=0, adj = 0, labels = '* High leverage \n* No influence', xpd = TRUE, cex = 1.5)
 
-- No leverage
-- Low influence
+# plot 3
+plot(x, y, ylim = c(-4, 32), xlim = c(0, 31)); abline(lm0, col = 2); points(30, 15, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 30); yy <- c(y, 15)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-31, 15, srt=0, adj = 0, labels = '* High leverage \n* High influence', xpd = TRUE, cex = 1.5)
+```
 
-- High leverage
-- No influence
-
-- High leverage
-- High influence
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.15.png)
 ---
+## Leverage vs influence
 
-No influential values
+```{r, echo=FALSE, fig.height=3.5, fig.width=9, warning=FALSE}
+par(mfrow=c(1,2), mar = c(4, 4, 1.5, 3))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm, which = 5)
 
-High leverage point and reasonable influence
-- Here, point 32 has high leverage but its influence is acceptable (inside the 0.5 Cook's distance limits)
+set.seed(1234564)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm, which = 5)
+```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.48.png)
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
+
+.pull-left[.center[No influential values]]
+.pull-right[.center[High leverage point and reasonable influence]]
+
+<br />
+<br />
+<br />
+
+.comment[Point 29 has high leverage but its influence is acceptable (inside the 0.5 Cook's distance limits)]
 
 ---
+## Leverage vs influence
 
 High leverage point and high influence
-- Points are outside the 0.5 limit of Cook's distance
+
+<br />
+
+.pull-left[
+```{r, echo=FALSE, fig.height=3.5, fig.width=4, warning=FALSE}
+par(mar = c(4, 4, 1, 0))
+set.seed(1234564)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+y[29] <- 100
+lm=lm(y~scale(x))
+plot(lm, which = 5)
+```
+]
+.pull-right[
+- Point 29 is outside the 0.5 limit of Cook's distance
 - These points have too much influence on the regression
+]
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.08.png)
-
-.alert[Note]: you should never remove outliers if you don't have good reasons to do so (ex: error of measurement)
+.alert[You should never remove outliers if you don't have good reasons to do so (ex: error of measurement)]
 
 ---
+## **Step 2**. Verify assumptions of `lm1`
 
-**Step 2**. Verify assumptions of `lm1`
-
-```{r, fig.height=4.9, fig.width=4.9}
-par(mfrow=c(2,2), mar = c(4,4,2,1), oma =c(0,0,0,0))
+```{r, fig.height=4.9, fig.width=5.5}
+par(mfrow=c(2,2), mar = c(4,4,2,1.1), oma =c(0,0,0,0))
 plot(lm1)
 ```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.17.png)
-
 ---
 ## Assumptions not met - what is wrong?
 
-- Plot Y ~ X with corresponding best-fit regression line, and a histogram of Y and X to explore their distributions
+Plot Y ~ X with corresponding best-fit regression line, and a histogram of Y and X to explore their distributions
 
-```{r, fig.height=2.6, fig.width=8}
-par(mfrow=c(1,3), mar = c(4,4,3,1))
+```{r, fig.height=2.7, fig.width=9, echo = -1}
+par(mfrow=c(1,3), mar = c(4,4,3,1), cex = 0.8)
 plot(bird$MaxAbund ~ bird$Mass)
-abline(lm1)
-hist(bird$MaxAbund)
+abline(lm1) # adds the best-fit line
+hist(bird$MaxAbund) # hist() produces a histogram of the variable
 hist(bird$Mass)
 ```
 
-- The function `abline()` adds the best-fit line
-- The function `hist()` produces a histogram of the variable
-
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.26.png)
-
 ---
 ## Assumptions not met - what is wrong?
 
-Can also use the `Shapiro-Wilk` and the `Skewness` tests to see if variables follow a normal distribuon:
+Can also use the **`Shapiro-Wilk`** and the `Skewness` tests to see if variables follow a normal distribuon:
 
 ```{r}
 shapiro.test(bird$MaxAbund)
 shapiro.test(bird$Mass)
 ```
-In both cases, distributions are significantly different from normal
+.comment[In both cases, distributions are significantly different from normal]
+
+---
+## Assumptions not met - what is wrong?
+
+Can also use the `Shapiro-Wilk` and the **`Skewness`** tests to see if variables follow a normal distribuon:
 
 ```{r}
 skewness(bird$MaxAbund)
 skewness(bird$Mass)
 ```
-The positive skewness values also indicate that the distributions are left skewed
+.comment[The positive skewness values also indicate that the distributions are left skewed]
 
 ---
 ## Transform the data
 
 - Lets try normalizing data with a `log10()` transformation
-- Add the log-transformed variables to our dataframe
+- Add the log-transformed variables to our data frame
 
 ```{r}
 bird$logMaxAbund <- log10(bird$MaxAbund)
@@ -366,44 +538,44 @@ lm2 <- lm(logMaxAbund ~ logMass, data = bird)
 ```
 
 ---
-**Step 2**: Verify assumptions of model `lm2`
+## **Step 2**: Verify assumptions of model `lm2`
 
-```{r, fig.height=4, fig.width=4}
-par(mfrow=c(2,2), mar=c(4,4,3,1))
+```{r, fig.height=4.4, fig.width=5.9}
+par(mfrow=c(2,2), mar=c(3,4,1.15,1.2))
 plot(lm2)
 ```
 
-- Much improved!
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.37.png)
+.comment[.center[Much improved!]]
 
 ---
-**Step 2**: Verify assumptions of model `lm2`
+## **Step 2**: Verify assumptions of model `lm2`
 
-```{r}
+```{r, echo=-1, fig.height=3.4, fig.width=9}
+par(mfrow=c(1,3), mar=c(4,4,1.15,1.2))
 plot(logMaxAbund ~ logMass, data=bird)
 abline(lm2)
 hist(log10(bird$MaxAbund))
 hist(log10(bird$Mass))
 ```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.47.png)
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.54.png)
-
 ---
-
-**Step 3**: Estimate parameters and test significance
+## **Step 3**: Estimate parameters and test significance
 
 The function `summary()` is used to obtain parameter estimates, significance, etc.
 
+.small[
 ```{r}
 summary(lm2)
 ```
+]
 
-- We can also call out specific parameters of the model, for example:
+---
+## **Step 3**: Estimate parameters and test significance
 
-```{r eval=FALSE}
+We can also call out specific parameters of the model, for example:
+
+```{r}
 lm2$coef
-str(summary(lm2))
 summary(lm2)$coefficients
 summary(lm2)$r.squared
 ```
@@ -415,24 +587,18 @@ summary(lm2)$r.squared
 - Are the parameters significant?
 - What proportion of variance is explained by model `lm2`?
 
+.small[
+```{r}
+summary(lm2)
 ```
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   1.6724     0.2472   6.767 1.17e-08 ***
-logMass      -0.2361     0.1170  -2.019   0.0487 *  
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.6959 on 52 degrees of freedom
-Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484
-F-statistic: 4.075 on 1 and 52 DF,  p-value: 0.04869
-```
+]
 
 ---
 ## Group discussion
 
 Can we improve the model if we only use terrestrial birds?
-**You could exclude objects using "=!"
+
+.comment[You could exclude objects using `=!`]
 
 ```{r}
 lm3 <- lm(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
@@ -453,54 +619,111 @@ plot(logMaxAbund~logMass, data=bird)
 plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
 ```
 
-
 ---
 ## Plot
 
-- R2-adj changed from 0.05 to 0.25 when we dropped aquatic birds:
+`R2-adj` changed from $0.05$ to $0.25$ when we dropped aquatic birds:
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.05.png)
+```{r, fig.height=3.5, fig.width=7}
+par(mfrow=c(1,2), mar = c(4, 4, 3, 1))
+plot(logMaxAbund~logMass, data=bird, main = 'All birds')
+abline(lm2, col = 'red')
+plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic, main = 'Terrestrial birds')
+abline(lm3, col = 'red')
+```
 
 ---
 ## Challenge 1 ![:cube]()
 
-- Examine the relationship between log(MaxAbund) and log(Mass) for passerine birds
-- Save the model object as lm4
+- Examine the relationship between `log(MaxAbund)` and `log(Mass)` for passerine birds
+- Save the model object as `lm4`
 
-HINT: Passerine is also coded 0 and 1 (look at str(bird))
+.comment[HINT: Passerine is also coded 0 and 1 (look at `str(bird)`)]
 
-- Compare the variance explained by lm2, lm3 and lm4
+- Compare the variance explained by `lm2`, `lm3` and `lm4`
 
 ---
 ## Challenge 1 - Solution ![:cube]()
 
-The best model among the three models is lm3 *(only terrestrial birds)*
-
 ```{r}
 # Run the model
 lm4 <- lm(logMaxAbund ~ logMass, data=bird, subset=bird$Passerine == 1)
-
-# Examine the diagnostic plots
-par(mfrow=c(2,2))
-plot(lm4)
 summary(lm4)
-
-# Compare variance explained by lm2, lm3 and lm4
-str(summary(lm4))
-
-# Recall: we want adj.r.squared
-summary(lm4)$adj.r.squared # R2-adj = -0.02
-summary(lm2)$adj.r.squared # R2-adj = 0.05
-summary(lm3)$adj.r.squared # R2-adj = 0.25
 ```
 
+---
+## Challenge 1 - Solution ![:cube]()
+
+```{r, echo=-3,fig.height=4.8, fig.width=6.5}
+# diagnostic plots
+par(mfrow=c(2,2), mar = c(4,4,2,1.1), oma =c(0,0,0,0))
+plot(lm4)
+```
+
+---
+## Challenge 1 - Solution ![:cube]()
+
+Compare variance explained by `lm2`, `lm3` and `lm4`
+
+```{r}
+# Recall: we want adj.r.squared
+summary(lm2)$adj.r.squared
+summary(lm3)$adj.r.squared
+summary(lm4)$adj.r.squared
+```
+
+The best model among the three models is `lm3` *(only terrestrial birds)*
 
 ---
 ## Learning objectives
 
 .center[
-![:scale 40%](images/schema_slide1.png)
+![:scale 100%](images/schema_ttest.png)
 ]
+
+---
+class: inverse, center, middle
+
+# ANOVA
+
+## T-test, One-way ANOVA, Two-way ANOVA
+
+---
+## ANOVA
+
+Continuous response variable
+
+**Categorical explanatory variables**
+
+- Two or more levels (groups)
+
+.large[.center[ANOVA tests whether the means of the response variable differs between the levels]]
+
+Sum of squares: within-treatment variance *vs* between-treatment variance
+
+If between-treatment variance $>$ within-treatment variance:
+  - The treatments affect the explanatory variable more than the random error
+  - The explanatory variable is likely to be significantly influenced by the treatments
+
+---
+## Types of ANOVA
+
+1. One-way ANOVA
+  - One factor with 2 or more levels. If there are 2 levels a **t-test** can be used alternatively
+
+2. Two-way ANOVA
+  - 2 factors or more
+  - Each factor can have multiple levels
+  - The interactions between each factor must be tested
+
+3. Repeated measures?
+  - ANOVA can be used for repeated measures, but we won't cover this today
+  - Linear Mixed-effect Models can also be used for this kind of data (you'll see it on Workshop 6)
+
+---
+class: inverse, center, middle
+
+# T-test
 
 ---
 ## T-test
@@ -508,38 +731,31 @@ summary(lm3)$adj.r.squared # R2-adj = 0.25
 - **Response variable**: Continuous
 - **Explanatory variable**: Categorical with **2 levels**
 
-Hypothesis (for a bilateral t-test)
-
-- H0: The mean of group 1 is equal to the mean of group 2
-- H1: The mean of group 1 is not equal to the mean of group 2
-If assumptions cannot be respected,
-
-Hypothesis (for a unilateral t-test)
-- H0: The mean of group 1 is not larger than the mean of group 2
-- H1: The mean of group 1 is smaller than the mean of group 2
-
-Assumptions
+**Assumptions**
 - Data follow a normal distribution
-- Equality of variance between groups
+- Equality of variance between groups (Homoscedasticity)
 
-* robustness of this test increases with sample size and is higher when groups have equal sizes
+.comment[robustness of this test increases with sample size and is higher when groups have equal sizes]
 
 ---
 ## Running a T-test in R
 
 - Use the function `t.test()`
 
-`t.test(Y~X2, data= data, alternative = "two.sided")`
-response variable
-factor (2 levels)
-name of dataframe
-Alternative hypothesis: "two.sided" (default), "less", or "greater"
+```r
+t.test(Y~X2, data= data, alternative = "two.sided")
+```
 
-- The t-test is still a linear model and a specific case of ANOVA with one factor with 2 levels
+  - `Y`: response variable
+  - `X2`: factor (2 levels)
+  - `data`: name of dataframe
+  - `alternative` hypothesis: `"two.sided"` (default), `"less"`, or `"greater"`
+
+The t-test is still a linear model and a specific case of ANOVA with one factor with 2 levels
 
 Thus the function `lm()` can also be used
 
-```
+```r
 lm.t <-lm(Y~X2, data = data)
 anova(lm.t)
 ```
@@ -547,26 +763,23 @@ anova(lm.t)
 ---
 ## Running a T-test in R
 
-Are aquatic birds heavier than non-aquatic birds?
+.large[Are aquatic birds heavier than non-aquatic birds?]
 
-Response variable: **Bird mass** / num: Continuous
-Explanatory variable: **Aquatic** / 2 levels: 1 or 0 (yes or no)
+- Response variable: `Bird mass` ![:faic](arrow-right) num: Continuous
+- Explanatory variable: `Aquatic` ![:faic](arrow-right) 2 levels: 1 or 0 (yes or no)
 
 ---
 ## Running a T-test in R
 
 First, lets visualize the data using the function `boxplot()`
-```{r eval=TRUE}
+
+```{r eval=TRUE,fig.height=4.8, fig.width=6.5}
 boxplot(logMass ~ Aquatic,
-        data = bird,
-        names = c("Non-Aquatic",
-                  "Aquatic"))
+        data = bird, names = c("Non-Aquatic", "Aquatic"))
 ```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.19.png)
-
 ---
-## Running a t-test in R
+## Running a T-test in R
 
 - Next, test the assumption of equality of variance using `var.test()`
 
@@ -587,7 +800,7 @@ ttest1 <- t.test(logMass ~ Aquatic, var.equal = TRUE, data = bird)
 ttest.lm1 <- lm(logMass ~ Aquatic, data=bird)
 ```
 
-Indicates that homogeneity of variance was respected (as we just tested)
+.comment[Indicates that homogeneity of variance was respected (as we just tested)]
 
 You can verify that `t.test()` and `lm()` provide the same model:
 
@@ -597,29 +810,20 @@ anova(ttest.lm1)$F
 # answer: F=60.3845 in both cases
 ```
 
-When the assumption of equal variance is met $t^2$ follows an F distribution
+.comment[When the assumption of equal variance is met $t^2$ follows an F distribution]
 
 ---
-## Running a t-test in R
+## Running a T-test in R
 
-If p<0.01 (or 0.05), the null hypothesis of no difference between the two groups (H0) can be rejected, with a risk of 0.01 (or 0.05) that we made a mistake in this conclusion.
+If $p<0.01$ (or $0.05$ ), the null hypothesis of no difference between the two groups (*H0*) can be rejected, with a risk of $0.01$ (or $0.05$ ) that we made a mistake in this conclusion
 
-There exists a difference in mass between the aquatic and terrestrial birds
-
-mean of the two groups
-
+```{r}
+ttest1
 ```
-Two Sample t-test
 
-data:  logMass by Aquatic
-t = -7.7707, df = 52, p-value = 2.936e-10
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -1.6669697 -0.9827343
-sample estimates:
-mean in group 0 mean in group 1
-       1.583437        2.908289
-```
+.small[.comment[There exists a difference in mass between the aquatic and terrestrial birds `p-value`]]
+
+.small[.comment[Look at themean of the two groups]]
 
 ---
 ## Violation of Assumptions
@@ -631,7 +835,7 @@ mean in group 0 mean in group 1
 ---
 ## Group discussion
 
-- Are aquatic birds heavier than terrestrial birds?
+.large[Are aquatic birds heavier than terrestrial birds?]
 
 ```{r}
 # Unilateral t-test
@@ -639,7 +843,6 @@ uni.ttest1 <- t.test(logMass ~ Aquatic,
                      var.equal = TRUE,
                      data = bird,
                      alternative = "less")
-uni.ttest1
 ```
 
 - What did you conclude?
@@ -651,15 +854,12 @@ uni.ttest1
 uni.ttest1
 ```
 
-Yes, aquatic birds are heavier than terrestrial birds:
-`r uni.ttest1$p.value`
+Yes, aquatic birds are heavier than terrestrial birds: p-value = `r format(uni.ttest1$p.value, scientific=FALSE)`
 
 ---
-## Learning objectives
+class: inverse, center, middle
 
-.center[
-![:scale 40%](images/schema_slide1.png)
-]
+# ANOVA
 
 ---
 ## Analysis of Variance (ANOVA)
@@ -670,6 +870,7 @@ Yes, aquatic birds are heavier than terrestrial birds:
 Y = u + Main effects of Factors + Interactions Between Factors + Residuals
 
 The constant is the mean of the values of the response variable
+
 ---
 ## Types of ANOVA
 
@@ -854,6 +1055,11 @@ segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2)
 ![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.44.png)
 
 ---
+class: inverse, center, middle
+
+# Two-way ANOVA
+
+---
 ## Two-way ANOVA
 
 `anova.with.lm <- lm(Y~X*Z, data)`
@@ -907,9 +1113,13 @@ anova(anov2)
 ## Learning objectives
 
 .center[
-![:scale 40%](images/schema_slide1.png)
+![:scale 100%](images/schema_ancova.png)
 ]
 
+---
+class: inverse, center, middle
+
+# ANCOVA
 
 ---
 ## Analysis of Covariance (ANCOVA)
@@ -989,7 +1199,7 @@ ancova.exemple <- lm(Y ~ X*Z, data=data)
 ```
 
 ```{r eval=FALSE, warning=FALSE}
-library(effects)
+#library(effects)
 adj.means.ex <- effect('Z', ancova.exemple)
 plot(adj.means.ex)
 ```
@@ -1066,9 +1276,13 @@ anova(ancov2)
 ## Learning objectives
 
 .center[
-![:scale 40%](images/schema_slide1.png)
+![:scale 100%](images/schema_multReg.png)
 ]
 
+---
+class: inverse, center, middle
+
+# Multiple linear regression
 
 ---
 ## Multiple linear regression

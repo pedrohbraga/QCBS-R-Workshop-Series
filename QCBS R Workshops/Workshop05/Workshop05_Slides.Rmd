@@ -11,6 +11,7 @@ output:
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
       beforeInit: "qcbsR-macros.js"
+      highlightLines: true
 
 ---
 
@@ -200,12 +201,12 @@ else print("Houston, we have a problem.")
 
 Instead use:
 
-```R
-if (2+2) == 4 {
+```{r}
+if (2+2 == 4) { #<<
   print("Arithmetic works.")
-} else {
+} else { #<<
   print("Houston, we have a problem.")
-}
+} #<<
 ```
 ---
 ## Remember the logical operators
@@ -238,6 +239,8 @@ Loops are good for:
 ---
 ## `for` loop
 
+A `for` loop works in the following way: 
+
 ```R
 for(val in sequence) {
   statement
@@ -245,16 +248,16 @@ for(val in sequence) {
 ```
 
 .center[
-![:scale 60%](images/forloop.png)
+![:scale 50%](images/forloop.png)
 ]
 
-
----  
+---
 ## `for` loop
-
-The letter `i` can be replaced with any variable name and the sequence can be almost anything, even a list of vectors
+The letter `i` can be replaced with any variable name and the sequence can be almost anything, even a list of vectors.
 
 ```r
+# Try the commands below and see what happens:
+
 for (a in c("Hello", "R", "Programmers")) {
   print(a)
 }
@@ -275,20 +278,38 @@ for (element in elements) {
 
 In the example below, R would evaluate the expression 5 times:
 
-```R
+```r
 for(i in 1:5) {
   expression
 }
 ```
 
-In this secod example, in the first iteration, R would replace every instance of `i` with `2`. In the second iteration `i` would be replaced with `4`, then 6, and so on. 
+In the example, every instance of `m` is being replaced by each number between `1:10`, until it reaches the last element of the sequence.
 
-```R
+.pull-left[
+```r
 for(m in 1:10) {
   print(m*2)
 }
 ```
-
+]
+.small[
+.pull-right[.pull-left[
+```{r echo=FALSE}
+for(m in 1:5) {
+  print(m*2)
+}
+```
+]
+.pull-right[
+```{r echo=FALSE}
+for(m in 6:10) {
+  print(m*2)
+}
+```
+]
+]
+]
 ---
 ## `for` loop
 
@@ -307,7 +328,6 @@ print(count)
 .center[
 ![:scale 50%](images/forexample.png)
 ]
-
 
 
 ---
@@ -332,7 +352,7 @@ for (i in 1:length(CO2[,1])) { # for each row in the CO2 dataset
 ---
 ## `for` loop
 
-.alert[Tip 1] to loop over the number of rows of a data frame, we can use the function `nrow()`
+.alert[Tip 1]. To loop over the number of rows of a data frame, we can use the function `nrow()`
 
 ```r
 for (i in 1:nrow(CO2)) { # for each row in the CO2 dataset
@@ -340,18 +360,18 @@ for (i in 1:nrow(CO2)) { # for each row in the CO2 dataset
 }
 ```
 
-.alert[Tip 2] if we want to perform operations on the elements of one column, we can directly iterate over it
+.alert[Tip 2]. If we want to perform operations on the elements of one column, we can directly iterate over it
 
 ```r
-for (i in 1:CO2$conc) { # for each row of the column conc of the CO2 df
-  print(i) # print the ith element
+for (p in 1:CO2$conc) { # for each row of the column "conc"of the CO2 df
+  print(p) # print the p-th element
 }
 ```
 
 ---
 ## `for` loop
 
-The expression part of the loop can be almost anything and is usually a compound statement containing many commands.
+The expression within the loop can be almost anything and is usually a compound statement containing many commands.
 
 ```r
 for (i in 4:5) { # for i in 4 to 5
@@ -360,19 +380,172 @@ for (i in 4:5) { # for i in 4 to 5
 }
 ```
 
+Output:
+```{r echo = FALSE}
+for (i in 4:5) { # for i in 4 to 5
+  print(colnames(CO2)[i])  
+  print(mean(CO2[,i])) # print the mean of that column from the CO2 dataset
+}
+```
 ---
-## Nested `for` loop
+## `for` loops within `for` loops
 
-In some cases, you may want to use nested loops to accomplish a task. When using nested loops, it is important to use different variables as counters for each of your loops. Here we used *i* and *n* :
-
+In some cases, you may want to use nested loops to accomplish a task. When using nested loops, it is important to use different variables as counters for each of your loops. Here we used `i` and `n`:
+.pull-left[
 ```r
-for (i in 1:5) {
-  for (n in 1:5) {
+for (i in 1:3) {
+  for (n in 1:3) {
     print (i*n)
   }
 }
 ```
+]
+.pull-right[
+```{r echo = -c(2:5)}
+# Output
 
+for (i in 1:3) {
+  for (n in 1:3) {
+    print (i*n)
+  }
+}
+```
+]
+
+---
+## Getting good: using the `apply()` family
+
+R disposes of the `apply()` function family, which consists of vectorized functions that aim at **minimizing your need to explicitly create loops**. 
+
+`apply()` can be used to apply functions to a matrix.
+.pull-left[
+```{r}
+(height <- matrix(c(1:10, 21:30), 
+                 nrow = 5, 
+                 ncol = 4))
+
+```
+]
+.pull-right[
+```{r}
+apply(X = height, 
+      MARGIN = 1, 
+      FUN = mean)
+
+```
+
+```r
+?apply
+```
+]
+
+---
+## `lapply()`
+
+`lapply()` applies a function to every element of a `list`.
+
+It may be used for other objects like **dataframes**, **lists** or **vectors**.
+
+The output returned is a `list` (explaining the “`l`” in `lapply`) and has the same number of elements as the object passed to it.
+
+.pull-left[
+```{r eval = FALSE}
+SimulatedData <- list(
+  SimpleSequence = 1:4, 
+  Norm10 = rnorm(10),
+  Norm20 = rnorm(20, 1),
+  Norm100 = rnorm(100, 5))
+
+# Apply mean to each element 
+## of the list 
+lapply(SimulatedData, mean)
+```
+]
+.small[
+.pull-right[
+```{r echo=FALSE}
+SimulatedData <- list(SimpleSequence = 1:4, 
+             Norm10 = rnorm(10), 
+             Norm20 = rnorm(20, 1), 
+             Norm100 = rnorm(100, 5))
+
+# Apply mean to each element of the list 
+lapply(SimulatedData, mean)
+```
+]
+]
+
+---
+## `sapply()`
+
+`sapply()` sapply() is a ‘wrapper’ function for `lapply()`, but returns a simplified output as a `vector`, instead of a `list`.
+
+
+The output returned is a `list` (explaining the “`l`” in `lapply`) and has the same number of elements as the object passed to it.
+
+.small[
+```{r eval = FALSE}
+SimulatedData <- list(SimpleSequence = 1:4, 
+             Norm10 = rnorm(10), 
+             Norm20 = rnorm(20, 1), 
+             Norm100 = rnorm(100, 5))
+
+# Apply mean to each element of the list 
+sapply(SimulatedData, mean)
+```
+]
+
+.small[
+```{r echo = c(5)}
+SimulatedData <- list(SimpleSequence = 1:4, 
+             Norm10 = rnorm(10), 
+             Norm20 = rnorm(20, 1), 
+             Norm100 = rnorm(100, 5))
+
+# Output
+sapply(SimulatedData, mean)
+
+```
+]
+---
+## `mapply()`
+
+`mapply()` works as a multivariate version of `sapply()`. 
+
+It will apply a given function to the first element of each argument first, followed by the second element, and so on. For example:
+
+
+```{r eval = FALSE}
+lilySeeds <- c(80, 65, 89, 23, 21)
+poppySeeds <- c(20, 35, 11, 77, 79)
+  
+# Output
+mapply(sum, lilySeeds, poppySeeds)
+```
+
+
+```{r echo = c(3)}
+lilySeeds <- c(80, 65, 89, 23, 21)
+poppySeeds <- c(20, 35, 11, 77, 79)
+  
+# Output
+mapply(sum, lilySeeds, poppySeeds)
+```
+
+---
+## `tapply()`
+
+`tapply()` is used to apply a function over subsets of a vector. 
+
+It is primarily used when the dataset contains  dataset contains different groups (*i*.*e*. levels/factors) and we want to apply a function to each of these groups.
+.small[
+```{r}
+head(mtcars)
+
+# get the mean hp by cylinder groups
+tapply(mtcars$hp, mtcars$cyl, FUN = mean)
+```
+]
 ---
 ## Challenge 2 ![:cube]()
 
@@ -383,20 +556,26 @@ You have realized that your tool for measuring uptake was not calibrated properl
 2. Use a vectorisation-based method to calculate the mean CO2-uptake in both areas.
 
 ---
+
 ## Challenge 2: Solution ![:cube]()
 
-```r
+
+1. Using `for` and `if` to correct the measurements:
+```{r echo=TRUE}
 for (i in 1:length(CO2[,1])) {
   if(CO2$Type[i] == "Quebec") {
     CO2$uptake[i] <- CO2$uptake[i] - 2
   }
 }
+```
+
+2. Using `tapply()` to calculate the mean for each group:
+```{r echo=TRUE}
 tapply(CO2$uptake, CO2$Type, mean)
 ```
-<!-- remove tapply from the exercice or explain it before -->
-
 ---
-## Modifying iterations
+
+# Modifying iterations
 
 Normally, loops iterate over and over until they finish
 

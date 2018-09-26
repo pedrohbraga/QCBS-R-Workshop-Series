@@ -1362,20 +1362,9 @@ recalibrate <- function(CO2, type, bias) {
 ---
 class: inverse, center, bottom
 
-# Thank you for attending!
+# Thank you for attending this workshop!
 
 ![:scale 50%](images/qcbs_logo.png)
-
----
-class: inverse, center, middle
-
-# Speeding up your code
-
----
-class: inverse, center, middle
-
-# Other packages of interest
-
 
 
 

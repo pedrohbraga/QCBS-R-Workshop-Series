@@ -90,34 +90,27 @@ Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
 7. Fine tunning
   * Color
   * Theme
----
-## Introduction
 
-Why use R for plotting?
+---
+## Introduction : Why use R for plotting?
 
 <div style="text-align:center">
 <img src="images/ggplot_divided.png" height=85% width=85%>
 </div>
 ---
-## Introduction
-
-Why use R for plotting?
+## Introduction : Why use R for plotting?
 
 <div style="text-align:center">
 <img src="images/ggplot_reproducible.png" height=85% width=85%>
 </div>
 
 ---
-## Introduction
-
-Why use R for plotting?
-
+## Introduction : Why use R for plotting?
 Beautiful and flexible graphics!
 
-<div style="text-align:center">
-<img src="images/multiExamplePlot.bmp" height=85% width=85%>
-</div>
-
+```{r, echo=FALSE, fig.width=7}
+source(file="./scripts/multiExamplePlot.R")
+```
 ---
 ## Introduction
 
@@ -161,22 +154,7 @@ A graphic is made of different layers:
 
 <img src="images/ggplot_grammar_test.png" height=90% width=90%>
 
---- 
-## Grammar of graphics (gg)
-A graphic is made of elements (layers)
-
-- Data
-- Aesthetics (aes), to make data visible
-    * x,y : position along the x and y axis
-    * colour: the colour of the point
-    * group: what group a point belongs to
-    * shape: the figure used to plot a point
-    * linetype: the type of line used (solid, dashed, etc)
-    * size: the size of the point or line
-    * alpha: the transparency of the point
-
 ---
-## Example of use
 ```{r, eval = FALSE}
 ggplot(data = iris,             # Data
        aes(x = Sepal.Length,    # Your X-value
@@ -184,14 +162,12 @@ ggplot(data = iris,             # Data
            col = Species)) +    # Aesthtics
   geom_point() +                # Geometry
   geom_smooth(method = "lm") +  # Linear regression
-  ggtitle("My fabulous graph")+  # Title
-  theme(plot.title=
-    element_text(color="red",
-                 size=14,
-                 face="bold.italic")) # Theme
+  ggtitle("My fabulous graph")+ # Title
+  theme(plot.title= element_text(color="red",         #|
+                                 size=14,             #| Theme
+                                 face="bold.italic")) #| 
 ```
----------|--------
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.height=3.5, fig.width=5}
 ggplot(data = iris,             # Data
        aes(x = Sepal.Length,    # Your X-value
            y = Sepal.Width,     # Your Y-value
@@ -204,31 +180,60 @@ ggplot(data = iris,             # Data
                  size=14,
                  face="bold.italic")) # Theme
 ```
-
-
 ---
 ## Importance in data structure for ggplot2
-use example and data base from previous slide
+.alert[use example and data base from previous slide]
 ```{r}
 head(iris)
 ```
 
 ---
 ## A simple Example with Ibis database
-
-```{r}
+  .alert[wiki : Inheritance dynamics]
+.small[
+.pull-left[
+```{r, eval=FALSE}
 ggplot(data = iris,             # Data
        aes(x = Sepal.Length,    # Your X-value
            y = Sepal.Width)) +  # Your Y-value
-       geom_point()             # Geometry       
+  geom_point()                  # Geometry       
 ```
+]
+.pull-right[
+```{r, eval=FALSE}
+ggplot() + 
+  geom_point(data = iris,             # Data         |
+             aes(x = Sepal.Length,    # Your X-value | Geometry 
+                 y = Sepal.Width))    # Your Y-value |                   
+```
+]
+
+.pull-left[
+```{r, eval=FALSE}
+gplot.obj <- ggplot(data = iris, 
+                    aes(x = Sepal.Length, 
+                        y = Sepal.Width)) 
+gplot.obj <- gplot.obj + geom_point()
+gplot.obj   # Print your final plot
+```
+]
+.pull-right[
+```{r, eval=FALSE}
+gplot.obj <- ggplot()
+gplot.obj <- gplot.obj +
+  geom_point(data = iris,
+             aes(x = Sepal.Length, 
+                 y = Sepal.Width))
+gplot.obj
+```
+]
+]
 
 ---
 ## What's happen ?
 * base layer
 ```{r}
 ggplot() + 
-coord_cartesian() +
 scale_x_continuous() +
 scale_y_continuous() 
 ```
@@ -249,7 +254,6 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
   geom_point()
 ```
 ---
-
 ## Challenge #1 (5min)
 
 Draw your 1rst (gg)plot:
@@ -257,7 +261,6 @@ Draw your 1rst (gg)plot:
   * data : Petal length & Petal width
 
 ---
-
 ## Solution Challenge 1#
 ```{r}
 ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
@@ -265,7 +268,6 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
 ```
 
 ---
-
 ## Aesthetic
 Different aesthetic are available to help you distinguish different class, group & structure within your data: 
   * color
@@ -288,14 +290,11 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width,
 
 Produce a colourful plot from built in data such as the , Iris, CO2 or the msleep dataset
 
-```{r, eval=FALSE}
-?iris
-data("iris")
-?CO2
-data(CO2)
-?msleep
-data(msleep)
-```
+Data|x value|y value| Aesthetic
+:-------------:|:-------------:|:-------------:|:-------------:
+iris|Petal.Length|Petal.Width|Species
+CO2|conc|uptake|Treatment & Type
+msleep|log10(bodywt)|awake| vore & conservation
 
 ---
 ## Solution to challenge #2
@@ -341,7 +340,6 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width,
 ```
 ---
 
----
 # Facet : CO2
 ```{r, echo=F, fig.align="center", fig.width=6, fig.height=4}
 CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
@@ -382,7 +380,30 @@ multiplot(CO2.plot.facet.baline, CO2.plot.facet.line)
 ## Fine Tunning : Colour
   * Colour: Manual_colour
 
+```{r, fig.align="center", fig.width=6, fig.height=4}
+CO2.plot +
+  scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
+```  
+
 ---
+## Fine tuning - colours
+  * Coulours theme
+```{r, eval=FALSE}
+install.packages("RColorBrewer")
+require(RColorBrewer)
+```
+
+```{r, fig.align="center", fig.width=6, fig.height=6}
+display.brewer.all()
+```
+
+---
+## Fine tuning - colours
+```{r, fig.align="center"}
+CO2.plot + scale_color_brewer(palette = "Dark2")
+```
+---
+
 ## Fine Tunning : Colour
   * Gradient Colour : scale_fill & scale_color
 
@@ -397,241 +418,11 @@ multiplot(CO2.plot.facet.baline, CO2.plot.facet.line)
 install.packages("RColorBrewer")
 require(RColorBrewer)
 ```
----
 
+
+---
 ## Fine Tunning : Theme
   * Theme: classic, blank & black&White
-
----
-## Final Challenge
-  * Dataset : any (recommanded: use your dataset)
-  * geom : any
-  * aes : any
-
----
-## Solution of the final Challenge
-
----
-## Miscellaneous
-  * .alert[Put other Crazy R visualisation]
-  * .alert[A time for a tour on r-graph-gallery.com]
-  * .alert[Itroduce Dynamics representative]
-  * .alert[May be let the choice to the current speaker to show its own tricks and/or own data visu]
-
----
-
-
-### OLD SLIDES START HERE
-
-
----
-
-## Solution to challenge #2 (old slide)
-
-Example using CO2 database
-
-```{r, echo=F, fig.height=4, fig.width=6, fig.align='center'}
-data(CO2)
-CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
-    geom_point() +
-    xlab("CO2 Concentration (mL/L)") +
-    ylab("CO2 Uptake (umol/m^2 sec)") +    
-    ggtitle("CO2 uptake in grass plants") +
-    geom_smooth(method = "loess")
-CO2.plot
-```
----
-## Grammar of graphics (gg)
-A graphic is made of elements (layers)
-
-- Data
-- Aesthetics (aes)
-- Geometric objects (geoms)
-    * `geom_point()`: scatterplot
-    * `geom_line()`: lines connecting points by increasing value of x
-    * `geom_path()`: lines connecting points in sequence of appearance
-    * `geom_boxplot()`: box and whiskers plot for categorical variables
-    * `geom_bar()`: bar charts for categorical x axis
-    * `geom_histogram()`: histogram for continuous x axis
-
----
-## Grammar of graphics (gg)
-Edit any single element to produce a new graph
-e.g., by changing the coordinate system
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8.5, fig.align='center', fig.height=5}
-plot1 <- ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = cut))
-
-plot2 <- ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = cut)) +
-  coord_polar()
-
-grid.arrange(plot1, plot2, ncol=2)
-```
-
----
-## How it works
-
-Create a simple plot object:
-
-  * `plot.object <- ggplot()` OR `qplot()`
-
-Add graphical layers:
-
-  * `plot.object <- plot.object + layer()`
-
-Repeat step 2 until statisfied, then print:
-
-  * `print(plot.object)`
-
----
-## `qplot()` vs `ggplot()`
-
-```{r, eval = FALSE, message=FALSE, warning=FALSE}
-qplot(data = iris,
-      x = Sepal.Length,
-      xlab = "Sepal Length (mm)",
-      y = Sepal.Width,
-      ylab = "Sepal Width (mm)",
-      main = "Sepal dimensions")
-
-ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
-  geom_point() +
-  xlab("Sepal Length (mm)") +
-  ylab("Sepal Width (mm)") +
-  ggtitle("Sepal dimensions")
-```
-
----
-## Assign plot to an R object
-
-```{r, fig.height=3.8, fig.width=3.8, fig.align='center'}
-basic.plot <- ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width)) +
-    geom_point()+
-    xlab("Sepal Length (mm)") + ylab("Sepal Width (mm)") +
-    ggtitle("Sepal dimensions")
-basic.plot
-```
-
----
-
-## Adding colours and shapes
-
-Add aesthetics using `aes()`
-
-```{r, fig.height=4, fig.width=6, fig.align='center'}
-basic.plot <- basic.plot + aes(colour = Species, shape = Species)
-basic.plot
-```
-
----
-## Adding geometric objects
-
-Add linear regressions with geom_smooth()
-
-```{r, fig.height=4, fig.width=6, fig.align='center'}
-linear.smooth.plot <- basic.plot + geom_smooth(method = "lm", se = F)
-linear.smooth.plot
-```
-
----
-## Adding multiple facets and groups
-
-Data becomes difficult to visualize when there are multiple factors, e.g., the CO2 data set contains data on CO2 uptake for chilled vs non-chilled treatments from two different regions. Let's build a basic plot using this data set:
-
-```{r, eval=F}
-CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
-    geom_point() +
-    xlab("CO2 Concentration (mL/L)") +
-    ylab("CO2 Uptake (umol/m^2 sec)") +    
-    ggtitle("CO2 uptake in grass plants")
-CO2.plot
-```
-
----
-## Adding multiple facets and groups
-
-```{r, echo=F, fig.align="center", fig.width=6, fig.height=4}
-CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
-    geom_point() +
-    xlab("CO2 Concentration (mL/L)") +
-    ylab("CO2 Uptake (umol/m^2 sec)") +    
-    ggtitle("CO2 uptake in grass plants")
-CO2.plot
-```
-
----
-## Adding multiple facets and groups
-
-If we want to compare regions, it is useful to make two panels.
-Synthax: `plot.object + facet_grid(rows ~ columns)`
-
-```{r, fig.align="center", fig.width=5.5, fig.height=3.5}
-CO2.plot <- CO2.plot + facet_grid(. ~ Type)
-CO2.plot
-```
-
----
-## Adding multiple facets and groups
-
-Now that we have 2 facets, let's observe how the CO2 uptake evolves as CO2 concentrations rise, by adding connecting lines to the points using `geom_line()`:
-
-```{r, fig.align="center", fig.width=5.5, fig.height=3.5}
-CO2.plot + geom_line()
-```
-Not good, because each treatment in each region has 3 replicates
-
----
-## Adding multiple facets and groups
-
-Specify groups
-
-```{r, fig.align="center", fig.width=5.5, fig.height=3.5}
-CO2.plot <- CO2.plot + geom_line(aes(group = Plant))
-CO2.plot
-```
-
----
-## Available elements
-
-[Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
-
-<div style="text-align:center">
-<img src="images/available_geom.png" height=50% width=50%>
-</div>
-
----
-## Additional resources
-
-`help(package = ggplot)`
-
-http://ggplot2.tidyverse.org/reference/
-
-<div>
-  <img src="images/ggplot_book.jpg"/>
-  <img src="images/grammar_of_graphics.jpg"/>
-</div>
-
----
-## Challenge #3
-
-Explore a new geom and other plot elements with your own data or built in data.
-
-```{r, eval = FALSE}
-data(msleep)
-data(OrchardSprays)
-```
-
----
-## Solution to challenge #3
-
-```{r, fig.align='center', fig.width=4, fig.height=4}
-data(OrchardSprays)
-box.plot <- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) +
-  geom_boxplot()
-box.plot
-```
 
 ---
 ## Saving plots in RStudio
@@ -639,7 +430,6 @@ box.plot
 <div style="text-align:center">
 <img src="images/save_image.png" height=90% width=90%>
 </div>
-
 
 ---
 ## Saving plots in code
@@ -662,27 +452,71 @@ Other methods to save image
 `?jpeg`
 
 ---
-## Fine tuning - colours
-
-```{r, fig.align="center", fig.width=6, fig.height=4}
-CO2.plot +
-  scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
-```
-
----
-## Fine tuning - colours
-
+## Final Challenge
+  * Dataset : any (recommanded: use your dataset)
 ```{r, eval=FALSE}
-install.packages("RColorBrewer")
-require(RColorBrewer)
+data(msleep)
+data(OrchardSprays)
 ```
-
-```{r, fig.align="center", fig.width=6, fig.height=6}
-display.brewer.all()
-```
+  * geom : any
+  * aes : any
 
 ---
-## Fine tuning - colours
-```{r, fig.align="center"}
-CO2.plot + scale_color_brewer(palette = "Dark2")
+## Solution of the final Challenge
+
+---
+## Solution to Final Challenge
+
+```{r, fig.align='center', fig.width=4, fig.height=4}
+data(OrchardSprays)
+box.plot <- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) +
+  geom_boxplot()
+box.plot
 ```
+---
+## Miscellaneous
+  * .alert[Put other Crazy R visualisation]
+  * .alert[A time for a tour on r-graph-gallery.com]
+  * .alert[Itroduce Dynamics representative]
+  * .alert[May be let the choice to the current speaker to show its own tricks and/or own data visu]
+
+---
+## Miscellaneous : `qplot()` vs `ggplot()`
+
+```{r, eval = FALSE, message=FALSE, warning=FALSE}
+qplot(data = iris,
+      x = Sepal.Length,
+      xlab = "Sepal Length (mm)",
+      y = Sepal.Width,
+      ylab = "Sepal Width (mm)",
+      main = "Sepal dimensions")
+
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point() +
+  xlab("Sepal Length (mm)") +
+  ylab("Sepal Width (mm)") +
+  ggtitle("Sepal dimensions")
+```
+---
+## Available elements
+
+[Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+
+<div style="text-align:center">
+<img src="images/available_geom.png" height=50% width=50%>
+</div>
+
+---
+
+### OLD SLIDES START HERE
+---
+## Additional resources
+
+`help(package = ggplot)`
+
+http://ggplot2.tidyverse.org/reference/
+
+<div>
+  <img src="images/ggplot_book.jpg"/>
+  <img src="images/grammar_of_graphics.jpg"/>
+</div>

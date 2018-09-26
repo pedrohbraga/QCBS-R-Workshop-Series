@@ -173,7 +173,7 @@ $$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i
 ## Work follow
 
 .center[
-![:scale 55%](images/schema.png)
+![:scale 62%](images/schema.png)
 ]
 
 - Plot the data
@@ -310,7 +310,7 @@ Example of independence (what we want!)
 
 - Should show a scatter across and no pattern
 
-```{r, echo = FALSE, fig.height=4, fig.width=5}
+```{r, echo = FALSE, fig.height=4.2, fig.width=5.5}
   set.seed(1234564)
   x <- rnorm(100,10,10)
   y <- 2*x+0 + rnorm(100)
@@ -321,10 +321,7 @@ Example of independence (what we want!)
 ---
 ## Diagnostic plot # 1 - Residuals vs Fitted
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.25.png)
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.32.png)
-
-```{r eval=FALSE, echo=FALSE, fig.height=4, warning=FALSE}
+```{r, echo=FALSE, fig.height=4, fig.width=8.5, warning=FALSE}
 par(mfrow=c(1,2))
 set.seed(1234564)
 x = rnorm(100,10,10)
@@ -333,7 +330,7 @@ lm=lm(y~scale(x))
 plot(lm,which = 1, main = "Nonlinear", col.main="red")
 
 x = rnorm(100,10,10)
-y = (x)+0 + rnorm(length(x),0,x)
+y = (x) + 0 + rnorm(length(x), 0, x)
 lm=lm(y~scale(x))
 plot(lm,which = 1, main = "Heteroscedastic", col.main="red")
 ```
@@ -345,12 +342,23 @@ plot(lm,which = 1, main = "Heteroscedastic", col.main="red")
 
 - Should show a scatter across and no pattern
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.41.png)
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.38.54.png)
+```{r, echo=FALSE, fig.height=3.8, fig.width=8, warning=FALSE}
+par(mfrow=c(1,2))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm,which = 3)
 
-No pattern in the residuals
+set.seed(2)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm,which = 3)
+```
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
 
-  - Strong pattern in the residuals
+.pull-left[.center[No pattern in the residuals]] .pull-right[.center[Strong pattern in the residuals]]
 
 ---
 ## Diagnostic plot # 3 - Normal QQ
@@ -358,9 +366,28 @@ No pattern in the residuals
 - Compares the distribution (quantiles) of the residuals of the current model to those of a normal distribution
 - If points lie linearly on the 1:1 line, data follow a normal distribution
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.03.png)
+```{r, echo=FALSE, fig.height=3, fig.width=8, warning=FALSE}
+par(mfrow=c(1,2), mar = c(4, 4, 1.5, 3))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm, which = 2)
+
+set.seed(2)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm, which = 2)
+```
+
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
+
+.pull-left[.center[Good!]] .pull-right[.center[Not that good...]]
+
 ---
 ## Diagnostic plot # 4 - Residuals vs Leverage
+
 - Looks for influential values
 - **Leverage points**: observations at extreme/ outlying values of the explanatory variable. Because they lack neighboring observations, the regression model passes close to leverage points. **They may OR may not have a high influence on the regression.**
 - High leverage points with high influence can be identified with a **Cook's distance greater than 0.5**
@@ -368,86 +395,135 @@ No pattern in the residuals
 ---
 ## Leverage vs influence
 
+```{r, echo=FALSE, fig.height=6, fig.width=5, warning=FALSE}
+par(mfrow=c(3, 1), mar = c(4, 15, 1, 3), cex = 0.75)
+set.seed(1234564)
+x <- 1:20
+y <- rnorm(x, x, 2)
+lm0 <- lm(y ~ x)
+# plot 1
+plot(x, y, ylim = c(-4, 22)); abline(lm0, col = 2); points(11, -3, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 11); yy <- c(y, -3)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-18, 10, srt=0, adj = 0, labels = '* No leverage \n* Low influence', xpd = TRUE, cex = 1.5)
+# plot 2
+plot(x, y, ylim = c(-4, 32), xlim = c(0, 31)); abline(lm0, col = 2); points(30, 30, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 30); yy <- c(y, 30)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-31, 15, srt=0, adj = 0, labels = '* High leverage \n* No influence', xpd = TRUE, cex = 1.5)
 
-- No leverage
-- Low influence
+# plot 3
+plot(x, y, ylim = c(-4, 32), xlim = c(0, 31)); abline(lm0, col = 2); points(30, 15, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 30); yy <- c(y, 15)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-31, 15, srt=0, adj = 0, labels = '* High leverage \n* High influence', xpd = TRUE, cex = 1.5)
+```
 
-- High leverage
-- No influence
-
-- High leverage
-- High influence
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.15.png)
 ---
+## Leverage vs influence
 
-No influential values
+```{r, echo=FALSE, fig.height=3.5, fig.width=9, warning=FALSE}
+par(mfrow=c(1,2), mar = c(4, 4, 1.5, 3))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm, which = 5)
 
-High leverage point and reasonable influence
-- Here, point 32 has high leverage but its influence is acceptable (inside the 0.5 Cook's distance limits)
+set.seed(1234564)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm, which = 5)
+```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.39.48.png)
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
+
+.pull-left[.center[No influential values]]
+.pull-right[.center[High leverage point and reasonable influence]]
+
+<br />
+<br />
+<br />
+
+.comment[Point 29 has high leverage but its influence is acceptable (inside the 0.5 Cook's distance limits)]
 
 ---
+## Leverage vs influence
 
 High leverage point and high influence
-- Points are outside the 0.5 limit of Cook's distance
+
+<br />
+
+.pull-left[
+```{r, echo=FALSE, fig.height=3.5, fig.width=4, warning=FALSE}
+par(mar = c(4, 4, 1, 0))
+set.seed(1234564)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+y[29] <- 100
+lm=lm(y~scale(x))
+plot(lm, which = 5)
+```
+]
+.pull-right[
+- Point 29 is outside the 0.5 limit of Cook's distance
 - These points have too much influence on the regression
+]
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.08.png)
-
-.alert[Note]: you should never remove outliers if you don't have good reasons to do so (ex: error of measurement)
+.alert[You should never remove outliers if you don't have good reasons to do so (ex: error of measurement)]
 
 ---
+## **Step 2**. Verify assumptions of `lm1`
 
-**Step 2**. Verify assumptions of `lm1`
-
-```{r, fig.height=4.9, fig.width=4.9}
-par(mfrow=c(2,2), mar = c(4,4,2,1), oma =c(0,0,0,0))
+```{r, fig.height=4.9, fig.width=5.5}
+par(mfrow=c(2,2), mar = c(4,4,2,1.1), oma =c(0,0,0,0))
 plot(lm1)
 ```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.17.png)
-
 ---
 ## Assumptions not met - what is wrong?
 
-- Plot Y ~ X with corresponding best-fit regression line, and a histogram of Y and X to explore their distributions
+Plot Y ~ X with corresponding best-fit regression line, and a histogram of Y and X to explore their distributions
 
-```{r, fig.height=2.6, fig.width=8}
-par(mfrow=c(1,3), mar = c(4,4,3,1))
+```{r, fig.height=2.7, fig.width=9, echo = -1}
+par(mfrow=c(1,3), mar = c(4,4,3,1), cex = 0.8)
 plot(bird$MaxAbund ~ bird$Mass)
-abline(lm1)
-hist(bird$MaxAbund)
+abline(lm1) # adds the best-fit line
+hist(bird$MaxAbund) # hist() produces a histogram of the variable
 hist(bird$Mass)
 ```
 
-- The function `abline()` adds the best-fit line
-- The function `hist()` produces a histogram of the variable
-
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.26.png)
-
 ---
 ## Assumptions not met - what is wrong?
 
-Can also use the `Shapiro-Wilk` and the `Skewness` tests to see if variables follow a normal distribuon:
+Can also use the **`Shapiro-Wilk`** and the `Skewness` tests to see if variables follow a normal distribuon:
 
 ```{r}
 shapiro.test(bird$MaxAbund)
 shapiro.test(bird$Mass)
 ```
-In both cases, distributions are significantly different from normal
+.comment[In both cases, distributions are significantly different from normal]
+
+---
+## Assumptions not met - what is wrong?
+
+Can also use the `Shapiro-Wilk` and the **`Skewness`** tests to see if variables follow a normal distribuon:
 
 ```{r}
 skewness(bird$MaxAbund)
 skewness(bird$Mass)
 ```
-The positive skewness values also indicate that the distributions are left skewed
+.comment[The positive skewness values also indicate that the distributions are left skewed]
 
 ---
 ## Transform the data
 
 - Lets try normalizing data with a `log10()` transformation
-- Add the log-transformed variables to our dataframe
+- Add the log-transformed variables to our data frame
 
 ```{r}
 bird$logMaxAbund <- log10(bird$MaxAbund)
@@ -461,44 +537,44 @@ lm2 <- lm(logMaxAbund ~ logMass, data = bird)
 ```
 
 ---
-**Step 2**: Verify assumptions of model `lm2`
+## **Step 2**: Verify assumptions of model `lm2`
 
-```{r, fig.height=4, fig.width=4}
-par(mfrow=c(2,2), mar=c(4,4,3,1))
+```{r, fig.height=4.4, fig.width=5.9}
+par(mfrow=c(2,2), mar=c(3,4,1.15,1.2))
 plot(lm2)
 ```
 
-- Much improved!
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.37.png)
+.comment[.center[Much improved!]]
 
 ---
-**Step 2**: Verify assumptions of model `lm2`
+## **Step 2**: Verify assumptions of model `lm2`
 
-```{r}
+```{r, echo=-1, fig.height=3.4, fig.width=9}
+par(mfrow=c(1,3), mar=c(4,4,1.15,1.2))
 plot(logMaxAbund ~ logMass, data=bird)
 abline(lm2)
 hist(log10(bird$MaxAbund))
 hist(log10(bird$Mass))
 ```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.47.png)
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.40.54.png)
-
 ---
-
-**Step 3**: Estimate parameters and test significance
+## **Step 3**: Estimate parameters and test significance
 
 The function `summary()` is used to obtain parameter estimates, significance, etc.
 
+.small[
 ```{r}
 summary(lm2)
 ```
+]
 
-- We can also call out specific parameters of the model, for example:
+---
+## **Step 3**: Estimate parameters and test significance
 
-```{r eval=FALSE}
+We can also call out specific parameters of the model, for example:
+
+```{r}
 lm2$coef
-str(summary(lm2))
 summary(lm2)$coefficients
 summary(lm2)$r.squared
 ```
@@ -510,24 +586,18 @@ summary(lm2)$r.squared
 - Are the parameters significant?
 - What proportion of variance is explained by model `lm2`?
 
+.small[
+```{r}
+summary(lm2)
 ```
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)
-(Intercept)   1.6724     0.2472   6.767 1.17e-08 ***
-logMass      -0.2361     0.1170  -2.019   0.0487 *
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.6959 on 52 degrees of freedom
-Multiple R-squared:  0.07267,	Adjusted R-squared:  0.05484
-F-statistic: 4.075 on 1 and 52 DF,  p-value: 0.04869
-```
+]
 
 ---
 ## Group discussion
 
 Can we improve the model if we only use terrestrial birds?
-**You could exclude objects using "=!"
+
+.comment[You could exclude objects using `=!`]
 
 ```{r}
 lm3 <- lm(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
@@ -548,53 +618,66 @@ plot(logMaxAbund~logMass, data=bird)
 plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
 ```
 
-
 ---
 ## Plot
 
-- R2-adj changed from 0.05 to 0.25 when we dropped aquatic birds:
+`R2-adj` changed from $0.05$ to $0.25$ when we dropped aquatic birds:
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.05.png)
+```{r, fig.height=3.5, fig.width=7}
+par(mfrow=c(1,2), mar = c(4, 4, 3, 1))
+plot(logMaxAbund~logMass, data=bird, main = 'All birds')
+abline(lm2, col = 'red')
+plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic, main = 'Terrestrial birds')
+abline(lm3, col = 'red')
+```
 
 ---
 ## Challenge 1 ![:cube]()
 
-- Examine the relationship between log(MaxAbund) and log(Mass) for passerine birds
-- Save the model object as lm4
+- Examine the relationship between `log(MaxAbund)` and `log(Mass)` for passerine birds
+- Save the model object as `lm4`
 
-HINT: Passerine is also coded 0 and 1 (look at str(bird))
+.comment[HINT: Passerine is also coded 0 and 1 (look at `str(bird)`)]
 
-- Compare the variance explained by lm2, lm3 and lm4
+- Compare the variance explained by `lm2`, `lm3` and `lm4`
 
 ---
 ## Challenge 1 - Solution ![:cube]()
 
-The best model among the three models is lm3 *(only terrestrial birds)*
-
 ```{r}
 # Run the model
 lm4 <- lm(logMaxAbund ~ logMass, data=bird, subset=bird$Passerine == 1)
-
-# Examine the diagnostic plots
-par(mfrow=c(2,2))
-plot(lm4)
 summary(lm4)
-
-# Compare variance explained by lm2, lm3 and lm4
-str(summary(lm4))
-
-# Recall: we want adj.r.squared
-summary(lm4)$adj.r.squared # R2-adj = -0.02
-summary(lm2)$adj.r.squared # R2-adj = 0.05
-summary(lm3)$adj.r.squared # R2-adj = 0.25
 ```
 
+---
+## Challenge 1 - Solution ![:cube]()
+
+```{r, echo=-3,fig.height=4.8, fig.width=6.5}
+# diagnostic plots
+par(mfrow=c(2,2), mar = c(4,4,2,1.1), oma =c(0,0,0,0))
+plot(lm4)
+```
+
+---
+## Challenge 1 - Solution ![:cube]()
+
+Compare variance explained by `lm2`, `lm3` and `lm4`
+
+```{r}
+# Recall: we want adj.r.squared
+summary(lm2)$adj.r.squared
+summary(lm3)$adj.r.squared
+summary(lm4)$adj.r.squared
+```
+
+The best model among the three models is `lm3` *(only terrestrial birds)*
 
 ---
 ## Learning objectives
 
 .center[
-![:scale 40%](images/schema_slide1.png)
+![:scale 100%](images/schema.png)
 ]
 
 ---
@@ -1084,7 +1167,7 @@ ancova.exemple <- lm(Y ~ X*Z, data=data)
 ```
 
 ```{r eval=FALSE, warning=FALSE}
-library(effects)
+#library(effects)
 adj.means.ex <- effect('Z', ancova.exemple)
 plot(adj.means.ex)
 ```

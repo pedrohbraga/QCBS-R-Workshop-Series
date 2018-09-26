@@ -18,6 +18,7 @@ output:
 knitr::opts_chunk$set(
   comment = "#",
   collapse = TRUE,
+  #cache = TRUE,
   warning = FALSE,
   message = FALSE,
   fig.width=6, fig.height=6,

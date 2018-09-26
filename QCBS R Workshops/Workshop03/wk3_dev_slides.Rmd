@@ -1,0 +1,73 @@
+---
+title: "Workshop 3: Introduction to ggplot2, tidyr & dplyr"
+subtitle: "QCBS R Workshop Series"
+author: "Québec Centre for Biodiversity Science"
+output:
+  xaringan::moon_reader:
+    includes:
+      in_header: qcbsR-header.html
+    lib_dir: assets
+    seal: true
+    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
+    nature:
+      beforeInit: "qcbsR-macros.js"
+---
+
+```{r setup, echo = F}
+knitr::opts_chunk$set(
+  comment = "#",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width=5, fig.height=5,
+  fig.align = 'center'
+)
+```
+
+```{r, echo = F}
+options(repos=structure(c(CRAN="http://cran.r-project.org")))
+```
+
+```{r, include = FALSE}
+if(!require(ggplot2)) install.packages("ggplot2")
+if(!require(ggplot2)) library(ggplot2)
+
+if(!require(knitr)) install.packages("knitr")
+if(!require(knitr)) library(knitr)
+
+if(!require(kableExtra)) install.packages("kableExtra")
+if(!require(kableExtra)) library(kableExtra)
+
+source(file="./scripts/multiplot.R")
+```
+
+# Fine Tunning : Colour
+  * Colour: Manual_colour
+```{r, eval=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+            geom_point()
+iris.plot + scale_colour_manual(values = c("setosa" = "red", 
+                                           "versicolor" = "darkgreen",
+                                           "virginica"="blue"))
+```  
+.pull-left[
+**Classic**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot <- ggplot(data = iris, 
+                    aes(x = Sepal.Length, 
+                        y = Sepal.Width, 
+                        color = Species)) +
+            geom_point()
+iris.plot
+```  
+]
+.pull-right[
+**Manual**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot +
+scale_colour_manual(values = c("setosa" = "red", 
+                               "versicolor" = "darkgreen",
+                               "virginica"="blue"))
+```  
+]
+---

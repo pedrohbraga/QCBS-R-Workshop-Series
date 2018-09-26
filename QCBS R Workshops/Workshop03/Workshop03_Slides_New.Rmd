@@ -65,7 +65,7 @@ if(!require(grid)) library(grid)
 source(file="./scripts/multiplot.R")
 ```
 
-## Introduction
+# Introduction
 
 - To follow along:
 
@@ -78,7 +78,7 @@ Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
 
 - ggplot2 is also hosted on Github: https://github.com/hadley/ggplot2
 ---
-## Outline
+# Outline
 1. Introduction
 2. ggplot mechanics
 3. Importance of data structure
@@ -90,29 +90,32 @@ Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
 7. Fine tunning
   * Color
   * Theme
+8. Miscellaneous
 
 ---
-## Introduction : Why use R for plotting?
-
+# Introduction : Why use R for plotting?
+```{r, include=FALSE, eval=FALSE}
+file="./images/Layers_ggplot.png"
+```
 <div style="text-align:center">
-<img src="images/ggplot_divided.png" height=85% width=85%>
+<img src="images/Divided_reproducible workflow.png" height=85% width=85%>
 </div>
 ---
-## Introduction : Why use R for plotting?
+# Introduction : Why use R for plotting?
 
 <div style="text-align:center">
-<img src="images/ggplot_reproducible.png" height=85% width=85%>
+<img src="images/Divided_reproducible workflow2.png" height=85% width=85%>
 </div>
 
 ---
-## Introduction : Why use R for plotting?
+# Introduction : Why use R for plotting?
 Beautiful and flexible graphics!
 
 ```{r, echo=FALSE, fig.width=7}
 source(file="./scripts/multiExamplePlot.R")
 ```
 ---
-## Introduction
+# Introduction
 
 - Have you created plots?
       * What kind of plot?
@@ -124,7 +127,7 @@ source(file="./scripts/multiExamplePlot.R")
 
 ---
 
-## ggplot2
+# ggplot2
 
 The `ggplot2` package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots.
 
@@ -134,7 +137,7 @@ The `ggplot2` package lets you make beautiful and customizable plots of your dat
 
 ---
 
-## Introduction
+# Introduction
 
 Required packages
 ```{r, eval = FALSE}
@@ -143,7 +146,7 @@ library(ggplot2)
 ```
 
 ---
-## Grammar of Graphics (GG)
+# Grammar of Graphics (GG)
 
 A graphic is made of different layers:
   * aesthetics (`aes`)
@@ -152,7 +155,7 @@ A graphic is made of different layers:
   * axis (coordinate system)
   * scales
 
-<img src="images/ggplot_grammar_test.png" height=90% width=90%>
+<img src="images/Layers_ggplot.png" height=100% width=100%>
 
 ---
 ```{r, eval = FALSE}
@@ -181,112 +184,171 @@ ggplot(data = iris,             # Data
                  face="bold.italic")) # Theme
 ```
 ---
-## Importance in data structure for ggplot2
-.alert[use example and data base from previous slide]
-```{r}
-head(iris)
-```
+# Importance in data structure
 
+```{r, echo=FALSE}
+head(iris[,c("Sepal.Length","Sepal.Width","Species")], n = 5)
+```
+`ggplot(data = iris, aes(`**x = Sepal.Length**`,` **y = Sepal.Width**`, `**col = Species**`))`
 ---
-## A simple Example with Ibis database
-  .alert[wiki : Inheritance dynamics]
+# A simple Example with iris database
+
 .small[
+
 .pull-left[
+
+**Inheritance from ggplot**
 ```{r, eval=FALSE}
 ggplot(data = iris,             # Data
-       aes(x = Sepal.Length,    # Your X-value
-           y = Sepal.Width)) +  # Your Y-value
-  geom_point()                  # Geometry       
+      aes(x = Sepal.Length,    # Your X-value
+          y = Sepal.Width)) +  # Your Y-value
+ geom_point()                  # Geometry      
+
 ```
-]
-.pull-right[
+
+**Storing ggplot in object**
 ```{r, eval=FALSE}
-ggplot() + 
-  geom_point(data = iris,             # Data         |
-             aes(x = Sepal.Length,    # Your X-value | Geometry 
-                 y = Sepal.Width))    # Your Y-value |                   
+
+p <- ggplot(data = iris,
+                   aes(x = Sepal.Length,
+                       y = Sepal.Width))
+q <- p + geom_point()
+q   # Print your final plot
+
 ```
 ]
 
-.pull-left[
-```{r, eval=FALSE}
-gplot.obj <- ggplot(data = iris, 
-                    aes(x = Sepal.Length, 
-                        y = Sepal.Width)) 
-gplot.obj <- gplot.obj + geom_point()
-gplot.obj   # Print your final plot
-```
-]
+
 .pull-right[
+
+**No inheritance from ggplot**
 ```{r, eval=FALSE}
-gplot.obj <- ggplot()
-gplot.obj <- gplot.obj +
-  geom_point(data = iris,
-             aes(x = Sepal.Length, 
-                 y = Sepal.Width))
-gplot.obj
+ggplot() +
+ geom_point(data = iris,
+            aes(x = Sepal.Length,
+                y = Sepal.Width))
 ```
-]
+
+**Adding layer from ggplot object**
+```{r, eval=FALSE}
+s <- ggplot()
+s <- gplot.obj +
+ geom_point(data = iris,
+            aes(x = Sepal.Length,
+                y = Sepal.Width))
+s
+```
 ]
 
+]
 ---
-## What's happen ?
-* base layer
-```{r}
+# GGplot dynamics: base layer
+```{r, fig.height=4, fig.width=5}
 ggplot() + 
 scale_x_continuous() +
 scale_y_continuous() 
 ```
 
 ---
-* Data layer
-```{r}
+# GGplot dynamics: Data layer
+```{r, fig.height=4, fig.width=5}
 ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
   xlab("x = Sepal Lenght") +
   ylab("y = Sepal Width")
 ```
 ---
-* Gemoetric Layer
-```{r}
+# GGplot dynamics: Gemoetric Layer
+```{r, fig.height=4, fig.width=5}
 ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
-  xlab("x = Sepal Lenght") +
-  ylab("y = Sepal Width") + 
+  xlab("x = Sepal Lenght") + ylab("y = Sepal Width") + 
   geom_point()
 ```
 ---
-## Challenge #1 (5min)
+# Challenge #1 (5min)
 
-Draw your 1rst (gg)plot:
-  * geom : geom_point
-  * data : Petal length & Petal width
+
+  * Draw your 1rst (gg)plot:
+
+
+ data | geom | x value | y value
+:-------------:|:-------------:|:-------------:|:-------------:
+iris|geom_point|Petal length|Petal width
 
 ---
-## Solution Challenge 1#
+# Solution Challenge 1#
 ```{r}
 ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
   geom_point()
 ```
 
 ---
-## Aesthetic
-Different aesthetic are available to help you distinguish different class, group & structure within your data: 
-  * color
-  * group
-  * shape
-  * alpha
-.alert[maybe draw a 4x-multiplot for each of the Aethetic introduced above]
+# Saving plots in RStudio
+
+<div style="text-align:center">
+<img src="images/save_image.png" height=80% width=80%>
+</div>
+
+---
+# Saving plots in code
+
+ggsave() will write directly to your working directory all in one line of code and you can specify the name of the file and the dimensions of the plot:
+
+```{r, eval=FALSE}
+my1rstPlot <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) + geom_point()
+ggsave("my1rstPlot.pdf",
+       my1rstPlot,
+       height = 8.5,
+       width = 11,
+       units = "in")
+```
+Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png, ...)
+
+Other methods to save image
+`?pdf`
+`?jpeg`
+
+---
+# Aesthetic
+  * Different aesthetic are available to help you distinguish different class, group & structure within your data:
+  
+```{r echo=FALSE, fig.width=8}
+source(file="./scripts/4plot_aesthetic.R")
+```
 ---
 
-## Example of aesthetic: color
-
-```{r}
-ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, 
+# Example of aesthetic: color
+.small[
+.pull-left[
+```{r, eval=FALSE}
+ggplot(data = iris, aes(x = Sepal.Length, 
+                        y = Sepal.Width)) +
+  geom_point()
+#Without Color
+```
+```{r, echo=FALSE}
+ggplot(data = iris, aes(x = Sepal.Length, 
+                        y = Sepal.Width)) +
+  geom_point() 
+```
+]
+.pull-right[
+```{r, eval=FALSE}
+ggplot(data = iris, aes(x = Sepal.Length, 
+                        y = Sepal.Width, 
                         color = Species)) +
   geom_point()
 ```
-
+```{r, echo=FALSE, fig.width=6, fig.height=6}
+ggplot(data = iris, aes(x = Sepal.Length, 
+                        y = Sepal.Width, 
+                        color = Species)) +
+  geom_point() + theme(legend.position = 'bottom')
+```
+]
+]
 ---
-## Challenge #2
+
+# Challenge #2
 
 Produce a colourful plot from built in data such as the , Iris, CO2 or the msleep dataset
 
@@ -297,7 +359,7 @@ CO2|conc|uptake|Treatment & Type
 msleep|log10(bodywt)|awake| vore & conservation
 
 ---
-## Solution to challenge #2
+# Solution to challenge #2
 
 Example using iris database
 
@@ -307,7 +369,7 @@ iris.plot <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width, color = 
 iris.plot
 ```
 ---
-## Solution to challenge #2
+# Solution to challenge #2
 
 Example using CO2 database
 
@@ -318,7 +380,7 @@ CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
 CO2.plot
 ```
 ---
-## Solution to challenge #2
+# Solution to challenge #2
 
 Example using msleep database
 
@@ -330,33 +392,142 @@ msleep.plot
 ```
 
 ---
+
 # Facet : Iris
 ```{r}
 ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, 
                         color = Species)) +
   geom_point() + 
-  facet_grid(~Species, scales = "free") +
-  geom_smooth(method = "lm")
+  facet_grid(~Species, scales = "free") 
 ```
 ---
 
 # Facet : CO2
-```{r, echo=F, fig.align="center", fig.width=6, fig.height=4}
-CO2.plot <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
+```{r, echo=F, fig.align="center", fig.width=6, fig.height=6}
+CO2.plot.nofacet <- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
     geom_point() +
     xlab("CO2 Concentration (mL/L)") +
     ylab("CO2 Uptake (umol/m^2 sec)") +    
-    ggtitle("CO2 uptake in grass plants")
-CO2.plot.facet <- CO2.plot + facet_grid(~ Type)
-multiplot(CO2.plot, CO2.plot.facet)
+    ggtitle("Without Facet")
+CO2.plot.facet <- CO2.plot + facet_grid(~ Type) + ggtitle("Facet")
+multiplot(CO2.plot.nofacet, CO2.plot.facet)
 ```
+---
+# Fine Tunning : Colour
+  * Colour: Manual_colour
+```{r, eval=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+            geom_point()
+iris.plot + scale_colour_manual(values = c("setosa" = "red", 
+                                           "versicolor" = "darkgreen",
+                                           "virginica"="blue"))
+```  
+.pull-left[
+**Classic**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot <- ggplot(data = iris, 
+                    aes(x = Sepal.Length, 
+                        y = Sepal.Width, 
+                        color = Species)) +
+            geom_point()
+iris.plot
+```  
+]
+.pull-right[
+**Manual**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot +
+scale_colour_manual(values = c("setosa" = "red", 
+                               "versicolor" = "darkgreen",
+                               "virginica"="blue"))
+```  
+]
+
+---
+# Fine tuning - colours
+  * Coulours theme
+```{r, eval=FALSE}
+install.packages("RColorBrewer")
+require(RColorBrewer)
+```
+
+<div style="text-align:center">
+<img src="images/Rcolour Brewers palette prez.png" height=100% width=100%>
+</div>
+
+---
+# Fine tuning - colours
+  * Coulours theme : RColorBrewer
+```{r, eval=FALSE}
+iris.plot + scale_color_brewer(palette = "Dark2")
+```
+.pull-left[
+**Classic**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot
+```  
+]
+.pull-right[
+**Dark2**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot + scale_color_brewer(palette = "Dark2")
+```  
+]
+
+---
+# Fine Tunning : Colour
+  * Blind color friendly : presentation purpose
+```{r, eval=FALSE}
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+                "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+iris.plot + scale_color_manual(values=cbbPalette)
+```
+
+.pull-left[
+**Classic**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot
+```  
+]
+.pull-right[
+**Blind color friendly**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+                "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+iris.plot + scale_color_manual(values=cbbPalette)
+```  
+]
+
+---
+# Fine Tunning : Colour
+  * black & white : grey scale for publication purpose
+```{r, eval=FALSE}
+iris.plot + scale_color_grey()
+```
+.pull-left[
+**Classic**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot
+```  
+]
+.pull-right[
+**Grey scale**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot + scale_color_grey()
+```  
+]
+---
+
+# Fine Tunning : Theme
+  * Theme: classic, blank & black&White
+
 ---
 
 #Geom
 .alert[put all geom graph here]
 
 ---
-## Geom_point & Geom_line
+# Geom_point & Geom_line
   * .alert[put ggplot vs base plot]
   
 ```{r}
@@ -365,94 +536,19 @@ CO2.plot.facet.line <- CO2.plot.facet + geom_line(aes(group=Plant))
 multiplot(CO2.plot.facet.baline, CO2.plot.facet.line)
 ```
 ---
-## Histogram & boxplot
+# Histogram & boxplot
   * .alert[put ggplot vs base plot]
 
 ---
-## linear regression
+# linear regression
   * .alert[put ggplot vs base plot]
 
 ---
-## Error bar & Significant value
+# Error bar & Significant value
   * .alert[put ggplot vs base plot]
 
 ---
-## Fine Tunning : Colour
-  * Colour: Manual_colour
-
-```{r, fig.align="center", fig.width=6, fig.height=4}
-CO2.plot +
-  scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
-```  
-
----
-## Fine tuning - colours
-  * Coulours theme
-```{r, eval=FALSE}
-install.packages("RColorBrewer")
-require(RColorBrewer)
-```
-
-```{r, fig.align="center", fig.width=6, fig.height=6}
-display.brewer.all()
-```
-
----
-## Fine tuning - colours
-```{r, fig.align="center"}
-CO2.plot + scale_color_brewer(palette = "Dark2")
-```
----
-
-## Fine Tunning : Colour
-  * Gradient Colour : scale_fill & scale_color
-
----
-## Fine Tunning : Colour
-  * Colour: Blind color & black&Withe
-  
----
-## Fine Tunning : Colour
-  * Colour: Blind color & black&Withe
-```{r, eval=FALSE}
-install.packages("RColorBrewer")
-require(RColorBrewer)
-```
-
-
----
-## Fine Tunning : Theme
-  * Theme: classic, blank & black&White
-
----
-## Saving plots in RStudio
-
-<div style="text-align:center">
-<img src="images/save_image.png" height=90% width=90%>
-</div>
-
----
-## Saving plots in code
-
-ggsave() will write directly to your working directory all in one line of code and you can specify the name of the file and the dimensions of the plot:
-
-```{r, eval=FALSE}
-ggsave("CO2_plot.pdf",
-       CO2.plot,
-       height = 8.5,
-       width = 11,
-       units = "in")
-```
-Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png, ...)
-
-
----
-Other methods to save image
-`?pdf`
-`?jpeg`
-
----
-## Final Challenge
+# Final Challenge
   * Dataset : any (recommanded: use your dataset)
 ```{r, eval=FALSE}
 data(msleep)
@@ -462,10 +558,10 @@ data(OrchardSprays)
   * aes : any
 
 ---
-## Solution of the final Challenge
+# Solution of the final Challenge
 
 ---
-## Solution to Final Challenge
+# Solution to Final Challenge
 
 ```{r, fig.align='center', fig.width=4, fig.height=4}
 data(OrchardSprays)
@@ -474,14 +570,14 @@ box.plot <- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) +
 box.plot
 ```
 ---
-## Miscellaneous
+# Miscellaneous
   * .alert[Put other Crazy R visualisation]
   * .alert[A time for a tour on r-graph-gallery.com]
   * .alert[Itroduce Dynamics representative]
   * .alert[May be let the choice to the current speaker to show its own tricks and/or own data visu]
 
 ---
-## Miscellaneous : `qplot()` vs `ggplot()`
+# Miscellaneous : `qplot()` vs `ggplot()`
 
 ```{r, eval = FALSE, message=FALSE, warning=FALSE}
 qplot(data = iris,
@@ -498,7 +594,7 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
   ggtitle("Sepal dimensions")
 ```
 ---
-## Available elements
+# Available elements
 
 [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
@@ -508,9 +604,9 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 
 ---
 
-### OLD SLIDES START HERE
+# OLD SLIDES START HERE
 ---
-## Additional resources
+# Additional resources
 
 `help(package = ggplot)`
 

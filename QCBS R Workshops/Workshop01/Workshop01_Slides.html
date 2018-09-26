@@ -1,44 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Workshop 1: Introduction to R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Québec Centre for Biodiversity Science" />
+    <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="assets/htmlwidgets-1.0/htmlwidgets.js"></script>
+    <script src="assets/viz-0.3/viz.js"></script>
+    <link href="assets/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="assets/grViz-binding-1.0.0/grViz.js"></script>
+    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/academicons-1.8.1/css/academicons.min.css">
+    <link rel="stylesheet" href="qcbsR.css" type="text/css" />
+    <link rel="stylesheet" href="qcbsR-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Workshop 1: Introduction to R
+## QCBS R Workshop Series
+### Québec Centre for Biodiversity Science
+
 ---
-title: "Workshop 1: Introduction to R"
-subtitle: "QCBS R Workshop Series"
-author: "Québec Centre for Biodiversity Science"
-output:
-  xaringan::moon_reader:
-    includes:
-      in_header: qcbsR-header.html
-    lib_dir: assets
-    seal: true
-    css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
-    nature:
-      beforeInit: "qcbsR-macros.js"
----
 
-```{r setup, echo = F}
-knitr::opts_chunk$set(
-  comment = "#",
-  collapse = TRUE,
-  warning = FALSE,
-  message = FALSE,
-  fig.width=5, fig.height=5,
-  fig.align = 'center'
-)
-```
 
-```{r, echo =F}
-options(repos=structure(c(CRAN="http://cran.r-project.org")))
-```
 
-```{r, include = FALSE}
-if (!require(DiagrammeR)) install.packages("DiagrammeR")
-library(DiagrammeR)
-if (!require(widgetframe)) install.packages("widgetframe")
-library(widgetframe)
-```
+
+
+
+
 
 
 ## Workshop 1: Introduction to R
 
-<br>
+&lt;br&gt;
 
 .center[
 ![](images/QCBS_logo_text.png)
@@ -97,51 +93,15 @@ R works on most existing operating systems
 
 What people have traditionally done to analyze their data:
 
-```{r, echo = FALSE}
-  grViz("
-      digraph {
-
-      node [shape = oval, fillcolor = PaleTuruoise]
-      Data; Graphs; Tables; Statistics
-
-      node [shape = box]
-      Sigmaplot; Excel; SAS
-
-      ##add arrows
-      edge [arrowhead = none]
-      Data -> Sigmaplot; Data -> Excel; Data -> SAS;
-
-      edge [arrowhead = normal]
-      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;
-
-      }")
-
-```
+<div id="htmlwidget-f4490f6c477af3199058" style="width:480px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f4490f6c477af3199058">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Why use R?
 
 R allows you to do everything with one program, which is nice!
-```{r, echo = FALSE}
-grViz("
-      digraph {
-
-      node [shape = oval, fillcolor = PaleTuruoise]
-      Data; Graphs; Tables; Statistics
-
-      node [shape = box]
-      R
-
-      ##add arrows
-      edge [arrowhead = none]
-      Data -> R;
-
-      edge [arrowhead = normal]
-      R -> Graphs; R -> Tables; R -> Statistics;
-
-      }")
-
-```
+<div id="htmlwidget-6cf4966a7f289db31b28" style="width:480px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6cf4966a7f289db31b28">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 
 
@@ -174,7 +134,7 @@ grViz("
 
 .center[Open Rstudio]
 
-<br>
+&lt;br&gt;
 
 .center[
 ![](images/Rstudio.png)
@@ -221,19 +181,21 @@ Text in the console typically looks like this:
 
 .comment[You always have to push "enter" for the input to run in the console.]
 
-```{r, include = FALSE}
-output <- "This is the output"
-```
 
-```{r}
+
+
+```r
 output
+# [1] "This is the output"
 ```
 
 ---
 ## How to read the console
 
-```{r}
+
+```r
 output
+# [1] "This is the output"
 ```
 
 What does this bracket `[]` in the output means?
@@ -241,14 +203,18 @@ What does this bracket `[]` in the output means?
 ---
 ## How to read the console
 
-```{r}
+
+```r
 output
+# [1] "This is the output"
 ```
 
 The bracket help you to locate *where* you are in the output
 
-```{r, echo = FALSE}
-c(1:40)
+
+```
+#  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+# [24] 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
 ```
 
 ---
@@ -274,10 +240,13 @@ class: inverse, center, middle
 
 - Additions and Substractions
 
-```{r}
+
+```r
 1+1
+# [1] 2
 
 10-1
+# [1] 9
 ```
 
 ---
@@ -285,10 +254,13 @@ class: inverse, center, middle
 
 - Multiplications and Divisions
 
-```{r}
+
+```r
 2*2
+# [1] 4
 
 8/2
+# [1] 4
 ```
 
 ---
@@ -296,8 +268,10 @@ class: inverse, center, middle
 
 - Exponents
 
-```{r}
+
+```r
 2^3
+# [1] 8
 ```
 
 ---
@@ -310,7 +284,7 @@ $$
 2+16*24-56
 $$
 
-<br>
+&lt;br&gt;
 
 **Hints**: The `*` symbol is used to multiply
 
@@ -324,8 +298,10 @@ $$
 
 
 
-```{r}
+
+```r
 2+16*24-56
+# [1] 330
 ```
 
 ---
@@ -349,8 +325,10 @@ $$
 $$
 
 
-```{r}
+
+```r
 2+16*24-56/(2+1)-457
+# [1] -89.66667
 ```
 
 .comment[Note that R follows the order of the operations]
@@ -374,32 +352,29 @@ Give it a try!
 ---
 ## Challenge 4 ![:cube]()
 
-What is the area of this circle, with a radius of $5\ cm$?
+What is the area of this circle, with a radius of `\(5\ cm\)`?
 
-```{r echo = F}
-radius <- 1
-theta <- seq(0, 2*pi, length = 200)
-plot(c(-1, 1), c(-1, 1), type = "n", ann = F, axes = F, asp = 1)
-lines(x = radius * cos(theta), y = radius * sin(theta))
-arrows(0, 0, x1 = 1, length = 0)
-text(.5, .1, "radius = 5 cm", cex = 1)
-```
+&lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-15-1.png" width="480" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Challenge 4: Solution ![:cube]()
 
 
-What is the area of a circle, with a radius of $5\ cm$?
+What is the area of a circle, with a radius of `\(5\ cm\)`?
 
 
-```{r}
+
+```r
 3.1416*5^2
+# [1] 78.54
 ```
 
-.comment[**Tip**: Note that `R` has some built-in constant such as $\pi$, so you can write:]
+.comment[**Tip**: Note that `R` has some built-in constant such as `\(\pi\)`, so you can write:]
 
-```{r}
+
+```r
 pi*5^2
+# [1] 78.53982
 ```
 
 ---
@@ -411,13 +386,14 @@ class: inverse, center, middle
 ## Objects
 
 - One of the most useful concept in `R`!
-- You can store values as named objects using the assignement operator `<-`
+- You can store values as named objects using the assignement operator `&lt;-`
 
-```{r, eval = F}
-object name <- assigned value
+
+```r
+object name &lt;- assigned value
 ```
 
-The value on the **right** is assigned to the name on the **left** with the assignement operator `<-`
+The value on the **right** is assigned to the name on the **left** with the assignement operator `&lt;-`
 
 .comment[It is also possible to use the `=` sign, but it is better to **avoid it** as it is also used for other purposes.]
 
@@ -441,19 +417,21 @@ The value on the **right** is assigned to the name on the **left** with the assi
 ## Object names: good practices
 
 - Try having short and explicit names for your variables. Naming a variable `var`  is not very informative.
-- Adding spaces after and before the `<-` is recommended because it adds clarity.
+- Adding spaces after and before the `&lt;-` is recommended because it adds clarity.
 - When typing the object's name, `R` return its value.
 
-```{r}
-mean.x <- (2+6)/2
+
+```r
+mean.x &lt;- (2+6)/2
 
 mean.x
+# [1] 4
 ```
 
 ---
 ## Challenge 5 ![:cube]()
 
-<br>
+&lt;br&gt;
 
 Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
 
@@ -461,15 +439,17 @@ Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.
 ## Challenge 5: Solution ![:cube]()
 
 
-<br>
+&lt;br&gt;
 
 Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
 
 
-```{r}
-euler.value <- 1+1.718282
+
+```r
+euler.value &lt;- 1+1.718282
 
 euler.value
+# [1] 2.718282
 ```
 
 ---
@@ -486,7 +466,8 @@ Create a second object (you decide the name) with a name that starts with a numb
 
 Creating an object name that starts with a number returns the following error:
 
-```{r, eval = F}
+
+```r
 Error: unexpected symbol in "[your object name]"
 ```
 
@@ -536,8 +517,9 @@ class: inverse, center, middle
 
 - The syntax is:
 
-```{r, eval = F}
-vector <- c(value1, value2, ...)
+
+```r
+vector &lt;- c(value1, value2, ...)
 ```
 
 ---
@@ -545,18 +527,22 @@ vector <- c(value1, value2, ...)
 
 - Numeric vectors
 
-```{r}
-num.vector <- c(1, 4, 3, 98, 32, -76, -4)
+
+```r
+num.vector &lt;- c(1, 4, 3, 98, 32, -76, -4)
 
 num.vector
+# [1]   1   4   3  98  32 -76  -4
 ```
 
 - Character vectors
 
-```{r}
-char.vector <- c("blue", "red", "green")
+
+```r
+char.vector &lt;- c("blue", "red", "green")
 
 char.vector
+# [1] "blue"  "red"   "green"
 ```
 
 ---
@@ -564,17 +550,21 @@ char.vector
 
 - Logical vectors
 
-```{r}
-bool.vector <- c(TRUE, TRUE, FALSE)
+
+```r
+bool.vector&lt;- c(TRUE, TRUE, FALSE)
 
 bool.vector
+# [1]  TRUE  TRUE FALSE
 ```
 
 You can just write T for TRUE and F for FALSE, it's exactly the same
-```{r}
-bool.vector2 <- c(T, T, F)
+
+```r
+bool.vector2 &lt;- c(T, T, F)
 
 bool.vector2
+# [1]  TRUE  TRUE FALSE
 ```
 
 ---
@@ -590,8 +580,9 @@ Create a vector containing the first 5 odd numbers, starting from 1, and name it
 
 
 
-```{r}
- odd.n <- c(1,3,5,7)
+
+```r
+ odd.n &lt;- c(1,3,5,7)
 ```
 
 ---
@@ -599,17 +590,21 @@ Create a vector containing the first 5 odd numbers, starting from 1, and name it
 
 We can use vectors for calculations
 
-```{r}
-  x <- c(1:5)
-  y <- 6
+
+```r
+  x &lt;- c(1:5)
+  y &lt;- 6
 ```
 
 .comment[The semicolon symbol `:` is use to combine all values between the first and the second provided numbers. `c(1:5)` returns `1, 2, 3, 4, 5`]
 
-```{r}
+
+```r
 x+y
+# [1]  7  8  9 10 11
 
 x*y
+# [1]  6 12 18 24 30
 ```
 
 ---
@@ -639,17 +634,19 @@ Let's say you want to store this table in `R`:
 One way of doing it is:
 - Start by creating vectors
 
-```{r}
-siteID <- c("A1.01", "A1.02", "B1.01", "B1.02")
-soil_pH <- c(5.6, 7.3, 4.1, 6.0)
-num.sp <- c(17, 23, 15, 7)
-treatment <- c("Fert", "Fert", "No_fert", "No_fert")
+
+```r
+siteID &lt;- c("A1.01", "A1.02", "B1.01", "B1.02")
+soil_pH &lt;- c(5.6, 7.3, 4.1, 6.0)
+num.sp &lt;- c(17, 23, 15, 7)
+treatment &lt;- c("Fert", "Fert", "No_fert", "No_fert")
 ```
 
 - We then combine them using the function `data.frame`
 
-```{r}
-my.first.df <- data.frame(siteID, soil_pH, num.sp, treatment)
+
+```r
+my.first.df &lt;- data.frame(siteID, soil_pH, num.sp, treatment)
 ```
 
 .comment[We will come back to the `data.frame` function later.]
@@ -657,8 +654,14 @@ my.first.df <- data.frame(siteID, soil_pH, num.sp, treatment)
 ---
 ## Data Frames
 
-```{r}
+
+```r
 my.first.df
+#   siteID soil_pH num.sp treatment
+# 1  A1.01     5.6     17      Fert
+# 2  A1.02     7.3     23      Fert
+# 3  B1.01     4.1     15   No_fert
+# 4  B1.02     6.0      7   No_fert
 ```
 
 ---
@@ -683,22 +686,28 @@ We indicate the **position** of the values we want to see between the brackets. 
 You  can use indexing to chose a particular position, let's say we want to see the second value of our `odd.n` vector
 
 
-```{r}
+
+```r
 odd.n[2]
+# [1] 3
 ```
 
 It also work with multiple position:
 
 
-```{r}
+
+```r
 odd.n[c(2,4)]
+# [1] 3 7
 ```
 
 It can be used to remove some values at particular positions
 
 
-```{r}
+
+```r
 odd.n[-c(1,2)]
+# [1] 5 7
 ```
 
 ---
@@ -707,24 +716,30 @@ odd.n[-c(1,2)]
 
 If you select a position that is not in the vector it will return:
 
-```{r}
+
+```r
 odd.n[c(1,5)]
+# [1]  1 NA
 ```
 
 You can also use conditions to select values:
 
 
-```{r}
-odd.n[odd.n > 4]
+
+```r
+odd.n[odd.n &gt; 4]
+# [1] 5 7
 ```
 
 
-```{r}
+
+```r
 char.vector[char.vector == "blue"]
+# [1] "blue"
 ```
 
 
-.comment[Logical statements such as `>` will be described in more details later.]
+.comment[Logical statements such as `&gt;` will be described in more details later.]
 
 
 ---
@@ -741,20 +756,26 @@ Using the vector `num.vector`
 
 - Extract the 4th value
 
-```{r}
+
+```r
 num.vector[4]
+# [1] 98
 ```
 
 - Extract the 1st and 3rd values
 
-```{r}
+
+```r
 num.vector[c(1,3)]
+# [1] 1 3
 ```
 
 - Extract all values except for the 2nd and the 4th
 
-```{r}
+
+```r
 num.vector[c(-2,-4)]
+# [1]   1   3  32 -76  -4
 ```
 
 ---
@@ -762,7 +783,8 @@ num.vector[c(-2,-4)]
 
 Explore the difference between these 2 lines of code:
 
-```{r, eval = F}
+
+```r
 char.vector == "blue"
 
 char.vector[char.vector == "blue"]
@@ -771,14 +793,18 @@ char.vector[char.vector == "blue"]
 ---
 ## Challenge 9: Solution ![:cube]()
 
-```{r}
+
+```r
 char.vector == "blue"
+# [1]  TRUE FALSE FALSE
 ```
 
 In this line of code, you **test a logical statement**. For each entry in the `char.vector`,  `R` checks whether the entry is equal to `"blue"` or not.
 
-```{r}
+
+```r
 char.vector[char.vector == "blue"]
+# [1] "blue"
 ```
 
 In this line of code, you ask `R` to extract all values within the `col.vector` vector that are exactly equal to `"blue"`.
@@ -791,12 +817,12 @@ You need to use logical operators for that.
 
 |Operator|Description|Example|
 |-------------|-------------------------|-------------------------------|
-|`<` and `>`  |less than or greater than|`odd.n > 3`                    |
-|`<=` and `>=`|less/greater or equal to |`odd.n >= 3`                   |
+|`&lt;` and `&gt;`  |less than or greater than|`odd.n &gt; 3`                    |
+|`&lt;=` and `&gt;=`|less/greater or equal to |`odd.n &gt;= 3`                   |
 |`==`         |exactly equal to         |`odd.n == 3`                   |
 |`!=`         |not equal to             |`odd.n != 3`                   |
-|`x`&#124;`y` |x OR y                   |`odd.n[odd.n >= 5` &#124; `odd.n < 3]`|
-|`x & y`      |x AND y                  |`odd.n[odd.n >=3 & odd.n < 7]` |
+|`x`&amp;#124;`y` |x OR y                   |`odd.n[odd.n &gt;= 5` &amp;#124; `odd.n &lt; 3]`|
+|`x &amp; y`      |x AND y                  |`odd.n[odd.n &gt;=3 &amp; odd.n &lt; 7]` |
 
 ---
 ## Indexing data frames
@@ -849,17 +875,22 @@ data.frame.name[row, column]
 
 1. Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
 
-```{r}
+
+```r
 my.first.df$num.sp * num.vector[c(1:4)]
+# [1]  17  92  45 686
 # or
 my.first.df[,3] * num.vector[c(1:4)]
+# [1]  17  92  45 686
 ```
 
 2. After that, write a statement that checks if the values you obtained are greater than 25.
 
 
-```{r}
-(my.first.df$num.sp * num.vector[c(1:4)]) > 25
+
+```r
+(my.first.df$num.sp * num.vector[c(1:4)]) &gt; 25
+# [1] FALSE  TRUE  TRUE  TRUE
 ```
 
 ---
@@ -887,7 +918,8 @@ A function needs entry values called **arguments** (or parameters). It then perf
 
 To use (call) a function, the command must be structured properly, following the "grammar rules" of the `R` language: the syntax.
 
-```{r, eval = F}
+
+```r
 function_name(argument 1, argument 2)
 ```
 
@@ -898,10 +930,12 @@ Arguments are **values** and **instructions** the function needs to run.
 
 Objects storing these values and instructions can be used in functions:
 
-```{r}
-a <- 3
-b <- 5
+
+```r
+a &lt;- 3
+b &lt;- 5
 sum(a,b)
+# [1] 8
 ```
 
 ---
@@ -917,21 +951,26 @@ sum(a,b)
 ---
 ## Challenge 11: Solution  ![:cube]()
 
-```{r}
-a <- c(1:5)
-b <- 2
 
-result_add <- a + b
+```r
+a &lt;- c(1:5)
+b &lt;- 2
 
-result_sum <- sum(a,b)
+result_add &lt;- a + b
+
+result_sum &lt;- sum(a,b)
 ```
 
-```{r}
+
+```r
 result_add
+# [1] 3 4 5 6 7
 
 result_sum
+# [1] 17
 
 sum(result_sum, 5)
+# [1] 22
 ```
 
 ---
@@ -955,9 +994,10 @@ If the name is present, the order does not matter.
 
 `plot` is a function that draws a graph of y as a function of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
 
-```{r, eval = F}
-a <- 1:100
-b <- a^2
+
+```r
+a &lt;- 1:100
+b &lt;- a^2
 plot(a,b)
 plot(b,a)
 plot(x = a, y = b)
@@ -967,39 +1007,27 @@ plot(y = b, x = a)
 ---
 ## Challenge 12: Solution ![:cube]()
 
-```{r, echo = F}
-a <- 1:100
-b <- a^2
-par(mfrow = c(2,2),mar=c(4,4,1,1))
-plot(a,b)
-plot(b,a)
-plot(x = a, y = b)
-plot(y = b, x = a)
-```
+&lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-52-1.png" width="480" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Challenge 12: Solution ![:cube]()
 
 .pull-left[
-```{r,eval=F}
+
+```r
 plot(a,b)
 ```
 
-```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
-par(mar=c(4,4,1,1))
-plot(a,b)
-```
+&lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-54-1.png" width="345.6" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-```{r,eval=F}
+
+```r
 plot(b,a)
 ```
 
-```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
-par(mar=c(4,4,1,1))
-plot(b,a)
-```
+&lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-56-1.png" width="345.6" style="display: block; margin: auto;" /&gt;
 ]
 
 The shape of the plot changes, as we did not provided the arguments names, the order is important.
@@ -1008,25 +1036,21 @@ The shape of the plot changes, as we did not provided the arguments names, the o
 ## Challenge 12: Solution ![:cube]()
 
 .pull-left[
-```{r,eval=F}
+
+```r
 plot(x = a, y = b)
 ```
 
-```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
-par(mar=c(4,4,1,1))
-plot(x = a, y = b)
-```
+&lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-58-1.png" width="345.6" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-```{r,eval=F}
+
+```r
 plot(y = b, x = a)
 ```
 
-```{r, echo = FALSE, fig.width=3.6, fig.height=3.6}
-par(mar=c(4,4,1,1))
-plot(y = b, x = a)
-```
+&lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-60-1.png" width="345.6" style="display: block; margin: auto;" /&gt;
 ]
 
 Same as `plot(a,b)`. The argument names are provided, the order is not important.
@@ -1060,30 +1084,37 @@ library(package name)
 ---
 ## Package: an example
 
-```{r, eval = F}
+
+```r
 install.packages("ggplot2")
 ```
 
-```{r, eval = F}
+
+```r
 Installing package into '/home/labo/R/x86_64-redhat-linux-gnu-library/3.3'
 (as 'lib' is unspecified)
 ```
 
-```{r, eval = F}
+
+```r
 qplot(1:10, 1:10)
 ```
 
-```{r, eval = F}
+
+```r
 ## Error: could not find function "qplot"
 ```
 
 ---
 ## Package name: an example
 
-```{r, fig.width=4, fig.height=4}
+
+```r
 library(ggplot2)
 qplot(1:10, 1:10)
 ```
+
+&lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-65-1.png" width="384" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse, center, middle
@@ -1104,7 +1135,8 @@ To find a function that does something specific in your installed packages, you 
 
 Let's say we want to create a *sequence* of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word "sequence" in them:
 
-```{r, eval = F}
+
+```r
 ??sequence
 ```
 
@@ -1132,7 +1164,8 @@ But wait... how does it work? What arguments does it need?
 
 To find information about a function in particular, use `?`
 
-```{r, eval = F}
+
+```r
   ?seq
 ```
 
@@ -1207,23 +1240,29 @@ To find information about a function in particular, use `?`
 1. Create a sequence of even numbers from 0 to 10 using the `seq` function.
 
 .pull-left[
-```{r class="fragment"}
+
+```r
 seq(from=0, to=10, by=2)
+# [1]  0  2  4  6  8 10
 ```
 ]
 
 .pull-right[
-```{r class="fragment"}
+
+```r
 seq(0,10,2)
+# [1]  0  2  4  6  8 10
 ```
 ]
 
 
 2. Create a unsorted vector of your favourite numbers, then sort your vector in reverse order.
 
-```{r class="fragment"}
-numbers <- c(2,4,22,6,26)
+
+```r
+numbers &lt;- c(2,4,22,6,26)
 sort(numbers, decreasing = T)
+# [1] 26 22  6  4  2
 ```
 
 ---
@@ -1277,12 +1316,12 @@ Open it directly from **Rstudio**
 ---
 ## Some useful R books
 
-<img style="float: right; width: 170px;" src="images/Book6.jpg">
-<img style="float: right; width: 151px;" src="images/Book5.jpg">
-<img style="float: right; width: 180px;" src="images/Book4.jpg">
-<img style="float: right; width: 150.5px;" src="images/Book3.jpg">
-<img style="float: right; width: 150px;" src="images/Book2.jpg">
-<img style="float: right; width: 150px;" src="images/Book1.jpg">
+&lt;img style="float: right; width: 170px;" src="images/Book6.jpg"&gt;
+&lt;img style="float: right; width: 151px;" src="images/Book5.jpg"&gt;
+&lt;img style="float: right; width: 180px;" src="images/Book4.jpg"&gt;
+&lt;img style="float: right; width: 150.5px;" src="images/Book3.jpg"&gt;
+&lt;img style="float: right; width: 150px;" src="images/Book2.jpg"&gt;
+&lt;img style="float: right; width: 150px;" src="images/Book1.jpg"&gt;
 
 
 ---
@@ -1301,3 +1340,48 @@ class: inverse, center, bottom
 # Thank you for attending!
 
 ![:scale 50%](images/qcbs_logo.png)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="qcbsR-macros.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

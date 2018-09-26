@@ -677,8 +677,52 @@ The best model among the three models is `lm3` *(only terrestrial birds)*
 ## Learning objectives
 
 .center[
-![:scale 100%](images/schema.png)
+![:scale 100%](images/schema_ttest.png)
 ]
+
+---
+class: inverse, center, middle
+
+# ANOVA
+
+## T-test, One-way ANOVA, Two-way ANOVA
+
+---
+## ANOVA
+
+Continuous response variable
+
+**Categorical explanatory variables**
+
+- Two or more levels (groups)
+
+.large[.center[ANOVA tests whether the means of the response variable differs between the levels]]
+
+Sum of squares: within-treatment variance *vs* between-treatment variance
+
+If between-treatment variance $>$ within-treatment variance:
+  - The treatments affect the explanatory variable more than the random error
+  - The explanatory variable is likely to be significantly influenced by the treatments
+
+---
+## Types of ANOVA
+
+1. One-way ANOVA
+  - One factor with 2 or more levels. If there are 2 levels a **t-test** can be used alternatively
+
+2. Two-way ANOVA
+  - 2 factors or more
+  - Each factor can have multiple levels
+  - The interactions between each factor must be tested
+
+3. Repeated measures?
+  - ANOVA can be used for repeated measures, but we won't cover this today
+  - Linear Mixed-effect Models can also be used for this kind of data (you'll see it on Workshop 6)
+
+---
+class: inverse, center, middle
+
+# T-test
 
 ---
 ## T-test
@@ -686,38 +730,31 @@ The best model among the three models is `lm3` *(only terrestrial birds)*
 - **Response variable**: Continuous
 - **Explanatory variable**: Categorical with **2 levels**
 
-Hypothesis (for a bilateral t-test)
-
-- H0: The mean of group 1 is equal to the mean of group 2
-- H1: The mean of group 1 is not equal to the mean of group 2
-If assumptions cannot be respected,
-
-Hypothesis (for a unilateral t-test)
-- H0: The mean of group 1 is not larger than the mean of group 2
-- H1: The mean of group 1 is smaller than the mean of group 2
-
-Assumptions
+**Assumptions**
 - Data follow a normal distribution
-- Equality of variance between groups
+- Equality of variance between groups (Homoscedasticity)
 
-* robustness of this test increases with sample size and is higher when groups have equal sizes
+.comment[robustness of this test increases with sample size and is higher when groups have equal sizes]
 
 ---
 ## Running a T-test in R
 
 - Use the function `t.test()`
 
-`t.test(Y~X2, data= data, alternative = "two.sided")`
-response variable
-factor (2 levels)
-name of dataframe
-Alternative hypothesis: "two.sided" (default), "less", or "greater"
+```r
+t.test(Y~X2, data= data, alternative = "two.sided")
+```
 
-- The t-test is still a linear model and a specific case of ANOVA with one factor with 2 levels
+  - `Y`: response variable
+  - `X2`: factor (2 levels)
+  - `data`: name of dataframe
+  - `alternative` hypothesis: `"two.sided"` (default), `"less"`, or `"greater"`
+
+The t-test is still a linear model and a specific case of ANOVA with one factor with 2 levels
 
 Thus the function `lm()` can also be used
 
-```
+```r
 lm.t <-lm(Y~X2, data = data)
 anova(lm.t)
 ```
@@ -725,26 +762,23 @@ anova(lm.t)
 ---
 ## Running a T-test in R
 
-Are aquatic birds heavier than non-aquatic birds?
+.large[Are aquatic birds heavier than non-aquatic birds?]
 
-Response variable: **Bird mass** / num: Continuous
-Explanatory variable: **Aquatic** / 2 levels: 1 or 0 (yes or no)
+- Response variable: `Bird mass` ![:faic](arrow-right) num: Continuous
+- Explanatory variable: `Aquatic` ![:faic](arrow-right) 2 levels: 1 or 0 (yes or no)
 
 ---
 ## Running a T-test in R
 
 First, lets visualize the data using the function `boxplot()`
-```{r eval=TRUE}
+
+```{r eval=TRUE,fig.height=4.8, fig.width=6.5}
 boxplot(logMass ~ Aquatic,
-        data = bird,
-        names = c("Non-Aquatic",
-                  "Aquatic"))
+        data = bird, names = c("Non-Aquatic", "Aquatic"))
 ```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.19.png)
-
 ---
-## Running a t-test in R
+## Running a T-test in R
 
 - Next, test the assumption of equality of variance using `var.test()`
 
@@ -765,7 +799,7 @@ ttest1 <- t.test(logMass ~ Aquatic, var.equal = TRUE, data = bird)
 ttest.lm1 <- lm(logMass ~ Aquatic, data=bird)
 ```
 
-Indicates that homogeneity of variance was respected (as we just tested)
+.comment[Indicates that homogeneity of variance was respected (as we just tested)]
 
 You can verify that `t.test()` and `lm()` provide the same model:
 
@@ -775,29 +809,20 @@ anova(ttest.lm1)$F
 # answer: F=60.3845 in both cases
 ```
 
-When the assumption of equal variance is met $t^2$ follows an F distribution
+.comment[When the assumption of equal variance is met $t^2$ follows an F distribution]
 
 ---
-## Running a t-test in R
+## Running a T-test in R
 
-If p<0.01 (or 0.05), the null hypothesis of no difference between the two groups (H0) can be rejected, with a risk of 0.01 (or 0.05) that we made a mistake in this conclusion.
+If $p<0.01$ (or $0.05$ ), the null hypothesis of no difference between the two groups (*H0*) can be rejected, with a risk of $0.01$ (or $0.05$ ) that we made a mistake in this conclusion
 
-There exists a difference in mass between the aquatic and terrestrial birds
-
-mean of the two groups
-
+```{r}
+ttest1
 ```
-Two Sample t-test
 
-data:  logMass by Aquatic
-t = -7.7707, df = 52, p-value = 2.936e-10
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -1.6669697 -0.9827343
-sample estimates:
-mean in group 0 mean in group 1
-       1.583437        2.908289
-```
+.small[.comment[There exists a difference in mass between the aquatic and terrestrial birds `p-value`]]
+
+.small[.comment[Look at themean of the two groups]]
 
 ---
 ## Violation of Assumptions
@@ -809,7 +834,7 @@ mean in group 0 mean in group 1
 ---
 ## Group discussion
 
-- Are aquatic birds heavier than terrestrial birds?
+.large[Are aquatic birds heavier than terrestrial birds?]
 
 ```{r}
 # Unilateral t-test
@@ -817,7 +842,6 @@ uni.ttest1 <- t.test(logMass ~ Aquatic,
                      var.equal = TRUE,
                      data = bird,
                      alternative = "less")
-uni.ttest1
 ```
 
 - What did you conclude?
@@ -829,15 +853,12 @@ uni.ttest1
 uni.ttest1
 ```
 
-Yes, aquatic birds are heavier than terrestrial birds:
-`r uni.ttest1$p.value`
+Yes, aquatic birds are heavier than terrestrial birds: p-value = `r format(uni.ttest1$p.value, scientific=FALSE)`
 
 ---
-## Learning objectives
+class: inverse, center, middle
 
-.center[
-![:scale 40%](images/schema_slide1.png)
-]
+# ANOVA
 
 ---
 ## Analysis of Variance (ANOVA)
@@ -848,6 +869,7 @@ Yes, aquatic birds are heavier than terrestrial birds:
 Y = u + Main effects of Factors + Interactions Between Factors + Residuals
 
 The constant is the mean of the values of the response variable
+
 ---
 ## Types of ANOVA
 

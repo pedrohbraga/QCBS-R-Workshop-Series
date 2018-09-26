@@ -1054,6 +1054,11 @@ segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2)
 ![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.44.png)
 
 ---
+class: inverse, center, middle
+
+# Two-way ANOVA
+
+---
 ## Two-way ANOVA
 
 `anova.with.lm <- lm(Y~X*Z, data)`
@@ -1107,9 +1112,13 @@ anova(anov2)
 ## Learning objectives
 
 .center[
-![:scale 40%](images/schema_slide1.png)
+![:scale 100%](images/schema_ancova.png)
 ]
 
+---
+class: inverse, center, middle
+
+# ANCOVA
 
 ---
 ## Analysis of Covariance (ANCOVA)
@@ -1266,9 +1275,13 @@ anova(ancov2)
 ## Learning objectives
 
 .center[
-![:scale 40%](images/schema_slide1.png)
+![:scale 100%](images/schema_multReg.png)
 ]
 
+---
+class: inverse, center, middle
+
+# Multiple linear regression
 
 ---
 ## Multiple linear regression

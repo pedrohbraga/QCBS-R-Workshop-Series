@@ -67,7 +67,7 @@ a, a > code {
 .remark-code {
     color: #303940;
     background-color: #f3f3f3;
-    font-size: 80%;
+    font-size: 85%;
 }
 
 .remark-inline-code {
@@ -140,7 +140,7 @@ a, a > code {
 
 /* Blockquote */
 .remark-slide-content blockquote {
-  font-size: 1.1em;
+  font-size: 1em;
   padding-left: 1em;
 }
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Québec Centre for Biodiversity Science" />
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <script src="assets/htmlwidgets-1.0/htmlwidgets.js"></script>
+    <script src="assets/htmlwidgets-1.2/htmlwidgets.js"></script>
     <script src="assets/viz-0.3/viz.js"></script>
     <link href="assets/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
     <script src="assets/grViz-binding-1.0.0/grViz.js"></script>
@@ -93,15 +93,15 @@ R works on most existing operating systems
 
 What people have traditionally done to analyze their data:
 
-<div id="htmlwidget-f4490f6c477af3199058" style="width:480px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f4490f6c477af3199058">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8d370d130aa4fd3dece0" style="width:480px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8d370d130aa4fd3dece0">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      Sigmaplot; Excel; SAS\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> Sigmaplot; Data -> Excel; Data -> SAS;\n\n      edge [arrowhead = normal]\n      Sigmaplot -> Graphs; Excel -> Tables; SAS -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ---
 ## Why use R?
 
 R allows you to do everything with one program, which is nice!
-<div id="htmlwidget-6cf4966a7f289db31b28" style="width:480px;height:480px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6cf4966a7f289db31b28">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e0475877dafdb9a7f46b" style="width:480px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e0475877dafdb9a7f46b">{"x":{"diagram":"\n      digraph {\n\n      node [shape = oval, fillcolor = PaleTuruoise]\n      Data; Graphs; Tables; Statistics\n\n      node [shape = box]\n      R\n\n      ##add arrows\n      edge [arrowhead = none]\n      Data -> R;\n\n      edge [arrowhead = normal]\n      R -> Graphs; R -> Tables; R -> Statistics;\n\n      }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 
 
@@ -151,28 +151,14 @@ R allows you to do everything with one program, which is nice!
 
 ## Note for Windows user
 
-If the restriction `unable to write on disk` appears when you try to open R-Studio, .alert[don't worry!]
+If the restriction `unable to write on disk` appears when you try to open R-Studio or to install a package, 
 
-We have the solution!
+.center[.alert[don't worry!]]
 
-Right-click on your R-Studio icon and chose:
-"Execute as administrator" to open the program.
+.large[We have the solution!]
 
----
-## Note for Windows user
-
-**Common problem**
-
-installation process of some packages
-
-.comment[(especially a problem for permission when installing libraries)]
-
----
-## Note for Mac user
-
-Please install the developer package
-
-https://developer.apple.com/downloads/index.action#
+- Close the application.
+- Right-click on your R-Studio icon and chose: "Execute as administrator" to open the program.
 
 ---
 ## How to read the console
@@ -220,9 +206,9 @@ The bracket help you to locate *where* you are in the output
 ---
 ## Error and Warning
 
-- .alarm[Warning message] happens with unexpected behavior in your process. You can continue to proceed your process.
+- .alert[Warning message] cautions users without halting the execution of a function. Although the function can and will give you an answer, there might be a problem with your inputs. Thus, the computation could be flawed.
 
-- .alarm[Error message] will stop the current execution. It indicates a problem in your code
+- .alert[Error message] will stop the current execution because R can’t carry it out. It indicates a problem in your code
 
 .center[
 **To solve *error*, google is your bestfriend!**
@@ -233,10 +219,10 @@ The bracket help you to locate *where* you are in the output
 ---
 class: inverse, center, middle
 
-# Using R as a calculator
+# Using R as a calculator &amp;nbsp; ![:faic](calculator)
 
 ---
-## Addition, substraction, etc.
+## AArithmetic Operators
 
 - Additions and Substractions
 
@@ -250,7 +236,7 @@ class: inverse, center, middle
 ```
 
 ---
-## Additions, substractions, etc.
+## Arithmetic Operators
 
 - Multiplications and Divisions
 
@@ -264,7 +250,7 @@ class: inverse, center, middle
 ```
 
 ---
-## Additions, substractions, etc.
+## Arithmetic Operators
 
 - Exponents
 
@@ -285,8 +271,9 @@ $$
 $$
 
 &lt;br&gt;
+&lt;br&gt;
 
-**Hints**: The `*` symbol is used to multiply
+.comment[**Hint**: The `*` symbol is used to multiply]
 
 ---
 ## Challenge 2: Solution ![:cube]()
@@ -313,7 +300,10 @@ $$
 2+16*24-56 / (2+1)-457
 $$
 
-**Hints**: Think about the order of the operation.
+&lt;br&gt;
+&lt;br&gt;
+
+.comment[**Hint**: Think about the order of the operation.]
 
 ---
 ## Challenge 3: Solution ![:cube]()
@@ -331,13 +321,16 @@ $$
 # [1] -89.66667
 ```
 
-.comment[Note that R follows the order of the operations]
+&lt;br&gt;
+&lt;br&gt;
+
+.comment[Note that R respects the order of the operations]
 
 ---
 ## R command line tip
 
 
-Use the **Up** and **Down** arrow keys to reproduce previous commands.
+Use the ![:faic](arrow-up) and ![:faic](arrow-down) arrow keys to reproduce previous commands.
 
 Give it a try!
 
@@ -352,7 +345,7 @@ Give it a try!
 ---
 ## Challenge 4 ![:cube]()
 
-What is the area of this circle, with a radius of `\(5\ cm\)`?
+What is the area of this circle which has a radius of `\(5\ cm\)`?
 
 &lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-15-1.png" width="480" style="display: block; margin: auto;" /&gt;
 
@@ -360,7 +353,7 @@ What is the area of this circle, with a radius of `\(5\ cm\)`?
 ## Challenge 4: Solution ![:cube]()
 
 
-What is the area of a circle, with a radius of `\(5\ cm\)`?
+What is the area of this circle which has a radius of `\(5\ cm\)`?
 
 
 
@@ -369,7 +362,7 @@ What is the area of a circle, with a radius of `\(5\ cm\)`?
 # [1] 78.54
 ```
 
-.comment[**Tip**: Note that `R` has some built-in constant such as `\(\pi\)`, so you can write:]
+.comment[**Hint**: Note that `R` has some built-in constant such as &amp;pi;, so you can write:]
 
 
 ```r
@@ -386,7 +379,7 @@ class: inverse, center, middle
 ## Objects
 
 - One of the most useful concept in `R`!
-- You can store values as named objects using the assignement operator `&lt;-`
+- You can store values as named objects using the assignment operator `&lt;-`
 
 
 ```r
@@ -414,17 +407,22 @@ The value on the **right** is assigned to the name on the **left** with the assi
 - You can **not** use special characters! (@, /, etc.)
 
 ---
-## Object names: good practices
+## Good practices in R code
 
+**Name**
 - Try having short and explicit names for your variables. Naming a variable `var`  is not very informative.
-- Adding spaces after and before the `&lt;-` is recommended because it adds clarity.
-- When typing the object's name, `R` return its value.
+- Use an underscore `_` to separate words within a name or try to be consistent!
+- Avoid using names of existing functions and variables (e.g. `c` or `table`)
+
+**Space**
+- Add spaces around all operators (`=`, `+`, `-`, `&lt;-`, etc.) to make the code more readable.
+- Always put a space after a comma, and never before (just like in regular English).
 
 
 ```r
-mean.x &lt;- (2+6)/2
+mean_x &lt;- (2 + 6) / 2
 
-mean.x
+mean_x
 # [1] 4
 ```
 
@@ -433,7 +431,7 @@ mean.x
 
 &lt;br&gt;
 
-Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
+Create an object with a value of 1+1.718282 (Euler's number) and name it `euler_value`.
 
 ---
 ## Challenge 5: Solution ![:cube]()
@@ -441,14 +439,14 @@ Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.
 
 &lt;br&gt;
 
-Create an object with a value of 1+1.718282 (Euler's number) and name it `euler.value`.
+Create an object with a value of 1+1.718282 (Euler's number) and name it `euler_value`.
 
 
 
 ```r
-euler.value &lt;- 1+1.718282
+euler_value &lt;- 1+1.718282
 
-euler.value
+euler_value
 # [1] 2.718282
 ```
 
@@ -463,6 +461,7 @@ Create a second object (you decide the name) with a name that starts with a numb
 
 Create a second object (you decide the name) with a name that starts with a number. What happens?
 
+&lt;br&gt;
 
 Creating an object name that starts with a number returns the following error:
 
@@ -476,6 +475,8 @@ Error: unexpected symbol in "[your object name]"
 
 - Use the tab key to autocomplete scripts
 - This helps avoid spelling errors and speeds up command entering
+
+&lt;br&gt;
 
 Let's try it!
 
@@ -494,14 +495,45 @@ class: inverse, center, middle
 ---
 ## Types of data structures in R
 
-- Vectors
-- Data frames
-- Matrices, arrays and lists
+![](images/matrix.png)
 
+---
+## Types of data structures in R
+
+`vector` ![faic](arrow-right) A combination of elements of the same data type. Basic data structure of R; all other objects consist of one or more vectors.
+
+--
+
+`matrix` ![faic](arrow-right) 2D object generated by combining multiple vectors of the same type. We can do operations on matrices in R (+, -, *, ...).
+
+--
+
+`array` ![faic](arrow-right) 3D object generated by combining multiple matrices of the same type. Vector = 1D array. Matrix = 2D array.
+
+--
+
+`data.frame` ![faic](arrow-right) 2D object generated by combining several vectors of any type. Each column must be of the same type, but a dataframe may contain columns of different types. Several statistical functions (eg regression) use dataframes.
+
+--
+
+`list` ![faic](arrow-right) A list store collections of objects of any types.
+
+---
+## Types of data structures in R
+
+`vector` ![faic](arrow-right) A combination of elements of the same data type. Basic data structure of R; all other objects consist of one or more vectors.
+
+`matrix` ![faic](arrow-right) A matrix is a 2D object, i.e. a combination of vectors all of the same data type. We can do operations such as addition and multiplication on matrices in R.
+
+`array` ![faic](arrow-right) An array is a 3D object, i.e. a combination of  matrices all of the same data type. So, a vector is a special case of array with 1D and a matrix is a special case of array with 2D. An array with 3 or more dimensions is an n-dimensional array.
+
+`data.frame` ![faic](arrow-right) A dataframe is a 2D object generated by combining multiple vectors of any data type. Each column must be of the same data type, but data type may vary by column. Regression and other statistical functions usually use dataframes.
+
+`list` ![faic](arrow-right)A list store collections of objects of any types.
 ---
 ## Vectors
 
-- An entity consisting of a list of related values
+- An entity consisting of a sequence of elements of the same basic type
 - A single value is called an *atomic value*
 - All values of a vector must have the **same mode** (or class).
       * Numeric: only numbers
@@ -529,9 +561,9 @@ vector &lt;- c(value1, value2, ...)
 
 
 ```r
-num.vector &lt;- c(1, 4, 3, 98, 32, -76, -4)
+num_vector &lt;- c(1, 4, 3, 98, 32, -76, -4)
 
-num.vector
+num_vector
 # [1]   1   4   3  98  32 -76  -4
 ```
 
@@ -539,9 +571,9 @@ num.vector
 
 
 ```r
-char.vector &lt;- c("blue", "red", "green")
+char_vector &lt;- c("blue", "red", "green")
 
-char.vector
+char_vector
 # [1] "blue"  "red"   "green"
 ```
 
@@ -552,7 +584,7 @@ char.vector
 
 
 ```r
-bool.vector&lt;- c(TRUE, TRUE, FALSE)
+bool.vector &lt;- c(TRUE, TRUE, FALSE)
 
 bool.vector
 # [1]  TRUE  TRUE FALSE
@@ -570,19 +602,20 @@ bool.vector2
 ---
 ## Challenge 7 ![:cube]()
 
-Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
+- Create a vector containing the first 5 odd numbers, starting from 1
+- Name it `odd_n`
 
 ---
 ## Challenge 7: Solution ![:cube]()
 
 
-Create a vector containing the first 5 odd numbers, starting from 1, and name it `odd.n`
-
+- Create a vector containing the first 5 odd numbers, starting from 1
+- Name it `odd_n`
 
 
 
 ```r
- odd.n &lt;- c(1,3,5,7)
+ odd_n &lt;- c(1,3,5,7)
 ```
 
 ---
@@ -596,7 +629,7 @@ We can use vectors for calculations
   y &lt;- 6
 ```
 
-.comment[The semicolon symbol `:` is use to combine all values between the first and the second provided numbers. `c(1:5)` returns `1, 2, 3, 4, 5`]
+.comment[The colon symbol `:` is used to combine all values between the first and the second provided numbers. `c(1:5)` returns `1, 2, 3, 4, 5`]
 
 
 ```r
@@ -608,7 +641,7 @@ x*y
 ```
 
 ---
-## Data Frames
+## Data frames
 
 - Used to store data tables
 - A list of vectors of the same length
@@ -617,9 +650,11 @@ x*y
 - Differents columns can have different modes
 
 ---
-## Data Frames
+## Data frames
 
 Let's say you want to store this table in `R`:
+
+&lt;br&gt;
 
 |ID of the site|soil pH|# of species|treatment|
 |---|---|---|---|
@@ -629,16 +664,16 @@ Let's say you want to store this table in `R`:
 |B1.02|6.0|7|No Fert|
 
 ---
-## Data Frames
+## Data frames
 
 One way of doing it is:
 - Start by creating vectors
 
 
 ```r
-siteID &lt;- c("A1.01", "A1.02", "B1.01", "B1.02")
+site_id &lt;- c("A1.01", "A1.02", "B1.01", "B1.02")
 soil_pH &lt;- c(5.6, 7.3, 4.1, 6.0)
-num.sp &lt;- c(17, 23, 15, 7)
+num_sp &lt;- c(17, 23, 15, 7)
 treatment &lt;- c("Fert", "Fert", "No_fert", "No_fert")
 ```
 
@@ -646,22 +681,22 @@ treatment &lt;- c("Fert", "Fert", "No_fert", "No_fert")
 
 
 ```r
-my.first.df &lt;- data.frame(siteID, soil_pH, num.sp, treatment)
+my_df &lt;- data.frame(site_id, soil_pH, num_sp, treatment)
 ```
 
 .comment[We will come back to the `data.frame` function later.]
 
 ---
-## Data Frames
+## Data frames
 
 
 ```r
-my.first.df
-#   siteID soil_pH num.sp treatment
-# 1  A1.01     5.6     17      Fert
-# 2  A1.02     7.3     23      Fert
-# 3  B1.01     4.1     15   No_fert
-# 4  B1.02     6.0      7   No_fert
+my_df
+#   site_id soil_pH num_sp treatment
+# 1   A1.01     5.6     17      Fert
+# 2   A1.02     7.3     23      Fert
+# 3   B1.01     4.1     15   No_fert
+# 4   B1.02     6.0      7   No_fert
 ```
 
 ---
@@ -675,7 +710,7 @@ my.first.df
 ---
 ## Indexing objects
 
-Sometimes, we only want to look at or extract part of our data. This is done using **brackets:** `[]`
+To look at or extract part of our data, you can use **brackets** `[]`
 
 We indicate the **position** of the values we want to see between the brackets. It's called *indexing*.
 
@@ -683,12 +718,12 @@ We indicate the **position** of the values we want to see between the brackets. 
 ## Indexing vectors
 
 
-You  can use indexing to chose a particular position, let's say we want to see the second value of our `odd.n` vector
+You can use indexing to chose a particular position, let's say we want to see the second value of our `odd_n` vector
 
 
 
 ```r
-odd.n[2]
+odd_n[2]
 # [1] 3
 ```
 
@@ -697,7 +732,7 @@ It also work with multiple position:
 
 
 ```r
-odd.n[c(2,4)]
+odd_n[c(2,4)]
 # [1] 3 7
 ```
 
@@ -706,7 +741,7 @@ It can be used to remove some values at particular positions
 
 
 ```r
-odd.n[-c(1,2)]
+odd_n[-c(1,2)]
 # [1] 5 7
 ```
 
@@ -718,7 +753,7 @@ If you select a position that is not in the vector it will return:
 
 
 ```r
-odd.n[c(1,5)]
+odd_n[c(1,5)]
 # [1]  1 NA
 ```
 
@@ -727,14 +762,14 @@ You can also use conditions to select values:
 
 
 ```r
-odd.n[odd.n &gt; 4]
+odd_n[odd_n &gt; 4]
 # [1] 5 7
 ```
 
 
 
 ```r
-char.vector[char.vector == "blue"]
+char_vector[char_vector == "blue"]
 # [1] "blue"
 ```
 
@@ -745,7 +780,7 @@ char.vector[char.vector == "blue"]
 ---
 ## Challenge 8 ![:cube]()
 
-Using the vector `num.vector`
+Using the vector `num_vector`
 
 - Extract the 4th value
 - Extract the 1st and 3rd values
@@ -758,7 +793,7 @@ Using the vector `num.vector`
 
 
 ```r
-num.vector[4]
+num_vector[4]
 # [1] 98
 ```
 
@@ -766,7 +801,7 @@ num.vector[4]
 
 
 ```r
-num.vector[c(1,3)]
+num_vector[c(1,3)]
 # [1] 1 3
 ```
 
@@ -774,7 +809,7 @@ num.vector[c(1,3)]
 
 
 ```r
-num.vector[c(-2,-4)]
+num_vector[c(-2,-4)]
 # [1]   1   3  32 -76  -4
 ```
 
@@ -785,9 +820,9 @@ Explore the difference between these 2 lines of code:
 
 
 ```r
-char.vector == "blue"
+char_vector == "blue"
 
-char.vector[char.vector == "blue"]
+char_vector[char_vector == "blue"]
 ```
 
 ---
@@ -795,34 +830,37 @@ char.vector[char.vector == "blue"]
 
 
 ```r
-char.vector == "blue"
+char_vector == "blue"
 # [1]  TRUE FALSE FALSE
 ```
 
-In this line of code, you **test a logical statement**. For each entry in the `char.vector`,  `R` checks whether the entry is equal to `"blue"` or not.
+In this line of code, you **test a logical statement**. For each entry in the `char_vector`,  `R` checks whether the entry is equal to `blue` or not.
 
 
 ```r
-char.vector[char.vector == "blue"]
+char_vector[char_vector == "blue"]
 # [1] "blue"
 ```
 
-In this line of code, you ask `R` to extract all values within the `col.vector` vector that are exactly equal to `"blue"`.
+In this line of code, you ask `R` to extract all values within the `char_vector` vector that are exactly equal to `blue`.
 
 ---
 ## A quick note on logical statements
 
 `R` allows testing of logical statements, *i.e.* testing whether a statement is true or false.
+
 You need to use logical operators for that.
+
+&lt;br&gt;
 
 |Operator|Description|Example|
 |-------------|-------------------------|-------------------------------|
-|`&lt;` and `&gt;`  |less than or greater than|`odd.n &gt; 3`                    |
-|`&lt;=` and `&gt;=`|less/greater or equal to |`odd.n &gt;= 3`                   |
-|`==`         |exactly equal to         |`odd.n == 3`                   |
-|`!=`         |not equal to             |`odd.n != 3`                   |
-|`x`&amp;#124;`y` |x OR y                   |`odd.n[odd.n &gt;= 5` &amp;#124; `odd.n &lt; 3]`|
-|`x &amp; y`      |x AND y                  |`odd.n[odd.n &gt;=3 &amp; odd.n &lt; 7]` |
+|`&lt;` and `&gt;`  |less than or greater than|`odd_n &gt; 3`                    |
+|`&lt;=` and `&gt;=`|less/greater or equal to |`odd_n &gt;= 3`                   |
+|`==`         |exactly equal to         |`odd_n == 3`                   |
+|`!=`         |not equal to             |`odd_n != 3`                   |
+|`x`&amp;#124;`y` |x OR y                   |`odd_n[odd_n &gt;= 5` &amp;#124; `odd_n &lt; 3]`|
+|`x &amp; y`      |x AND y                  |`odd_n[odd_n &gt;=3 &amp; odd_n &lt; 7]` |
 
 ---
 ## Indexing data frames
@@ -836,51 +874,51 @@ data.frame.name[row, column]
 ---
 ## Indexing data frames: examples
 
-`my.first.df[1,]` ![:faic](arrow-right) Extracts the first line
+`my_df[1,]` ![:faic](arrow-right) Extracts the first line
 
 
 .comment[Note that an empty index select **all** the values.]
 
-`my.first.df[,3]` ![:faic](arrow-right) Extracts the third column
+`my_df[,3]` ![:faic](arrow-right) Extracts the third column
 
 
-`my.first.df[2,4]` ![:faic](arrow-right) Extracts the second element of the fourth column
+`my_df[2,4]` ![:faic](arrow-right) Extracts the second element of the fourth column
 
 
 ---
 ## Indexing data frames: examples
 
-`my.first.df[c(2,4),]` ![:faic](arrow-right) Extracts lines 2 to 4
+`my_df[c(2,4),]` ![:faic](arrow-right) Extracts lines 2 to 4
 
 .comment[The examples given so far are also valid for indexing matrices, this is not the case for the following examples.]
 
 
-`my.first.df$siteID` ![:faic](arrow-right) Extracts the variable `siteID` from the data frame
+`my_df$site_id` ![:faic](arrow-right) Extracts the variable `site_id` from the data frame
 
-`my.first.df$siteID[2]` ![:faic](arrow-right) Extracts the second value of the variable `siteID` from the data frame
+`my_df$site_id[2]` ![:faic](arrow-right) Extracts the second value of the variable `siteID` from the data frame
 
 
-`my.first.df[c("siteID", "soil_pH")]` ![:faic](arrow-right) Extracts the `siteID` and `soil_pH` variables from the data frame.
+`my_df[c("site_id", "soil_pH")]` ![:faic](arrow-right) Extracts the `site_id` and `soil_pH` variables from the data frame.
 
 
 ---
 ## Challenge 10 ![:cube]()
 
-1. Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
+1. Extract the `num_sp` column from `my_df` and multiply its value by  the first four values of `num_vec`.
 
 2. After that, write a statement that checks if the values you obtained are greater than 25.
 
 ---
 ## Challenge 10: Solution ![:cube]()
 
-1. Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
+1. Extract the `num_sp` column from `my_df` and multiply its value by  the first four values of `num_vec`.
 
 
 ```r
-my.first.df$num.sp * num.vector[c(1:4)]
+my_df$num_sp * num_vector[c(1:4)]
 # [1]  17  92  45 686
 # or
-my.first.df[,3] * num.vector[c(1:4)]
+my_df[,3] * num_vector[c(1:4)]
 # [1]  17  92  45 686
 ```
 
@@ -889,7 +927,7 @@ my.first.df[,3] * num.vector[c(1:4)]
 
 
 ```r
-(my.first.df$num.sp * num.vector[c(1:4)]) &gt; 25
+(my_df$num_sp * num_vector[c(1:4)]) &gt; 25
 # [1] FALSE  TRUE  TRUE  TRUE
 ```
 
@@ -946,7 +984,7 @@ sum(a,b)
 - Add `a` and `b` together using the basic `+` operator and save the result in an object called `result_add`
 - Add `a` and `b` together using the `sum` function and save the result in an object called `result_sum`
 - Compare `result_add` and `result_sum`. Are they different?
-- Add 5 to `result_sum` function using the `sum` function
+- Add 5 to `result_sum` using the `sum` function
 
 ---
 ## Challenge 11: Solution  ![:cube]()
@@ -983,16 +1021,16 @@ The function `sum` concatenates all the values provided and then sum them. It is
 ---
 ## Arguments
 
-Arguments each have a **name** that can be provided during a function call.
+- Arguments each have a **name** that can be provided during a function call.
 
-If the name is not present, the order of the arguments does matter.
+- If the name is not present, the order of the arguments does matter.
 
-If the name is present, the order does not matter.
+- If the name is present, the order does not matter.
 
 ---
 ## Challenge 12 ![:cube]()
 
-`plot` is a function that draws a graph of y as a function of x. It requires two arguments names *x* and *y*. What are the differences between the following lines?
+`plot` is a function that draws a graph of y as a function of x. It requires two arguments names `x` and `y`. What are the differences between the following lines?
 
 
 ```r
@@ -1010,7 +1048,7 @@ plot(y = b, x = a)
 &lt;img src="Workshop01_Slides_files/figure-html/unnamed-chunk-52-1.png" width="480" style="display: block; margin: auto;" /&gt;
 
 ---
-## Challenge 12: Solution ![:cube]()
+## Challenge 12: Solution
 
 .pull-left[
 
@@ -1033,7 +1071,7 @@ plot(b,a)
 The shape of the plot changes, as we did not provided the arguments names, the order is important.
 
 ---
-## Challenge 12: Solution ![:cube]()
+## Challenge 12: Solution
 
 .pull-left[
 
@@ -1056,15 +1094,26 @@ plot(y = b, x = a)
 Same as `plot(a,b)`. The argument names are provided, the order is not important.
 
 ---
+class: inverse, center, middle
+
+# Packages
+
+---
 ## Packages
 
 Packages are a **grouping of functions** and/or **datasets** that share a similar **theme**, e.g. statistics, spatial analysis, plotting, etc.
 
 **Everyone** can develop packages and make them available to others.
 
-They are usually available through the *Comprehensive R Archive Network* or CRAN: http://cran.r-project.org/web/packages/
+Many packages available through the *Comprehensive R Archive Network* [CRAN](http://cran.r-project.org/web/packages/) and now many more on GitHub [![:faic](github)](https://github.com/)
 
-Currently, more than 5877 packages are publicly availables.
+&lt;br&gt;
+
+.alert[Guess how many packages are available?]
+
+---
+
+&lt;iframe height=100% width=100% src="images/R Package Documentation.htm" style="border:none;"&gt;&lt;/iframe&gt;
 
 ---
 ## Packages
@@ -1133,7 +1182,7 @@ But... how do I find them?
 
 To find a function that does something specific in your installed packages, you can use `??` followed by a search term.
 
-Let's say we want to create a *sequence* of odd numers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word "sequence" in them:
+Let's say we want to create a *sequence* of odd numbers between 0 and 10 as we did earlier. We can search in our packages all the functions with the word "sequence" in them:
 
 
 ```r
@@ -1274,7 +1323,7 @@ Here are some tips on how to use them efficiently:
 - Search in English
 - Use the keyword "R" at the beginning of your search
 - Define precisely what you are looking for
-- Learn to read discussion forums. Chances are other people already had your problem and asked about it.
+- Learn to read discussion forums, such as .comment[StackOverflow]. Chances are other people already had your problem and asked about it.
 - Don't hesitate to search again using different keywords!
 
 ---
@@ -1289,10 +1338,15 @@ Find the appropriate functions to perform the following operations:
 
 ---
 ## Challenge 14: Solutions ![:cube]()
-- `sqrt`
-- `mean`
-- `cbind`
-- `ls`
+
+- Square root
+  - `sqrt`
+- Calculate the mean of numbers
+  - `mean`
+- Combine two data frames by columns
+  - `cbind`
+- List availables objects in your workspace
+  - `ls`
 
 ---
 class: inverse, center, middle
@@ -1302,11 +1356,14 @@ class: inverse, center, middle
 ---
 ## Cheat 4ever
 
-Lot of cheatsheets are available:
+.center[
+![](http://dastornews.com/wp-content/uploads/2013/04/cheat.gif)]
 
-https://www.rstudio.com/resources/cheatsheets/
 
-Open it directly from **Rstudio**
+Lot of .alert[cheat sheets] are available online [![:faic](external-link)](https://www.rstudio.com/resources/cheatsheets/)
+
+Open it directly from **Rstudio**: Help ![:faic](long-arrow-right) Cheatsheets
+
 
 ---
 ## Cheat 4ever
@@ -1316,23 +1373,27 @@ Open it directly from **Rstudio**
 ---
 ## Some useful R books
 
-&lt;img style="float: right; width: 170px;" src="images/Book6.jpg"&gt;
-&lt;img style="float: right; width: 151px;" src="images/Book5.jpg"&gt;
-&lt;img style="float: right; width: 180px;" src="images/Book4.jpg"&gt;
-&lt;img style="float: right; width: 150.5px;" src="images/Book3.jpg"&gt;
-&lt;img style="float: right; width: 150px;" src="images/Book2.jpg"&gt;
-&lt;img style="float: right; width: 150px;" src="images/Book1.jpg"&gt;
-
+.center[
+![](images/Book6.jpg) ![](images/Book5.jpg) ![](images/Book4.jpg)
+]
+.center[
+![](images/Book1.jpg) ![](images/Book2.jpg) ![](images/Book3.jpg)
+]
 
 ---
 ## Some useful R websites
 
-- http://stats.stackexchange.com
-- https://www.zoology.ubc.ca/~schulter/R/
-- http://statmethods.net/
-- http://rseek.org/
-- http://cookbook-r.com/
-- http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf
+![:scale 15%](http://r4ds.had.co.nz/cover.png) [![:faic](external-link)](http://r4ds.had.co.nz/index.html)
+
+![](http://www.lapk.org/images/QuickR.png) [![:faic](external-link)](http://statmethods.net/)
+
+![:scale 15%](https://www.rstudio.com/wp-content/uploads/2014/07/RStudio-Logo-Blue-Gradient.png) Documentation [![:faic](external-link)](https://support.rstudio.com/hc/en-us/categories/200035113-Documentation)
+ 
+An Introduction to R [![:faic](external-link)](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)
+
+R Reference card 2.0 [![:faic](external-link)](http://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf)
+
+Cookbook for R [![:faic](external-link)](http://cookbook-r.com/)
 
 ---
 class: inverse, center, bottom
@@ -1354,23 +1415,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

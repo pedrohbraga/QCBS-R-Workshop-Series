@@ -11,6 +11,7 @@ QCBS-R-Revamping-Slides.html
 *.pptx
 *.pdf
 *.html
+*.RData
 
 !*commentsR.pdf
 !*qcbsR-header.html

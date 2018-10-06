@@ -48,10 +48,6 @@ library(MASS)
 
 if (!require(car)) install.packages("car")
 library(car)
-
-if (!require(effects)) install.packages("effects")
-#library(effects)
-
 ```
 
 ---
@@ -645,6 +641,8 @@ abline(lm3, col = 'red')
 ---
 ## Challenge 1 - Solution ![:cube]()
 
+<br>
+
 ```{r}
 # Run the model
 lm4 <- lm(logMaxAbund ~ logMass, data=bird, subset=bird$Passerine == 1)
@@ -728,8 +726,8 @@ class: inverse, center, middle
 ---
 ## T-test
 
-- **Response variable**: Continuous
-- **Explanatory variable**: Categorical with **2 levels**
+- **Response variable** ![:faic](arrow-right) Continuous
+- **Explanatory variable** ![:faic](arrow-right) Categorical with **2 levels**
 
 **Assumptions**
 - Data follow a normal distribution
@@ -1134,6 +1132,8 @@ anova(anov2)
 ```
 ]
 
+.comment[In this case, the only significant term of the model is the diet factor]
+
 ---
 ## Learning objectives
 
@@ -1151,114 +1151,150 @@ class: inverse, center, middle
 
 - Combination of ANOVA and linear regression
 - Explanatory variables are a mix of continuous variable(s) (covariates) and categorial variable(s) (factors)
-- Subsets the observed variation:
 
-```
-Y = μ + Main Effects of Factors
-      + Interactions between factors
-      + Main effects of covariates
-      + Interactions between covariates and factors
-      + Residuals
-```
+$$Y = \mu + \text{Main Effects of Factors} + \\
+            \text{Interactions between factors} + \\
+            \text{Main effects of covariates} + \\
+            \text{Interactions between covariates and factors} + \epsilon$$
+
 ---
 ## Review: ANCOVA
-Assumptions
-- Variables are **fixed** *
-- Residuals are normally distributed
-- Independence btw residuals and fitted values
-- Equal variance among factor levels
-- Same range for all covariates
-- No interaction between factors and covariate(s)
-- No outlier
 
-If not respected; try transforming your data
+In addition to the assumptions of linear models, **ANCOVA** models must have:
 
-* A **fixed** variable is one that you are specifically interested in (bird mass) whereas a **random** variable is noise that you want to control for (i.e. site a bird was sampled in).
-See **Linear mixed-effect model (LMM) Workshop 5** next semester for more on this!
+- The same value range for all covariates
+- Variables that are fixed
+- No interaction between categorical and continuous variables
+
+<br>
+
+.small[
+.comment[A **fixed** variable is one that you are specifically interested in (bird mass) whereas a **random** variable is noise that you want to control for (i.e. site a bird was sampled in)]]
+
+.small[.comment[*More in workshop 6 with linear-mixed effects models*]]
 
 ---
 ## Types of ANCOVA
 
-- You can have any number of factors and/or covariates, but as their number increases, the interpretation of results gets more complex
+You can have any number of factors and/or covariates, but as their number increases, the interpretation of results gets more complex
+
+<br>
 
 Frequently used ANCOVA
-1) One covariate and one factor
-2) One covariate and two factors
-3) Two covariates and one factor
 
-* We will only see the first case today, but the two others are pretty similar!
+1. **One covariate and one factor**
+2. One covariate and two factors
+3. Two covariates and one factor
+
+.small[.comment[We will only see the first case today, but the two others are pretty similar!]]
 
 ---
-## ANCOVA with one covariate and one factor
+## ANCOVA with 1 covariate and 1 factor
 
 Different possible goals of this analysis:
 
-1) Effect of factor and covariate on the response variable
-2) Effect of factor on the response variable after removing effect of covariate
-3) Effect of covariate on response variable while controlling for the effect of factor
+1. Effect of factor and covariate on the response variable
+2. Effect of factor on the response variable after removing effect of covariate
+3. Effect of covariate on response variable while controlling for the effect of factor
 
-* You can only meet these goals if you have no interaction between your factor and covariate!
+<br>
 
----
-## ANCOVA with one covariate and one factor
-
-If your covariate and factor are significant, you will have a scenario that looks like this:
-
-If the interaction is significant, outputs will look like these:
-
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.42.07.png)
-
-No interaction
-One level of the factor has a different slope
-Many levels have different slopes
+.center[.alert[You can only meet these goals if you have no interaction between your factor and covariate!]]
 
 ---
-## ANCOVA with one covariate and one factor
+## ANCOVA with 1 covariate and 1 factor
 
-- If you want to compare the mean values of each factor, conditional on the effect of the other, the **ajusted means** should be visualized
-- The `effect()` function uses the output of the ANCOVA model to estimate the means of each factor level, corrected by the effect of the covariate
+```{r,echo=FALSE,fig.height=3, fig.width=10}
+## functions
+f1 <- function(x, a, b) {
+  return(x*a+b)
+}
+# conf for plot
+col = rgb(118, 143, 175, maxColorValue = 255)
+x <- 1:20
+par(mfrow = c(1, 3), mar = c(1, 1, 6.5, 4))
 
-```{r eval=FALSE, warning=FALSE}
-ancova.exemple <- lm(Y ~ X*Z, data=data)
-# X = quantitative; Z = categorical
+# plot 1
+plot(x, f1(x, a=1.1,b=2), ylim = c(0, 60), type = 'l', lwd = 2.5, xaxt = "n", yaxt = "n", xlab = "", ylab = "", bty='l', col = col)
+lines(f1(x, a=1.1,b=17), lwd = 2.5, col = col)
+lines(f1(x, a=1.1,b=22), lwd = 2.5, col = col)
+lines(f1(x, a=1.1,b=40), lwd = 2.5, col = col)
+mtext('No interaction', side = 3, line = 2, cex = 1.5)
+# plot 2
+plot(x, f1(x, a=1.1,b=2), ylim = c(0, 60), type = 'l', lwd = 2.5, xaxt = "n", yaxt = "n", xlab = "", ylab = "", bty='l', col = col)
+lines(f1(x, a=1.1,b=17), lwd = 2.5, col = col)
+lines(f1(x, a=0.6,b=22), lwd = 2.5, col = col)
+lines(f1(x, a=1.1,b=40), lwd = 2.5, col = col)
+mtext('One level of the factor\n has a different slope', side = 3, line = 2, cex = 1.5)
+# plot 3
+plot(x, f1(x, a=.5,b=2), ylim = c(0, 60), type = 'l', lwd = 2.5, xaxt = "n", yaxt = "n", xlab = "", ylab = "", bty='l', col = col)
+lines(f1(x, a=1.1,b=17), lwd = 2.5, col = col)
+lines(f1(x, a=1.1,b=22), lwd = 2.5, col = col)
+lines(f1(x, a=0.01,b=40), lwd = 2.5, col = col)
+mtext('Many levels have\n different slopes', side = 3, line = 2, cex = 1.5)
 ```
 
+.pull-left2[.center[.pull-left[![:faic](arrow-up)] .pull-right[![:faic](arrow-up)]]] .pull-right2[.center[![:faic](arrow-up)]]
+
+.center[.pull-left2[If your covariate and factor are significant, you will have a scenario that looks like this]]
+
+.pull-right2[If the interaction is significant, outputs will look like these]
+
+---
+## Compare ANCOVA - Adjusted means
+
+To compare the mean values of each factor, conditional on the effect of the other
+
+The `effect()` function uses the output of the ANCOVA model to estimate the means of each factor level, corrected by the effect of the covariate
+
+.small[
 ```{r eval=FALSE, warning=FALSE}
-#library(effects)
+ancova.exemple <- lm(Y ~ X*Z, data=data) # X = quantitative; Z = categorical
+
+library(effects)
 adj.means.ex <- effect('Z', ancova.exemple)
 plot(adj.means.ex)
 ```
+]
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.42.22.png)
-
+```{r,echo=FALSE,fig.height=3, fig.width=5}
+# plot to simulate effects::effect() plot
+a = 40; b =20; sd = 8
+par(mar=c(4,4,1,1))
+plot(c(a, b), ylim = c(10, 50), xlim = c(0.9, 2.1), xlab = 'factor Z', ylab = 'Y', xaxt = 'n')
+lines(c(a, b), col = 4, pch = 1.5)
+segments(c(1, 2), c(a-sd, b-sd), c(1,2), c(a+sd, b+sd), lwd = 1.5, col = 'orange')
+segments(c(1, 2) - .04, c(a, b) + sd, c(1, 2) + .04, c(a, b) + sd, lwd = 1.5, col = 'orange')
+segments(c(1, 2) - .04, c(a, b) - sd, c(1, 2) + .04, c(a, b) - sd, lwd = 1.5, col = 'orange')
+points(c(1, 2), c(a, b), pch = 16, col = 4)
+axis(1, at = c(1, 2), labels = FALSE) # add ticks
+mtext(c('Level 1', 'Level 2'), 1, at = 1:2, line = 0.5) # add labels to ticks
+```
 
 ---
-## ANCOVA with one covariate and one factor
+## ANCOVA with 1 covariate and 1 factor
 
 - If only your factor is significant, remove the covariate -> you will have a simple **ANOVA**
 - If only your covariate is significant, remove your factor -> you will have a **simple linear regression**
 - If the interaction btw your covariate and factor (*) is significant, you should explore which levels of the factor have different slopes from the others
 
-Verify assumptions!
+.alert[Verify assumptions!]
+
 - Very similar to what we have done so far!
 
 ---
 ## Running an ANCOVA in R
 
-### Is Max Abund a function of Diet and Mass?
+##### Is `Max Abund` a function of Diet and Mass?
 
-Response variable: **MaxAbund** / num : quantitative continuous
-Explanatory variables: **Diet** / factor with 5 levels
-                       **Mass** / numeric continuous
-```
-'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"...
- $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
- $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
- $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
- $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
- $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
- $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
+Response variable: **MaxAbund** ![:faic](arrow-right) num : quantitative continuous
+
+Explanatory variables:
+  - **Diet** ![:faic](arrow-right) factor with 5 levels
+  - **Mass** ![:faic](arrow-right) numeric continuous
+
+```{r}
+str(bird)
 ```
 
 ---
@@ -1267,34 +1303,37 @@ Explanatory variables: **Diet** / factor with 5 levels
 1- Run an ANCOVA to test the effect of Diet and Mass (as well as their interaction) on Maximum abundance
 ```{r eval=FALSE}
 ancova.exemple <- lm(Y~X*Z, data=data)
-summary(ancova.exemple2)
+summary(ancova.exemple)
 ```
 
 2- Test whether the interaction is signifiant
 ```{r eval=FALSE}
 ancova.exemple2 <- lm(Y~X+Z, data=data)
+summary(ancova.exemple2)
 ```
 
 ---
 ## Challenge 3 - Solution ![:cube]()
+
+<br>
+
 ```{r}
 ancov1 <- lm(logMaxAbund ~ logMass*Diet,
              data = bird)
 anova(ancov1)
 ```
 
-Interaction btw logMass and Diet is non-significant
+.comment[Interaction btw logMass and Diet is non-significant]
 
 ---
 ## Challenge 3 - Solution ![:cube]()
 
-- Remove the interaction term and re-evaluate the model (with only the main effects of Diet and logMass)
+Remove the interaction term and re-evaluate the model (with only the main effects of Diet and logMass)
 
 ```{r}
 ancov2 <- lm(logMaxAbund ~ logMass + Diet,
              data = bird)
 anova(ancov2)
-
 ```
 
 ---
@@ -1311,8 +1350,8 @@ class: inverse, center, middle
 
 ---
 ## Multiple linear regression
-- **Explanatory variable**: 2 or more continuous variables
-- **Response variable**: 1 continuous variable
+- **Explanatory variable** ![:faic](arrow-right) 2 or more continuous variables
+- **Response variable** ![:faic](arrow-right) 1 continuous variable
 
 - Generalization of simple linear regression
 

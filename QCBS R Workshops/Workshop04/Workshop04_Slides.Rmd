@@ -13,12 +13,12 @@ output:
       beforeInit: "qcbsR-macros.js"
 
 ---
- 
+
 ```{r setup, echo = F}
 knitr::opts_chunk$set(
   comment = "#",
   collapse = TRUE,
-  #cache = TRUE,
+  cache = TRUE,
   warning = FALSE,
   message = FALSE,
   fig.width=6, fig.height=6,
@@ -864,39 +864,10 @@ class: inverse, center, middle
 ---
 ## Analysis of Variance (ANOVA)
 
-- Generalization of the t-test to >2 groups and/or ≥ 2 factor levels
+- Generalization of the t-test to $>2$ groups and/or $≥2$ factor levels
 - Subsets variation in the response variable into additive effects of one or several factors and the interactions between them
 
-Y = u + Main effects of Factors + Interactions Between Factors + Residuals
-
-The constant is the mean of the values of the response variable
-
----
-## Types of ANOVA
-
-### One-Way ANOVA
-- One factor with >2 levels
-
-### Two-Way ANOVA
-- 2 factors or more
-- Each factor can have multiple levels
-- Need to test for **interactions** among factors
-
-### Repested measures?
-- Note that ANOVA can be used for repeated measures, but we won't cover this today. Mixed-effect linear models can also be used for this kind of data (see Workshop 5!)
-
----
-## Review: ANOVA
-
-**Compares variation within and between groups in order to determine if group means differ**
-
-Hypothesis
-- For each factor and each interaction term:
-  - H0: The mean of the response variable is equal between groups
-  - H1: At least two groups have a different mean
-
-- When an interaction term is significant: the effect of a given factor varies according to the levels of another factor
-- Just like the t-test, the robustness of ANOVA increases with sample size and if groups have equal sizes
+$$Y = \underbrace{\mu}_{\Large{\text{The average outcome}\atop\text{over all individuals}}} + \overbrace{\tau_{i}}^{\Large{\text{The average outcome over}\atop\text{all individuals in group i}}} + \underbrace{\epsilon}_{\text{Residuals}}$$
 
 ---
 ## Review: ANOVA
@@ -912,42 +883,48 @@ Complementary test
 ---
 ## Running an ANOVA in R
 
-### Is abundance a function of diet?
-- Response variable: **MaxAbund** / num: continuous
-- Explanatory variable: **Diet** / factor with 5 levels
+#### Is abundance a function of diet?
+- Response variable: **MaxAbund**  ![:faic](arrow-right) num: continuous
+- Explanatory variable: **Diet** ![:faic](arrow-right) factor with 5 levels
 
-```
-'data.frame':	54 obs. of  7 variables:
- $ Family   : Factor w/ 53 levels "Anhingas"...
- $ MaxAbund : num  2.99 37.8 241.4 4.4 4.53 ...
- $ AvgAbund : num  0.674 4.04 23.105 0.595 2.963 ...
- $ Mass     : num  716 5.3 35.8 119.4 315.5 ...
- $ Diet     : Factor w/ 5 levels "Insect","InsectVert"
- $ Passerine: int  0 1 1 0 0 0 0 0 0 0 ...
- $ Aquatic  : int  0 0 0 0 1 1 1 0 1 1 ...
+```{r}
+str(bird)
 ```
 
 ---
-## Running an ANOVA in R
+## Visualize data
 
 - First, visualize the data using `boxplot()` (alphabetically by default)
 
-```{r, eval=FALSE}
+```{r, fig.height=4.5, fig.width=7}
 boxplot(logMaxAbund ~ Diet,
-        data = bird)
+        data = bird, ylab = expression("log"[10]*"(Maximum Abundance)"), xlab = 'Diet')
 ```
+
+---
+## Visualize data
 
 - We can reorder factor levels according to group medians using the `tapply()` and `sort()` functions
 
-```{r}
-med <- sort(tapply(bird$logMaxAbund,
-                   bird$Diet, median))
-boxplot(logMaxAbund ~ factor(Diet,
-                             levels = names(med)),
-        data = bird)
+```{r, fig.height=3.5, fig.width=7, echo=-1}
+par(mar=c(4,4,1,1))
+med <- sort(tapply(bird$logMaxAbund, bird$Diet, median))
+boxplot(logMaxAbund ~ factor(Diet, levels = names(med)), data = bird,
+        ylab = expression("log"[10]*"(Maximum Abundance)"), xlab = 'Diet')
 ```
 
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.33.png)
+---
+## Visualize data
+
+- Another way to graphically view the effect sizes is to use `plot.design()`
+
+```{r, fig.height=3.5, fig.width=7, echo=-1}
+par(mar=c(4,4,1,1))
+plot.design(logMaxAbund ~ Diet, data=bird, ylab = expression("log"[10]*"(Maximum Abundance)"))
+```
+
+.comment[Levels of a particular factor along a vertical line, and the overall value of the response in a horizontal line]
+
 ---
 ## Running a one-way ANOVA in R
 
@@ -955,17 +932,15 @@ boxplot(logMaxAbund ~ factor(Diet,
 ```{r}
 anov1 <- lm(logMaxAbund ~ Diet,
             data = bird)
-anova(anov1)
 ```
 
 - Or use a specific function called `aov()`
 ```{r}
 aov1 <- aov(logMaxAbund ~ Diet,
             data = bird)
-summary(aov1)
 ```
 
-- Try it and compare the outputs!
+Try it and compare the outputs!
 
 ---
 ## Running a one-way ANOVA in R
@@ -981,18 +956,24 @@ summary(aov1)
 ---
 ## Did we violate the model assumptions?
 
-- **Bartlett test**: equality of variance among groups
+**Bartlett test**: equality of variance among groups
+
+.small[
 ```{r}
 bartlett.test(logMaxAbund ~ Diet,
               data = bird)
 ```
+]
 
-- **Shapiro-Wilk test**:  Normality of residuals
+**Shapiro-Wilk test**:  Normality of residuals
+
+.small[
 ```{r}
 shapiro.test(resid(anov1))
 ```
+]
 
-- Both tests are non-significant; variances assumed to be equal and residuals assumed to be normally distributed
+.comment[Both tests are non-significant; variances assumed to be equal and residuals assumed to be normally distributed]
 
 ---
 ## What if the assumptions were not met?
@@ -1012,47 +993,62 @@ kruskal.test(Y~X, data)
 ---
 ## Output of our ANOVA model
 
-- Factor levels in alphabetical order and all levels are compared to the reference level ("Insect")
+Factor levels in alphabetical order and all levels are compared to the reference level ("Insect")
 
+.small[
 ```{r}
 summary(anov1)
 ```
-```{r eval=FALSE}
+]
+
+---
+## Output of our ANOVA model
+
+On the other hand, if `lm()` is used
+
+.pull-left2[
+.small[
+```{r}
 summary.lm(aov1)
 ```
+]]
 
-Significant difference between Diet groups, but we don't know which ones!
+.pull-right2[
+.comment[Significant difference between Diet groups, but we don't know which ones!]
+]
 
 ---
 ## A posteriori test
 
-- If ANOVA detects a significant effect, a post-hoc test is required to determine which treatment(s) differ from the others. This can be done with the **TukeyHSD()** function
+If ANOVA detects a significant effect, a post-hoc test is required to determine which treatment(s) differ from the others. This can be done with the `TukeyHSD()` function
 
+.small[
 ```{r}
-TukeyHSD(aov(anov1),
-         ordered=T)
+TukeyHSD(aov(anov1), ordered = TRUE)
 ```
+]
 
-Only "Vertebrate" and "PlantInsect" differ
+.comment[Only "Vertebrate" and "PlantInsect" differ]
 
 ---
 ## Graphical representation
 
-- The ANOVA results can be graphically illustrated using the `barplot()` function
+The ANOVA results can be graphically illustrated using the `barplot()` function
 
-```{r}
+.small[
+```{r, fig.height=3, fig.width=7,echo=-1}
+par(mar=c(3,3,0.5,0.5))
 sd <- tapply(bird$logMaxAbund, list(bird$Diet), sd)
 means <- tapply(bird$logMaxAbund, list(bird$Diet), mean)
 n <- length(bird$logMaxAbund)
 se <- 1.96*sd/sqrt(n)
-bp <- barplot(means)
+bp <- barplot(means, ylim = c(0, max(bird$logMaxAbund) - 0.5))
 epsilon = 0.1
-segments(bp, means - se, bp, means + se, lwd=2)
-segments(bp - epsilon, means - se, bp + epsilon, means - se, lwd = 2)
-segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2)
+segments(bp, means - se, bp, means + se, lwd=2) # vertical bars
+segments(bp - epsilon, means - se, bp + epsilon, means - se, lwd = 2) # horizontal bars
+segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2) # horizontal bars
 ```
-
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.41.44.png)
+]
 
 ---
 class: inverse, center, middle
@@ -1062,52 +1058,81 @@ class: inverse, center, middle
 ---
 ## Two-way ANOVA
 
-`anova.with.lm <- lm(Y~X*Z, data)`
+More than one factor
 
-The "*" symbol indicates that the main effects as well as their interaction will be included in the model
-```
-Analysis of Variance Table
+- One factor anova:
 
-Response: Y
-Df Sum Sq Mean Sq F value Pr(>F)
-X 4 5.1059 1.27647 3.0378 0.02669 *
-Z 1 0.3183 0.31834 0.7576 0.38870
-X:Z 3 2.8250 0.94167 2.2410 0.10689
-Residuals 45 18.9087 0.42019
----
-Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-```
-Example of a non-significant interaction
+ `aov <- lm(Y ~ X, data)`
+
+- Two or more factors anova:
+
+ `aov <- lm(Y ~ X * Z * ..., data)`
+
+.comment[The "*" symbol indicates that the main effects as well as their interaction will be included in the model]
+
+.comment[If use the "+" symbol, the main effects, but not their interaction are included]
+
+`aov <- lm(Y ~ X + Z + ..., data)`
+
 
 ---
 ## Two-way ANOVA
 
-- According to law of **parsimony**, select model that explain the most variance with the least model parameters possible
+Example of a non-significant interaction
+
+.small[
+```r
+aov <- lm(Y ~ X * Z, data)
+summary(aov)
+# Analysis of Variance Table
+#
+# Response: Y
+# Df Sum Sq Mean Sq F value Pr(>F)
+# X 4 5.1059 1.27647 3.0378 0.02669 *
+# Z 1 0.3183 0.31834 0.7576 0.38870
+# X:Z 3 2.8250 0.94167 2.2410 0.10689
+# Residuals 45 18.9087 0.42019
+# ---
+# Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+]
+
+According to law of **parsimony**, select model that explain the most variance with the least model parameters possible
 - Thus, remove the interaction term if non-signficant and re-evaluate
 
-`anova.with.lm <- lm(Y~X+Z, data)`
-
-If use the "+" symbol, the **main effects**, but *not* their interaction are included
+```r
+aov <- lm(Y ~ X + Z, data)
+```
 
 ---
 ## Challenge 2 ![:cube]()
 
-### Evaluate how `log(MaxAbund)` varies with Diet and Aquatic
+Evaluate how `log(MaxAbund)` varies with Diet and Aquatic
 
-Hint: Test the factors Diet, Aquatic and their interaction in a two-way ANOVA model
-e.g. `lm(Y ~ A*B)`
+- .comment[Hint: Test the factors Diet, Aquatic and their interaction in a two-way ANOVA model
+e.g. `lm(Y ~ A*B)`]
 
-where A is your first factor, B is your second and "*" is the command for interaction in R
+- .comment[where A is your first factor, B is your second and ` * ` is the command for interaction in R]
 
 ---
 ## Challenge 2 - Solution ![:cube]()
+
+.small[
 ```{r}
-anov2 <- lm(logMaxAbund ~ Diet*Aquatic,
-            data = bird)
+anov2 <- lm(logMaxAbund ~ Diet*Aquatic, data = bird)
 summary(anov2)
+```
+]
+
+---
+## Challenge 2 - Solution ![:cube]()
+
+.small[
+```{r}
+anov2 <- lm(logMaxAbund ~ Diet*Aquatic, data = bird)
 anova(anov2)
 ```
-
+]
 
 ---
 ## Learning objectives

@@ -13,7 +13,7 @@ output:
       beforeInit: "qcbsR-macros.js"
 
 ---
-
+ 
 ```{r setup, echo = F}
 knitr::opts_chunk$set(
   comment = "#",

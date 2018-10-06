@@ -45,14 +45,14 @@ objectName <- "assignedValue"
 # Adding spaces before the "<-" is recommended 
 # When typing the object names, R will return its value 
 
-mean.x <- (2+6)/2
-mean.x 
+mean_x <- (2+6)/2
+mean_x 
 
 ## Challenge 5 
 # Create an object with a value of 1+1.718282 (Euler's  number) and name it "euler.value"
 
-euler.value <- 1+1.718282
-euler.value
+euler_value <- 1+1.718282
+euler_value
 
 ## Challenge 6 
 # Create a second object with a name that starts with a number, What happens? 
@@ -77,23 +77,23 @@ euler.value
 vector <- c("value1", "value2")
 
 ## Numeric vectors 
-num.vector <- c(1,4,3,98,32,-76, -4)
-num.vector 
+num_vector <- c(1,4,3,98,32,-76, -4)
+num_vector 
 
 ## Character vectors 
-char.vector <- c("blue", "red", "green")
-char.vector
+char_vector <- c("blue", "red", "green")
+char_vector
 
 ## Logical vectors 
-bool.vector <- c(TRUE, TRUE, FALSE)
-bool.vector
+bool_vector <- c(TRUE, TRUE, FALSE)
+bool_vector
 
-bool.vector2 <- c(T,T,F)
-bool.vector2
+bool_vector2 <- c(T,T,F)
+bool_vector2
 
 ## Challenge 7 
-# Create a vector containing the first 5 odd numbers, starting from 1, and name it "odd.n"
-odd.n <- c(1,3,5,7)
+# Create a vector containing the first 5 odd numbers, starting from 1, and name it "odd_n"
+odd_n <- c(1,3,5,7)
 
 ## We can use vectors for calculations 
 x <- c(1:5)
@@ -115,58 +115,58 @@ x*y
 
 siteID <- c("A1.01", "A1.02", "B1.01", "B1.02")
 soil_pH <- c(5.6, 7.3, 4.1, 6.0)
-num.sp <- c(17, 23, 15, 7)
+num_sp <- c(17, 23, 15, 7)
 treatment <- c("Fert", "Fert", "No_fert", "No_fert")
 
 # We then combine them using the function data.frame() 
-my.first.df <- data.frame(siteID, soil_pH, num.sp, treatment)
-my.first.df
+my_first_df <- data.frame(siteID, soil_pH, num.sp, treatment)
+my_first_df
 
 ## Matrices, Arrays and Lists 
 
 ## Indexing vectors 
 # You  can use indexing to chose a particular position, 
-# let's say we want to see the second value of our `odd.n` vector
+# let's say we want to see the second value of our `odd_n` vector
 
-odd.n[2]
+odd_n[2]
 # It also work with multiple positions: 
-odd.n[c(2,4)]
+odd_n[c(2,4)]
 # It can be used to remove some values at particular positions 
-odd.n[-c(1,2)]
+odd_n[-c(1,2)]
 
 # If you select a position that is not in the vector: 
-odd.n[c(1,5)]
+odd_n[c(1,5)]
 
 # You can also use conditions to select values 
-char.vector[char.vector == "blue"]
+char_vector[char_vector == "blue"]
 
 ## Challenge 8 
 
-# Using the vector "num.vector"
+# Using the vector "num_vector"
 # - Extract the 4th value
 # - Extract the 1st and 3rd values
 # - Extract all values except for the 2nd and the 4th
 
-num.vector[4]
-num.vector[c(1,3)]
-num.vector[c(-2,-4)]
+num_vector[4]
+num_vector[c(1,3)]
+num_vector[c(-2,-4)]
 
 ## Challenge 9 
 # Explore the difference between these 2 lines of code:
-char.vector == "blue"
-char.vector[char.vector == "blue"]
+char_vector == "blue"
+char_vector[char_vector == "blue"]
 
 ## Indexing data frames
 ## Challenge 10 
 
-# 1. Extract the `num.sp` column from `my.first.df` and multiply its value by  the first four values of `num.vec`.
+# 1. Extract the `num_sp` column from `my_first_df` and multiply its value by  the first four values of `num_vec`.
 
-my.first.df$num.sp * num.vector[c(1:4)]
+my_first_df$num_sp * num_vector[c(1:4)]
 # or
-my.first.df[,3] * num.vector[c(1:4)]
+my_first_df[,3] * num_vector[c(1:4)]
 
 # 2. After that, write a statement that checks if the values you obtained are greater than 25.
-(my.first.df$num.sp * num.vector[c(1:4)]) > 25
+(my_first_df$num_sp * num_vector[c(1:4)]) > 25
 
 ## Functions 
 

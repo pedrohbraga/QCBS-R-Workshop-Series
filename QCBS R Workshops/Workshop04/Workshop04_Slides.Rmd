@@ -1204,6 +1204,8 @@ Different possible goals of this analysis:
 ---
 ## ANCOVA with 1 covariate and 1 factor
 
+<br>
+
 ```{r,echo=FALSE,fig.height=3, fig.width=10}
 ## functions
 f1 <- function(x, a, b) {
@@ -1483,7 +1485,7 @@ class: inverse, center, middle
 
 # Optional section
 
-## if time permits
+## *if time permits*
 
 ---
 ## Optional section
@@ -1495,77 +1497,92 @@ class: inverse, center, middle
 5. Variance partitioning
 
 ---
+class: inverse, center, middle
+
+# Stepwise regression
+
+---
 ## Stepwise regression
 
-- Run a model with everything in except the "Present/ absence" variable
-- Use `step()` to iteratively select the best model,
+Run a model with everything in except the "Present/ absence" variable
+
+Use `step()` to iteratively select the best model;
   - i.e. model with lowest Akaike's Information Criterion (AIC)
 
-```{r}
+.small[
+```{r,eval=FALSE}
 lm.full <- lm(abund ~ . - Present,
               data = Dickcissel)
 lm.step <- step(lm.full)
-
-# ?step
+```
+]
+```{r,include=FALSE}
+lm.full <- lm(abund ~ . - Present,
+              data = Dickcissel)
+lm.step <- step(lm.full)
 ```
 
 ---
 ## Stepwise regression
 
-```{r eval=TRUE, echo=FALSE}
+.pull-left[
+.tiny[
+```{r eval=TRUE}
 summary(lm.full)
 ```
+]]
+
+.pull-right[
 
 Variables selected by the `step()` function
+.tiny[
 ```{r}
 summary(lm.step)
 ```
+]]
 
-The model now accounts for 31.44% of the Dickcissel abundance variability
+.small[.comment[The model now accounts for 31.44% of the Dickcissel abundance variability]]
 
 ---
-## Optional section *(... if time permits)*
+class: inverse, center, middle
 
-1. Interpreting contrasts
-2. Unbalanced ANOVA
-3. Polynomial regression
-4. Variance partitioning
+# Interpreting contrasts
 
 ---
 ## Interpreting contrasts
 
-- DEFAULT contrast compares each level of a factor to baseline level
-- The intercept is the baseline group and corresponds to the mean of the first (alphabetically) Diet level (Insect)
+DEFAULT: contrast compares each level of a factor to baseline level
 
-- Add Intercept + coefficient estimates of each Diet level
+The intercept is the baseline group and corresponds to the mean of the first (alphabetically) Diet level (`Insect`)
+
+Add Intercept + coefficient estimates of each Diet level
 
 ```{r}
-tapply(bird$logMaxAbund,
-       bird$Diet,
-       mean)
+tapply(bird$logMaxAbund, bird$Diet, mean)
 coef(anov1)
 coef(anov1)[1] + coef(anov1)[2] # InsectVert
 coef(anov1)[1] + coef(anov1)[3] # Plant
 ```
 
-- What did you notice?
+.comment[What did you notice?]
 
 ---
 ## Interpreting contrasts
 
-- We may want to relevel the baseline:
+We may want to relevel the baseline:
 
-1) Compare the Plant diet to all other diet levels
-```{r}
+1. Compare the Plant diet to all other diet levels
+
+```{r,eval=FALSE}
 bird$Diet2 <- relevel(bird$Diet, ref="Plant")
-anov2 <- lm(logMaxAbund ~ Diet2,
-            data = bird)
+anov2 <- lm(logMaxAbund ~ Diet2, data = bird)
 summary(anov2)
 anova(anov2)
 ```
 
-2) Reorder multiple levels according to median
-```{r}
+2. Reorder multiple levels according to median
+
+```{r,eval=FALSE}
 bird$Diet2 <- factor(bird$Diet, levels=names(med))
 anov2 <- lm(logMaxAbund ~ Diet2,
             data = bird)
@@ -1573,91 +1590,125 @@ summary(anov2)
 anova(anov2)
 ```
 
-- Did you see change in the significance of each Diet level?
+.comment[Did you see change in the significance of each Diet level?]
 
 ---
 ## Interpreting contrasts
 
-- Note, the DEFAULT contrast ("contr.treatment") is NOT orthogonal
-- To be orthogonal,
-1) coefficients must sum to 0
-2) any two contrast columns must sum to 0
+.comment[NOTE: the DEFAULT contrast `contr.treatment` is NOT orthogonal]
+
+To be orthogonal:
+  - Coefficients must sum to 0
+  - Any two contrast columns must sum to 0
 
 ```{r}
 sum(contrasts(bird$Diet)[,1])
 sum(contrasts(bird$Diet)[,1]*contrasts(bird$Diet)[,2])
 ```
 
+---
+## Interpreting contrasts
+
 Change the contrast to make levels orthogonal (e.g. Helmert contrast will contrast the second level with the first, the third with the average of the first two, and so on)
 
+.small[
 ```{r}
 options(contrasts=c("contr.helmert", "contr.poly"))
 sum(contrasts(bird$Diet)[,1])
 sum(contrasts(bird$Diet)[,1]*contrasts(bird$Diet)[,2])
-anov3 <- lm(logMaxAbund ~ Diet,
-            data = bird)
+```
+]
+.tiny[
+```{r}
+anov3 <- lm(logMaxAbund ~ Diet, data = bird)
 summary(anov3)
+```
+]
+
+---
+class: inverse, center, middle
+
+# Unbalanced ANOVA
+
+---
+## Unbalanced ANOVA
+
+The `birdsdiet` data is actually unbalanced (number of `Aquatic` and `non-Aquatic` is not equal)
+
+```{r}
+table(bird$Aquatic)
+```
+
+Which means the order of the covariates changes the values of Sums of Squares
+
+```{r}
+unb.anov1 <- lm(logMaxAbund ~ Aquatic + Diet, data = bird)
+unb.anov2 <- lm(logMaxAbund ~ Diet + Aquatic, data = bird)
 ```
 
 ---
 ## Unbalanced ANOVA
 
-- The *birdsdiet* data is actually unbalanced (number of Aquatic and non-Aquatic is not equal)
-
 ```{r}
-table(bird$Aquatic)
-```
-- Which means the order of the covariates changes the values of Sums of Squares
-
-```{r}
-unb.anov1 <- lm(logMaxAbund ~ Aquatic + Diet, data = bird)
-unb.anov2 <- lm(logMaxAbund ~ Diet + Aquatic, data = bird)
 anova(unb.anov1)
+```
+
+```{r}
 anova(unb.anov2)
 ```
 
-- Now try type III ANOVA using the `Anova()` function. What have you noticed when using `Anova()`?
+---
+## Unbalanced ANOVA
 
+Now try type III ANOVA using the `Anova()` function
+
+.pull-left[
+.small[
 ```{r}
-library(car)
-Anova(unb.anov1, type = "III")
-Anova(unb.anov2, type = "III")
+car::Anova(unb.anov1, type = "III")
 ```
+]]
+.pull-right[
+.small[
+```{r}
+car::Anova(unb.anov2, type = "III")
+```
+]]
+
+.comment[What have you noticed when using `Anova()`?]ff
 
 ---
-## Optional section *(... if time permits)*
+class: inverse, center, middle
 
-1. Interpreting contrasts
-2. Unbalanced ANOVA
-3. Polynomial regression
-4. Variance partitioning
-
+# Polynomial regression
 
 ---
 ## Polynomial regression
 
-- As we noticed in the section on **multiple linear regression**, `MaxAbund` was non-linearly related to some variables.
-- To test for non-linear relationships, polynomial models of different degrees are compared.
+As we noticed in the section on **multiple linear regression**, `MaxAbund` was non-linearly related to some variables
 
-A polynomial model looks like this:
-$2x^4+3x-2$
-terms
+To test for non-linear relationships, polynomial models of different degrees are compared.
 
-this polynomial has 3 terms
+- A polynomial model looks like this:
+
+.center[$$\underbrace{2x^4}+\underbrace{3x}-\underbrace{2}$$]
+
+.comment[this polynomial has 3 terms]
 
 ---
 ## Polynomial regression
 
 For a polynomial with one variable (x), the *degree* is the largest exponent of that variable
 
-$2x^4+3x-2$
-
-this makes the degree 4
+<br>
+.center[*this makes the degree 4*]
+$$2x^\overbrace{4} + 3x - 2$$
 
 ---
 ## Polynomial regression
 
-- When you know a degree, you can also give it a name:
+When you know a degree, you can also give it a name
+
 ```{r echo=FALSE, warning=FALSE}
 
 poly.reg=data.frame(Degree = 0:5,
@@ -1669,19 +1720,21 @@ poly.reg=data.frame(Degree = 0:5,
                                 "\\(x^3-x^2+5\\)",
                                 "\\(6x^4-x^3+x-2\\)",
                                 "\\(x^5-3x^3+x^2+8\\)"))
-# knitr::kable(poly.reg, format = "html")
 knitr::kable(poly.reg, format = "html", escape=FALSE)
 ```
 
 ---
 ## Polynomial regression
 
-- Using the *Dickcissel* dataset, test the non-linear relationship between max abundance and temperature by comparing three sets of nested polynomial models (of degrees 0, 1, and 3):
+Using the `Dickcissel` dataset, test the non-linear relationship between max abundance and temperature by comparing three sets of nested polynomial models (of degrees 0, 1, and 3):
 
-```{r}
+```{r,echo=-c(4:6)}
 lm.linear <- lm(abund ~ clDD, data = Dickcissel)
 lm.quad   <- lm(abund ~ clDD + I(clDD^2), data = Dickcissel)
 lm.cubic  <- lm(abund ~ clDD + I(clDD^2) + I(clDD^3), data = Dickcissel)
+summ_lm.linear <- capture.output(summary(lm.linear))[c(9:12, 17, 18)]
+summ_lm.quad <- capture.output(summary(lm.quad))[c(9:13, 18, 19)]
+summ_lm.cubic <- capture.output(summary(lm.cubic))[c(9:14, 17, 18)]
 ```
 
 ---
@@ -1690,79 +1743,142 @@ lm.cubic  <- lm(abund ~ clDD + I(clDD^2) + I(clDD^3), data = Dickcissel)
 - Compare the polynomial models and determine which nested model we should keep
 - Run a summary of this model, report the regression formula, p-values and $R^2$-adj
 
+---
+## Polynomial regression
+
+Compare the polynomial models; .comment[which nested model we should keep?]
+
+Run a summary of this model, report the regression formula, p-values and $R^2$-adj
+
+.tiny[
+```{r}
+print(summ_lm.linear)
+```
+```{r}
+print(summ_lm.quad)
+```
+```{r}
+print(summ_lm.cubic)
+```
+]
 
 ---
-## Optional section *(... if time permits)*
+class: inverse, center, middle
 
-1. Interpreting contrasts
-2. Unbalanced ANOVA
-3. Polynomial regression
-4. Variance partitioning
-
+# Variance Partitioning
 
 ---
 ## Variance Partitioning
-- Some of the selected explanatory variables in the **multiple linear regression** section were highly correlated
-- Collinearity between explanatory variables can be assessed using the variance inflation factor `vif()` function of package `car`
-  - Variable with VIF >> 5 are considered collinearity
+
+Some of the selected explanatory variables in the **multiple linear regression** section were highly correlated
+
+Collinearity between explanatory variables can be assessed using the variance inflation factor `vif()` function of package `car`
+  - Variable with `VIF > 5` are considered collinearity
 
 ```{r warning=FALSE,message=FALSE}
 mod <- lm(clDD ~ clFD + clTmi + clTma + clP + grass, data = Dickcissel)
-vif(mod)
+car::vif(mod)
 ```
 
 ---
 ## Variance Partitioning
 
-- Use `varpart()` to partition the variance in max abundance with all land cover variables in one set and all climate variables in the other set (leaving out NDVI)
-- **Note**: Collinear variables do not have to be removed prior to partitioning
+Use `varpart()` to partition the variance in max abundance with all land cover variables in one set and all climate variables in the other set (leaving out NDVI)
 
+.pull-left2[
+.tiny[
 ```{r warning=FALSE,message=FALSE}
 library(vegan)
-part.lm = varpart(Dickcissel$abund,
-                  Dickcissel[ ,c("clDD","clFD","clTmi","clTma","clP")],
+part.lm = varpart(Dickcissel$abund, Dickcissel[ ,c("clDD","clFD","clTmi","clTma","clP")],
                   Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")])
 part.lm
+```
+]]
+.pull-right2[
+<br><br>
+.small[.comment[**Note**: Collinear variables do not have to be removed prior to partitioning]]
+]
 
+---
+## Variance Partitioning
+
+.pull-left[
+```{r,fig.height=4,echo=-1}
+par(mar=rep(0.5,4))
 showvarparts(2)
+```
+.small[
+```{r,eval=FALSE}
+?showvarparts
+# With two explanatory tables, the fractions
+# explained uniquely by each of the two tables
+# are ‘[a]’ and ‘[c]’, and their joint effect
+# is ‘[b]’ following Borcard et al. (1992).
+```
+]]
 
+.pull-right[
+```{r,fig.height=5,echo=-1}
+par(mar=rep(0.5,4))
 plot(part.lm,
      digits = 2,
      bg = rgb(48,225,210,80,
               maxColorValue=225),
      col = "turquoise4")
 ```
+]
 
----
-## Variance Partitioning
-- Proportion of variance explained by climate alone is 28.5% (given by X1|X2), by land cover alone is ~0% (X2|X1), and by both combined is 2.4%
-
-![:scale 40%](images/Screen Shot 2018-09-22 at 21.43.15.png)
+.small[.comment[Proportion of variance explained by climate alone is 28.5% (given by X1|X2), by land cover alone is ~0% (X2|X1), and by both combined is 2.4%]]
 
 ---
 ## Variance Partitioning
 
 Test significance of each fraction
 
-```{r}
-# Climate set
+- Climate set
+```{r,eval=FALSE}
 out.1 = rda(Dickcissel$abund,
             Dickcissel[ ,c("clDD", "clFD","clTmi","clTma","clP")],
             Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")])
-anova(out.1,
-      step = 1000,
-      perm.max = 1000)
+```
 
-# Land cover set
+- Land cover set
+```{r,eval=FALSE}
 out.2 = rda(Dickcissel$abund,
             Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban", "wetland")],
             Dickcissel[ ,c("clDD","clFD","clTmi", "clTma","clP")])
-anova(out.2,
-      step = 1000,
-      perm.max = 1000)
+
 ```
 
-- **Conclusion**: the land cover fraction is non-significant once climate data is accounted for
+```{r,include=FALSE}
+out.1 = rda(Dickcissel$abund,
+            Dickcissel[ ,c("clDD", "clFD","clTmi","clTma","clP")],
+            Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban","wetland")])
+out.2 = rda(Dickcissel$abund,
+            Dickcissel[ ,c("broadleaf","conif","grass","crop", "urban", "wetland")],
+            Dickcissel[ ,c("clDD","clFD","clTmi", "clTma","clP")])
+```
+
+---
+## Variance Partitioning
+
+.pull-left[
+.small[
+```{r}
+# Climate set
+anova(out.1, step = 1000, perm.max = 1000)
+```
+]]
+
+.pull-right[
+.small[
+```{r}
+# Land cover set
+anova(out.2, step = 1000, perm.max = 1000)
+```
+]]
+
+.comment[Conclusion: the land cover fraction is non-significant once climate data is accounted for]
 
 ---
 class: inverse, center, bottom

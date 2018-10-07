@@ -18,7 +18,7 @@ output:
 knitr::opts_chunk$set(
   comment = "#",
   collapse = TRUE,
-  cache = TRUE,
+  #cache = TRUE,
   warning = FALSE,
   message = FALSE,
   fig.width=6, fig.height=6,
@@ -258,7 +258,6 @@ bird <- read.csv("Scripts_and_data/birdsdiet.csv")
 ```
 
 ```{r, eval = FALSE}
-setwd()
 bird <- read.csv("birdsdiet.csv")
 ```
 
@@ -642,7 +641,6 @@ abline(lm3, col = 'red')
 ## Challenge 1 - Solution ![:cube]()
 
 <br>
-
 ```{r}
 # Run the model
 lm4 <- lm(logMaxAbund ~ logMass, data=bird, subset=bird$Passerine == 1)
@@ -670,7 +668,7 @@ summary(lm3)$adj.r.squared
 summary(lm4)$adj.r.squared
 ```
 
-The best model among the three models is `lm3` *(only terrestrial birds)*
+.comment[The best model among the three models is `lm3` *(only terrestrial birds)*]
 
 ---
 ## Learning objectives
@@ -738,7 +736,7 @@ class: inverse, center, middle
 ---
 ## Running a T-test in R
 
-- Use the function `t.test()`
+Use the function `t.test()`
 
 ```r
 t.test(Y~X2, data= data, alternative = "two.sided")
@@ -779,14 +777,15 @@ boxplot(logMass ~ Aquatic,
 ---
 ## Running a T-test in R
 
-- Next, test the assumption of equality of variance using `var.test()`
+Next, test the assumption of equality of variance using `var.test()`
 
 ```{r}
 var.test(logMass ~ Aquatic, data = bird)
 ```
 
-- The ratio of variances is not statistically different from 1, therefore variances are equal
-- We may now proceed with the t-test!
+.comment[The ratio of variances is not statistically different from 1, therefore variances are equal]
+
+.comment[We may now proceed with the t-test!]
 
 ---
 ## Running a T-test in R
@@ -843,7 +842,7 @@ uni.ttest1 <- t.test(logMass ~ Aquatic,
                      alternative = "less")
 ```
 
-- What did you conclude?
+.comment[What did you conclude?]
 
 ---
 ## Group discussion
@@ -852,7 +851,9 @@ uni.ttest1 <- t.test(logMass ~ Aquatic,
 uni.ttest1
 ```
 
+.small[
 Yes, aquatic birds are heavier than terrestrial birds: p-value = `r format(uni.ttest1$p.value, scientific=FALSE)`
+]
 
 ---
 class: inverse, center, middle
@@ -862,9 +863,11 @@ class: inverse, center, middle
 ---
 ## Analysis of Variance (ANOVA)
 
-- Generalization of the t-test to $>2$ groups and/or $≥2$ factor levels
-- Subsets variation in the response variable into additive effects of one or several factors and the interactions between them
+Generalization of the t-test to $>2$ groups and/or $≥2$ factor levels
 
+Subsets variation in the response variable into additive effects of one or several factors and the interactions between them
+
+<br>
 $$Y = \underbrace{\mu}_{\Large{\text{The average outcome}\atop\text{over all individuals}}} + \overbrace{\tau_{i}}^{\Large{\text{The average outcome over}\atop\text{all individuals in group i}}} + \underbrace{\epsilon}_{\text{Residuals}}$$
 
 ---
@@ -881,7 +884,7 @@ Complementary test
 ---
 ## Running an ANOVA in R
 
-#### Is abundance a function of diet?
+##### Is abundance a function of diet?
 - Response variable: **MaxAbund**  ![:faic](arrow-right) num: continuous
 - Explanatory variable: **Diet** ![:faic](arrow-right) factor with 5 levels
 
@@ -892,9 +895,10 @@ str(bird)
 ---
 ## Visualize data
 
-- First, visualize the data using `boxplot()` (alphabetically by default)
+First, visualize the data using `boxplot()` (alphabetically by default)
 
-```{r, fig.height=4.5, fig.width=7}
+```{r, fig.height=4.2, fig.width=7,echo=-1}
+par(mar = c(4, 4, 0.5, 1))
 boxplot(logMaxAbund ~ Diet,
         data = bird, ylab = expression("log"[10]*"(Maximum Abundance)"), xlab = 'Diet')
 ```
@@ -902,10 +906,10 @@ boxplot(logMaxAbund ~ Diet,
 ---
 ## Visualize data
 
-- We can reorder factor levels according to group medians using the `tapply()` and `sort()` functions
+We can reorder factor levels according to group medians using the `tapply()` and `sort()` functions
 
 ```{r, fig.height=3.5, fig.width=7, echo=-1}
-par(mar=c(4,4,1,1))
+par(mar=c(4,4,.1,1))
 med <- sort(tapply(bird$logMaxAbund, bird$Diet, median))
 boxplot(logMaxAbund ~ factor(Diet, levels = names(med)), data = bird,
         ylab = expression("log"[10]*"(Maximum Abundance)"), xlab = 'Diet')
@@ -914,10 +918,10 @@ boxplot(logMaxAbund ~ factor(Diet, levels = names(med)), data = bird,
 ---
 ## Visualize data
 
-- Another way to graphically view the effect sizes is to use `plot.design()`
+Another way to graphically view the effect sizes is to use `plot.design()`
 
 ```{r, fig.height=3.5, fig.width=7, echo=-1}
-par(mar=c(4,4,1,1))
+par(mar=c(4,4,.4,1))
 plot.design(logMaxAbund ~ Diet, data=bird, ylab = expression("log"[10]*"(Maximum Abundance)"))
 ```
 
@@ -926,24 +930,24 @@ plot.design(logMaxAbund ~ Diet, data=bird, ylab = expression("log"[10]*"(Maximum
 ---
 ## Running a one-way ANOVA in R
 
-- Can use the function `lm()` to run an ANOVA
+Can use the function `lm()` to run an ANOVA
 ```{r}
 anov1 <- lm(logMaxAbund ~ Diet,
             data = bird)
 ```
 
-- Or use a specific function called `aov()`
+Or use a specific function called `aov()`
 ```{r}
 aov1 <- aov(logMaxAbund ~ Diet,
             data = bird)
 ```
 
-Try it and compare the outputs!
+.comment[Try it and compare the outputs!]
 
 ---
 ## Running a one-way ANOVA in R
 
-- Compare outputs
+Compare outputs
 ```{r}
 anova(anov1)
 ```
@@ -976,7 +980,7 @@ shapiro.test(resid(anov1))
 ---
 ## What if the assumptions were not met?
 
-- **Transform the data**: might normalize the residuals and homogenize the variances, and convert a multiplicative effect into an additive one
+**Transform the data**: might normalize the residuals and homogenize the variances, and convert a multiplicative effect into an additive one
 ```{r eval=FALSE}
 data$logY <- log10(data$Y)
 ```
@@ -991,7 +995,7 @@ kruskal.test(Y~X, data)
 ---
 ## Output of our ANOVA model
 
-Factor levels in alphabetical order and all levels are compared to the reference level ("Insect")
+Factor levels in alphabetical order and all levels are compared to the reference level (`Insect`)
 
 .small[
 ```{r}
@@ -1219,28 +1223,28 @@ par(mfrow = c(1, 3), mar = c(1, 1, 6.5, 4))
 # plot 1
 plot(x, f1(x, a=1.1,b=2), ylim = c(0, 60), type = 'l', lwd = 2.5, xaxt = "n", yaxt = "n", xlab = "", ylab = "", bty='l', col = col)
 lines(f1(x, a=1.1,b=17), lwd = 2.5, col = col)
-lines(f1(x, a=1.1,b=22), lwd = 2.5, col = col)
-lines(f1(x, a=1.1,b=40), lwd = 2.5, col = col)
-mtext('No interaction', side = 3, line = 2, cex = 1.5)
-# plot 2
-plot(x, f1(x, a=1.1,b=2), ylim = c(0, 60), type = 'l', lwd = 2.5, xaxt = "n", yaxt = "n", xlab = "", ylab = "", bty='l', col = col)
-lines(f1(x, a=1.1,b=17), lwd = 2.5, col = col)
 lines(f1(x, a=0.6,b=22), lwd = 2.5, col = col)
 lines(f1(x, a=1.1,b=40), lwd = 2.5, col = col)
 mtext('One level of the factor\n has a different slope', side = 3, line = 2, cex = 1.5)
-# plot 3
+# plot 2
 plot(x, f1(x, a=.5,b=2), ylim = c(0, 60), type = 'l', lwd = 2.5, xaxt = "n", yaxt = "n", xlab = "", ylab = "", bty='l', col = col)
 lines(f1(x, a=1.1,b=17), lwd = 2.5, col = col)
 lines(f1(x, a=1.1,b=22), lwd = 2.5, col = col)
 lines(f1(x, a=0.01,b=40), lwd = 2.5, col = col)
 mtext('Many levels have\n different slopes', side = 3, line = 2, cex = 1.5)
+# plot 3
+plot(x, f1(x, a=1.1,b=2), ylim = c(0, 60), type = 'l', lwd = 2.5, xaxt = "n", yaxt = "n", xlab = "", ylab = "", bty='l', col = col)
+lines(f1(x, a=1.1,b=17), lwd = 2.5, col = col)
+lines(f1(x, a=1.1,b=22), lwd = 2.5, col = col)
+lines(f1(x, a=1.1,b=40), lwd = 2.5, col = col)
+mtext('No interaction', side = 3, line = 2, cex = 1.5)
 ```
 
 .pull-left2[.center[.pull-left[![:faic](arrow-up)] .pull-right[![:faic](arrow-up)]]] .pull-right2[.center[![:faic](arrow-up)]]
 
-.center[.pull-left2[If your covariate and factor are significant, you will have a scenario that looks like this]]
+.center[.pull-left2[If the interaction is significant, you will have a scenario that looks like tese]]
 
-.pull-right2[If the interaction is significant, outputs will look like these]
+.pull-right2[If your covariate and factor are significant, outputs will look like this]
 
 ---
 ## Compare ANCOVA - Adjusted means
@@ -1252,7 +1256,6 @@ The `effect()` function uses the output of the ANCOVA model to estimate the mean
 .small[
 ```{r eval=FALSE, warning=FALSE}
 ancova.exemple <- lm(Y ~ X*Z, data=data) # X = quantitative; Z = categorical
-
 library(effects)
 adj.means.ex <- effect('Z', ancova.exemple)
 plot(adj.means.ex)
@@ -1262,7 +1265,7 @@ plot(adj.means.ex)
 ```{r,echo=FALSE,fig.height=3, fig.width=5}
 # plot to simulate effects::effect() plot
 a = 40; b =20; sd = 8
-par(mar=c(4,4,1,1))
+par(mar=c(4,4,.5,1))
 plot(c(a, b), ylim = c(10, 50), xlim = c(0.9, 2.1), xlab = 'factor Z', ylab = 'Y', xaxt = 'n')
 lines(c(a, b), col = 4, pch = 1.5)
 segments(c(1, 2), c(a-sd, b-sd), c(1,2), c(a+sd, b+sd), lwd = 1.5, col = 'orange')
@@ -1325,7 +1328,7 @@ ancov1 <- lm(logMaxAbund ~ logMass*Diet,
 anova(ancov1)
 ```
 
-.comment[Interaction btw logMass and Diet is non-significant]
+.comment[Interaction between logMass and Diet is non-significant]
 
 ---
 ## Challenge 3 - Solution ![:cube]()
@@ -1373,8 +1376,7 @@ If collinearity
 ---
 ##  Multiple linear regression in R
 
-Using the *Dickcissel* datast to test
-- effect of climate (`clTma`), productivity (`NDVI`) and grassland cover (`grass`) on bird abundance (`abund`)
+Using the `Dickcissel` datast to test effect of climate (`clTma`), productivity (`NDVI`) and grassland cover (`grass`) on bird abundance (`abund`)
 
 .small[
 ```{r, eval=TRUE}
@@ -1409,14 +1411,14 @@ They are likely to explain the same variability of the response variable and the
 ---
 ## Multiple linear regression in R
 
-- Run the multiple linear regression in R with `abund` as a function of `clTma + NDVI + grass`
+Run the multiple linear regression in R with `abund` as a function of `clTma + NDVI + grass`
 
 ```{r,eval=FALSE}
 lm.mult <- lm(abund ~ clTma + NDVI + grass, data = Dickcissel)
 summary(lm.mult)
 ```
 
-- Verify diagnostic plots, as you did for the simple linear regression
+Verify diagnostic plots, as you did for the simple linear regression
 
 ```{r,eval=FALSE,echo=-2}
 par(mfrow = c(2, 2))

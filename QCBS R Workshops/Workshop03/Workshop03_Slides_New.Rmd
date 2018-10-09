@@ -522,7 +522,18 @@ iris.plot + scale_color_grey()
   * Theme: classic, blank & black&White
 
 ---
+# Challenge #3
+  * Voici un graphique issu d'une publication
+  .[alert] mettre le graphique de la publication
+  * Voici ce même graphique obtenu avec un code par défaut de ggplot2
+  .[alert] mettre le code et le graphique de base + penser à mettre *facilement* à disposition le jeux de données lié
+  * Votre challenge sera d'utiliser les fonctions présentées précédemment afin de recréer le graphique d'Origine
+  .[alert] mettre des pistes des différentes fonctions à utiliser: theme, color, ... ?
 
+---
+# Résultat Challenge #3
+
+---
 #Geom
 .alert[put all geom graph here]
 
@@ -538,6 +549,7 @@ multiplot(CO2.plot.facet.baline, CO2.plot.facet.line)
 ---
 # Histogram & boxplot
   * .alert[put ggplot vs base plot]
+  
 
 ---
 # linear regression
@@ -556,9 +568,6 @@ data(OrchardSprays)
 ```
   * geom : any
   * aes : any
-
----
-# Solution of the final Challenge
 
 ---
 # Solution to Final Challenge
@@ -602,9 +611,6 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 <img src="images/available_geom.png" height=50% width=50%>
 </div>
 
----
-
-# OLD SLIDES START HERE
 ---
 # Additional resources
 

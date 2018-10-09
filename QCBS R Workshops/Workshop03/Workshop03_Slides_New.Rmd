@@ -415,6 +415,7 @@ multiplot(CO2.plot.nofacet, CO2.plot.facet)
 ---
 # Fine Tunning : Colour
   * Colour: Manual_colour
+.small[
 ```{r, eval=FALSE, fig.align="center", fig.width=6, fig.height=4}
 iris.plot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
             geom_point()
@@ -422,6 +423,7 @@ iris.plot + scale_colour_manual(values = c("setosa" = "red",
                                            "versicolor" = "darkgreen",
                                            "virginica"="blue"))
 ```  
+]
 .pull-left[
 **Classic**
 ```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
@@ -442,7 +444,32 @@ scale_colour_manual(values = c("setosa" = "red",
                                "virginica"="blue"))
 ```  
 ]
-
+---
+# Fine tuning - Gradient colours for quantitative variable
+*quantitavie variable : Petal.Length*
+```{r, echo=TRUE, eval=FALSE}
+iris.plot.petal <- ggplot(data=iris, aes(..., color = Petal.Length))
+``` 
+.pull-left[
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot.petal <- ggplot(data = iris, 
+                    aes(x = Sepal.Length, 
+                        y = Sepal.Width, 
+                        color = Petal.Length)) +
+            geom_point()
+iris.plot.petal
+```  
+]
+.pull-right[
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot.petal <- ggplot(data = iris, 
+                    aes(x = Sepal.Length, 
+                        y = Sepal.Width, 
+                        color = Petal.Length)) +
+            geom_point()
+iris.plot.petal + scale_color_gradient(low="blue", high="red")
+```  
+]
 ---
 # Fine tuning - colours
   * Coulours theme
@@ -473,6 +500,7 @@ iris.plot
 iris.plot + scale_color_brewer(palette = "Dark2")
 ```  
 ]
+
 
 ---
 # Fine Tunning : Colour
@@ -505,7 +533,7 @@ iris.plot + scale_color_manual(values=cbbPalette)
 iris.plot + scale_color_grey()
 ```
 .pull-left[
-**Classic**
+**Defaut**
 ```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
 iris.plot
 ```  
@@ -516,10 +544,26 @@ iris.plot
 iris.plot + scale_color_grey()
 ```  
 ]
+
 ---
 
 # Fine Tunning : Theme
-  * Theme: classic, blank & black&White
+  * Theme: classic for publication purpose
+```{r, eval=FALSE}
+iris.plot + scale_color_grey() + theme_classic()
+```
+.pull-left[
+**Defaut**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot+ scale_color_grey()
+```  
+]
+.pull-right[
+**Classic**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+iris.plot + scale_color_grey() + theme_classic()
+```  
+]
 
 ---
 # Challenge #3

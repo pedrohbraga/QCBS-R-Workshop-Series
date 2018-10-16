@@ -59,8 +59,26 @@ if(!require(kableExtra)) library(kableExtra)
 if(!require(gridBase)) install.packages("gridBase")
 if(!require(gridBase))library(gridBase)
 
-if(!require(grid)) install.packages("grid")
-if(!require(grid)) library(grid)
+if(!require(vegan)) install.packages("vegan")
+if(!require(vegan)) library(vegan)
+
+if(!require(vioplot)) install.packages("vioplot")
+if(!require(vioplot)) library(vioplot)
+
+if(!require(ggpubr)) install.packages("ggpubr")
+if(!require(ggpubr)) library(ggpubr)
+
+if(!require(ggsignif)) library(ggsignif)
+
+if(!require(ggvegan)) library(ggvegan)
+                              
+if(!require(ggvegan)) library(ggdendro)
+
+if(!require(rworldmap)) library(rworldmap)
+
+if(!require(maps)) library(maps)
+
+if(!require(mapproj)) library(mapproj)
 
 source(file="./scripts/multiplot.R")
 ```
@@ -94,15 +112,11 @@ Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
 
 ---
 # Introduction : Why use R for plotting?
-```{r, include=FALSE, eval=FALSE}
-file="./images/Layers_ggplot.png"
-```
 <div style="text-align:center">
 <img src="images/Divided_reproducible workflow.png" height=85% width=85%>
 </div>
 ---
 # Introduction : Why use R for plotting?
-
 <div style="text-align:center">
 <img src="images/Divided_reproducible workflow2.png" height=85% width=85%>
 </div>
@@ -162,7 +176,7 @@ A graphic is made of different layers:
 ggplot(data = iris,             # Data
        aes(x = Sepal.Length,    # Your X-value
            y = Sepal.Width,     # Your Y-value
-           col = Species)) +    # Aesthtics
+           col = Species)) +    # Aesthetics
   geom_point() +                # Geometry
   geom_smooth(method = "lm") +  # Linear regression
   ggtitle("My fabulous graph")+ # Title
@@ -217,7 +231,6 @@ q   # Print your final plot
 
 ```
 ]
-
 
 .pull-right[
 
@@ -568,18 +581,92 @@ iris.plot + scale_color_grey() + theme_classic()
 ---
 # Challenge #3
   * Voici un graphique issu d'une publication
-  .[alert] mettre le graphique de la publication
+    .alert[mettre le graphique de la publication]
   * Voici ce même graphique obtenu avec un code par défaut de ggplot2
-  .[alert] mettre le code et le graphique de base + penser à mettre *facilement* à disposition le jeux de données lié
+    .alert[mettre le code et le graphique de base + penser à mettre *facilement* à disposition le jeux de données lié]
   * Votre challenge sera d'utiliser les fonctions présentées précédemment afin de recréer le graphique d'Origine
-  .[alert] mettre des pistes des différentes fonctions à utiliser: theme, color, ... ?
+    .alert[mettre des pistes des différentes fonctions à utiliser: theme, color, ... ?]
 
 ---
 # Résultat Challenge #3
 
 ---
-#Geom
-.alert[put all geom graph here]
+
+#Geom : GGplot
+<div style="text-align:center">
+<img src="images/plots_in_various_contexts.png" height=85% width=85%>
+</div>
+
+---
+
+#Base plot
+<div style="text-align:center">
+<img src="images/plots_in_various_contexts_baseplot.png" height=85% width=85%>
+</div>
+
+---
+
+#Blank plot
+.left[
+*GGplot2*
+```{r}
+gblank <- ggplot(mtcars, aes(wt, mpg))
+gblank <- gblank + theme(plot.subtitle = element_text(vjust = 1), 
+                        plot.caption = element_text(vjust = 1)) +
+  labs(title = "Blank plot")
+```
+
+]
+.right[
+*Base Plot*
+```{r}
+plot(mpg~wt, data = mtcars, type = "n")
+```
+
+]
+---
+
+#Histogram
+
+---
+
+#Barplot: value significance
+
+---
+
+#Plot: linear reagression
+
+---
+
+#Plot with categories
+
+---
+
+#Boxplot with significant value only
+
+---
+
+#Violoin Plot
+
+---
+
+#Plot with errors bars
+
+---
+
+#Map
+
+---
+
+#Density Graph
+
+---
+
+#Dendogram
+
+---
+
+#Ordination : PCA
 
 ---
 # Geom_point & Geom_line

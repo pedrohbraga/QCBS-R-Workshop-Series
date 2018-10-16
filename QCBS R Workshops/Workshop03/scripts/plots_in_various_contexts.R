@@ -22,14 +22,14 @@ if(!require(vioplot)) library(vioplot)
 if(!require(ggdendro)) install.packages("ggdendro")
 if(!require(ggdendro)) library(ggdendro)
 
-if(!require(ggvegan)) install.packages("ggvegan")
+if(!require(ggvegan)) devtools::install_github("gavinsimpson/ggvegan")
 if(!require(ggvegan)) library(ggvegan)
 
 # GGplot assumes that your data is recorded in a database properly (the categories are well defined)
 
 # Blank -------------------------------------------------------------------
-gblank = ggplot(mtcars, aes(wt, mpg))
-gblank = gblank + theme(plot.subtitle = element_text(vjust = 1), 
+gblank <- ggplot(mtcars, aes(wt, mpg))
+gblank <- gblank + theme(plot.subtitle = element_text(vjust = 1), 
                         plot.caption = element_text(vjust = 1)) +
   labs(title = "Blank plot")
 plot(mpg~wt, data = mtcars, type = "n")
@@ -188,13 +188,11 @@ sign.bar(my.bp, select.pair = c(3,4),y =8.8,label = "NS")
 sign.bar(my.bp, select.pair = c(2,3),y =10,label = "***",mid = TRUE)
 
 
-
-
 # Linear model --------------------------------------------------------------------
-gsmooth = ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_smooth(method = lm)+ labs(title = "Plot")
-lm.out =lm(hwy~displ, data = mpg)
+gsmooth <- ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_smooth(method = lm)+ labs(title = "Plot")
 
 # predicts + interval
+lm.out  <- lm(hwy~displ, data = mpg)
 newx <- seq(min(mpg$displ), max(mpg$displ), length.out=100)
 preds <- predict(lm.out, newdata = data.frame(displ=newx), 
                  interval = 'confidence')
@@ -208,7 +206,7 @@ lines(newx, preds[ ,2], lty = 'dashed', col = 'red')
 
 
 glinear.iris <- ggplot(data = iris,aes(x = Sepal.Length, y = Sepal.Width, col = Species)) + geom_point() + geom_smooth(method = "lm")+ labs(title = "Plot with categories")
-
+glinear.iris
 # Boxplot -----------------------------------------------------------------
 gbox = ggplot(data = iris, aes(Species, Sepal.Length)) + 
   geom_boxplot()+ 
@@ -298,7 +296,7 @@ crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 crimesm <- reshape2::melt(crimes, id = 1)
 library(maps)
 states_map <- map_data("state")
-gmap = ggplot(crimes, aes(map_id = state)) +
+gmap <- ggplot(crimes, aes(map_id = state)) +
   geom_map(aes(fill = Murder), map = states_map) +
   expand_limits(x = states_map$long, y = states_map$lat) + coord_map()+ labs(title = "Map")
 
@@ -343,10 +341,6 @@ gpca = autoplot(dune.pca)+ labs(title = "PCA") # your result object
 # Data exploration
 pairs(iris)
 betterPairs(iris)
-
-
-
-
 
 
 par(mfrow=c(3,4))

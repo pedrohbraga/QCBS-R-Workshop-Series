@@ -150,7 +150,7 @@ $$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i
 .center[.large[Le concept général de ces méthodes consiste de minimiser les résidus]]
 
 ---
-## Learning objectives
+## Objectif d'enseignement
 
 .center[
 ![:scale 100%](images/schema.png)
@@ -313,4 +313,389 @@ plot(lm1)
 - `plot( )`: est la fonction pour faire le graphique
 
 La sortie comprend les quatre graphiques diagnostics de la fonction `lm()`
+
+---
+## Graph. #1 - Résidus vs valeurs prédites
+
+Example d'indépendance .comment[(ce que nous recherchons !)]
+
+- Devrait montrer une dispersion de points sans patron
+
+```{r, echo = FALSE, fig.height=4.2, fig.width=5.5}
+  set.seed(1234564)
+  x <- rnorm(100,10,10)
+  y <- 2*x+0 + rnorm(100)
+  lm <- lm(y~x)
+  plot(lm, which = 1)
+```
+
+---
+## Graph. #1 - Résidus vs valeurs prédites
+
+Example de non-indépendance .comment[(ce que nous ne voulons pas !)]
+```{r, echo=FALSE, fig.height=4, fig.width=8.5, warning=FALSE}
+par(mfrow=c(1,2))
+set.seed(1234564)
+x = rnorm(100,10,10)
+y = (x)^2 + rnorm(length(x),0,30)
+lm=lm(y~scale(x))
+plot(lm,which = 1, main = "Non-linéaire", col.main="red")
+
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm,which = 1, main = "Hétéroscédastique", col.main="red")
+```
+
+- Solution: Transformer vos données ou essayer une distribution autre que linéaire (gaussienne); modèle linéaire généralisé (GLM) (ex: Poisson, binomial, binomial négatif, etc.)
+
+Transform your data or try another distribution than linear (Gaussian) (i.e., a generalized linear model (GLM): Poisson, binomial, negative binomial, etc.)
+
+---
+## Graph. #2 - échelle localité
+
+Devrait montrer une dispersion de points sans patron
+
+```{r, echo=FALSE, fig.height=3.8, fig.width=8, warning=FALSE}
+par(mfrow=c(1,2))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm,which = 3)
+
+set.seed(2)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm,which = 3)
+```
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
+
+.pull-left[.center[Aucun patron dans les résidus]] .pull-right[.center[Forte tendance dans les résidus]]
+
+---
+## Graph. # 3 - Normal QQ
+
+- Compare la distribution (quantiles) des résidus aux quantiles d'une distribution normale
+- Si les points se situent de façon linéaire sur la ligne 1: 1, les résidus suivent une distribution normale
+
+```{r, echo=FALSE, fig.height=3, fig.width=8, warning=FALSE}
+par(mfrow=c(1,2), mar = c(4, 4, 1.5, 3))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm, which = 2)
+
+set.seed(2)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm, which = 2)
+```
+
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
+
+.pull-left[.center[C'est bien !]] .pull-right[.center[Pas très bien...]]
+
+---
+## Graph. # 4 - Résidus vs effet de levier
+
+- Recherche les valeurs influentes
+- **Points de levier** : observations extrêmes ou périphériques de la variable explicative. Parce qu'ils n'ont pas d'observations voisines, la ligne de régression passe près de ces points. **Ils peuvent (ou pas) avoir une grande influence sur la régression**
+- Les points de levier avec une forte influence peuvent être identifiés avec une **distance de Cook supérieure à 0,5**
+
+---
+## Effet levier vs influence
+
+```{r, echo=FALSE, fig.height=6, fig.width=5, warning=FALSE}
+par(mfrow=c(3, 1), mar = c(4, 15, 1, 3), cex = 0.75)
+set.seed(1234564)
+x <- 1:20
+y <- rnorm(x, x, 2)
+lm0 <- lm(y ~ x)
+# plot 1
+plot(x, y, ylim = c(-4, 22)); abline(lm0, col = 2); points(11, -3, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 11); yy <- c(y, -3)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-20, 10, srt=0, adj = 0, labels = "* Pas d'effet de levier \n* Faible influence
+", xpd = TRUE, cex = 1.5)
+# plot 2
+plot(x, y, ylim = c(-4, 32), xlim = c(0, 31)); abline(lm0, col = 2); points(30, 30, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 30); yy <- c(y, 30)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-33, 15, srt=0, adj = 0, labels = "* Effet de levier \n* Pas d'influence", xpd = TRUE, cex = 1.5)
+
+# plot 3
+plot(x, y, ylim = c(-4, 32), xlim = c(0, 31)); abline(lm0, col = 2); points(30, 15, pch = 15)
+# add 20, 10 point to the new lm
+xx <- c(x, 30); yy <- c(y, 15)
+abline(lm(yy ~ xx), col = 2, lty = 3)
+text(-33, 15, srt=0, adj = 0, labels = '* Effet de levier \n* Influence élevée', xpd = TRUE, cex = 1.5)
+```
+
+---
+## Effet levier vs influence
+
+```{r, echo=FALSE, fig.height=3.5, fig.width=9, warning=FALSE}
+par(mfrow=c(1,2), mar = c(4, 4, 1.5, 3))
+set.seed(1234564)
+x <- 1:100
+y <- x + rnorm(100,sd=5)
+lm=lm(y~x)
+plot(lm, which = 5)
+
+set.seed(1234564)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+lm=lm(y~scale(x))
+plot(lm, which = 5)
+```
+
+.pull-left[.center[![:faic](arrow-up)]] .pull-right[.center[![:faic](arrow-up)]]
+
+.pull-left[.center[Aucune valeur influente]]
+.pull-right[.center[Effet de levier élevé et influence raisonnable]]
+
+<br />
+<br />
+<br />
+
+.comment[Ici, le point 32 a un effet de levier élevé, mais son influence est acceptable (à l'intérieur des limites de la distance Cook de 0,5)]
+
+---
+## Effet levier vs influence
+
+Effet de levier et influence élevée
+
+<br />
+
+.pull-left[
+```{r, echo=FALSE, fig.height=3.5, fig.width=4, warning=FALSE}
+par(mar = c(4, 4, 1, 0))
+set.seed(1234564)
+x = rnorm(100,10,10)
+y = (x) + 0 + rnorm(length(x), 0, x)
+y[29] <- 100
+lm=lm(y~scale(x))
+plot(lm, which = 5)
+```
+]
+.pull-right[
+- Points en dehors de la limite de 0,5 de la distance Cook
+- Ces points ont trop d'influence sur la régression
+]
+
+.alert[Vous ne devriez jamais supprimer les valeurs aberrantes si vous n'avez pas de bonnes raisons de le faire (ex: erreur de mesure)]
+
+---
+## **Étape 2**. Vérifier les suppositions de `lm1`
+
+```{r, fig.height=4.9, fig.width=5.5}
+par(mfrow=c(2,2), mar = c(4,4,2,1.1), oma =c(0,0,0,0))
+plot(lm1)
+```
+
+---
+## Suppositions non-respectées - quelle est la cause?
+
+Traçons le graphique Y ~ X avec la droite de régression et les histogrammes de Y et X pour explorer leurs distributions
+
+.small[
+```{r, fig.height=2.7, fig.width=9, echo = -1}
+par(mfrow=c(1,3), mar = c(4,4,3,1), cex = 0.8)
+plot(bird$MaxAbund ~ bird$Mass)
+abline(lm1) # adds the best-fit line
+hist(bird$MaxAbund) # hist() produces a histogram of the variable
+hist(bird$Mass)
+```
+]
+
+---
+## Suppositions non-respectées - quelle est la cause?
+
+Vérifions la normalité des données à l'aide d'un test de `Shapiro-Wilk` et d'un test d'asymétrie (**`skewness`**) :
+
+```{r}
+shapiro.test(bird$MaxAbund)
+shapiro.test(bird$Mass)
+```
+.comment[Dans les deux cas, les distributions ne sont pas normales
+]
+
+---
+## Suppositions non-respectées - quelle est la cause?
+
+Vérifions la normalité des données à l'aide d'un test de `Shapiro-Wilk` et d'un test d'asymétrie (**`skewness`**) :
+
+```{r}
+skewness(bird$MaxAbund)
+skewness(bird$Mass)
+```
+.comment[La valeur positive indique que la distribution des données est décalée vers la gauche Beaucoup mieux!]
+
+---
+## Transformer les données
+
+- Normalisons les données en appliquant une transformation `log10()`
+- Ajoutons ces variables transformées à notre base de données
+
+```{r}
+bird$logMaxAbund <- log10(bird$MaxAbund)
+bird$logMass <- log10(bird$Mass)
+```
+
+**Étape 1**: Exécuter une régression linéaire sur les données transformées
+
+```{r}
+lm2 <- lm(logMaxAbund ~ logMass, data = bird)
+```
+
+---
+## **Étape 2**: Vérifier les suppositions de `lm2`
+
+```{r, fig.height=4.4, fig.width=5.9}
+par(mfrow=c(2,2), mar=c(3,4,1.15,1.2))
+plot(lm2)
+```
+
+.comment[.center[Beaucoup mieux !]]
+
+---
+## **Étape 2**: Vérifier les suppositions de `lm2`
+
+```{r, echo=-1, fig.height=3.4, fig.width=9}
+par(mfrow=c(1,3), mar=c(4,4,1.15,1.2))
+plot(logMaxAbund ~ logMass, data=bird)
+abline(lm2)
+hist(log10(bird$MaxAbund))
+hist(log10(bird$Mass))
+```
+
+---
+## **Étape 3**: Estimer les paramètres et leur seuil de signification
+
+La fonction `summary()` est utilisée pour obtenir les paramètres, leur importance, etc
+
+.small[
+```{r}
+summary(lm2)
+```
+]
+
+---
+## **Étape 3**: Estimer les paramètres et leur seuil de signification
+
+Nous pouvons aussi extraire les paramètres du modèle, par exemple :
+
+```{r}
+lm2$coef
+summary(lm2)$coefficients
+summary(lm2)$r.squared
+```
+
+---
+## Discussion de groupe
+
+- Pouvez-vous écrire l'équation de la droite de régression pour votre modèle `lm2`
+- Les paramètres sont-ils importants ?
+- Quelle proportion de la variance est expliquée par le modèle `lm2` ?
+
+.small[
+```{r}
+summary(lm2)
+```
+]
+
+---
+## Discussion de groupe
+
+Pouvons-nous améliorer le modèle si nous analysons que les oiseaux terrestres?
+
+.comment[Vous pouvez exclure des objets en utilisant `=!`]
+
+```{r}
+lm3 <- lm(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
+# removes aquatic birds (= TRUE)
+# or equivalently
+lm3 <- lm(logMaxAbund~logMass, data=bird, subset=bird$Aquatic == 0)
+```
+
+```{r eval=FALSE}
+# Examine the diagnostic plots
+par(mfrow=c(2,2))
+plot(lm3)
+summary(lm3)
+
+# Compare both models
+par(mfrow=c(1,2))
+plot(logMaxAbund~logMass, data=bird)
+plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic)
+```
+
+---
+## Plot
+
+`R2-adj` a changé de 0,05 à 0,25 quand nous avons exclu les oiseaux aquatiques :
+
+```{r, fig.height=3.5, fig.width=7}
+par(mfrow=c(1,2), mar = c(4, 4, 3, 1))
+plot(logMaxAbund~logMass, data=bird, main = 'Tous les oiseaux')
+abline(lm2, col = 'red')
+plot(logMaxAbund~logMass, data=bird, subset=!bird$Aquatic, main = 'Oiseaux terrestres')
+abline(lm3, col = 'red')
+```
+
+---
+## Défi 1 ![:cube]()
+
+- Examiner la relation entre `log(MaxAbund)` et `log(Mass)` chez les passereaux ("passerine birds")
+- Sauvegarder l'objet du modèle sous `lm4`
+
+.comment[INDICE: comme les espèces aquatiques, les passereaux sont codées 0/1, ce qui peut être vérifié à partir de la structure de la base de données]
+
+- Comparer la variance expliquée par `lm2`, `lm3` and `lm4`
+
+---
+## Défi 1 - Solution ![:cube]()
+
+<br>
+```{r}
+# Run the model
+lm4 <- lm(logMaxAbund ~ logMass, data=bird, subset=bird$Passerine == 1)
+summary(lm4)
+```
+
+---
+## Défi 1 - Solution ![:cube]()
+
+```{r, echo=-3,fig.height=4.8, fig.width=6.5}
+# diagnostic plots
+par(mfrow=c(2,2), mar = c(4,4,2,1.1), oma =c(0,0,0,0))
+plot(lm4)
+```
+
+---
+## Défi 1 - Solution ![:cube]()
+
+Comparer la variance expliquée par `lm2`, `lm3` and `lm4`
+
+```{r}
+# Recall: we want adj.r.squared
+summary(lm2)$adj.r.squared
+summary(lm3)$adj.r.squared
+summary(lm4)$adj.r.squared
+```
+
+.comment[TLe meilleur modèle parmi les trois est `lm3` *(seulement les oiseaux terrestres)*]
+
+---
+## Objectif d'enseignement
+
+.center[
+![:scale 100%](images/schema_ttest.png)
+]
 

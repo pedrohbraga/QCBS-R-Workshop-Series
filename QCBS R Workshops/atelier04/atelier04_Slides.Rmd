@@ -699,3 +699,494 @@ summary(lm4)$adj.r.squared
 ![:scale 100%](images/schema_ttest.png)
 ]
 
+---
+class: inverse, center, middle
+
+# ANOVA
+
+## Test-t, ANOVA à un critère de classification, ANOVA à deux critères de classification
+
+---
+## ANOVA
+
+Variable réponse continue
+
+**Variables explicatives catégoriques**
+
+- Deux niveaux ou plus (groupes)
+
+.large[.center[Compare la variation intra-groupe et inter-groupe afin de déterminer si les moyennes des groupes diffèrent]]
+
+Somme des carrés : variance intra-traitement *vs* variance inter-traitement
+
+Si variance entre traitements $>$ variance entre traitements:
+  - la variable explicative a un effet plus important que l'erreur aléatoire
+  - variable explicative est donc susceptible d'influencer significativement la variable réponse
+
+---
+## Types d'ANOVA
+
+1. ANOVA à un critère de classification
+  - Une variable explicative catégorique avec au moins 2 niveaux
+  - If there are 2 levels a **t-test** can be used alternatively
+
+2. ANOVA à deux critères de classification
+  - Deux variables explicatives catégoriques ou plus
+  - Chaque facteur peut avoir plusieurs niveaux
+  - Les interactions entre chaque variable explicative catégorique doivent être testées
+
+3. Mesures répétées ?
+  - L'ANOVA peut être utilisée pour des mesures répétées, mais ce sujet n'est pas abordé dans cet atelier
+  - Modèle linéaire mixte peut également être utilisé pour ce type de données (voir l'atelier 6)
+
+---
+class: inverse, center, middle
+
+# Test T
+
+---
+## Test T
+
+- **Variable réponse** ![:faic](arrow-right) quantitative
+- **Variable explicative** ![:faic](arrow-right) qualitative avec **2 niveaux**
+
+**Suppositions**
+- Les données suivent une distribution normale
+- Les variances des groupes sont homogènes
+
+.comment[Le test est plus robuste lorsque la taille de l'échantillon est plus élevée et lorsque les groupes ont des tailles égales]
+
+---
+## Exécuter un test T dans R
+
+Vous pouvez utiliser la fonction `t.test()`
+
+```r
+t.test(Y~X2, data= data, alternative = "two.sided")
+```
+
+  - `Y`: variable réponse
+  - `X2`: facteur (2 niveaux)
+  - `data`: nom du jeu de donées
+  - `alternative` hypothèse alternative : `"two.sided"` (par défaut), `"less"`, ou `"greater"`
+
+Le test de t est un modèle linéaire et un cas spécifique de l'ANOVA avec un facteur à 2 niveaux
+
+Vous pouvez donc aussi utiliser la fonction `lm()`
+
+```r
+lm.t <-lm(Y~X2, data = data)
+anova(lm.t)
+```
+
+---
+## Exécuter un test T dans R
+
+.large[Les oiseaux aquatiques sont-ils plus lourds que les oiseaux terrestres ?]
+
+- Variable réponse : `Bird mass` ![:faic](arrow-right) num: continue
+- Variable explicative : `Aquatic` ![:faic](arrow-right) 2 niveaux : 1 ou 0 (oui ou non)
+
+---
+## Exécuter un test T dans R
+
+Premièrement, visualisation les données à l'aide de la fonction `boxplot()`
+
+```{r eval=TRUE,fig.height=4.8, fig.width=6.5}
+boxplot(logMass ~ Aquatic,
+        data = bird, names = c("Non aquatique", "Aquatique"))
+```
+
+---
+## Exécuter un test T dans R
+
+Testons l'homogénéité des variances avec la fonction `var.test()`
+
+```{r}
+var.test(logMass ~ Aquatic, data = bird)
+```
+
+.comment[Le rapport des variances n'est pas statistiquement différent de 1, celles-ci peuvent donc être considérées comme égales]
+
+.comment[Nous pouvons maintenant procéder au test t !]
+
+---
+## Exécuter un test T dans R
+
+```{r}
+ttest1 <- t.test(logMass ~ Aquatic, var.equal = TRUE, data = bird)
+
+# Or use lm()
+ttest.lm1 <- lm(logMass ~ Aquatic, data=bird)
+```
+
+.comment[Spécifie que l'homogénéité des variances est respectée]
+
+Vérifiez que `t.test()` et `lm()` donnent le même modèle :
+
+```{r}
+ttest1$statistic^2
+anova(ttest.lm1)$F
+# réponse : F=60.3845 dans les deux cas
+```
+
+.comment[Lorsque la supposition d'égalité de variance est confirmée, t^2 = F]
+
+---
+## Exécuter un test T dans R
+
+Si $p<0,01$ (ou $0,05$ ), l'hypothèse de l'absence de différence entre les moyenne des 2 groupe (*H0*) peut être rejetée, avec un risque de $0,01$ (ou $0,05$ ) de se tromper
+
+```{r}
+ttest1
+```
+
+.small[.comment[Il existe une différence entre la masse des oiseaux aquatiques et terrestres - `p-value`]]
+
+.small[.comment[Regardez les moyennes des 2 groupes]]
+
+---
+## Violation of Assumptions
+
+- **Correction de Welch** : lorsque les écarts entre les groupes ne sont pas égaux (par défaut dans R !)
+- **Test de Mann-Whitney** : l'équivalent **non paramétrique** du test de t lorsque les suppositions ne sont pas respectées
+- **Test de t apparié** : lorsque les deux groupes ne sont **pas indépendants** (par exemple, des mesures sur la même personne récoltées lors de 2 années différentes)
+
+---
+## Discussion de groupe
+
+.large[Les oiseaux aquatiques sont-ils plus lourds que les oiseaux terrestres ?]
+
+```{r}
+# Unilateral t-test
+uni.ttest1 <- t.test(logMass ~ Aquatic,
+                     var.equal = TRUE,
+                     data = bird,
+                     alternative = "less")
+```
+
+.comment[Qu'avez-vous conclu ?]
+
+---
+## Discussion de groupe
+
+```{r}
+uni.ttest1
+```
+
+.small[
+Oui, les oiseaux aquatiques sont plus lourds que les oiseaux terrestres :
+
+p-value = `r format(uni.ttest1$p.value, scientific=FALSE)`
+]
+
+---
+class: inverse, center, middle
+
+# ANOVA
+
+---
+## Analyse de Variance (ANOVA)
+
+Généralisation du test t à $>2$ groupes, et/ou ≥ $2$ facteurs explicatifs
+
+Décomposition de la variation observée de la variable réponse en effets additifs d'un ou de plusieurs facteurs et de leurs interactions
+
+<br>
+$$Y = \underbrace{\mu}_{\Large{\text{moyenne globale de la variable réponse}\atop\text{sur tous les individus}}} + \overbrace{\tau_{i}}^{\Large{\text{Le résultat moyen sur}\atop\text{tous les individus du groupe i}}} + \underbrace{\epsilon}_{\text{Résidus}}$$
+
+---
+## Rappel : ANOVA
+
+Suppositions
+- Normalité des résidus
+- L'égalité de la variance inter-groupes
+
+Test complémentaire
+- Lorsque l'ANOVA détecte une différence significative entre les groupes, l'analyse n'indique pas quel(s) groupe(s) diffère(nt) de(s) l'autre(s)
+- Un test couramment utilisé a posteriori pour répondre à cette question est le **Test de Tukey**
+
+---
+## Exécuter une ANOVA dans R
+
+##### Est-ce que l'abondance maximale dépend du régime alimentaire ?
+- Variable réponse : **MaxAbund**  ![:faic](arrow-right) num: quantitative
+- Variable explicative : **Diet** ![:faic](arrow-right) facteur avec 5 niveaux
+
+```{r}
+str(bird)
+```
+
+---
+## Visualiser les données
+
+Visualisons tout d'abord les données avec la fonction `boxplot()`
+
+```{r, fig.height=4.2, fig.width=7,echo=-1}
+par(mar = c(4, 4, 0.5, 1))
+boxplot(logMaxAbund ~ Diet, data = bird,
+  ylab = expression("log"[10]*"(Abondance maximale)"), xlab = 'Régime alimentaire')
+```
+
+---
+## Visualiser les données
+
+Nous pouvons changer l'ordre des niveaux afin qu'il suivent l'ordre croissant de leurs médianes respectives en utilisant les fonctions `tapply()` et `sort()`
+
+```{r, fig.height=3.5, fig.width=7, echo=-1}
+par(mar=c(4,4,.1,1))
+med <- sort(tapply(bird$logMaxAbund, bird$Diet, median))
+boxplot(logMaxAbund ~ factor(Diet, levels = names(med)), data = bird,
+        ylab = expression("log"[10]*"(Abondance maximale)"), xlab = 'Régime alimentaire')
+```
+
+---
+## Visualiser les données
+
+
+Une autre façon de visualiser graphiquement les tailles d’effet est d’utiliser la fonction `plot.design()`
+
+.small[
+```{r, fig.height=3, fig.width=6, echo=-1}
+par(mar=c(4,4,.4,1))
+plot.design(logMaxAbund ~ Diet, data=bird,
+  ylab = expression("log"[10]*"(Abondance maximale)"))
+```
+]
+
+.comment[Levels of a particular factor along a vertical line, and the overall value of the response in a horizontal line]
+
+---
+## Ecécuter une ANOVA à un critère de classification dans R
+
+Il est de nouveau possible d'utiliser la fonction `lm()`
+
+```{r}
+anov1 <- lm(logMaxAbund ~ Diet,
+            data = bird)
+```
+
+Il y a aussi une fontion spécifique pour l'analyse de la variance dans R `aov()`
+
+```{r}
+aov1 <- aov(logMaxAbund ~ Diet,
+            data = bird)
+```
+
+.comment[Essayez-les et comparez les sorties !]
+
+---
+## Ecécuter une ANOVA à un critère de classification dans R
+
+Comparer les sorties
+
+.small[
+```{r}
+anova(anov1)
+```
+```{r}
+summary(aov1)
+```
+]
+
+---
+## Vérifier les asuppositions
+
+**Test de Bartlett**: égalité de la variance entre les groupes
+
+.small[
+```{r}
+bartlett.test(logMaxAbund ~ Diet,
+              data = bird)
+```
+]
+
+**Test de Shapiro-Wilk**:  normalité des résidus
+
+.small[
+```{r}
+shapiro.test(resid(anov1))
+```
+]
+
+.comment[Les deux tests sont non-significatifs; les résidus du modèle peuvent être considérés normaux et les variances homogènes]
+
+---
+## Et si les suppositons ne sont pas respectées...
+
+**Transformer vos données** : pourrait égaliser les variances et normaliser les résidus, et peut convertir un effet multiplicatif en un effet additif
+
+```{r eval=FALSE}
+data$logY <- log10(data$Y)
+```
+* avoir le wiki de l'atelier 1 pour les règles de transformation de données
+* ré-exécuter votre modèle avec la variable transformée et vérifier à nouveau les hypothèses
+
+**Test de Kruskal-Wallis**: équivalent non paramétrique de l'ANOVA si vous ne pouvez pas
+(*ou ne voulez pas*)
+
+```{r eval=FALSE}
+kruskal.test(Y~X, data)
+```
+
+---
+## Sorties de notre modèle ANOVA
+
+Triage en ordre alphabétique des niveaux et comparaison au niveau de référence (`Insect`)
+
+.small[
+```{r}
+summary(anov1)
+```
+]
+
+---
+## Sorties de notre modèle ANOVA
+
+D'autre part, si nous utilisons `lm()`
+
+.pull-left2[
+.small[
+```{r}
+summary.lm(aov1)
+```
+]]
+
+.pull-right2[
+<br><br>
+.comment[Différence significative entre les groupes, mais nous ne savons pas lesquels !]]
+
+---
+## Test a posteriori
+
+Lorsque l'ANOVA détecte un effet significatif de la variable explicative, un test post-hoc avec la fonction `TkeyHSD()`, doit être effectué pour déterminer quel(s) tratement(s) diffère(nt)
+
+.pull-left2[
+.small[
+```{r}
+TukeyHSD(aov(anov1), ordered = TRUE)
+```
+]]
+
+.pull-right2[
+<br><br>
+.comment[Seuls "Vertebrate" et "PlantInsect diffèrent"]
+]
+
+---
+## Représentation graphique
+
+Représentation graphique de l'ANOVA à l'aide de la fonction `barplot()`
+
+.small[
+```{r, fig.height=3, fig.width=7,echo=-1}
+par(mar=c(3,3,0.5,0.5))
+sd <- tapply(bird$logMaxAbund, list(bird$Diet), sd)
+means <- tapply(bird$logMaxAbund, list(bird$Diet), mean)
+n <- length(bird$logMaxAbund)
+se <- 1.96*sd/sqrt(n)
+bp <- barplot(means, ylim = c(0, max(bird$logMaxAbund) - 0.5))
+epsilon = 0.1
+segments(bp, means - se, bp, means + se, lwd=2) # barres verticales
+segments(bp - epsilon, means - se, bp + epsilon, means - se, lwd = 2) # barres horizontales
+segments(bp - epsilon, means + se, bp + epsilon, means + se, lwd = 2) # barres horizontales
+```
+]
+
+---
+class: inverse, center, middle
+
+# ANOVA à deux critères de classification
+
+---
+## ANOVA à deux critères de classification
+
+Plus d'un facteur
+
+- ANOVA avec un facteur:
+
+ `aov <- lm(Y ~ X, data)`
+
+- ANOVA avec deux ou plus facteurs:
+
+ `aov <- lm(Y ~ X * Z * ..., data)`
+
+.comment[lorsque vous utilisez le symbole "*" avec `lm()``, le modèle inclut les effets de chaque facteur séparément, ainsi que leur interaction]
+
+.comment[lorsque vous utilisez le symbole "+" avec `lm()``, le modèle inclut les effets de
+chaque facteur séparément (pas d'interaction)]
+
+`aov <- lm(Y ~ X + Z + ..., data)`
+
+---
+## ANOVA à deux critères de classification
+
+Exemple d'interaction non significative
+
+.small[
+```r
+aov <- lm(Y ~ X * Z, data)
+summary(aov)
+# Analysis of Variance Table
+#
+# Response: Y
+# Df Sum Sq Mean Sq F value Pr(>F)
+# X 4 5.1059 1.27647 3.0378 0.02669 *
+# Z 1 0.3183 0.31834 0.7576 0.38870
+# X:Z 3 2.8250 0.94167 2.2410 0.10689
+# Residuals 45 18.9087 0.42019
+# ---
+# Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+]
+
+Selon le principe de **parcimonie**, vous voulez que votre modèle explique le plus possible de la variance observée dans les données, avec le moins de termes possible
+- Enlever le terme d'interaction s'il n'est pas significatif, et ré-exécuter le modèle
+
+```r
+aov <- lm(Y ~ X + Z, data)
+```
+
+---
+## Défi 2 ![:cube]()
+
+Testez si l'abondance maximale `log(MaxAbund)` varie à la fois en fonction du régime alimentaire (`Diet`) et de l'habitat (`Aquatic`)
+
+- .comment[INDICE: Examinez les facteurs Diet, Aquatic et leur interaction avec une ANOVA à deux critères de classificatioN e.g. `lm(Y ~ A*B)`]
+
+- .comment[où A est le premier facteur, B le deuxième et "*" décrit l'interaction]
+
+---
+## Défi 2 - Solution ![:cube]()
+
+.small[
+```{r}
+anov2 <- lm(logMaxAbund ~ Diet*Aquatic, data = bird)
+summary(anov2)
+```
+]
+
+---
+## Défi 2 - Solution ![:cube]()
+
+.small[
+```{r}
+anov2 <- lm(logMaxAbund ~ Diet*Aquatic, data = bird)
+anova(anov2)
+```
+]
+
+.comment[Le seul terme significatif du modèle est le facteur régime alimentaire]
+
+---
+## Objectif d'enseignement
+
+.center[
+![:scale 100%](images/schema_ancova.png)
+]
+
+---
+class: inverse, center, middle
+
+# ANCOVA
+

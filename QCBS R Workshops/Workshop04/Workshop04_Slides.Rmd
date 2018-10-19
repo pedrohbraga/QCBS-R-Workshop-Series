@@ -122,7 +122,7 @@ Linear relationship between response ( $Y$ ) and explanatory ( $X$ ) variable, u
 - $X$ : explain your response variable (one or more explanatory variables)
 - $Y$ : must be continuous
 - $X$ : continuous or categorical
-- $\epsilon$ : what is not explined by the explanatory variable(s) ![:faic](arrow-right) residuals or error
+- $\epsilon$ : what is not explained by the explanatory variable(s) ![:faic](arrow-right) residuals or error
 
 ---
 ## Defining linear models
@@ -164,8 +164,9 @@ $$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i
 3. The residuals have a mean of 0
 4. The residuals are homoskedastic (they have constant variance)
 
-.comment[These assumptions concern the residuals, not the response or explanatory variables]
+.alert[These assumptions concern the residuals, not the response or explanatory variables]
 
+.small[.comment[In the following sections, we do not always explicitly restate the above assumptions for every model because these assumption are implicit in all linear models]]
 ---
 ## Work follow
 
@@ -218,20 +219,33 @@ $$Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
 ---
 ## Running a regression in R
 
+.small[
 **Step 1**. Run your linear model
 
 **Step 2**. Verify assumptions
+]
 
-- Assumptions are met
+.pull-left[.center[![:faic](arrow-down)]] .pull-right[.center[![:faic](arrow-down)]]
 
-**Step 3**. Estimate regression parameters, test significance, plot your model
+.pull-left[.center[*Assumptions are met?*]
 
-- Assumptions are not met
+.small[**Step 3**. Estimate regression parameters, test significance, plot your model
+]]
 
-- Can you transform your variables (and does it make sense to do so)?
+.pull-right[.center[*Assumptions are not met?*]
 
-  - Yes: Go back to Step 1 with transformed variables
-  - No: Try GLM that might better suit your data
+.small[*Can you transform your variables (and does it make sense to do so)?*]
+
+.pull-left[.center[![:faic](arrow-down)]] .pull-right[.center[![:faic](arrow-down)]]
+
+.small[
+.pull-left[
+Yes: Go back to Step 1 with transformed variables
+]
+
+.pull-right[
+No: Try GLM that might better suit your data
+]]]
 
 ---
 ## Running a regression in R
@@ -705,7 +719,8 @@ If between-treatment variance $>$ within-treatment variance:
 ## Types of ANOVA
 
 1. One-way ANOVA
-  - One factor with 2 or more levels. If there are 2 levels a **t-test** can be used alternatively
+  - One factor with 2 or more levels
+  - If there are 2 levels a **t-test** can be used alternatively
 
 2. Two-way ANOVA
   - 2 factors or more
@@ -818,9 +833,9 @@ If $p<0.01$ (or $0.05$ ), the null hypothesis of no difference between the two g
 ttest1
 ```
 
-.small[.comment[There exists a difference in mass between the aquatic and terrestrial birds `p-value`]]
+.small[.comment[There exists a difference in mass between the aquatic and terrestrial birds - `p-value`]]
 
-.small[.comment[Look at themean of the two groups]]
+.small[.comment[Look at the mean of the two groups]]
 
 ---
 ## Violation of Assumptions
@@ -1024,13 +1039,17 @@ summary.lm(aov1)
 
 If ANOVA detects a significant effect, a post-hoc test is required to determine which treatment(s) differ from the others. This can be done with the `TukeyHSD()` function
 
+.pull-left2[
 .small[
 ```{r}
 TukeyHSD(aov(anov1), ordered = TRUE)
 ```
 ]
-
+]
+.pull-right2[
+<br><br>
 .comment[Only "Vertebrate" and "PlantInsect" differ]
+]
 
 ---
 ## Graphical representation
@@ -1242,7 +1261,7 @@ mtext('No interaction', side = 3, line = 2, cex = 1.5)
 
 .pull-left2[.center[.pull-left[![:faic](arrow-up)] .pull-right[![:faic](arrow-up)]]] .pull-right2[.center[![:faic](arrow-up)]]
 
-.center[.pull-left2[If the interaction is significant, you will have a scenario that looks like tese]]
+.center[.pull-left2[If the interaction is significant, you will have a scenario that looks like these]]
 
 .pull-right2[If your covariate and factor are significant, outputs will look like this]
 
@@ -1328,12 +1347,12 @@ ancov1 <- lm(logMaxAbund ~ logMass*Diet,
 anova(ancov1)
 ```
 
-.comment[Interaction between logMass and Diet is non-significant]
+.comment[Interaction between `logMass` and `Diet` is non-significant]
 
 ---
 ## Challenge 3 - Solution ![:cube]()
 
-Remove the interaction term and re-evaluate the model (with only the main effects of Diet and logMass)
+Remove the interaction term and re-evaluate the model (with only the main effects of `Diet` and `logMass`)
 
 ```{r}
 ancov2 <- lm(logMaxAbund ~ logMass + Diet,

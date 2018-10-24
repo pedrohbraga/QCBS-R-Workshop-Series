@@ -1,5 +1,5 @@
 ---
-title: "Workshop 4: Linear models"
+title: "Atelier 4: Modèles linéaires"
 subtitle: "Série d'ateliers R du CSBQ"
 author: "Centre de la Science de la Biodiversité du Québec"
 output:
@@ -74,23 +74,23 @@ $$\bar{x} = \frac{1}{N} \sum_{i=1}^{n} x_{i}$$
   - Écart type
   - Coefficient de variation
 
-**Mais qu'est-ce que ce l'écart ?**
+**Mais qu'est-ce que c'est l'écart ?**
 
 $$D_{i} = |x_{i} - \bar{x}|$$
 
 ---
 ## Variation
 
-**l'écart**:
+**L'écart**:
 
 $$D_{i} = |x_{i} - \bar{x}|$$
 --
-**Écart moyen**:
+**L'écart moyen**:
 
 $$D = \frac{1}{N} \sum_{i=1}^{n} |x_{i} - \bar{x}|$$
 --
 
-Au lieu de valeurs absolues, nous pouvons également mettre la valeur au carré, donnant la **variation**:
+Au lieu de valeurs absolues, nous pouvons également mettre la valeur au carré, donnant la **variance**:
 
 $$V = \frac{1}{N} \sum_{i=1}^{n} {(x_{i} - \bar{x})}^2$$
 
@@ -99,7 +99,7 @@ $$V = \frac{1}{N} \sum_{i=1}^{n} {(x_{i} - \bar{x})}^2$$
 
 Mais en mettant chaque valeur au carré, ces variables ne sont plus en unités significatives
 
-On fait donc la racine carrée de la **variation** ( $V$ ), donnant l'**écart type**:
+On fait donc la racine carrée de la **variance** ( $V$ ), donnant l'**écart type**:
 
 $$\sigma = \sqrt{V}$$
 --
@@ -116,10 +116,10 @@ class: inverse, center, middle
 ---
 ## Les modèles linéaires
 
-Relation linéaire entre variable réponse ( $Y$ ) et explicatif ( $X$ ), en utilisant les concepts de **moyenne** et **variation**
+Relation linéaire entre une variable réponse ( $Y$ ) et une/des explicative ( $X$ ), en utilisant les concepts de **moyenne** et **variance**
 
 - $Y$ : variable que vous voulez expliquer (une seule variable réponse)
-- $X$ : expliquez votre variable réponse (une ou plusieurs variables explicatives)
+- $X$ : variable pour expliquer variable réponse (une ou plusieurs variables explicatives)
 - $Y$ : doit être quantitative
 - $X$ : quantitative ou qualitative
 - $\epsilon$ : ce qui n'est pas expliqué par la ou les variables explicatives ![:faic](arrow-right) résidus ou erreur
@@ -127,7 +127,7 @@ Relation linéaire entre variable réponse ( $Y$ ) et explicatif ( $X$ ), en uti
 ---
 ## Définir des modèles linéaires
 
-Mettre tout ensemble:
+Rassembler tous ensemble :
 
 $$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i}$$
 
@@ -135,7 +135,7 @@ $$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i
 - $β_0$ est l'ordonnée à l'origine de la droite de régression
 - $β_1$est le coefficient de variation de la $1^{ère}$ variable explicative
 - $β_p$ est le coefficient de variation de la $p^{ème}$ variable explicative
-- $x_i1$ est la variable explicative quantitative pour la $1^{ère}$ observation
+- $x_{i1}$ est la variable explicative quantitative pour la $1^{ère}$ observation
 - $x_ip$ est la variable explicative quantitative pour la $p^{ème}$ observation
 - $ε_i$ sont les résidus du modèle (i.e. la variance inexpliquée)
 
@@ -145,9 +145,9 @@ $$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i
 - Le but d'un modèle linéaire est de trouver la meilleure estimation des paramètres (les variables $\beta$), puis d'évaluer la qualité de l'ajustement du modèle
 
 - Plusieurs méthodes ont été développées pour calculer l'intercept et les coefficient de modèles linéaires
-  -  Le choix approprié dépend du type de variables explicatives considérées et leur nombre
+  -  Le choix approprié dépend du type de variables explicatives considérées et de leur nombre
 
-.center[.large[Le concept général de ces méthodes consiste de minimiser les résidus]]
+.center[.large[Le concept général de ces méthodes consiste à minimiser les résidus]]
 
 ---
 ## Objectif d'enseignement
@@ -162,11 +162,11 @@ $$Y_{i} = \beta_{0} + \beta_{1} x_{i1} + \cdots + \beta_{p} x_{ip} + \epsilon_{i
 1. Les résidus sont indépendants
 2. Les résidus suivent une distribution normale
 3. Les résidus ont une moyenne de 0
-4. es résidus sont homoscédastiques (i.e. leur variance est constante)
+4. Les résidus sont homoscédastiques (i.e. leur variance est constante)
 
 .alert[Ces 4 conditions concernent les résidus, et non les variables réponses ou explicatives]
 
-.small[.comment[Dans les section suivantes, nous ne répétons pas les conditions ci-dessus pour chaque modèle parce que ces conditions de base s'appliquent à tous les modèles linéaires]]
+.small[.comment[Dans les sections suivantes, nous ne répétons pas les conditions ci-dessus pour chaque modèle parce que ces conditions de base s'appliquent à tous les modèles linéaires]]
 
 ---
 ## Flux de travail
@@ -208,8 +208,8 @@ $$Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
 .pull-right[
 **Suppositions**
 
-- $Y_i$ : valeur observé (mesurée) à $X_i$
-- $\widehat{Y}_i$ : valeur prédite à $X_i$
+- $Y_i$ : valeur observé (mesurée) pour $X_i$
+- $\widehat{Y}_i$ : valeur prédite pour $X_i$
 - $\bar{Y}$ : moyenne de tout les $Y_i$
 - $V_E$ : résidus (erreur)
 - $V_R$ : variance expliqué par la régression
@@ -233,7 +233,7 @@ $$Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
 .small[**Étape 3**. Estimer les paramètres de régression, test de signification, tracer votre modèle
 ]]
 
-.pull-right[.center[*Suppositions pas satisfaites ?*]
+.pull-right[.center[*Suppositions non satisfaites ?*]
 
 .small[*Pouvez-vous transformer vos variables (est-ce justifié) ?*]
 
@@ -245,7 +245,7 @@ Oui: retourner à l'étape 1 avec des variables transformées
 ]
 
 .pull-right[
-Non: essayer GLM qui pourraient mieux convenir aux données
+Non: essayer GLM qui pourrait mieux convenir aux données
 ]]]
 
 ---
@@ -293,7 +293,7 @@ Variable explicative : **masse**   ![:faic](arrow-right)  num : quantitative
 str(bird)
 ```
 
-Nous voulons d'abord vérifier si l'abondance maximale des oiseaux (`maxAbund`) est un fonction de la masse des oiseaux (`Mass`)
+Nous voulons d'abord vérifier si l'abondance maximale des oiseaux (`maxAbund`) est une fonction de la masse des oiseaux (`Mass`)
 
 ```{r eval=TRUE}
 lm1 <- lm(MaxAbund ~ Mass, data = bird)
@@ -317,7 +317,7 @@ La sortie comprend les quatre graphiques diagnostics de la fonction `lm()`
 ---
 ## Graph. #1 - Résidus vs valeurs prédites
 
-Example d'indépendance .comment[(ce que nous recherchons !)]
+Exemple d'indépendance .comment[(ce que nous recherchons !)]
 
 - Devrait montrer une dispersion de points sans patron
 
@@ -463,7 +463,7 @@ plot(lm, which = 5)
 <br />
 <br />
 
-.comment[Ici, le point 32 a un effet de levier élevé, mais son influence est acceptable (à l'intérieur des limites de la distance Cook de 0,5)]
+.comment[Ici, le point 29 a un effet de levier élevé, mais son influence est acceptable (à l'intérieur des limites de la distance Cook de 0,5)]
 
 ---
 ## Effet levier vs influence
@@ -534,7 +534,7 @@ Vérifions la normalité des données à l'aide d'un test de `Shapiro-Wilk` et d
 skewness(bird$MaxAbund)
 skewness(bird$Mass)
 ```
-.comment[La valeur positive indique que la distribution des données est décalée vers la gauche Beaucoup mieux!]
+.comment[La valeur positive indique que la distribution des données est décalée vers la gauche]
 
 ---
 ## Transformer les données
@@ -720,7 +720,7 @@ Variable réponse continue
 
 Somme des carrés : variance intra-traitement *vs* variance inter-traitement
 
-Si variance entre traitements $>$ variance entre traitements:
+Si variance inter traitements $>$ variance intra traitements:
   - la variable explicative a un effet plus important que l'erreur aléatoire
   - variable explicative est donc susceptible d'influencer significativement la variable réponse
 
@@ -729,7 +729,7 @@ Si variance entre traitements $>$ variance entre traitements:
 
 1. ANOVA à un critère de classification
   - Une variable explicative catégorique avec au moins 2 niveaux
-  - If there are 2 levels a **t-test** can be used alternatively
+  - S'il y a 2 niveaux, un **test t** peut être utilisé alternativement
 
 2. ANOVA à deux critères de classification
   - Deux variables explicatives catégoriques ou plus
@@ -752,7 +752,7 @@ class: inverse, center, middle
 - **Variable explicative** ![:faic](arrow-right) qualitative avec **2 niveaux**
 
 **Suppositions**
-- Les données suivent une distribution normale
+- Les résidus suivent une distribution normale
 - Les variances des groupes sont homogènes
 
 .comment[Le test est plus robuste lorsque la taille de l'échantillon est plus élevée et lorsque les groupes ont des tailles égales]
@@ -791,7 +791,7 @@ anova(lm.t)
 ---
 ## Exécuter un test T dans R
 
-Premièrement, visualisation les données à l'aide de la fonction `boxplot()`
+Premièrement, visualiser les données à l'aide de la fonction `boxplot()`
 
 ```{r eval=TRUE,fig.height=4.8, fig.width=6.5}
 boxplot(logMass ~ Aquatic,
@@ -891,7 +891,7 @@ class: inverse, center, middle
 
 Généralisation du test t à $>2$ groupes, et/ou ≥ $2$ facteurs explicatifs
 
-Décomposition de la variation observée de la variable réponse en effets additifs d'un ou de plusieurs facteurs et de leurs interactions
+Décomposition de la variance observée de la variable réponse en effets additifs d'un ou de plusieurs facteurs et de leurs interactions
 
 <br>
 $$Y = \underbrace{\mu}_{\Large{\text{moyenne globale de la variable réponse}\atop\text{sur tous les individus}}} + \overbrace{\tau_{i}}^{\Large{\text{Le résultat moyen sur}\atop\text{tous les individus du groupe i}}} + \underbrace{\epsilon}_{\text{Résidus}}$$
@@ -955,7 +955,7 @@ plot.design(logMaxAbund ~ Diet, data=bird,
 ```
 ]
 
-.comment[Levels of a particular factor along a vertical line, and the overall value of the response in a horizontal line]
+.comment[Les niveaux d'un facteur le long d'une ligne verticale, et la valeur globale de la réponse dans une ligne horizontale]
 
 ---
 ## Exécuter une ANOVA à un critère de classification dans R
@@ -1020,7 +1020,7 @@ shapiro.test(resid(anov1))
 ```{r eval=FALSE}
 data$logY <- log10(data$Y)
 ```
-* avoir le wiki de l'atelier 1 pour les règles de transformation de données
+* Voir le wiki de l'atelier 1 pour les règles de transformation de données
 * ré-exécuter votre modèle avec la variable transformée et vérifier à nouveau les hypothèses
 
 **Test de Kruskal-Wallis**: équivalent non paramétrique de l'ANOVA si vous ne pouvez pas
@@ -1071,7 +1071,7 @@ TukeyHSD(aov(anov1), ordered = TRUE)
 
 .pull-right2[
 <br><br>
-.comment[Seuls "Vertebrate" et "PlantInsect diffèrent"]
+.comment[Seuls `Vertebrate` et `PlantInsect` diffèrent]
 ]
 
 ---
@@ -1205,7 +1205,7 @@ $$Y = \mu + \text{Effets principaux des facteurs} + \\
 ---
 ## Rappel : ANCOVA
 
-En plus des supposition des modèles linéaires, les modèles **ANCOVA** doivent avoir :
+En plus des suppositions des modèles linéaires, les modèles **ANCOVA** doivent respecter :
 
 - Les covariables ont toutes la **même étendue de valeurs**
 - Les variables sont **fixes**
@@ -1241,7 +1241,6 @@ Objectifs de l'analyse :
 1. Déterminer l'effet du facteur et de la covariable sur ​​la variable réponse
 2. Déterminer l'effet du facteur sur la variable réponse après avoir enlevé l'effet de la covariable
 3. Déterminer l'effet de la covariable sur la variable réponse en contrôlant l'effet du facteur
-Objectifs de l'analyse
 
 <br>
 
@@ -1331,7 +1330,7 @@ mtext(c('Level 1', 'Level 2'), 1, at = 1:2, line = 0.5) # add labels to ticks
 - Très similaire à ce que vous avez fait précédemment
 
 ---
-## Running an ANCOVA in R
+## Exécuter une ANCOVA dans R
 
 ##### L'abondance maximale varie-t-elle en fonction du régime alimentaire et la masse des oiseaux ?
 
@@ -1402,7 +1401,7 @@ class: inverse, center, middle
 
 ---
 ## Régression linéaire multiple
-- **Variables explicatives** ![:faic](arrow-right) 2 ou plus variables continues
+- **Variables explicatives** ![:faic](arrow-right) 2 ou plusieurs variables continues
 - **Variable réponse** ![:faic](arrow-right) 1 variable continue
 
 Il s'agit d'une généralisation de la régression linéaire simple
@@ -1410,7 +1409,7 @@ Il s'agit d'une généralisation de la régression linéaire simple
 $$Y_i = \alpha + \beta_1x_{1i}+\beta_2x_{2i}+\beta_3x_{3i}+...+\beta_kx_{ki} + \epsilon$$
 
 Suppositions (.small[*En plus des suppositions habituelles des modèles linéaires*])
-- La relation en chaque variable explicative et la variable réponse est de type linéaire
+- La relation entre chaque variable explicative et la variable réponse est de type linéaire
 - Les variables explicatives sont orthogonales (pas de colinéarité)
 
 Si colinéarité

@@ -63,10 +63,10 @@ One project = one folder :)
 ---
 ## Preparing data for R
 
-Dataset should be stored as comma separated files (.csv) in Data folder
+Dataset should be stored as comma-separated value files (.csv) in the working directory
 
-* can be created from almost all applications (Excel, LibreOffice, GoogleDocs)
-* file -&gt; save as csv…
+* Can be created from almost all applications (Excel, LibreOffice, GoogleDocs)
+* File -&gt; Save as **.csv**…
 
 .center[
 ![:scale 45%](images/Excel_csv_good_bad/excel_vs_csv.png)
@@ -87,8 +87,8 @@ Dataset should be stored as comma separated files (.csv) in Data folder
 **Bad!** 
 - final.csv (*Uninformative!*)
 - safnnejs.csv (*Random!*)
-- 1-4.csv  (*Avoid using numbers!*)
-- Dont.separate.names.with.dots.csv (*Can lead to reading file errors!*)]
+- 1-4.csv (*Avoid using only numbers!*)
+- Dont.separate.names.with.dots.csv (*Because it may lead to reading file errors!*)]
 
 
 
@@ -108,31 +108,32 @@ Dataset should be stored as comma separated files (.csv) in Data folder
  - supercomplicatedverylongname]
 
 ---
-## Things to consider with your data! 
+## Things to consider with your data input
  
 
 .pull-left[
 * No text in numeric columns
-* do not include spaces!
-* NA (not available) is allowed,blank entries will automatically be replaced with NA
+* Do not include spaces!
+* NA (not available) is allowed
+* Blank entries will automatically be replaced with NA
 * Name your variables informatively
 * Look for typos]
 
 .pull-right[
-* Avoid numeric values for data without numeric meaning
+* Avoid numeric values for data that are not numeric
 * Use CONSISTENT formats for dates, numbers, metrics, etc.
-* no notes!
-* no additional headings!
-* no merged cells!]
+* No notes in .CSV files
+* No additional headings
+* No merged cells]
 
 ---
 ## Bad data examples: 
 
 .pull-left[
-![:scale 100%](images/Excel_csv_good_bad/excel_values.png)]
+![:scale 120%](images/Excel_csv_good_bad/excel_values.png)]
 
 .pull-right[
-![:scale 100%](images/Excel_csv_good_bad/excel_notes.png)
+![:scale 120%](images/Excel_csv_good_bad/excel_notes.png)
 ]
 
 ---
@@ -141,7 +142,7 @@ Dataset should be stored as comma separated files (.csv) in Data folder
 Bad data preservation practices 
 
 .center[
-![:scale 80%](images/HorribleData.png)]
+![:scale 85%](images/HorribleData.png)]
 
 
 ---
@@ -152,8 +153,9 @@ It is possible to do all your data preparation work within R
 * Saves time for large datasets
 * Keeps original data intact
 * Keeps track of the manipulation and transformation you did
-* Can switch between long and wide easily (more on this later and in workshop 4)
-* Useful page: https://www.zoology.ubc.ca/~schluter/R/data/
+* Can switch between long- and wide-formats easily (more on this in future workshops)
+
+* Useful tips on data preparation can be found here: https://www.zoology.ubc.ca/~schluter/R/data/
 
 ---
 class: inverse, center, middle
@@ -167,7 +169,7 @@ class: inverse, center, middle
    - A text file that contains all of the commands that you will use
 
 * Once written and saved, your script file allows you to make changes and re-run analyses with minimal effort!
-  - Just highlight text and click "run" or press command+enter (Mac) or ctrl+enter (PC)
+  - Just highlight text and click "Run" or press Command + Enter (Apple) or Ctrl + Enter (Windows and Linux)
 
 
 ---
@@ -187,7 +189,7 @@ class: inverse, center, middle
 
 
 ---
-## Commands &amp; comments
+## Commands and comments
 The `#` symbol in a script tells R to ignore anything remaining on this line of the script when running commands
 
 
@@ -197,13 +199,13 @@ The `#` symbol in a script tells R to ignore anything remaining on this line of 
 
 
 ---
-## Commenting / documenting
+## Why should I use `#`?
 
-* annotating someone’s script is a good way to learn
-* remember what you did
-* tell collaborators what you did
-* good step towards reproducible science
-* be as detailed as possible 
+* Annotating someone’s script is a good way to learn
+* Remember what you did
+* Tell collaborators what you did
+* Good step towards reproducible science
+* Be as detailed as possible 
 
 
 ---
@@ -223,7 +225,8 @@ You can make a section heading in R Studio four `#` signs
 
 
 ```r
-##
+# You can coment using this, but look below how to create section headers:
+
 ## Heading name ####
 ```
 
@@ -237,10 +240,11 @@ This allows you to move quickly between sections and hide sections
 ---
 ## Housekeeping 
 
-The first command at the top of all scripts should be: `rm(list = ls())`. This:
+The first command at the top of all scripts may be: `rm(list = ls())`. 
+This command:
 
 * Clears R memory
-* Prevents errors such as use of older data
+* Prevents errors related to the use of older data
 
 ---
 ## Clearing the workspace
@@ -270,7 +274,7 @@ A
 # [1] "Test"
 rm(list=ls())
 A
-# Error in eval(expr, envir, enclos): objet 'A' introuvable
+# Error in eval(expr, envir, enclos): object 'A' not found
 ```
 
 ---
@@ -288,42 +292,56 @@ class: inverse, center, middle
 ---
 ## Download today's data
 
-You can download the data &amp; script from:
+You can download the data and the script for this workshop from the wiki:
 
-http://qcbs.ca/wiki/r/workshop2
+.center[http://qcbs.ca/wiki/r/workshop2]
 
 Save the files in the folder where your created your R project. 
 
 ---
 ## Working Directory
 
-Tells R where your scripts and data are. You need to set the right working directory to load a data file.
-Type in the console to see your working directory:
+Tells R where your scripts and data are. You need to set the right working directory to load a data file. Type `getwd()` in the console to see your working directory:
 
 
 ```r
 getwd()
 ```
 
-When you load a script, RStudio automatically sets the directory to the folder containing the script.
+If this is not the directory you would like to work with, you can set your own using:
 
-a “/” separates folders and file
+
+```r
+setwd()
+```
+
+Within the parenthesis, you will write the *extension of the directory* you would like to work with. See the example below:
+
+
+```r
+setwd("C:/Users/Luigi/Documents") # We use slashes "/", and not backslashes "\"
+```
 
 ---
 ## Display contents of the directory
 
-You can display contents of the working directory using `dir()`.
+You can display contents of the working directory using `dir()`:
 
 
 ```r
 dir()
+#  [1] "assets"                          "co2_broken.csv"                 
+#  [3] "co2_good.csv"                    "images"                         
+#  [5] "QCBS Workshop Master Deck.Rproj" "qcbsR-fonts.css"                
+#  [7] "qcbsR-header.html"               "qcbsR-macros.js"                
+#  [9] "qcbsR.css"                       "Workshop02_Slides.html"         
+# [11] "Workshop02_Slides.Rmd"
 ```
 
 It helps to:
 
 * Check that the file you plan to open is present in the folder that R is currently working in
 * Check for correct spelling (e.g. "co2_good.csv" instead of "CO2_good.csv")
-
 
 ---
 ## Importing Data
@@ -335,23 +353,23 @@ Import data into R using `read.csv`:
 CO2 &lt;- read.csv("co2_good.csv", header=TRUE)
 ```
 
-New object in R
-
-File name within quotation marks ('file' or "file")
-
-`header=TRUE` Tells R that the first line contains column names not data
+Note that this will: 
+* Create a new object in R called `CO2`;
+* The filename is written within quotation marks ('file' or "file");
+* If you needed to fetch the filename from another directory that is not yours, you would have to write the full extension (e.g., `"C:/Users/Mario/Downloads/co2_good.csv"`)
+* `header=TRUE` tells R that the first line of your dataset contains column names
 
 ---
 ## Importing Data
 
 .alert[Recall] to find out what arguments the function requires, use help “?”
-
+I
 
 ```r
 ?read.csv
 ```
 
-.alert[Important] if your operating system or CSV editor (e.g. Excel) is in French, then use `read.csv2`
+.alert[Note] that if your operating system or .CSV editor (e.g. Excel) is in French, you may have to use `read.csv2`
 
 
 ```r
@@ -365,16 +383,15 @@ File name within quotation marks ('file' or "file")
 ![](images/5_Importing_data_Mod_arrow.png)
 ]
 
+Notice that RStudio now provides information on the CO2 data in your **workspace**.
 
-Notice that R-Studio now provides information on the CO2 data in your workspace
-
-The workspace refers to all the objects that you create during an R session.
+The **workspace** refers to all the objects that you create during an R session.
 
 
 ---
 ## Looking at Data
 
-R code  					| action
+R Command  					| Action
 ----------------- | -------------
 `CO2`					  		| look at the whole dataframe
 `head(CO2)`		  		| look at the first few rows
@@ -387,7 +404,7 @@ R code  					| action
 
 
 ---
-## Looking at Data
+## Inspecting the data
 
 
 ```r
@@ -406,19 +423,48 @@ Very useful to check data type (mode) of all columns to make sure R loaded data 
 
 
 ---
-## Looking at Data
+## Inspecting the data
 
 **Common problems:**
 
-* Factors loaded as text (character) or vice versa
-* Factor includes too many levels because of typo
-* Data (integer or numeric) is loaded as character because of typo (e.g. a space or a "," instead of a "." for decimal numbers)
-
+* Factors loaded as text (character) or vice versa;
+* Factors includes too many (and unexpected) levels because of typos
+* Data (integer or numeric) is loaded as character because of typos (*e.g.* a space or a "," instead of a "." to separate decimal numbers)
 
 ---
 ## Looking at Data
 
-`data()`, `head()`, `tail()`, `str()`, `names()`, `attributes()`, `dim()`, `ncol()`, `nrow()`
+.pull-left[
+
+.pull-left[
+`data()`
+
+`head()`
+]
+.pull-right[
+
+`tail()` 
+
+`str()`
+]
+]
+
+.pull-right[
+.pull-left[
+`names()`
+
+`attributes()` 
+]
+.pull-right[
+
+`dim()`
+
+`ncol()` 
+
+`nrow()`
+]
+]
+
 
 Load the data with:
 
@@ -426,14 +472,14 @@ Load the data with:
 ```r
 CO2 &lt;- read.csv("co2_good.csv", header = FALSE)
 ```
-Check data types with `str()` again. What is wrong here?
 
-.comment[Don't forget to re-load data with `header = T` afterward]
+Check data types with `str()` again. What is wrong here?
+.comment[Do not forget to re-load data with* `header = T` *afterwards]
 
 ---
-## Reminder : Accessing data
+## Reminder from Workshop 1: Accessing data
 
-A data frame called *mydata*
+Imagine a data frame called `mydata`:
 
 .center[
 ![:scale 45%](images/Table_Reminder_from_Workshop_1_Accessing_data.png)
@@ -462,20 +508,22 @@ names(CO2copy)
 # [1] "Plant"     "Type"      "Treatment" "conc"      "uptake"
 
 # Changing from English to French names (make sure you have the same levels!)
-names(CO2copy) &lt;- c("Plante","Categorie", "Traitement", "conc","absortion")
+names(CO2copy) &lt;- c("Plante","Categorie", "Traitement", "conc", "absortion")
+names(CO2copy)
+# [1] "Plante"     "Categorie"  "Traitement" "conc"       "absortion"
 ```
 
 ---
 ## Creating new variables
 
-Variables and strings can be concatenated together 
-the function `paste()` is very useful for concatenating.
-see `?paste` and `?paste0`
+Variables and strings can be concatenated together.
+The function `paste()` is very useful for concatenating.
+See `?paste` and `?paste0`.
 
 
-Let's create an unique id for our samples:
 
 ```r
+# Let's create an unique id for our samples:
 # Don't forget to use "" for strings 
 CO2copy$uniqueID &lt;- paste0(CO2copy$Plante,
                            "_",CO2copy$Categorie, 
@@ -499,7 +547,6 @@ CO2copy$absortionRel &lt;- CO2copy$absortion/max(CO2copy$absortion)
 
 # Observe the results 
 head(CO2copy$absortionRel)
-# [1] 0.3516484 0.6681319 0.7648352 0.8175824 0.7758242 0.8615385
 ```
 
 ---
@@ -516,7 +563,14 @@ CO2copy[,c("Plante", "absortionRel")]
 
 # Subset data frame from rows from 1 to 50 
 CO2copy[1:50,] 
+```
 
+
+---
+## Subsetting data
+
+
+```r
 # Select observations matching only the nonchilled Traitement. 
 CO2copy[CO2copy$Traitement == "nonchilled",] 
 
@@ -530,91 +584,65 @@ CO2copy[CO2copy$Traitement  == "nonchilled" &amp; CO2copy$absortion &gt;= 20, ]
 CO2copy &lt;- NULL
 ```
 
-Go [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html) to check all the logical operators you can use 
+Go [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html) to check all the logical operators you can use
 
 ---
 ## Data exploration
 
-A good way to start your data exploration is to look at some basic statistics of your dataset 
+A good way to start your data exploration is to look at some basic statistics of your dataset.
 
-Use the `summary()` function.  
-
-This is also useful to spot some errors you might have missed! 
+Use the `summary()` function to do that!
 
 
 ```r
 summary(CO2)
-#      Plant             Type         Treatment       conc     
-#  Mc1    : 7   Mississippi:42   chilled   :42   Min.   :  95  
-#  Mc2    : 7   Quebec     :42   nonchilled:42   1st Qu.: 175  
-#  Mc3    : 7                                    Median : 350  
-#  Mn1    : 7                                    Mean   : 435  
-#  Mn2    : 7                                    3rd Qu.: 675  
-#  Mn3    : 7                                    Max.   :1000  
-#  (Other):42                                                  
-#      uptake     
-#  Min.   : 7.70  
-#  1st Qu.:17.90  
-#  Median :28.30  
-#  Mean   :27.21  
-#  3rd Qu.:37.12  
-#  Max.   :45.50  
-# 
 ```
+
+This is also useful to spot some errors you might have missed!
 
 ---
 ## Data exploration
 
-You can also use some other functions to calculate basic statistics to specific parts of your data frame
-
-Let's try `mean()`, `sd()`, `hist()` , `print()` functions
+You can also use other functions to calculate basic statistics on parts of your data frame. Let's try the `mean()`, `sd()` and `hist()` functions:
 
 
 ```r
-# Calculate mean and standard deviation of the concentration, 
-# assign it to a new variable
+# Calculate the mean and the standard deviation of the CO2 concentration:
+# Assign them to new variables
 meanConc &lt;- mean(CO2$conc)
 sdConc &lt;- sd(CO2$conc)
 # print() prints any given value to the R console
 print(paste("the mean of concentration is:", meanConc))
-# [1] "the mean of concentration is: 435"
 print(paste("the standard deviation of concentration is:", sdConc))
-# [1] "the standard deviation of concentration is: 295.924119222056"
 ```
-
----
-## Data exploration
 
 
 ```r
 # Let's plot a histogram to explore the distribution of "uptake"
-hist(CO2$uptake, breaks = 40) # the argument breaks allows to change the number of bins
+hist(CO2$uptake)
+
+# Increasing the number of bins to observe better the pattern 
+hist(CO2$uptake, breaks = 40)
 ```
-
-&lt;img src="Workshop02_Slides_files/figure-html/unnamed-chunk-21-1.png" width="480" style="display: block; margin: auto;" /&gt;
-
 
 ---
 ## Data exploration
 
-The `apply()` function is used to apply a function to multiple columns or rows at the same time.
+Use `apply()` to calculate the means of the last two columns of the data frame (*i.e.* the columns that contain continuous data).
 
 
 ```r
-?apply
+?apply # Let's see how apply works!
 ```
 
-Use `apply()` to calculate the means of the last two columns of the data frame (i.e. the columns that contain continuous data)
-
 
 ```r
-apply(CO2[,4:5], MARGIN = 2, FUN = mean)
+apply(CO2[,4:5], 
+      MARGIN = 2, 
+      FUN = mean)
 #     conc   uptake 
 # 435.0000  27.2131
 ```
-
-* `MARGIN = 1` ![:faic](arrow-right) if the function is applied to lines
-* `MARGIN = 2` ![:faic](arrow-right) if the function is applied to columns
 
 ---
 ## Saving your Workspace
@@ -622,7 +650,7 @@ apply(CO2[,4:5], MARGIN = 2, FUN = mean)
 
 
 ```r
-# Saving an R workspace file
+# Saving an R workspace file that stores all your objects
 save.image(file="co2_project_Data.RData")
 
 
@@ -632,7 +660,7 @@ rm(list = ls())
  
 # Reload your data
 load("co2_project_Data.RData")
-head(CO2) # looking good!
+head(CO2) # Looking good!
 #   Plant   Type  Treatment conc uptake
 # 1   Qn1 Quebec nonchilled   95   16.0
 # 2   Qn1 Quebec nonchilled  175   30.4
@@ -645,10 +673,14 @@ head(CO2) # looking good!
 ---
 ## Exporting data
 
+R disposes of `write` functions that allow you to write objects directly to files in your computer. Let us use the `write.csv` function to save our CO2 data into a .CSV file:
+
 
 ```r
 write.csv(CO2, file = "co2_new.csv")
 ```
+
+Note that our arguments are both:
 
 `CO2` ![:faic](arrow-right) Object (name)
 
@@ -657,51 +689,43 @@ write.csv(CO2, file = "co2_new.csv")
 
 
 ---
-## Challenge ![:cube]()
+## Challenge: Use your data ![:cube]()
 
-#### Use your data 
-
-* Try to load, explore, plot, and save your own data in R*
-* If it doesn’t load properly, try to make the appropriate changes
-* Remember to clear your workspace first!
-* When you are finished, try opening your exported data in excel
+* Try to load, explore, plot, and save your own data in R;*
+* If it does not load properly, try to make the appropriate changes;
+* When you are finished, try opening your exported data in Excel, Numbers, Notepad or TextEdit.
 
 .comment[*If you don’t have your own data, work with your neighbour]
+.comment[*Remember to clean your workspace]
+
 
 ---
-class: inverse, center, middle
+## Fixing a broken data frame
 
-# Fixing a broken data frame
+Getting your data working properly can be tougher than you think!
+
+Sometimes, one may find **compatibility issues**.
+
+For example, sharing data from an Apple computer to Windows, or between computers set up in different continents can lead to incompatible files (e.g. different decimal separators).
+
+Let's practice how to solve these common errors.
 
 ---
-## Challenge ![:cube]()
+## Harder Challenge![:cube]()
 
-#### Fixing a broken data frame
-
-Data can be messy. There are compatibility issues between different systems (Mac vs Windows) or different computers.
-
-Let's practice how to solve this common errors. 
-
-Read in the file "co2_broken.csv"
+Read the file `co2_broken.csv`
 
 
 ```r
 CO2 &lt;- read.csv("co2_broken.csv")
-```
-
----
-## Challenge ![:cube]()
-
-
-```r
 head(CO2)
 #               NOTE..It.rain.a.lot.in.Quebec.during.sampling
 # 1 falling on my notebook numerous values can't be read rain
-# 2                      Plant\tType\tTreatment\tconc\tuptake
-# 3                           Qn1\tQuebec\tnonchilled\t95\t16
-# 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
-# 5           Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
-# 6                        Qn1\tQuebec\tnonchilled\t350\t37.2
+# 2                          Plant\tType\tTreatment\tconc\tuptake
+# 3                               Qn1\tQuebec\tnonchilled\t95\t16
+# 4                            Qn1\tQuebec\tnonchilled\t175\t30.4
+# 5               Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
+# 6                            Qn1\tQuebec\tnonchilled\t350\t37.2
 #   due.to.excessive  X X.1 X.2 X.3
 # 1               NA NA  NA  NA  NA
 # 2               NA NA  NA  NA  NA
@@ -712,189 +736,26 @@ head(CO2)
 ```
 
 ---
-## Challenge ![:cube]()
+## Harder Challenge ![:cube]()
 
-* This is often what your data or the data you downloaded looks like
-* You can fix the data frame in R (or not…)
-* Please give it a try before looking at the script provided
-* Work with your neighbors and have FUN!
+* This is probably what the data you are using looks like;
+* You can fix the data frame in R or other software;
+* Please give it a try before looking at the script provided;
+* Work with your neighbours and have FUN!.
 
 
-```
-#                NOTE..It.rain.a.lot.in.Quebec.during.sampling
-# 1  falling on my notebook numerous values can't be read rain
-# 2                       Plant\tType\tTreatment\tconc\tuptake
-# 3                            Qn1\tQuebec\tnonchilled\t95\t16
-# 4                         Qn1\tQuebec\tnonchilled\t175\t30.4
-# 5            Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
-# 6                         Qn1\tQuebec\tnonchilled\t350\t37.2
-# 7                         Qn1\tQuebec\tnonchilled\t500\t35.3
-# 8           Qn1\tQuebec\tnonchilled\tcannot_read_notes\t39.2
-# 9                        Qn1\tQuebec\tnonchilled\t1000\t39.7
-# 10                         Qn2\tQuebec\tnonchilled\t95\t13.6
-# 11                        Qn2\tQuebec\tnonchilled\t175\t27.3
-# 12                         Qn2\tQuebec\tnnchilled\t250\t37.1
-# 13                        Qn2\tQuebec\tnonchilled\t350\t41.8
-# 14                        Qn2\tQuebec\tnonchilled\t500\t40.6
-# 15                          Qn2\tQuebec\tnonchilled\t675\tna
-# 16                       Qn2\tQuebec\tnonchilled\t1000\t44.3
-# 17                         Qn3\tQuebec\tnonchilled\t95\t16.2
-# 18                        Qn3\tQuebec\tnonchilled\t175\t32.4
-# 19                        Qn3\tQuebec\tnonchilled\t250\t40.3
-# 20                        Qn3\tQuebec\tnonchilled\t350\t42.1
-# 21                        Qn3\tQuebec\tnonchilled\t500\t42.9
-# 22                        Qn3\tQuebec\tnonchilled\t675\t43.9
-# 23                       Qn3\tQuebec\tnonchilled\t1000\t45.5
-# 24                            Qc1\tQuebec\tchilled\t95\t14.2
-# 25                           Qc1\tQuebec\tchilled\t175\t24.1
-# 26             Qc1\tQuebec\tchilled\tcannot_read_notes\t30.3
-# 27                           Qc1\tQuebec\tchilled\t350\t34.6
-# 28                           Qc1\tQuebec\tchilled\t500\t32.5
-# 29                           Qc1\tQuebec\tchilled\t675\t35.4
-# 30                          Qc1\tQuebec\tchilled\t1000\t38.7
-# 31                             Qc2\tQuebec\tchilled\t95\t9.3
-# 32                           Qc2\tQuebec\tchilled\t175\t27.3
-# 33                             Qc2\tQuebec\tchilled\t250\t35
-# 34                           Qc2\tQuebec\tchilled\t350\t38.8
-# 35                           Qc2\tQuebec\tchilled\t500\t38.6
-# 36                           Qc2\tQuebec\tchilled\t675\t37.5
-# 37                          Qc2\tQuebec\tchilled\t1000\t42.4
-# 38                            Qc3\tQuebec\tchilled\t95\t15.1
-# 39                             Qc3\tQuebec\tchilled\t175\t21
-# 40                           Qc3\tQuebec\tchilled\t250\t38.1
-# 41                             Qc3\tQuebec\tchilled\t350\t34
-# 42                           Qc3\tQuebec\tchilled\t500\t38.9
-# 43                           Qc3\tQuebec\tchilled\t675\t39.6
-# 44                          Qc3\tQuebec\tchilled\t1000\t41.4
-# 45                    Mn1\tMississippi\tnonchilled\t95\t10.6
-# 46                   Mn1\tMississippi\tnonchilled\t175\t19.2
-# 47                   Mn1\tMississippi\tnonchilled\t250\t26.2
-# 48                     Mn1\tMississippi\tnonchilled\t350\t30
-# 49                   Mn1\tMississippi\tnonchilled\t500\t30.9
-# 50                   Mn1\tMississippi\tnonchilled\t675\t32.4
-# 51                  Mn1\tMississippi\tnonchilled\t1000\t35.5
-# 52                      Mn2\tMississippi\tnonchilled\t95\t12
-# 53                     Mn2\tMississippi\tnonchilled\t175\t22
-# 54                   Mn2\tMississippi\tnonchilled\t250\t30.6
-# 55                   Mn2\tMississippi\tnonchilled\t350\t31.8
-# 56                   Mn2\tMississippi\tnonchilled\t500\t32.4
-# 57                   Mn2\tMississippi\tnonchilled\t675\t31.1
-# 58                  Mn2\tMississippi\tnonchilled\t1000\t31.5
-# 59                    Mn3\tMississippi\tnonchilled\t95\t11.3
-# 60                   Mn3\tMississippi\tnonchilled\t175\t19.4
-# 61                   Mn3\tMississippi\tnonchilled\t250\t25.8
-# 62                   Mn3\tMississippi\tnonchilled\t350\t27.9
-# 63                   Mn3\tMississippi\tnonchilled\t500\t28.5
-# 64                   Mn3\tMississippi\tnonchilled\t675\t28.1
-# 65                  Mn3\tMississippi\tnonchilled\t1000\t27.8
-# 66                       Mc1\tMississippi\tchilled\t95\t10.5
-# 67                       Mc1\tMississippi\tchiled\t175\t14.9
-# 68                      Mc1\tMississippi\tchilled\t250\t18.1
-# 69                      Mc1\tMississippi\tchilled\t350\t18.9
-# 70                      Mc1\tMississippi\tchilled\t500\t19.5
-# 71                      Mc1\tMississippi\tchilled\t675\t22.2
-# 72                     Mc1\tMississippi\tchilled\t1000\t21.9
-# 73                        Mc2\tMississippi\tchilled\t95\t7.7
-# 74                      Mc2\tMississippi\tchilled\t175\t11.4
-# 75                      Mc2\tMississippi\tchilled\t250\t12.3
-# 76                        Mc2\tMississippi\tchilled\t350\t13
-# 77                      Mc2\tMississippi\tchilled\t500\t12.5
-# 78                      Mc2\tMississippi\tchilled\t675\t13.7
-# 79                     Mc2\tMississippi\tchilled\t1000\t14.4
-# 80                       Mc3\tMississippi\tchilled\t95\t10.6
-# 81                        Mc3\tMississippi\tchilled\t175\t18
-# 82                      Mc3\tMississippi\tchilled\t250\t17.9
-# 83                      Mc3\tMississippi\tchilled\t350\t17.9
-# 84                      Mc3\tMississippi\tchilled\t500\t17.9
-# 85                      Mc3\tMississippi\tchilled\t675\t18.9
-# 86                     Mc3\tMississippi\tchilled\t1000\t19.9
-#    due.to.excessive  X X.1 X.2 X.3
-# 1                NA NA  NA  NA  NA
-# 2                NA NA  NA  NA  NA
-# 3                NA NA  NA  NA  NA
-# 4                NA NA  NA  NA  NA
-# 5                NA NA  NA  NA  NA
-# 6                NA NA  NA  NA  NA
-# 7                NA NA  NA  NA  NA
-# 8                NA NA  NA  NA  NA
-# 9                NA NA  NA  NA  NA
-# 10               NA NA  NA  NA  NA
-# 11               NA NA  NA  NA  NA
-# 12               NA NA  NA  NA  NA
-# 13               NA NA  NA  NA  NA
-# 14               NA NA  NA  NA  NA
-# 15               NA NA  NA  NA  NA
-# 16               NA NA  NA  NA  NA
-# 17               NA NA  NA  NA  NA
-# 18               NA NA  NA  NA  NA
-# 19               NA NA  NA  NA  NA
-# 20               NA NA  NA  NA  NA
-# 21               NA NA  NA  NA  NA
-# 22               NA NA  NA  NA  NA
-# 23               NA NA  NA  NA  NA
-# 24               NA NA  NA  NA  NA
-# 25               NA NA  NA  NA  NA
-# 26               NA NA  NA  NA  NA
-# 27               NA NA  NA  NA  NA
-# 28               NA NA  NA  NA  NA
-# 29               NA NA  NA  NA  NA
-# 30               NA NA  NA  NA  NA
-# 31               NA NA  NA  NA  NA
-# 32               NA NA  NA  NA  NA
-# 33               NA NA  NA  NA  NA
-# 34               NA NA  NA  NA  NA
-# 35               NA NA  NA  NA  NA
-# 36               NA NA  NA  NA  NA
-# 37               NA NA  NA  NA  NA
-# 38               NA NA  NA  NA  NA
-# 39               NA NA  NA  NA  NA
-# 40               NA NA  NA  NA  NA
-# 41               NA NA  NA  NA  NA
-# 42               NA NA  NA  NA  NA
-# 43               NA NA  NA  NA  NA
-# 44               NA NA  NA  NA  NA
-# 45               NA NA  NA  NA  NA
-# 46               NA NA  NA  NA  NA
-# 47               NA NA  NA  NA  NA
-# 48               NA NA  NA  NA  NA
-# 49               NA NA  NA  NA  NA
-# 50               NA NA  NA  NA  NA
-# 51               NA NA  NA  NA  NA
-# 52               NA NA  NA  NA  NA
-# 53               NA NA  NA  NA  NA
-# 54               NA NA  NA  NA  NA
-# 55               NA NA  NA  NA  NA
-# 56               NA NA  NA  NA  NA
-# 57               NA NA  NA  NA  NA
-# 58               NA NA  NA  NA  NA
-# 59               NA NA  NA  NA  NA
-# 60               NA NA  NA  NA  NA
-# 61               NA NA  NA  NA  NA
-# 62               NA NA  NA  NA  NA
-# 63               NA NA  NA  NA  NA
-# 64               NA NA  NA  NA  NA
-# 65               NA NA  NA  NA  NA
-# 66               NA NA  NA  NA  NA
-# 67               NA NA  NA  NA  NA
-# 68               NA NA  NA  NA  NA
-# 69               NA NA  NA  NA  NA
-# 70               NA NA  NA  NA  NA
-# 71               NA NA  NA  NA  NA
-# 72               NA NA  NA  NA  NA
-# 73               NA NA  NA  NA  NA
-# 74               NA NA  NA  NA  NA
-# 75               NA NA  NA  NA  NA
-# 76               NA NA  NA  NA  NA
-# 77               NA NA  NA  NA  NA
-# 78               NA NA  NA  NA  NA
-# 79               NA NA  NA  NA  NA
-# 80               NA NA  NA  NA  NA
-# 81               NA NA  NA  NA  NA
-# 82               NA NA  NA  NA  NA
-# 83               NA NA  NA  NA  NA
-# 84               NA NA  NA  NA  NA
-# 85               NA NA  NA  NA  NA
-# 86               NA NA  NA  NA  NA
+```r
+CO2[1:4,]
+#               NOTE..It.rain.a.lot.in.Quebec.during.sampling
+# 1 falling on my notebook numerous values can't be read rain
+# 2                          Plant\tType\tTreatment\tconc\tuptake
+# 3                               Qn1\tQuebec\tnonchilled\t95\t16
+# 4                            Qn1\tQuebec\tnonchilled\t175\t30.4
+#   due.to.excessive  X X.1 X.2 X.3
+# 1               NA NA  NA  NA  NA
+# 2               NA NA  NA  NA  NA
+# 3               NA NA  NA  NA  NA
+# 4               NA NA  NA  NA  NA
 ```
 
 
@@ -917,20 +778,18 @@ Some useful functions:
 ---
 ## Broken data
 
-.alert[ERROR 1]
-
-The data appears to be lumped into one column
+.alert[ERROR 1] The data appears to be lumped into one column
 
 
 ```r
 head(CO2)
 #               NOTE..It.rain.a.lot.in.Quebec.during.sampling
 # 1 falling on my notebook numerous values can't be read rain
-# 2                      Plant\tType\tTreatment\tconc\tuptake
-# 3                           Qn1\tQuebec\tnonchilled\t95\t16
-# 4                        Qn1\tQuebec\tnonchilled\t175\t30.4
-# 5           Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
-# 6                        Qn1\tQuebec\tnonchilled\t350\t37.2
+# 2                          Plant\tType\tTreatment\tconc\tuptake
+# 3                               Qn1\tQuebec\tnonchilled\t95\t16
+# 4                            Qn1\tQuebec\tnonchilled\t175\t30.4
+# 5               Qn1\tQuebec\tnonchilled\t250\tcannot_read_notes
+# 6                            Qn1\tQuebec\tnonchilled\t350\t37.2
 #   due.to.excessive  X X.1 X.2 X.3
 # 1               NA NA  NA  NA  NA
 # 2               NA NA  NA  NA  NA
@@ -946,20 +805,18 @@ head(CO2)
 .alert[ERROR 1] - Solution
 
 * Re-import the data, but specify the separation among entries
-* The `sep` argument tells R what character separates the values on each line of the file
+* The sep argument tells R what character separates the values on each line of the file
 * Here, "TAB" was used instead of ","
 
 
 ```r
-CO2 &lt;- read.csv("co2_broken.csv", sep = "")
+CO2 &lt;- read.csv("co2_broken.csv",sep = "")
 ```
 
 ---
 ## Broken data
 
-.alert[ERROR 2]
-
-The data does not start until the third line of the file, so you end up with notes on the file as the headings.
+.alert[ERROR 2] The data does not start until the third line of the file, so you end up with notes on the file as the headings.
 
 
 ```r
@@ -1017,40 +874,10 @@ str(CO2)
 #  $ Treatment: Factor w/ 4 levels "chiled","chilled",..: 4 4 4 4 4 4 4 4 4 3 ...
 #  $ conc     : Factor w/ 8 levels "1000","175","250",..: 7 2 3 4 5 8 1 7 2 3 ...
 #  $ uptake   : Factor w/ 77 levels "10.5","10.6",..: 15 39 76 54 50 61 63 9 32 53 ...
-unique(CO2$conc) 
-# [1] 95                175               250               350              
-# [5] 500               cannot_read_notes 1000              675              
-# Levels: 1000 175 250 350 500 675 95 cannot_read_notes
-unique(CO2$uptake)
-#  [1] 16                30.4              cannot_read_notes
-#  [4] 37.2              35.3              39.2             
-#  [7] 39.7              13.6              27.3             
-# [10] 37.1              41.8              40.6             
-# [13] na                44.3              16.2             
-# [16] 32.4              40.3              42.1             
-# [19] 42.9              43.9              45.5             
-# [22] 14.2              24.1              30.3             
-# [25] 34.6              32.5              35.4             
-# [28] 38.7              9.3               35               
-# [31] 38.8              38.6              37.5             
-# [34] 42.4              15.1              21               
-# [37] 38.1              34                38.9             
-# [40] 39.6              41.4              10.6             
-# [43] 19.2              26.2              30               
-# [46] 30.9              35.5              12               
-# [49] 22                30.6              31.8             
-# [52] 31.1              31.5              11.3             
-# [55] 19.4              25.8              27.9             
-# [58] 28.5              28.1              27.8             
-# [61] 10.5              14.9              18.1             
-# [64] 18.9              19.5              22.2             
-# [67] 21.9              7.7               11.4             
-# [70] 12.3              13                12.5             
-# [73] 13.7              14.4              18               
-# [76] 17.9              19.9             
-# 77 Levels: 10.5 10.6 11.3 11.4 12 12.3 12.5 13 13.6 13.7 14.2 ... na
 ```
 
+* Due to missing values entered as "cannot_read_notes" and "na"
+* Recall that R only recognizes "NA" (capital)
 
 ---
 ## `?read.csv`
@@ -1071,7 +898,7 @@ Tell R that all of NA, "na", and "cannot_read_notes" should be considered NA. Th
 
 ```r
 CO2 &lt;- read.csv("co2_broken.csv", sep = "", skip = 2,
-                na.strings = c("NA", "na", "cannot_read_notes"))
+                na.strings = c("NA","na","cannot_read_notes"))
 str(CO2)
 # 'data.frame':	84 obs. of  5 variables:
 #  $ Plant    : Factor w/ 12 levels "Mc1","Mc2","Mc3",..: 10 10 10 10 10 10 10 11 11 11 ...
@@ -1117,26 +944,34 @@ CO2$Treatment[CO2$Treatment=="nnchilled"] &lt;- "nonchilled"
 CO2$Treatment[CO2$Treatment=="chiled"] &lt;- "chilled"
 
 # Drop unused levels from factor
-levels(CO2$Treatment)
-# [1] "chiled"     "chilled"    "nnchilled"  "nonchilled"
 CO2 &lt;- droplevels(CO2)
-levels(CO2$Treatment)
-# [1] "chilled"    "nonchilled"
+str(CO2)
+# 'data.frame':	84 obs. of  5 variables:
+#  $ Plant    : Factor w/ 12 levels "Mc1","Mc2","Mc3",..: 10 10 10 10 10 10 10 11 11 11 ...
+#  $ Type     : Factor w/ 2 levels "Mississippi",..: 2 2 2 2 2 2 2 2 2 2 ...
+#  $ Treatment: Factor w/ 2 levels "chilled","nonchilled": 2 2 2 2 2 2 2 2 2 2 ...
+#  $ conc     : int  95 175 250 350 500 NA 1000 95 175 250 ...
+#  $ uptake   : num  16 30.4 NA 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...
 ```
 
+Fixed!
 
 ---
 class: inverse, center, middle
 
-# Manipulate data with `tidyr`, `dplyr`, `magrittr` 
+# Learn to manipulate data with tidyr, dyplr, maggritr 
 
 ---
-## `tidyr` to reshape data frames
+## Using `tidyr` to reshape data frames
 
 
-.center[
-![:scale 45%](images/tidyr_logo.png) 
-]
+```r
+library(tidyr)
+```
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/tidyr_logo.png" height=50% width=50%&gt;
+&lt;/div&gt;
 
 ---
 ## Data formats
@@ -1144,8 +979,6 @@ class: inverse, center, middle
 
 .pull-left[ 
 **Wide format**
-
-**Wide** data format has a separate column for each variable or each factor in your study
 
 ```
 #   Species DBH Height
@@ -1158,8 +991,6 @@ class: inverse, center, middle
 .pull-right[ 
 **Long format**
 
-**Long** data format has a column for possible variables and a column for the values of those variables
-
 ```
 #   Species Measurement Value
 # 1     Oak         DBH    12
@@ -1171,6 +1002,15 @@ class: inverse, center, middle
 ```
 ]
 
+---
+## long vs wide format
+
+.pull-left[ 
+**Wide** data format has a separate column for each variable or each factor in your study]
+
+.pull-right[ 
+**Long** data format has a column for possible variables and a column for the values of those variables] 
+
 ------------
 
 Wide data frame can be used for some basic plotting in `ggplot2`, but more complex plots require long format (example to come)
@@ -1180,11 +1020,11 @@ Wide data frame can be used for some basic plotting in `ggplot2`, but more compl
 ---
 ## Tidying your data
 
-`tidyr` allows you to manipulate the structure of your data while preserving all original information
+Tidying allows you to manipulate the structure of your data while preserving all original information
 
-`gather()` ![:faic](arrow-right) convert from wide to long format
+`gather()` - convert from wide to long format
 
-`spread()` ![:faic](arrow-right) convert from long to wide format
+`spread()` - convert from long to wide format
 
 .center[ 
 ![scale:90%](images/gather-spread.png)]
@@ -1203,11 +1043,12 @@ library(tidyr)
 
 `gather(data, key, value, ...)`
 
-  - `data` ![:faic](arrow-right) A data frame (e.g. `wide`)   
-  - `key` ![:faic](arrow-right) name of the new column containing variable names (e.g. `Measurement`)  
-  - `value` ![:faic](arrow-right) name of the new column containing variable values (e.g. `Value`)   
-  - `...` ![:faic](arrow-right) name or numeric index of the columns we wish to gather (e.g. `DBH`, `Height`)
-
+&lt;span style="font-size: 21px;"&gt;
+  - `data` A data frame (e.g. `wide`)   
+  - `key` name of the new column containing variable names (e.g. `Measurement`)  
+  - `value` name of the new column containing variable values (e.g. `Value`)   
+  - `...` name or numeric index of the columns we wish to gather (e.g. `DBH`, `Height`)
+&lt;/span&gt;
 
 ---
 ## `gather` columns into rows
@@ -1241,10 +1082,11 @@ long
 
 `spread(data, key, value)`
 
-  - `data` ![:faic](arrow-right) A data frame (e.g. `long`)   
-  - `key` ![:faic](arrow-right) Name of the column containing variable names (e.g. `Measurement`)  
-  - `value`![:faic](arrow-right)  Name of the column containing variable values (e.g. `Value`)   
-
+&lt;span style="font-size: 21px;"&gt;
+  - `data` A data frame (e.g. `long`)   
+  - `key` Name of the column containing variable names (e.g. `Measurement`)  
+  - `value` Name of the column containing variable values (e.g. `Value`)   
+&lt;/span&gt;
 
 ---
 ## `spread` rows into columns
@@ -1259,7 +1101,7 @@ long
 # 4     Oak      Height    56
 # 5     Elm      Height    85
 # 6     Ash      Height    55
-wide2 &lt;- spread(long, Measurement, Value)
+wide2 = spread(long, Measurement, Value)
 wide2
 #   Species DBH Height
 # 1     Ash  13     55
@@ -1272,16 +1114,16 @@ wide2
 
 `separate()` splits a columns by a character string separator
 
-.center[
-![](images/separate.png)
-]
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/separate.png" height=100% width=100%&gt;
+&lt;/div&gt;
 
 `separate(data, col, into, sep)`
 
-  - `data` ![:faic](arrow-right) A data frame (e.g. `long`)   
-  - `col` ![:faic](arrow-right) Name of the column you wish to separate
-  - `into` ![:faic](arrow-right) Names of new variables to create
-  - `sep` ![:faic](arrow-right) Character which indicates where to separate  
+  - `data` A data frame (e.g. `long`)   
+  - `col` Name of the column you wish to separate
+  - `into` Names of new variables to create
+  - `sep` Character which indicates where to separate  
 
 ---
 ## Using `separate()` example
@@ -1341,8 +1183,9 @@ head(messy.long.sep)
 # 6  2 control        fish   T1 0.6444911
 ```
 
-.comment[The argument `sep = "\\."` tells R to splits the character string around the period (.). We cannot type directly `sep = "."` because it is a regular expression that matches any single character (a joker).]
-
+&lt;span style="font-size: 18px;"&gt;
+The argument `sep = "\\."` tells R to splits the character string around the period (.). We cannot type directly `"."` because it is a regular expression that matches any single character.
+&lt;/span&gt;
 
 ---
 ## Recap of `tidyr`
@@ -1388,17 +1231,15 @@ head(air.long)
 # 5     5   5    Ozone    NA
 # 6     5   6    Ozone    28
 ```
-
-.comment[Note that the syntax used here indicates that we wish to gather ALL the columns exept *Month* and *Day*. It is equivalent to: `gather(airquality, value, Ozone, Solar.R, Temp, Wind)`]
-
-
+&lt;span style="font-size: 18px;"&gt;
+Note that the syntax used here indicates that we wish to gather ALL the columns exept *Month* and *Day*. It is equivalent to: `gather(airquality, value, Ozone, Solar.R, Temp, Wind)`
+&lt;/span&gt;
 
 
 ---
 ## Solution
 
 2. Then `spread` the resulting data frame to return to the original data format.
-
 
 ```r
 air.wide &lt;- spread(air.long, variable, value)
@@ -1416,8 +1257,9 @@ head(air.wide)
 ---
 ## Data manipulation with `dplyr`
 
-.center[
-![:scale 50%](images/dplyr.png)]
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/dplyr.png" height=50% width=50%&gt;
+&lt;/div&gt;
 
 ---
 ## Intro to `dplyr`
@@ -1452,7 +1294,9 @@ These 4 core functions tackle the most common manipulations when working with da
 ---
 ## `select` columns
 
-.center[![:scale 60%](images/select.png)]
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/select.png" height=60% width=60%&gt;&lt;/img&gt;
+&lt;/div&gt;
 
 `select(data, ...)`
 
@@ -1466,8 +1310,9 @@ These 4 core functions tackle the most common manipulations when working with da
 ---
 ## `select` columns
 
-.center[![:scale 70%](images/select.helper.png)]
-
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/select.helper.png" height=70% width=70%&gt;
+&lt;/div&gt;
 
 ---
 ## `select` columns
@@ -1494,10 +1339,11 @@ Extract a subset of rows that meet one or more specific conditions
 
 `filter(dataframe, logical statement 1, logical statement 2, ...)`
 
-.center[![:scale 90%](images/filter.png)]
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/filter.png" height=90% width=90%&gt;
 
-.center[![:scale 90%](images/logic.helper.png)]
-
+&lt;img src="images/logic.helper.png" height=80% width=80%&gt;
+&lt;/div&gt;
 
 ---
 ## `filter` rows
@@ -1574,8 +1420,9 @@ Compute and add new columns
 
 `mutate(data, newVar1 = expression1, newVar2 = expression2, ...)`
 
-.center[![](images/mutate.png)]
-
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/mutate.png" height=100% width=100%&gt;
+&lt;/div&gt;
 
 ---
 ## Create new columns using `mutate`
@@ -1598,8 +1445,10 @@ head(airquality_C)
 ---
 ## `magrittr`
 
-.center[
-![:scale 60%](images/magrittr.png)]
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/magrittr.png" height=40% width=40%&gt;
+&lt;/div&gt;
+
 Usually data manipulation require multiple steps, the magrittr package offers a pipe operator `%&gt;%` which allows us to link multiple operations
 
 ---
@@ -1647,25 +1496,25 @@ Advantages :
 The `dplyr` verbs become especially powerful when they are are combined using the pipe operator `%&gt;%`.
 The following `dplyr` functions allow us to split our data frame into groups on which we can perform operations individually
 
-`group_by()` ![:faic](arrow-right) group data frame by a factor for downstream operations (usually summarise)
+`group_by()` : group data frame by a factor for downstream operations (usually summarise)
 
-`summarise()` ![:faic](arrow-right) summarise values in a data frame or in groups within the data frame with aggregation functions (e.g. `min()`, `max()`, `mean()`)
+`summarise()` : summarise values in a data frame or in groups within the data frame with aggregation functions (e.g. `min()`, `max()`, `mean()`, etc…)
 
 ---
 ## `dplyr` - Split-Apply-Combine
 
 The `group_by` function is key to the Split-Apply-Combine strategy
 
-.center[
-![](images/split-apply-combine.png)
-]
-
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/split-apply-combine.png" height=100% width=100%&gt;
+&lt;/div&gt;
 
 ---
 ## `dplyr` - Split-Apply-Combine
 
-.center[
-![:scale 70%](images/summarise.png)]
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/summarise.png" height=70% width=70%&gt;
+&lt;/div&gt;
 
 ---
 ## `dplyr` - Split-Apply-Combine
@@ -1690,7 +1539,7 @@ month_sum
 ```
 
 ---
-## Challenge - `dplyr`and `magrittr` ![:cube]()
+## Challenge with `dplyr`and `magrittr` ![:cube]()
 
 Using the `ChickWeight` dataset, create a summary table which displays the difference in weight between the maximum and minimum weight of each chick in the study.
 
@@ -1720,13 +1569,13 @@ head(weight_diff)
 ```
 
 ---
-## Ninja challenge ![:cube]()
+## Ninja challenge
 
-- Using the `ChickWeight` dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study.
+Using the `ChickWeight` dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study.
 
-- Employ `dplyr` verbs and the `%&gt;%` operator.
+Employ `dplyr` verbs and the `%&gt;%` operator.
 
-.comment[Hint] `first()` and `last()` may be useful here
+(Hint: `first()` and `last()` may be useful here.)
 
 ---
 ## Ninja solution
@@ -1778,12 +1627,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
   }
-});
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

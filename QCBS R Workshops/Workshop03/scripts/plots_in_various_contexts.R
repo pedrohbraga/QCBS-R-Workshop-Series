@@ -34,7 +34,7 @@ gblank <- gblank + theme(plot.subtitle = element_text(vjust = 1),
   labs(title = "Blank plot")
 plot(mpg~wt, data = mtcars, type = "n")
 
-
+summaris
 # Data exploration  -------------------------------------------------------
 
 # Data exploration
@@ -77,7 +77,8 @@ betterPairs(iris)
 
 
 # Histogram ---------------------------------------------------------------
-ghis = ggplot(diamonds, aes(carat)) + geom_histogram(binwidth = .5) + labs(title = "Histogram")
+ghis <- ggplot(diamonds, aes(carat)) + geom_histogram(binwidth = .5) + labs(title = "Histogram")
+ghis
 hist(diamonds$carat)
 
 
@@ -86,7 +87,10 @@ gbar = ggplot(mpg, aes(class)) + geom_bar()+ labs(title = "Barplot")
 gbar = gbar + theme(plot.subtitle = element_text(vjust = 1), 
                     plot.caption = element_text(vjust = 1), 
                     axis.text.x = element_text(angle = 90))
-barplot(table(mpg$class))
+gbar #ggplot2
+
+barplot(table(mpg$class)) #baseplot
+
 ir.s=iris %>% 
   group_by(Species) %>% 
   summarise(mean.sp = mean(Sepal.Length))
@@ -94,8 +98,6 @@ iris %>%
   group_by(Species) %>% 
   summarise(pval = t.test(Sepal.Length, 
                           var.equal = TRUE)$p.value)
-
-
 
 dat <- data.frame(Group = c("S1", "S1", "S2", "S2"),
                   Sub   = c("A", "B", "A", "B"),
@@ -190,6 +192,7 @@ sign.bar(my.bp, select.pair = c(2,3),y =10,label = "***",mid = TRUE)
 
 # Linear model --------------------------------------------------------------------
 gsmooth <- ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_smooth(method = lm)+ labs(title = "Plot")
+gsmooth
 
 # predicts + interval
 lm.out  <- lm(hwy~displ, data = mpg)
@@ -207,6 +210,8 @@ lines(newx, preds[ ,2], lty = 'dashed', col = 'red')
 
 glinear.iris <- ggplot(data = iris,aes(x = Sepal.Length, y = Sepal.Width, col = Species)) + geom_point() + geom_smooth(method = "lm")+ labs(title = "Plot with categories")
 glinear.iris
+
+
 # Boxplot -----------------------------------------------------------------
 gbox = ggplot(data = iris, aes(Species, Sepal.Length)) + 
   geom_boxplot()+ 
@@ -241,14 +246,16 @@ p + geom_crossbar(aes(ymin = lower, ymax = upper), width = 0.2)
 gerror =p + geom_errorbar(aes(ymin = lower, 
                               ymax = upper), 
                           width = 0.2) + labs(title = "Plot with error bars")
+gerror
 
 
 df <- data.frame(grp = c("A", "B"), fit = 4:5, se = 1:2)
 k <- ggplot(df, aes(grp, fit, ymin = fit-se, ymax = fit+se))
 k + geom_crossbar(fatten = 2)
-k + geom_errorbar()
+
 k + geom_linerange()
 k + geom_pointrange()
+k + geom_errorbar()
 
 
 plot(y~x,
@@ -336,6 +343,7 @@ plot(hc, hang = -1, main = "Dendrogram")
 library(ggvegan)
 dune.pca <- rda(dune)
 gpca = autoplot(dune.pca)+ labs(title = "PCA") # your result object
+gpca
 
 
 # Data exploration

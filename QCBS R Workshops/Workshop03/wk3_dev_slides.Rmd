@@ -35,39 +35,81 @@ if(!require(ggplot2)) library(ggplot2)
 if(!require(knitr)) install.packages("knitr")
 if(!require(knitr)) library(knitr)
 
+if(!require(tidyr)) install.packages("tidyr")
+if(!require(tidyr)) library(tidyr)
+
+if(!require(dplyr)) install.packages("dplyr")
+if(!require(dplyr)) library(dplyr)
+
+if(!require(magrittr)) install.packages("magrittr")
+if(!require(magrittr)) library(magrittr)
+
+if(!require(grid)) install.packages("grid")
+if(!require(grid)) library(grid)
+
+if(!require(gridExtra)) install.packages("gridExtra")
+if(!require(gridExtra)) require(gridExtra)
+
+if(!require(RColorBrewer)) install.packages("RColorBrewer")
+if(!require(RColorBrewer)) library(RColorBrewer)
+
 if(!require(kableExtra)) install.packages("kableExtra")
 if(!require(kableExtra)) library(kableExtra)
+
+if(!require(gridBase)) install.packages("gridBase")
+if(!require(gridBase))library(gridBase)
+
+if(!require(vegan)) install.packages("vegan")
+if(!require(vegan)) library(vegan)
+
+if(!require(vioplot)) install.packages("vioplot")
+if(!require(vioplot)) library(vioplot)
+
+if(!require(ggpubr)) install.packages("ggpubr")
+if(!require(ggpubr)) library(ggpubr)
+
+if(!require(ggsignif)) library(ggsignif)
+
+if(!require(ggvegan)) library(ggvegan)
+                              
+if(!require(ggdendro)) library(ggdendro)
+
+if(!require(rworldmap)) library(rworldmap)
+
+if(!require(maps)) library(maps)
+
+if(!require(mapproj)) library(mapproj)
 
 source(file="./scripts/multiplot.R")
 ```
 
-# Fine Tunning : Colour
-  * Colour: Manual_colour
-```{r, eval=FALSE, fig.align="center", fig.width=6, fig.height=4}
-iris.plot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
-            geom_point()
-iris.plot + scale_colour_manual(values = c("setosa" = "red", 
-                                           "versicolor" = "darkgreen",
-                                           "virginica"="blue"))
-```  
+---
+# Introduction : Why use R for plotting?
+Beautiful and flexible graphics!
+
+```{r, echo=FALSE, fig.width=10, fig.height=7}
+source(file="./scripts/multiExamplePlot.R")
+```
+---
+
 .pull-left[
-**Classic**
-```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
-iris.plot <- ggplot(data = iris, 
-                    aes(x = Sepal.Length, 
-                        y = Sepal.Width, 
-                        color = Species)) +
-            geom_point()
-iris.plot
-```  
+*GGplot2*
+```{r, eval=FALSE}
+
+```
+```{r, echo=FALSE}
+
+```
 ]
+
 .pull-right[
-**Manual**
-```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
-iris.plot +
-scale_colour_manual(values = c("setosa" = "red", 
-                               "versicolor" = "darkgreen",
-                               "virginica"="blue"))
-```  
+*Base Plot*
+```{r, eval=FALSE}
+
+```
+```{r, echo=FALSE}
+
+```
+
 ]
 ---

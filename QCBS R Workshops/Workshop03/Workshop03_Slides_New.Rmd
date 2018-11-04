@@ -72,7 +72,7 @@ if(!require(ggsignif)) library(ggsignif)
 
 if(!require(ggvegan)) library(ggvegan)
                               
-if(!require(ggvegan)) library(ggdendro)
+if(!require(ggdendro)) library(ggdendro)
 
 if(!require(rworldmap)) library(rworldmap)
 
@@ -125,7 +125,7 @@ Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
 # Introduction : Why use R for plotting?
 Beautiful and flexible graphics!
 
-```{r, echo=FALSE, fig.width=7}
+```{r, echo=FALSE, fig.width=10, fig.height=7}
 source(file="./scripts/multiExamplePlot.R")
 ```
 ---
@@ -204,6 +204,47 @@ ggplot(data = iris,             # Data
 head(iris[,c("Sepal.Length","Sepal.Width","Species")], n = 5)
 ```
 `ggplot(data = iris, aes(`**x = Sepal.Length**`,` **y = Sepal.Width**`, `**col = Species**`))`
+---
+# Exploring your data
+```{r, eval=FALSE}
+betterPairs(iris)
+```
+<div style="text-align:center">
+<img src="images/betterPairs.png" height=60% width=60%>
+</div>
+
+```{r, echo=FALSE, eval=FALSE}
+panel.hist <- function(x, ...)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(usr[1:2], 0, 1.5) )
+  h <- hist(x, plot = FALSE)
+  breaks <- h$breaks; nB <- length(breaks)
+  y <- h$counts; y <- y/max(y)
+  rect(breaks[-nB], 0, breaks[-1], y, col="blue4", ...)
+}
+
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- abs(cor(x, y, method = "pearson")) # can be "spearman"
+  txt <- format(c(r, 0.123456789), digits=digits)[1]
+  txt <- paste(prefix, txt, sep="")
+  if(missing(cex.cor)) cex <- 0.7/strwidth(txt)
+  text(0.5, 0.5, txt, cex = cex * r)
+}
+betterPairs <- function(YourData, col = c("black")){
+  return(pairs(YourData, 
+               lower.panel=function(...) {
+                 par(new=TRUE);
+                 panel.smooth(col=col,
+                              col.smooth = "gold",...)},
+               diag.panel=panel.hist, 
+               upper.panel=panel.cor))
+}
+```
+
 ---
 # A simple Example with iris database
 
@@ -606,63 +647,462 @@ iris.plot + scale_color_grey() + theme_classic()
 
 ---
 
-#Blank plot
-.left[
+##Blank plot
+.pull-left[
 *GGplot2*
-```{r}
+```{r, eval=FALSE}
+gblank <- ggplot(mtcars, aes(wt, mpg))
+```
+
+```{r, echo=FALSE}
 gblank <- ggplot(mtcars, aes(wt, mpg))
 gblank <- gblank + theme(plot.subtitle = element_text(vjust = 1), 
                         plot.caption = element_text(vjust = 1)) +
   labs(title = "Blank plot")
+gblank
 ```
-
 ]
-.right[
+
+.pull-right[
 *Base Plot*
 ```{r}
 plot(mpg~wt, data = mtcars, type = "n")
 ```
-
 ]
+
 ---
 
 #Histogram
 
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(diamonds, aes(carat)) + geom_histogram()
+```
+```{r, echo=FALSE}
+ggplot(diamonds, aes(carat)) + geom_histogram(binwidth = .5) + labs(title = "Histogram")
+```
+]
+
+.pull-right[
+*Base Plot*
+```{r}
+hist(diamonds$carat)
+```
+]
 ---
 
-#Barplot: value significance
+#Barplot
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(mpg, aes(class)) + geom_bar()
+```
+```{r, echo=FALSE}
+ggplot(mpg, aes(class)) + geom_bar()+ labs(title = "Barplot")
+```
+]
 
+.pull-right[
+*Base Plot*
+```{r}
+barplot(table(mpg$class))
+```
+]
+
+---
+# Significant values
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(mpg, aes(class)) + 
+  geom_bar() + 
+  geom_signif()
+```
+```{r, echo=FALSE}
+ir.s=iris %>% 
+  group_by(Species) %>% 
+  summarise(mean.sp = mean(Sepal.Length))
+#iris %>% 
+#  group_by(Species) %>% 
+#  summarise(pval = t.test(Sepal.Length, 
+#                          var.equal = TRUE)$p.value)
+
+dat <- data.frame(Group = c("S1", "S1", "S2", "S2"),
+                  Sub   = c("A", "B", "A", "B"),
+                  Value = c(3,5,7,8),
+                  low = c(2.5,4.5,6,7.5),
+                  high = c(3.5,5.5,7,8.5))  
+
+
+
+gbar2 = ggplot(data = dat, aes(x = Group, y = Value,fill = Sub)) +
+  geom_bar(#aes(fill = Sub), 
+    stat="identity", 
+    position="dodge", 
+    width=.5) +
+  geom_errorbar(aes(ymin=low, 
+                    ymax=high),
+                width = 0.1,
+                position =  position_dodge(.5), colour="black") +
+  labs(title = "Barplot") +
+  scale_fill_manual(values = c("grey80", 
+                               "grey20")) + 
+  geom_signif(stat="identity",
+              data=data.frame(x=c(0.875, 1.875),
+                              xend=c(1.125, 2.125),
+                              y=c(5.8, 8.8),
+                              Sub=c("A","B"),
+                              annotation=c("**", "NS")),
+              aes(x=x,xend=xend, y=y, yend=y,
+                  annotation=annotation)) +
+  geom_signif(comparisons=list(c("S1", "S2")),
+              annotations="***",
+              y_position = 9.3,
+              tip_length = 0,
+              vjust=0.4)
+
+gbar2
+```
+]
+
+.pull-right[
+*Base Plot*
+Manual function
+```{r, eval=FALSE}
+barplot()
+sign.bar() 
+```
+
+```{r, echo=FALSE}
+df=data.frame(S1 = c(3,5), S2=c(7,8))
+my.bp =barplot(as.matrix(df),
+               beside = TRUE,
+               xlab = "Group",
+               ylab = "Value",
+               main = "Barplot",
+               ylim = c(0,12),
+               legend = rownames(df),
+               args.legend = list(x = "topright", 
+                                  bty = "n", 
+                                  inset=c(-0.07, 0))
+               # args.legend=list(
+               #   x=ncol(df)+4,
+               #   y=min(colSums(df)),
+               #   bty = "n"
+               # )
+)
+sign.bar = function(pos,select.pair, y, offset = 0.2, label, mid = FALSE) {
+  # create the y coordinate of the line
+  y <- y
+  # set an offset for tick lengths
+  offset <- offset
+  # draw first horizontal line
+  if (!mid) {
+    lines(pos[select.pair],c(y, y))
+    # draw ticks
+    lines(pos[c(select.pair[1],select.pair[1])],c(y, y-offset))
+    lines(pos[c(select.pair[2],select.pair[2])],c(y, y-offset))
+  } else {
+    lines(x = c(c(pos[select.pair[1]-1]+
+                    pos[select.pair[1]])/2,
+                c(pos[select.pair[2]]+
+                    pos[select.pair[2]+1])/2),
+          c(y, y))
+    # draw ticks
+    lines(c(c(pos[select.pair[1]-1]+
+                pos[select.pair[1]])/2,
+            c(pos[select.pair[1]-1]+
+                pos[select.pair[1]])/2),
+          c(y, y-offset))
+    lines(c(c(pos[select.pair[2]]+
+                pos[select.pair[2]+1])/2,
+            c(pos[select.pair[2]]+
+                pos[select.pair[2]+1])/2),
+          c(y, y-offset))
+  }
+  # draw asterics
+  text(pos[select.pair[1]]+((pos[select.pair[2]]-pos[select.pair[1]])/2),y+offset*2,
+       labels = label) 
+}
+sign.bar(my.bp, select.pair = c(1,2),y =6,label = "**")
+sign.bar(my.bp, select.pair = c(3,4),y =8.8,label = "NS")
+sign.bar(my.bp, select.pair = c(2,3),y =10,label = "***",mid = TRUE)
+```
+]
 ---
 
 #Plot: linear reagression
 
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  geom_smooth(method = lm)
+```
+```{r, echo=FALSE}
+ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_smooth(method = lm)+ labs(title = "Plot")
+```
+]
+
+.pull-right[
+*Base Plot*
+```{r, eval=FALSE}
+lm.out  <- lm(hwy~displ, data = mpg)
+plot(hwy~displ, data = mpg)
+abline(lm.out)
+
+```
+```{r, echo=FALSE}
+lm.out  <- lm(hwy~displ, data = mpg)
+newx <- seq(min(mpg$displ), max(mpg$displ), length.out=100)
+preds <- predict(lm.out, newdata = data.frame(displ=newx), 
+                 interval = 'confidence')
+plot(hwy~displ, data = mpg, bg = "black", col = "black", pch =21)
+polygon(c(rev(newx), newx), 
+        c(rev(preds[ ,3]), preds[ ,2]), 
+        col = 'grey80', border = NA)
+abline(lm.out)
+lines(newx, preds[ ,3], lty = 'dashed', col = 'red')
+lines(newx, preds[ ,2], lty = 'dashed', col = 'red')
+```
+]
 ---
 
-#Plot with categories
+#Boxplot with significant value
+
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(data = iris, aes(Species, Sepal.Length)) + 
+  geom_boxplot()  
+```
+```{r, echo=FALSE}
+ggplot(data = iris, aes(Species, Sepal.Length)) + 
+  geom_boxplot()+ labs(title = "Boxplot")+  
+  geom_signif(comparisons = list(c("versicolor", "virginica")), 
+              map_signif_level=TRUE)
+```
+]
+
+.pull-right[
+*Base Plot*
+```{r, eval=FALSE}
+boxplot(iris$Sepal.Length ~ iris$Species)
+
+```
+```{r, echo=FALSE}
+boxplot(iris$Sepal.Length ~ iris$Species) # For analysis of variance 
+```
+
+]
 
 ---
+# Violin plot
 
-#Boxplot with significant value only
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(data = iris, aes(Species, 
+                        Sepal.Length)) + 
+  geom_violin()
+```
+```{r, echo=FALSE}
+ggplot(data = iris, aes(Species, Sepal.Length)) + geom_violin()+ labs(title = "Violin plot")
+```
+]
 
----
+.pull-right[
+*Base Plot*
+```{r, eval=FALSE}
+vioplot(iris$Sepal.Length[iris$Species == "setosa"],
+        iris$Sepal.Length[iris$Species == "versicolor"],
+        iris$Sepal.Length[iris$Species == "virginica"],
+        col = "lightblue")
 
-#Violoin Plot
+```
+```{r, echo=FALSE}
+vioplot(iris$Sepal.Length[iris$Species == "setosa"],
+        iris$Sepal.Length[iris$Species == "versicolor"],
+        iris$Sepal.Length[iris$Species == "virginica"],
+        col = "lightblue")
+```
+
+]
 
 ---
 
 #Plot with errors bars
 
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(df, aes(trt, resp, colour = group)) +
+  geom_pointrange()+
+  geom_errorbar() + 
+```
+```{r, echo=FALSE}
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+
+ggplot(df, aes(trt, resp, colour = group)) +
+  geom_pointrange(aes(ymin = lower, ymax = upper))+
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) + 
+  labs(title = "Plot with error bars")
+```
+]
+
+.pull-right[
+*Base Plot*
+```{r, eval=FALSE}
+plot(y~x)
+error.bar <- function(...)
+error.bar(x,y)
+```
+```{r, echo=FALSE}
+x = as.numeric(c(1,2))
+y = c(2,3)
+mean = mean(y)
+plot(y~x,
+     type = "p",
+     pch =21,
+     bg = "black",
+     col = "black",
+     ylim = c(0,4),
+     xlim = c(0,3),
+     xaxt="n",
+     #main = "My graph",
+     xlab = "Site Category",
+     ylab = "Mean")
+axis(side = 1, at = c(1,2), labels = levels(c("yo","man")), cex.lab =1, cex.axis =1)
+
+error.bar <- function(x,
+                      y,
+                      epsilon = NULL, 
+                      se = NULL, 
+                      se.mul = 1,
+                      col = "black") {
+  x = as.numeric(x)
+  if(is.null(se)){
+    stderr <- function(x) sqrt(var(x,na.rm=TRUE)/length(na.omit(x)))
+    se = se.mul*stderr(y)
+  } else {se = se.mul*se}
+  
+  segments(x, y-se,x, y+se,col = col)
+  if(is.null(epsilon)){
+    epsilon = 0.02} else {epsilon = epsilon}
+  segments(x-epsilon,y-se,x+epsilon,y-se,col = col)
+  segments(x-epsilon,y+se,x+epsilon,y+se,col = col)
+}
+error.bar(x,y)
+```
+
+]
+
+
 ---
 
 #Map
+
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+library(maps)
+states_map <- map_data("state")
+ggplot(crimes, aes(map_id = state)) +
+  geom_map() + coord_map()
+```
+```{r, echo=FALSE}
+crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+crimesm <- reshape2::melt(crimes, id = 1)
+library(maps)
+states_map <- map_data("state")
+ggplot(crimes, aes(map_id = state)) +
+  geom_map(aes(fill = Murder), map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) + coord_map()+ labs(title = "Map")
+```
+]
+
+.pull-right[
+*Base Plot*
+```{r, eval=FALSE}
+library(rworldmap)
+library(mapproj)
+newmap <- rworldmap::getMap(resolution = "high")
+plot(newmap)
+```
+```{r, echo=FALSE}
+library(rworldmap)
+newmap <- rworldmap::getMap(resolution = "high")
+plot(newmap, xlim = c(-92, -89)
+     , ylim = c(-1.5, 0.5)
+     , asp = 1
+     , main = "Galapagos islands")
+```
+
+]
 
 ---
 
 #Density Graph
 
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggplot(diamonds, aes(carat)) +
+  geom_density() 
+```
+```{r, echo=FALSE}
+ggplot(diamonds, aes(carat)) +geom_density()+ labs(title = "Density graph")
+```
+]
+
+.pull-right[
+*Base Plot*
+```{r, eval=FALSE}
+plot(density(c(-20, rep(0,98), 20)), 
+     xlim = c(-4, 4))
+```
+```{r, echo=FALSE}
+plot(density(c(-20, rep(0,98), 20)), xlim = c(-4, 4),
+     main = "Density graph")
+```
+
+]
+
 ---
 
 #Dendogram
+
+.pull-left[
+*GGplot2*
+```{r, eval=FALSE}
+ggdendrogram(hc)
+```
+```{r, echo=FALSE}
+USArrests.short = USArrests[1:10,]
+hc <- hclust(dist(USArrests.short), "ave")
+ggdendrogram(hc, rotate = TRUE, theme_dendro = FALSE) + 
+  labs(title = "Dendrogram")
+```
+]
+
+.pull-right[
+*Base Plot*
+```{r, eval=FALSE}
+plot(hc, hang = -1, main = "Dendrogram")
+```
+```{r, echo=FALSE}
+plot(hc, hang = -1, main = "Dendrogram")
+```
+
+]
 
 ---
 
@@ -677,18 +1117,6 @@ CO2.plot.facet.baline <- CO2.plot.facet + geom_line()
 CO2.plot.facet.line <- CO2.plot.facet + geom_line(aes(group=Plant))
 multiplot(CO2.plot.facet.baline, CO2.plot.facet.line)
 ```
----
-# Histogram & boxplot
-  * .alert[put ggplot vs base plot]
-  
-
----
-# linear regression
-  * .alert[put ggplot vs base plot]
-
----
-# Error bar & Significant value
-  * .alert[put ggplot vs base plot]
 
 ---
 # Final Challenge

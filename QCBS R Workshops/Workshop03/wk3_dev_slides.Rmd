@@ -24,92 +24,34 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r, echo = F}
-options(repos=structure(c(CRAN="http://cran.r-project.org")))
+
+# Miscellaneous : Dynamics plots
+.alert[**Select the Species data to display directly From the legend**]
+```{r, echo=FALSE, fig.align='center', fig.width=11, fig.height=7.5}
+# Libraries
+if (!require(tidyverse)) install.packages("tidyverse")
+library(tidyverse)
+if (!require(plotly)) install.packages("plotly")
+library(plotly)
+
+# Scatterplot
+p=ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species, shape=Species)) + 
+    geom_point(size=6, alpha=0.6) 
+
+ggplotly(p)
 ```
 
-```{r, include = FALSE}
-if(!require(ggplot2)) install.packages("ggplot2")
-if(!require(ggplot2)) library(ggplot2)
-
-if(!require(knitr)) install.packages("knitr")
-if(!require(knitr)) library(knitr)
-
-if(!require(tidyr)) install.packages("tidyr")
-if(!require(tidyr)) library(tidyr)
-
-if(!require(dplyr)) install.packages("dplyr")
-if(!require(dplyr)) library(dplyr)
-
-if(!require(magrittr)) install.packages("magrittr")
-if(!require(magrittr)) library(magrittr)
-
-if(!require(grid)) install.packages("grid")
-if(!require(grid)) library(grid)
-
-if(!require(gridExtra)) install.packages("gridExtra")
-if(!require(gridExtra)) require(gridExtra)
-
-if(!require(RColorBrewer)) install.packages("RColorBrewer")
-if(!require(RColorBrewer)) library(RColorBrewer)
-
-if(!require(kableExtra)) install.packages("kableExtra")
-if(!require(kableExtra)) library(kableExtra)
-
-if(!require(gridBase)) install.packages("gridBase")
-if(!require(gridBase))library(gridBase)
-
-if(!require(vegan)) install.packages("vegan")
-if(!require(vegan)) library(vegan)
-
-if(!require(vioplot)) install.packages("vioplot")
-if(!require(vioplot)) library(vioplot)
-
-if(!require(ggpubr)) install.packages("ggpubr")
-if(!require(ggpubr)) library(ggpubr)
-
-if(!require(ggsignif)) library(ggsignif)
-
-if(!require(ggvegan)) library(ggvegan)
-                              
-if(!require(ggdendro)) library(ggdendro)
-
-if(!require(rworldmap)) library(rworldmap)
-
-if(!require(maps)) library(maps)
-
-if(!require(mapproj)) library(mapproj)
-
-source(file="./scripts/multiplot.R")
-```
 
 ---
-# Introduction : Why use R for plotting?
-Beautiful and flexible graphics!
 
-```{r, echo=FALSE, fig.width=10, fig.height=7}
-source(file="./scripts/multiExamplePlot.R")
+# Fine Tunning : Colour
+* Blind color friendly : presentation purpose
+```{r}
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+                "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 ```
----
 
-.pull-left[
-*GGplot2*
-```{r, eval=FALSE}
-
-```
 ```{r, echo=FALSE}
-
+library(scales)
+show_col(cbbPalette)
 ```
-]
-
-.pull-right[
-*Base Plot*
-```{r, eval=FALSE}
-
-```
-```{r, echo=FALSE}
-
-```
-
-]
----

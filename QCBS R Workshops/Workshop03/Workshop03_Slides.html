@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Workshop 3: Introduction to ggplot2, tidyr &amp; dplyr</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Québec Centre for Biodiversity Science" />
+    <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="assets/kePrint-0.0.1/kePrint.js"></script>
+    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/academicons-1.8.1/css/academicons.min.css">
+    <link rel="stylesheet" href="qcbsR.css" type="text/css" />
+    <link rel="stylesheet" href="qcbsR-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Workshop 3: Introduction to ggplot2, tidyr &amp; dplyr
+## QCBS R Workshop Series
+### Québec Centre for Biodiversity Science
+
+---
+
+
+
+
+
+
+
+
+## Introduction
+
+Why use R for plotting?
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/ggplot_divided.png" height=85% width=85%&gt;
+&lt;/div&gt;
+
+---
+## Introduction
+
+Why use R for plotting?
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/ggplot_reproducible.png" height=85% width=85%&gt;
+&lt;/div&gt;
+
+---
+## Introduction
+
+Why use R for plotting?
+
+Beautiful and flexible graphics!
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/ggplot_flexible.png" height=85% width=85%&gt;
+&lt;/div&gt;
+
+---
+## Introduction
+
+- Have you created plots?
+      * What kind of plot?
+      * Which software?
+
+- Have you plotted in R?
+      * `base` R, `lattice`?
+      * `ggplot2`?
+
+---
+## Introduction
+
+- To follow along:
+
+Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
+
+- Recommendation:
+      * create your own new script
+      * refer to provided code only if needed
+      * avoid copy pasting or running the code directly from script
+
+- ggplot2 is also hosted on Github: https://github.com/hadley/ggplot2
+
+---
+## ggplot2
+
+The `ggplot2` package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots.
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/ggplot2_logo.png" height=40% width=40%&gt;
+&lt;/div&gt;
+
+---
+
+## Introduction
+
+Required packages
+
+```r
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+---
+## Outline
+1. Your first R plot
+    * Basic scatter plot
+    * Challenge 1
+2. Grammar of graphics
+    * More advanced plots
+    * Available plot elements and when to use them
+    * Challenge 2
+3. Saving a plot
+4. Fine tuning your plot
+    * Colours
+    * Themes
+5. Miscellanea
+
+---
+
+## Basic scatter plot
+
+```r
+?qplot
+```
+arguments:
+
+- `data`
+- `x`
+- `y`
+- `...`
+
+---
+
+## Basic scatter plot
+
+Look at pre-loaded `iris` dataset:
+
+```r
+?iris
+str(iris)
+names(iris)
+```
+
+
+```r
+head(iris)
+#   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+# 1          5.1         3.5          1.4         0.2  setosa
+# 2          4.9         3.0          1.4         0.2  setosa
+# 3          4.7         3.2          1.3         0.2  setosa
+# 4          4.6         3.1          1.5         0.2  setosa
+# 5          5.0         3.6          1.4         0.2  setosa
+# 6          5.4         3.9          1.7         0.4  setosa
+```
+
+---
+## Basic scatter plot
+
+
+```r
+qplot(data = iris,
+        x = Sepal.Length,
+        y = Sepal.Width)
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-7-1.png" width="384" style="display: block; margin: auto;" /&gt;
+
+---
+## Basic scatter plot
+
+
+```r
+qplot(data = iris,
+        x = Species,
+        y = Sepal.Width)
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-8-1.png" width="384" style="display: block; margin: auto;" /&gt;
+
+---
+## Less basic options
+
+arguments:
+
+- `xlab`
+- `ylab`
+- `main`
+
+---
+## Less basic options
+
+
+```r
+qplot(data = iris,
+        x = Sepal.Length, xlab = "Sepal Length (mm)",
+        y = Sepal.Width, ylab = "Sepal Width (mm)",
+        main = "Sepal dimensions")
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /&gt;
+
+---
+## Challenge #1
+
+Produce a basic plot with built in data (5 minutes)
+
+
+```r
+?CO2
+data(CO2)
+?BOD
+data(BOD)
+```
+
+---
+
+## Solution to Challenge #1
+
+
+```r
+qplot(data = CO2,
+        x = conc, xlab = "CO2 Concentration (mL/L)",
+        y = uptake, ylab = "CO2 Uptake (umol/m^2 sec)",
+        main = "CO2 uptake in grass plants")
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-11-1.png" width="384" style="display: block; margin: auto;" /&gt;
+
+---
+## Tips for expressions
+
+
+```r
+qplot(data = CO2, x = conc, y = uptake,
+      xlab = expression(paste(CO[2]," Concentration (ml/L)")),
+      ylab = expression(paste(CO[2]," Uptake (", mu, "mol/", m^2," sec)")),
+      main = expression(paste(CO[2]," uptake in grass plants")))
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-12-1.png" width="384" style="display: block; margin: auto;" /&gt;
+
+---
+## Grammar of Graphics (GG)
+
+A graphic is made of elements (layers)
+
+- Data
+    * aesthetics (`aes`)
+    * transformation
+    * geometries (`geoms`)
+    * axis (coordinate system)
+    * scales
+
+&lt;img src="images/ggplot_grammar.png" height=90% width=90%&gt;
+
+--- 
+
+## Grammar of graphics (gg)
+A graphic is made of elements (layers)
+
+- Data
+- Aesthetics (aes), to make data visible
+    * x,y : position along the x and y axis
+    * colour: the colour of the point
+    * group: what group a point belongs to
+    * shape: the figure used to plot a point
+    * linetype: the type of line used (solid, dashed, etc)
+    * size: the size of the point or line
+    * alpha: the transparency of the point
+
+---
+## Grammar of graphics (gg)
+A graphic is made of elements (layers)
+
+- Data
+- Aesthetics (aes)
+- Geometric objects (geoms)
+    * `geom_point()`: scatterplot
+    * `geom_line()`: lines connecting points by increasing value of x
+    * `geom_path()`: lines connecting points in sequence of appearance
+    * `geom_boxplot()`: box and whiskers plot for categorical variables
+    * `geom_bar()`: bar charts for categorical x axis
+    * `geom_histogram()`: histogram for continuous x axis
+
+---
+## Grammar of graphics (gg)
+Edit any single element to produce a new graph
+e.g., by changing the coordinate system
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-13-1.png" width="816" style="display: block; margin: auto;" /&gt;
+
+---
+## How it works
+
+Create a simple plot object:
+
+  * `plot.object &lt;- ggplot()` OR `qplot()`
+
+Add graphical layers:
+
+  * `plot.object &lt;- plot.object + layer()`
+
+Repeat step 2 until statisfied, then print:
+
+  * `print(plot.object)`
+
+---
+## `qplot()` vs `ggplot()`
+
+
+```r
+qplot(data = iris,
+      x = Sepal.Length,
+      xlab = "Sepal Length (mm)",
+      y = Sepal.Width,
+      ylab = "Sepal Width (mm)",
+      main = "Sepal dimensions")
+
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point() +
+  xlab("Sepal Length (mm)") +
+  ylab("Sepal Width (mm)") +
+  ggtitle("Sepal dimensions")
+```
+
+---
+## Assign plot to an R object
+
+
+```r
+basic.plot &lt;- ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width)) +
+    geom_point()+
+    xlab("Sepal Length (mm)") + ylab("Sepal Width (mm)") +
+    ggtitle("Sepal dimensions")
+basic.plot
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-15-1.png" width="364.8" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Adding colours and shapes
+
+Add aesthetics using `aes()`
+
+
+```r
+basic.plot &lt;- basic.plot + aes(colour = Species, shape = Species)
+basic.plot
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+## Adding geometric objects
+
+Add linear regressions with geom_smooth()
+
+
+```r
+linear.smooth.plot &lt;- basic.plot + geom_smooth(method = "lm", se = F)
+linear.smooth.plot
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+## Challenge #2
+
+Produce a colourful plot with linear regression (or other smoother) from built in data such as the CO2 dataset or the msleep dataset
+
+
+```r
+?CO2
+data(CO2)
+?msleep
+data(msleep)
+```
+
+---
+## Solution to challenge #2
+
+Example using loess smoothing
+
+
+```r
+data(CO2)
+CO2.plot &lt;- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
+    geom_point() +
+    xlab("CO2 Concentration (mL/L)") +
+    ylab("CO2 Uptake (umol/m^2 sec)") +    
+    ggtitle("CO2 uptake in grass plants") +
+    geom_smooth(method = "loess")
+CO2.plot
+```
+
+---
+## Solution to challenge #2
+
+Example using loess smoothing
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+## Adding multiple facets and groups
+
+Data becomes difficult to visualize when there are multiple factors, e.g., the CO2 data set contains data on CO2 uptake for chilled vs non-chilled treatments from two different regions. Let's build a basic plot using this data set:
+
+
+```r
+CO2.plot &lt;- ggplot(data = CO2, aes(x = conc, y = uptake, colour = Treatment)) +
+    geom_point() +
+    xlab("CO2 Concentration (mL/L)") +
+    ylab("CO2 Uptake (umol/m^2 sec)") +    
+    ggtitle("CO2 uptake in grass plants")
+CO2.plot
+```
+
+---
+## Adding multiple facets and groups
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+## Adding multiple facets and groups
+
+If we want to compare regions, it is useful to make two panels.
+Synthax: `plot.object + facet_grid(rows ~ columns)`
+
+
+```r
+CO2.plot &lt;- CO2.plot + facet_grid(. ~ Type)
+CO2.plot
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-23-1.png" width="528" style="display: block; margin: auto;" /&gt;
+
+---
+## Adding multiple facets and groups
+
+Now that we have 2 facets, let's observe how the CO2 uptake evolves as CO2 concentrations rise, by adding connecting lines to the points using `geom_line()`:
+
+
+```r
+CO2.plot + geom_line()
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-24-1.png" width="528" style="display: block; margin: auto;" /&gt;
+Not good, because each treatment in each region has 3 replicates
+
+---
+## Adding multiple facets and groups
+
+Specify groups
+
+
+```r
+CO2.plot &lt;- CO2.plot + geom_line(aes(group = Plant))
+CO2.plot
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-25-1.png" width="528" style="display: block; margin: auto;" /&gt;
+
+---
+## Available elements
+
+[Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/available_geom.png" height=50% width=50%&gt;
+&lt;/div&gt;
+
+---
+## Additional resources
+
+`help(package = ggplot)`
+
+http://ggplot2.tidyverse.org/reference/
+
+&lt;div&gt;
+  &lt;img src="images/ggplot_book.jpg"/&gt;
+  &lt;img src="images/grammar_of_graphics.jpg"/&gt;
+&lt;/div&gt;
+
+---
+## Challenge #3
+
+Explore a new geom and other plot elements with your own data or built in data.
+
+
+```r
+data(msleep)
+data(OrchardSprays)
+```
+
+---
+## Solution to challenge #3
+
+
+```r
+data(OrchardSprays)
+box.plot &lt;- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) +
+  geom_boxplot()
+box.plot
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-27-1.png" width="384" style="display: block; margin: auto;" /&gt;
+
+---
+## Saving plots in RStudio
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/save_image.png" height=90% width=90%&gt;
+&lt;/div&gt;
+
+
+---
+## Saving plots in code
+
+ggsave() will write directly to your working directory all in one line of code and you can specify the name of the file and the dimensions of the plot:
+
+
+```r
+ggsave("CO2_plot.pdf",
+       CO2.plot,
+       height = 8.5,
+       width = 11,
+       units = "in")
+```
+Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png, ...)
+
+
+---
+Other methods to save image
+`?pdf`
+`?jpeg`
+
+---
+## Fine tuning - colours
+
+
+```r
+CO2.plot +
+  scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+## Fine tuning - colours
+
+
+```r
+install.packages("RColorBrewer")
+require(RColorBrewer)
+```
+
+
+```r
+display.brewer.all()
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+## Fine tuning - colours
+
+```r
+CO2.plot + scale_color_brewer(palette = "Dark2")
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-32-1.png" width="480" style="display: block; margin: auto;" /&gt;
+
+---
+## Fine tuning - colours
+
+Wes Anderson colour palette
+
+
+```r
+install.packages("wesanderson")
+library(wesanderson)
+```
+
+---
+## Fine tuning - colours
+
+Wes Anderson colour palette
+
+![](images/wesanderson1.jpg)
+
+## Fine tuning - colours
+
+---
+Wes Anderson colour palette
+
+![](images/wesanderson2.jpg)
+
+## Fine tuning - colours
+
+---
+Wes Anderson colour palette
+
+![](images/wesanderson3.jpg)
+
+## Fine tuning - colours
+
+---
+Wes Anderson colour palette
+
+
+```r
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = wes_palette("GrandBudapest2"))
+```
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-34-1.png" width="480" style="display: block; margin: auto;" /&gt;
+
+---
+## Using `tidyr` to reshape data frames
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/tidyr_logo.png" height=50% width=50%&gt;
+&lt;/div&gt;
+
+
+---
+## Data formats
+
+**Wide format**
+&lt;table class="table table-striped table-bordered" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Species &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; DBH &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Height &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Oak &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 56 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Elm &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Ash &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 55 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+**Long format**
+&lt;table class="table table-striped table-bordered" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Species &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Measurement &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Value &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Oak &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; DBH &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Elm &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; DBH &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Ash &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; DBH &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Oak &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Height &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 56 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Elm &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Height &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Ash &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; Height &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; "&gt; 55 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## long vs wide format
+
+**Long** data format has a column for possible variables and a column for the values of those variables
+
+**Wide** data format has a separate column for each variable or each factor in your study
+
+Wide data frame can be used for some basic plotting in `ggplot2`, but more complex plots require long format (example to come)
+
+`dplyr`, `lm()`, `glm()`, `gam()` all require long data format
+
+---
+## Tidying your data
+
+Tidying allows you to manipulate the structure of your data while preserving all original information
+
+`gather()` - convert from wide to long format
+
+`spread()` - convert from long to wide format
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/gather-spread.png" height=100% width=100%&gt;
+&lt;/div&gt;
+
+---
+## `tidyr` installation
+
+
+```r
+install.packages("tidyr")
+library(tidyr)
+```
+
+---
+## `gather` columns into rows
+
+
+```r
+(wide &lt;- data.frame(Species = c("Oak", "Elm", "Ash"),
+                   DBH = c(12, 20, 13), Height = c(56, 85, 55)))
+#   Species DBH Height
+# 1     Oak  12     56
+# 2     Elm  20     85
+# 3     Ash  13     55
+```
+
+`gather(data, key, value, ...)`
+
+&lt;span style="font-size: 21px;"&gt;
+  - `data` A data frame (e.g. `wide`)   
+  - `key` name of the new column containing variable names (e.g. `Measurement`)  
+  - `value` name of the new column containing variable values (e.g. `Value`)   
+  - `...` name or numeric index of the columns we wish to gather (e.g. `DBH`, `Height`)
+&lt;/span&gt;
+
+---
+## `gather` columns into rows
+
+
+```r
+wide
+#   Species DBH Height
+# 1     Oak  12     56
+# 2     Elm  20     85
+# 3     Ash  13     55
+long = gather(wide, Measurement, Value, DBH, Height)
+long
+#   Species Measurement Value
+# 1     Oak         DBH    12
+# 2     Elm         DBH    20
+# 3     Ash         DBH    13
+# 4     Oak      Height    56
+# 5     Elm      Height    85
+# 6     Ash      Height    55
+```
+
+---
+## `spread` rows into columns
+
+
+```r
+long
+#   Species Measurement Value
+# 1     Oak         DBH    12
+# 2     Elm         DBH    20
+# 3     Ash         DBH    13
+# 4     Oak      Height    56
+# 5     Elm      Height    85
+# 6     Ash      Height    55
+```
+
+`spread(data, key, value)`
+
+&lt;span style="font-size: 21px;"&gt;
+  - `data` A data frame (e.g. `long`)   
+  - `key` Name of the column containing variable names (e.g. `Measurement`)  
+  - `value` Name of the column containing variable values (e.g. `Value`)   
+&lt;/span&gt;
+
+---
+## `spread` rows into columns
+
+
+```r
+long
+#   Species Measurement Value
+# 1     Oak         DBH    12
+# 2     Elm         DBH    20
+# 3     Ash         DBH    13
+# 4     Oak      Height    56
+# 5     Elm      Height    85
+# 6     Ash      Height    55
+wide2 = spread(long, Measurement, Value)
+wide2
+#   Species DBH Height
+# 1     Ash  13     55
+# 2     Elm  20     85
+# 3     Oak  12     56
+```
+
+---
+## Challenge #4
+
+1. Using the airquality dataset, `gather` all the columns (except Month and Day) into rows.
+
+2. Then `spread` the resulting data frame to return to the original data format.
+
+
+```r
+?airquality
+
+data(airquality)
+```
+
+---
+## Solution #4
+
+1. Using the airquality dataset, `gather` all the columns (except Month and Day) into rows.
+
+```r
+air.long &lt;- gather(airquality, variable, value, -Month, -Day)
+head(air.long)
+#   Month Day variable value
+# 1     5   1    Ozone    41
+# 2     5   2    Ozone    36
+# 3     5   3    Ozone    12
+# 4     5   4    Ozone    18
+# 5     5   5    Ozone    NA
+# 6     5   6    Ozone    28
+```
+&lt;span style="font-size: 18px;"&gt;
+Note that the syntax used here indicates that we wish to gather ALL the columns exept *Month* and *Day*. It is equivalent to: `gather(airquality, value, Ozone, Solar.R, Temp, Wind)`
+&lt;/span&gt;
+
+
+---
+## Solution #4
+
+2. Then `spread` the resulting data frame to return to the original data format.
+
+```r
+air.wide &lt;- spread(air.long, variable, value)
+head(air.wide)
+#   Month Day Ozone Solar.R Temp Wind
+# 1     5   1    41     190   67  7.4
+# 2     5   2    36     118   72  8.0
+# 3     5   3    12     149   74 12.6
+# 4     5   4    18     313   62 11.5
+# 5     5   5    NA      NA   56 14.3
+# 6     5   6    28      NA   66 14.9
+```
+
+
+---
+## `separate` columns
+
+`separate()` splits a columns by a character string separator
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/separate.png" height=100% width=100%&gt;
+&lt;/div&gt;
+
+`separate(data, col, into, sep)`
+
+  - `data` A data frame (e.g. `long`)   
+  - `col` Name of the column you wish to separate
+  - `into` Names of new variables to create
+  - `sep` Character which indicates where to separate  
+
+---
+## Using `separate()` example
+
+Create a fictional dataset about fish and plankton
+
+```r
+set.seed(8)
+messy &lt;- data.frame(id = 1:4,
+                    trt = sample(rep(c('control', 'farm'), each = 2)),
+                    zooplankton.T1 = runif(4),
+                    fish.T1 = runif(4),
+                    zooplankton.T2 = runif(4),
+                    fish.T2 = runif(4))
+messy
+#   id     trt zooplankton.T1    fish.T1 zooplankton.T2     fish.T2
+# 1  1 control      0.3215092 0.76914695      0.4323914 0.001301721
+# 2  2 control      0.7189275 0.64449114      0.5449621 0.264458864
+# 3  3    farm      0.2908734 0.45704489      0.1382243 0.276532247
+# 4  4    farm      0.9322698 0.08930101      0.9278123 0.521107042
+```
+
+---
+## Using `separate()` example
+
+First convert the messy data frame from wide to long format
+
+
+```r
+messy.long &lt;- gather(messy, taxa, count, -id, -trt)
+head(messy.long)
+#   id     trt           taxa     count
+# 1  1 control zooplankton.T1 0.3215092
+# 2  2 control zooplankton.T1 0.7189275
+# 3  3    farm zooplankton.T1 0.2908734
+# 4  4    farm zooplankton.T1 0.9322698
+# 5  1 control        fish.T1 0.7691470
+# 6  2 control        fish.T1 0.6444911
+```
+
+---
+## Using `separate()` example
+
+Then we want to split the 2 sampling time (T1 and T2).
+
+
+```r
+messy.long.sep &lt;- separate(messy.long, taxa,
+                           into = c("species", "time"), sep = "\\.")
+head(messy.long.sep)
+#   id     trt     species time     count
+# 1  1 control zooplankton   T1 0.3215092
+# 2  2 control zooplankton   T1 0.7189275
+# 3  3    farm zooplankton   T1 0.2908734
+# 4  4    farm zooplankton   T1 0.9322698
+# 5  1 control        fish   T1 0.7691470
+# 6  2 control        fish   T1 0.6444911
+```
+
+&lt;span style="font-size: 18px;"&gt;
+The argument `sep = "\\."` tells R to splits the character string around the period (.). We cannot type directly `"."` because it is a regular expression that matches any single character.
+&lt;/span&gt;
+
+---
+## Recap of `tidyr`
+
+A package that reshapes the layout of data sets.
+
+Converting from wide to long format using `gather()`
+
+Converting from long format to wide format using `spread()`
+
+Split and merge columns with `unite()` and `separate()`
+
+[Data Wrangling with dplyr and tidyr Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+
+```r
+head(airquality)
+#   Ozone Solar.R Wind Temp Month Day
+# 1    41     190  7.4   67     5   1
+# 2    36     118  8.0   72     5   2
+# 3    12     149 12.6   74     5   3
+# 4    18     313 11.5   62     5   4
+# 5    NA      NA 14.3   56     5   5
+# 6    28      NA 14.9   66     5   6
+```
+
+The dataset is in wide format, where measured variables (Ozone, Solar.R, Wind and Temp) are each in their own columns.
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+Let's use ggplot to visualize each individual variable and the range it displays for each month in the time series
+
+
+```r
+fMonth &lt;- factor(airquality$Month)
+# Convert the Month variable to a factor.
+
+ozone.box &lt;- ggplot(airquality, aes(x = fMonth, y = Ozone)) +
+  geom_boxplot()
+
+solar.box &lt;- ggplot(airquality, aes(x = fMonth, y = Solar.R)) +
+  geom_boxplot()
+
+temp.box  &lt;- ggplot(airquality, aes(x = fMonth, y = Temp)) +
+  geom_boxplot()
+
+wind.box  &lt;- ggplot(airquality, aes(x = fMonth, y = Wind)) +
+  geom_boxplot()
+```
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+You can use `grid.arrange()` in the package `gridExtra` to arrange the 4 separate plots into one panel for viewing.
+
+```r
+combo.box &lt;- grid.arrange(ozone.box, solar.box, temp.box, wind.box,
+                          nrow = 2)
+# nrow = number of rows you would like the plots displayed on
+```
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-51-1.png" width="480" style="display: block; margin: auto;" /&gt;
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+Convert airquality to long format to use `facet_wrap()` for the different variables as opposed to by month
+
+```r
+air.long &lt;- gather(airquality, variable, value, -Month, -Day)
+
+fMonth.long &lt;- factor(air.long$Month)
+
+weather &lt;- ggplot(air.long, aes(x = fMonth.long, y = value)) +
+  geom_boxplot() +
+  facet_wrap(~ variable, nrow = 2)
+```
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-53-1.png" width="480" style="display: block; margin: auto;" /&gt;
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+`facet_wrap` puts all the individual variables on the same scale, which can be useful in many cases. However, here, we can't see the variability in the `Wind` and `Temp` variables.
+We can free the y axis in each panel using `scales=free`
+
+
+```r
+weather &lt;- weather +
+  facet_wrap(~ variable, nrow = 2, scales = "free")
+```
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-55-1.png" width="480" style="display: block; margin: auto;" /&gt;
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+We can also use the long data format to create a plot with all the variables included on a single plot
+
+
+```r
+w2 &lt;- ggplot(air.long, aes(x = Day, y = value, colour = variable)) +
+  geom_point() + # put all day measurements on one plot
+  facet_wrap(~ Month, nrow = 1) #split observations by month
+```
+
+
+---
+## Exercices with `ggplot` and `tidyr`
+
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-57-1.png" width="480" style="display: block; margin: auto;" /&gt;
+
+---
+## Data manipulation with `dplyr`
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/dplyr.png" height=50% width=50%&gt;
+&lt;/div&gt;
+
+---
+## Intro to `dplyr`
+
+- Package that contains a set of functions (or “verbs”) for data manipulation such as filtering rows, selecting specific columns, re-ordering rows, adding new columns and summarizing data;
+- Easy and intuitive functions
+- Fast and efficient
+- Can interface with external databases and translate your R code into SQL queries
+
+Some corresponding R base functions:
+`split()`, `subset()`, `apply()`, `sapply()`, `lapply()`, `tapply()` and `aggregate()`
+
+---
+## Intro to `dplyr`
+
+
+```r
+install.packages("dplyr")
+library(dplyr)
+```
+
+---
+## Basic functions in `dplyr`
+
+These 4 core functions tackle the most common manipulations when working with data frames
+
+  * `select()`: select columns from a data frame
+  * `filter()`: filter rows according to defined criteria
+  * `arrange()`: re-order data based on criteria (e.g. ascending, descending)
+  * `mutate()`: create or transform values in a column
+
+---
+## `select` columns
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/select.png" height=80% width=80%&gt;&lt;/img&gt;
+&lt;/div&gt;
+
+`select(data, ...)`
+
+  * `...`  Can be column names or positions or complex expressions separated by commas
+
+  `select(data, column1, column2)` select columns 1 and 2
+  `select(data, c(2:4,6))` select columns 2 to 4 and 6
+  `select(data, -column1)` select all columns except column 1
+  `select(data, start_with(x.))` select all columns that start with "x."
+
+---
+## `select` columns
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/select.helper.png" height=70% width=70%&gt;
+&lt;/div&gt;
+
+---
+## `select` columns
+
+Example: suppose we are only interested in the variation of Ozone over time within the airquality dataset
+
+
+```r
+ozone &lt;- select(airquality, Ozone, Month, Day)
+head(ozone)
+#   Ozone Month Day
+# 1    41     5   1
+# 2    36     5   2
+# 3    12     5   3
+# 4    18     5   4
+# 5    NA     5   5
+# 6    28     5   6
+```
+
+---
+## `filter` rows
+
+Extract a subset of rows that meet one or more specific conditions
+
+`filter(dataframe, logical statement 1, logical statement 2, ...)`
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/filter.png" height=90% width=90%&gt;
+
+&lt;img src="images/logic.helper.png" height=80% width=80%&gt;
+&lt;/div&gt;
+
+---
+## `filter` rows
+
+Example: we are interested in analyses that focus on the month of August during high temperature events
+
+
+```r
+august &lt;- filter(airquality, Month == 8, Temp &gt;= 90)
+# same as: filter(airquality, Month == 8 &amp; Temp &gt;= 90)
+head(august)
+#   Ozone Solar.R Wind Temp Month Day
+# 1    89     229 10.3   90     8   8
+# 2   110     207  8.0   90     8   9
+# 3    NA     222  8.6   92     8  10
+# 4    76     203  9.7   97     8  28
+# 5   118     225  2.3   94     8  29
+# 6    84     237  6.3   96     8  30
+```
+
+---
+## Sort rows with `arrange`
+
+Re-order rows by a particular column, by default in ascending order
+
+Use `desc()` for descending order.
+
+`arrange(data, variable1, desc(variable2), ...)`
+
+---
+## Sort rows with `arrange`
+
+Example:
+1. Let's use the following code to create a scrambled version of the airquality dataset
+
+
+```r
+air_mess &lt;- sample_frac(airquality, 1)
+head(air_mess)
+#     Ozone Solar.R Wind Temp Month Day
+# 35     NA     186  9.2   84     6   4
+# 63     49     248  9.2   85     7   2
+# 93     39      83  6.9   81     8   1
+# 33     NA     287  9.7   74     6   2
+# 99    122     255  4.0   89     8   7
+# 145    23      14  9.2   71     9  22
+```
+
+---
+## Sort rows with `arrange`
+
+Example:
+2. Now let's arrange the data frame back into chronological order, sorting by Month then Day
+
+
+```r
+air_chron &lt;- arrange(air_mess, Month, Day)
+head(air_chron)
+#   Ozone Solar.R Wind Temp Month Day
+# 1    41     190  7.4   67     5   1
+# 2    36     118  8.0   72     5   2
+# 3    12     149 12.6   74     5   3
+# 4    18     313 11.5   62     5   4
+# 5    NA      NA 14.3   56     5   5
+# 6    28      NA 14.9   66     5   6
+```
+
+Try :  `arrange(air_mess, Day, Month)` and see the difference.
+
+---
+## Create new columns using `mutate`
+
+Compute and add new columns
+
+`mutate(data, newVar1 = expression1, newVar2 = expression2, ...)`
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/mutate.png" height=100% width=100%&gt;
+&lt;/div&gt;
+
+---
+## Create new columns using `mutate`
+
+Example: we want to convert the temperature variable form degrees Fahrenheit to degrees Celsius
+
+
+```r
+airquality_C &lt;- mutate(airquality, Temp_C = (Temp-32)*(5/9))
+head(airquality_C)
+#   Ozone Solar.R Wind Temp Month Day   Temp_C
+# 1    41     190  7.4   67     5   1 19.44444
+# 2    36     118  8.0   72     5   2 22.22222
+# 3    12     149 12.6   74     5   3 23.33333
+# 4    18     313 11.5   62     5   4 16.66667
+# 5    NA      NA 14.3   56     5   5 13.33333
+# 6    28      NA 14.9   66     5   6 18.88889
+```
+
+---
+## `magrittr`
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/magrittr.png" height=40% width=40%&gt;
+&lt;/div&gt;
+
+Usually data manipulation require multiple steps, the magrittr package offers a pipe operator `%&gt;%` which allows us to link multiple operations
+
+---
+## `magrittr`
+
+
+```r
+install.packages("magrittr")
+require(magrittr)
+```
+
+---
+## `magrittr`
+
+Suppose we want to analyse only the month of June, then convert the temperature variable to degrees Celsius. We can create the required data frame by combining 2 dplyr verbs we learned
+
+
+```r
+june_C &lt;- mutate(filter(airquality, Month == 6),
+                 Temp_C = (Temp-32)*(5/9))
+```
+
+As we add more operations, wrapping functions one inside the other becomes increasingly illegible. But, step by step would be redundant and write a lot of objects to the workspace.
+
+---
+## `magrittr`
+
+Alternatively, we can use maggritr's pipe operator to link these successive operations
+
+
+```r
+june_C &lt;- airquality %&gt;%
+    filter(Month == 6) %&gt;%
+    mutate(Temp_C = (Temp-32)*(5/9))
+```
+
+Advantages :
+
+  * less redundant code
+  * easy to read and write because functions are executed in order
+
+---
+## `dplyr::group_by` and `summarise`
+
+The `dplyr` verbs become especially powerful when they are are combined using the pipe operator `%&gt;%`.
+The following `dplyr` functions allow us to split our data frame into groups on which we can perform operations individually
+
+`group_by()` : group data frame by a factor for downstream operations (usually summarise)
+
+`summarise()` : summarise values in a data frame or in groups within the data frame with aggregation functions (e.g. `min()`, `max()`, `mean()`, etc…)
+
+---
+## `dplyr` - Split-Apply-Combine
+
+The `group_by` function is key to the Split-Apply-Combine strategy
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/split-apply-combine.png" height=100% width=100%&gt;
+&lt;/div&gt;
+
+---
+## `dplyr` - Split-Apply-Combine
+
+&lt;div style="text-align:center"&gt;
+&lt;img src="images/summarise.png" height=70% width=70%&gt;
+&lt;/div&gt;
+
+---
+## `dplyr` - Split-Apply-Combine
+
+Example: we are interested in the mean temperature and standard deviation within each month if the airquality dataset
+
+
+```r
+month_sum &lt;- airquality %&gt;%
+      group_by(Month) %&gt;%
+      summarise(mean_temp = mean(Temp),
+                sd_temp = sd(Temp))
+month_sum
+# # A tibble: 5 x 3
+#   Month mean_temp sd_temp
+#   &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+# 1     5      65.5    6.85
+# 2     6      79.1    6.60
+# 3     7      83.9    4.32
+# 4     8      84.0    6.59
+# 5     9      76.9    8.36
+```
+
+---
+## Chalenge #5
+
+Using the `ChickWeight` dataset, create a summary table which displays the difference in weight between the maximum and minimum weight of each chick in the study.
+
+Employ `dplyr` verbs and the `%&gt;%` operator.
+
+---
+## Solution #5
+
+1. Use group_by() to divide the dataset by "Chick"
+2. Use summarise() to calculate the weight gain within each group
+
+
+```r
+weight_diff &lt;- ChickWeight %&gt;%
+      group_by(Chick) %&gt;%
+      summarise(weight_diff = max(weight) - min(weight))
+head(weight_diff)
+# # A tibble: 6 x 2
+#   Chick weight_diff
+#   &lt;ord&gt;       &lt;dbl&gt;
+# 1 18             4.
+# 2 16            16.
+# 3 15            27.
+# 4 13            55.
+# 5 9             58.
+# 6 20            76.
+```
+
+---
+## Ninja challenge
+
+Using the `ChickWeight` dataset, create a summary table which displays, for each diet, the average individual difference in weight between the end and the beginning of the study.
+
+Employ `dplyr` verbs and the `%&gt;%` operator.
+
+(Hint: `first()` and `last()` may be useful here.)
+
+---
+## Ninja solution
+
+
+```r
+diet_summ &lt;- ChickWeight %&gt;%
+      group_by(Diet, Chick) %&gt;%
+      summarise(weight_gain = last(weight) - first(weight)) %&gt;%
+      group_by(Diet) %&gt;%
+      summarise(mean_gain = mean(weight_gain))
+diet_summ
+# # A tibble: 4 x 2
+#   Diet  mean_gain
+#   &lt;fct&gt;     &lt;dbl&gt;
+# 1 1          115.
+# 2 2          174.
+# 3 3          230.
+# 4 4          188.
+```
+
+---
+## More on data manipulation
+
+[Learn more on dplyr](http://r4ds.had.co.nz/transform.html)
+
+[dplyr and tidyr cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="qcbsR-macros.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

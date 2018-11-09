@@ -1410,25 +1410,162 @@ multiplot(density.gg, map.gg, violP.gg, lm.gg, cols = 2)
 # Final Challenge
   * Dataset : any (recommanded: use your dataset)
 ```{r, eval=FALSE}
-data(msleep)
-data(OrchardSprays)
+data(msleep) ; data(mtcars) ; data(OrchardSprays)
 ```
-  * geom : any
-  * aes : any
+```{r, echo=FALSE, fig.height=6, fig.width=8, fig.align='center'}
+msleep.challenge4 <- ggplot(msleep, aes(vore, log10(brainwt), fill=vore))  
+msleep.challenge4 <- msleep.challenge4 + geom_violin()
+msleep.challenge4 <- msleep.challenge4 + geom_signif(comparisons = list(c("herbi", "insecti")))
+msleep.challenge4 <- msleep.challenge4 + ggtitle("Brain weight among different vore")
+msleep.challenge4 <- msleep.challenge4 + ylab("Brain weight (log10(Kg))")
+msleep.challenge4 <- msleep.challenge4 + scale_fill_grey() 
+msleep.challenge4 <- msleep.challenge4 + theme_classic()
+msleep.challenge4 <- msleep.challenge4 + theme(axis.title.x = element_text(size = 16),
+                                               axis.title.y = element_text(size = 16),
+                                               axis.text.x = element_text(size = 12),
+                                               axis.text.y = element_text(size = 12),
+                                               plot.title = element_text(size = 16, face="bold"),
+                                               legend.title = element_text(size=14, face="bold"),
+                                               legend.text = element_text(size=12))
+#msleep.challenge4         
+
+brain_body.challenge4 <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) 
+brain_body.challenge4 <- brain_body.challenge4 + geom_point()
+brain_body.challenge4 <- brain_body.challenge4 + geom_smooth(method = lm)
+brain_body.challenge4 <- brain_body.challenge4 + ggtitle("Linear regression on bodywt ~ brainwt")
+brain_body.challenge4 <- brain_body.challenge4 + ylab("Brain weight log10(Kg)") + xlab("Body weight log10(Kg)")
+brain_body.challenge4 <- brain_body.challenge4 + theme(axis.title.x = element_text(size = 16),
+                                                       axis.title.y = element_text(size = 16),
+                                                       axis.text.x = element_text(size = 12),
+                                                       axis.text.y = element_text(size = 12),
+                                                       plot.title = element_text(size = 14, face="bold"),
+                                                       legend.title = element_text(size=14, face="bold"),
+                                                       legend.text = element_text(size=12))
+#brain_body.challenge4 
+
+
+mtcars.short <- mtcars[1:20,]
+mtcars.short.hc <- hclust(dist(mtcars.short), "complete")
+dendro.challenge4 <- ggdendrogram(mtcars.short.hc, rotate = TRUE, theme_dendro = FALSE)
+dendro.challenge4 <- dendro.challenge4 + ggtitle("Car dendro from motor spec")
+dendro.challenge4 <- dendro.challenge4 + xlab("Cars")
+dendro.challenge4 <- dendro.challenge4 + theme(axis.title.y = element_text(size = 16),
+                                               axis.title.x = element_blank(),
+                                               axis.text.x = element_blank(),
+                                               axis.text.y = element_text(size = 12),
+                                               plot.title = element_text(size = 14, face="bold"))
+#dendro.challenge4 
+
+data(OrchardSprays)
+Orchard.challenge4 <- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) + geom_boxplot()
+Orchard.challenge4 <- Orchard.challenge4 + ggtitle("Decrease of Orchad bees with different treatments")
+Orchard.challenge4 <- Orchard.challenge4 + ylab("Orchad bees decrese")
+Orchard.challenge4 <- Orchard.challenge4 + theme(axis.title.y = element_text(size = 14),
+                                                 axis.title.x = element_text(size = 14),
+                                                 axis.text.x = element_text(size = 12),
+                                                 axis.text.y = element_text(size = 12),
+                                                 plot.title = element_text(size = 14, face="bold"))
+#Orchard.challenge4
+
+
+multiplot(msleep.challenge4,dendro.challenge4, brain_body.challenge4, Orchard.challenge4, cols = 2)
+
+
+```
+
 
 ---
 
-# Solution to Final Challenge
+.small[
+```{r, eval=FALSE}
+msleep.challenge4 <- ggplot(msleep, aes(vore, log10(brainwt), fill=vore))  
+msleep.challenge4 <- msleep.challenge4 + geom_violin()
+msleep.challenge4 <- msleep.challenge4 + geom_signif(comparisons = list(c("herbi", "insecti")))
+msleep.challenge4 <- msleep.challenge4 + ggtitle("Brain weight among different vore")
+msleep.challenge4 <- msleep.challenge4 + ylab("Brain weight (log10(Kg))")
+msleep.challenge4 <- msleep.challenge4 + scale_fill_grey() 
+msleep.challenge4 <- msleep.challenge4 + theme_classic()
+msleep.challenge4 <- msleep.challenge4 + theme(axis.title.x = element_text(size = 16),
+                                               axis.title.y = element_text(size = 16),
+                                               axis.text.x = element_text(size = 12),
+                                               axis.text.y = element_text(size = 12),
+                                               plot.title = element_text(size = 16, face="bold"),
+                                               legend.title = element_text(size=14, face="bold"),
+                                               legend.text = element_text(size=12))
 
-```{r, fig.align='center', fig.width=4, fig.height=6}
-data(OrchardSprays)
-box.plot <- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) +
-  geom_boxplot()
-box.plot
 ```
+```{r, fig.align='center', echo=FALSE, fig.height=4, fig.width=6}
+msleep.challenge4 
+```
+]
 
 ---
 
+.small[
+```{r, eval=FALSE}
+brain_body.challenge4 <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) 
+brain_body.challenge4 <- brain_body.challenge4 + geom_point()
+brain_body.challenge4 <- brain_body.challenge4 + geom_smooth(method = lm)
+brain_body.challenge4 <- brain_body.challenge4 + ggtitle("Linear regression on bodywt ~ brainwt")
+brain_body.challenge4 <- brain_body.challenge4 + ylab("Brain weight log10(Kg)") + xlab("Body weight log10(Kg)")
+brain_body.challenge4 <- brain_body.challenge4 + theme(axis.title.x = element_text(size = 16),
+                                                       axis.title.y = element_text(size = 16),
+                                                       axis.text.x = element_text(size = 12),
+                                                       axis.text.y = element_text(size = 12),
+                                                       plot.title = element_text(size = 14, face="bold"),
+                                                       legend.title = element_text(size=14, face="bold"),
+                                                       legend.text = element_text(size=12))
+
+```
+```{r, fig.align='center', echo=FALSE, fig.height=4, fig.width=6}
+brain_body.challenge4
+```
+
+]
+
+---
+
+.small[
+```{r, fig.align='center'}
+mtcars.short <- mtcars[1:20,]
+mtcars.short.hc <- hclust(dist(mtcars.short), "complete")
+dendro.challenge4 <- ggdendrogram(mtcars.short.hc, rotate = TRUE, theme_dendro = FALSE)
+dendro.challenge4 <- dendro.challenge4 + ggtitle("Car dendro from motor spec")
+dendro.challenge4 <- dendro.challenge4 + xlab("Cars")
+dendro.challenge4 <- dendro.challenge4 + theme(axis.title.y = element_text(size = 16),
+                                               axis.title.x = element_blank(),
+                                               axis.text.x = element_blank(),
+                                               axis.text.y = element_text(size = 12),
+                                               plot.title = element_text(size = 14, face="bold"))
+dendro.challenge4 
+```
+]
+
+---
+
+.small[
+```{r, fig.align='center'}
+Orchard.challenge4 <- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) + geom_boxplot()
+Orchard.challenge4 <- Orchard.challenge4 + ggtitle("Decrease of Orchad bees with different treatments")
+Orchard.challenge4 <- Orchard.challenge4 + ylab("Orchad bees decrese")
+Orchard.challenge4 <- Orchard.challenge4 + theme(axis.title.y = element_text(size = 14),
+                                                 axis.title.x = element_text(size = 14),
+                                                 axis.text.x = element_text(size = 12),
+                                                 axis.text.y = element_text(size = 12),
+                                                 plot.title = element_text(size = 14, face="bold"))
+Orchard.challenge4
+```
+]
+
+---
+
+# Solution to final challenge
+
+```{r, fig.align='center', fig.height=6, fig.width=8}
+multiplot(msleep.challenge4,dendro.challenge4, brain_body.challenge4, Orchard.challenge4, cols = 2)
+```
+
+---
 # Miscellaneous : Dynamics plots
 .alert[**Select the Species data to display directly From the legend**]
 ```{r, echo=FALSE, fig.align='center', fig.width=11, fig.height=7.5}

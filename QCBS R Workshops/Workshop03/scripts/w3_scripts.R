@@ -10,6 +10,22 @@
 ## Last updated: November 2018
 ## Built under R version 3.3.3 
 
+#------------------------------------------------------------#
+# Package Needed
+#------------------------------------------------------------#
+
+if(!require(ggplot2)) install.packages("ggplot2")
+if(!require(ggplot2)) library(ggplot2)
+
+if(!require(knitr)) install.packages("knitr")
+if(!require(knitr)) library(knitr)
+
+if(!require(tidyr)) install.packages("tidyr")
+if(!require(tidyr)) library(tidyr)
+
+if(!require(dplyr)) install.packages("dplyr")
+if(!require(dplyr)) library(dplyr)
+
 if(!require(magrittr)) install.packages("magrittr")
 if(!require(magrittr)) library(magrittr)
 
@@ -37,11 +53,11 @@ if(!require(vioplot)) library(vioplot)
 if(!require(ggpubr)) install.packages("ggpubr")
 if(!require(ggpubr)) library(ggpubr)
 
-if(!require(ggsignif)) install.packages("ggsignif")
-if(!require(ggsignif)) library(ggsignif)
+if(!require(ggsignif))install.packages("ggsignif")
+if(!require(ggpubr)) library(ggpubr)
 
 if(!require(ggvegan)) install.packages("ggvegan")
-if(!require(ggvegan)) library(ggvegan)
+if(!require(ggpubr)) library(ggpubr)
 
 if(!require(ggdendro)) install.packages("ggdendro")
 if(!require(ggdendro)) library(ggdendro)
@@ -55,7 +71,10 @@ if(!require(maps)) library(maps)
 if(!require(mapproj)) install.packages("mapproj")
 if(!require(mapproj)) library(mapproj)
 
-source(file="./QCBS R Workshops/Workshop03/scripts/multiplot.R")
+if(!require(reshape2)) install.packages("reshape2")
+if(!require(reshape2)) library(reshape2)
+
+#source(file="./QCBS R Workshops/Workshop03/scripts/multiplot.R")
 
 #------------------------------------------------------------#
 # Introduction
@@ -100,7 +119,7 @@ head(iris[,c("Sepal.Length","Sepal.Width","Species")], n = 5)
 # Exploring your data (optional) 
 #------------------------------------------------------------#
 panel.hist <- function(x, ...)
-{
+  {
   usr <- par("usr"); on.exit(par(usr))
   par(usr = c(usr[1:2], 0, 1.5) )
   h <- hist(x, plot = FALSE)
@@ -110,7 +129,7 @@ panel.hist <- function(x, ...)
 }
 
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
-{
+  {
   usr <- par("usr"); on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
   r <- abs(cor(x, y, method = "pearson")) # can be "spearman"
@@ -119,7 +138,8 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
   if(missing(cex.cor)) cex <- 0.7/strwidth(txt)
   text(0.5, 0.5, txt, cex = cex * r)
 }
-betterPairs <- function(YourData, col = c("black")){
+betterPairs <- function(YourData, col = c("black"))
+  {
   return(pairs(YourData, 
                lower.panel=function(...) {
                  par(new=TRUE);
@@ -215,6 +235,10 @@ ggsave("my1rstPlot.pdf",
 #------------------------------------------------------------#
 ?pdf
 ?jpeg
+
+pdf("./graph_du_jour.pdf")
+print(my1rstPlot)
+graphics.off()
 
 #------------------------------------------------------------#
 # Aesthetic
@@ -348,6 +372,21 @@ iris.plot+ scale_color_grey()
 
 #  **Classic**
 iris.plot + scale_color_grey() + theme_classic()
+
+#------------------------------------------------------------#
+# Axis & Title tunning
+#------------------------------------------------------------#
+iris.plot + 
+  ggtitle("Relation between Sepal Lenght & Width") +
+  xlab("Sepal length (cm)") + 
+  ylab("Sepal Width (cm)") +
+  theme(axis.title.x = element_text(size = 16, colour = cbbPalette[6]),
+        axis.title.y = element_text(size = 16, colour = cbbPalette[6]),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        plot.title = element_text(size = 16, face="bold"),
+        legend.title = element_text(size=14, face="bold"),
+        legend.text = element_text(size=12))
 
 
 #------------------------------------------------------------#    

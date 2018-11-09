@@ -68,17 +68,26 @@ if(!require(vioplot)) library(vioplot)
 if(!require(ggpubr)) install.packages("ggpubr")
 if(!require(ggpubr)) library(ggpubr)
 
-if(!require(ggsignif)) library(ggsignif)
+if(!require(ggsignif))install.packages("ggsignif")
+if(!require(ggpubr)) library(ggpubr)
 
-if(!require(ggvegan)) library(ggvegan)
+if(!require(ggvegan)) install.packages("ggvegan")
+if(!require(ggpubr)) library(ggpubr)
                               
+if(!require(ggdendro)) install.packages("ggdendro")
 if(!require(ggdendro)) library(ggdendro)
 
+if(!require(rworldmap)) install.packages("rworldmap")
 if(!require(rworldmap)) library(rworldmap)
 
+if(!require(maps)) install.packages("maps")
 if(!require(maps)) library(maps)
 
+if(!require(mapproj)) install.packages("mapproj")
 if(!require(mapproj)) library(mapproj)
+
+if(!require(reshape2)) install.packages("reshape2")
+if(!require(reshape2)) library(reshape2)
 
 source(file="./scripts/multiplot.R")
 ```
@@ -251,7 +260,8 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
   if(missing(cex.cor)) cex <- 0.7/strwidth(txt)
   text(0.5, 0.5, txt, cex = cex * r)
 }
-betterPairs <- function(YourData, col = c("black")){
+betterPairs <- function(YourData, col = c("black"))
+  {
   return(pairs(YourData, 
                lower.panel=function(...) {
                  par(new=TRUE);
@@ -377,17 +387,19 @@ ggsave() will write directly to your working directory all in one line of code a
 
 ```{r, eval=FALSE}
 my1rstPlot <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) + geom_point()
-ggsave("my1rstPlot.pdf",
-       my1rstPlot,
-       height = 8.5,
-       width = 11,
-       units = "in")
+ggsave("my1rstPlot.pdf", my1rstPlot, height = 8.5, width = 11, units = "in")
 ```
 Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png, ...)
 
 Other methods to save image
 `?pdf`
 `?jpeg`
+```{r, eval=FALSE}
+pdf("./graph_du_jour.pdf")
+print(my1rstPlot)
+graphics.off()
+```
+
 
 ---
 
@@ -680,6 +692,41 @@ iris.plot + scale_color_grey() + theme_classic()
 
 ---
 
+# Fine Tunning : Title & Axis size, color, face
+
+.pull-left[
+**Default**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=6}
+iris.plot 
+```
+]
+.pull-right[
+**Axis & Title tunning**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=6}
+iris.plot + 
+  ggtitle("Relation between Sepal Lenght & Width") +
+  xlab("Sepal length (cm)") + 
+  ylab("Sepal Width (cm)") +
+  theme(axis.title.x = element_text(size = 16, colour = cbbPalette[6]),
+        axis.title.y = element_text(size = 16, colour = cbbPalette[6]),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        plot.title = element_text(size = 16, face="bold"),
+        legend.title = element_text(size=14, face="bold"),
+        legend.text = element_text(size=12))
+```
+
+]
+
+---
+
+# Fine Tunning : Title & Axis size, color, face
+<div style="text-align:center">
+<img src="images/theme_iris_annotated.png" height=80% width=80%>
+</div>
+
+---
+
 # Challenge #3
 * Voici un graphique issu du set de données « tips » inclu avec la librarie "reshape2"
 ```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=6}
@@ -783,7 +830,7 @@ tips.gg <- tips.gg + ggtitle("Tips per total bill at Lunch and Dinner")
 # Result Challenge #3 : step by step
 *Theme tunning: Plot & Axis Title*
 .small[
-```{rfig.align="center", fig.width=6, fig.height=4}
+```{r, fig.align="center", fig.width=6, fig.height=4}
 tips.gg + theme(axis.title.x = element_text(size = 16, colour = cbbPalette[6]),
                            axis.title.y = element_text(size = 16, colour = cbbPalette[6]),
                            axis.text.x = element_text(size = 12),
@@ -906,6 +953,7 @@ ggplot(mpg, aes(class)) +
   geom_bar() + 
   geom_signif()
 ```
+
 ```{r, echo=FALSE}
 ir.s=iris %>% 
   group_by(Species) %>% 
@@ -1280,7 +1328,7 @@ plot(newmap, xlim = c(-92, -89)
 
 #Density Graph
 
-A density plot shows the distribution of a numerical variable nad it takes only set of numeric values as input
+A density plot shows the distribution of a numerical variable and it takes only set of numeric values as input
 .pull-left[
 ```{r, echo=FALSE}
 ggplot(iris, aes(Sepal.Length)) +
@@ -1428,7 +1476,7 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
 <div style="text-align:center">
-<img src="images/available_geom.png" height=50% width=50%>
+<img src="images/available_geom.png" height=55% width=55%>
 </div>
 
 ---
@@ -1443,4 +1491,3 @@ http://ggplot2.tidyverse.org/reference/
   <img src="images/ggplot_book.jpg"/>
   <img src="images/grammar_of_graphics.jpg"/>
 </div>
----

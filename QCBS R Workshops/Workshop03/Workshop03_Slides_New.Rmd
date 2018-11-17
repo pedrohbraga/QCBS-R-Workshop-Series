@@ -35,6 +35,9 @@ if(!require(ggplot2)) library(ggplot2)
 if(!require(knitr)) install.packages("knitr")
 if(!require(knitr)) library(knitr)
 
+if(!require(extrafont)) install.packages("extrafont")
+if(!require(extrafont)) library(extrafont)
+
 if(!require(tidyr)) install.packages("tidyr")
 if(!require(tidyr)) library(tidyr)
 
@@ -104,54 +107,114 @@ Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
       * avoid copy pasting or running the code directly from script
 
 - ggplot2 is also hosted on Github: https://github.com/hadley/ggplot2
----
-# Outline
-1. Introduction
-2. ggplot mechanics
-4. Basic plot
-5. Aesthetic
-6. Fine tunning
-  * Color
-  * Theme
-7. Geom
-  * point, line, Histogram, box plot
-  * Error bar, sgnificant value & linear regression
-8. Miscellaneous
 
 ---
-# Introduction : Why use R for plotting?
+# Outline
+1. ggplot mechanics
+<div style="text-align:center">
+<img src="images/Layers_ggplot.png" height=50% width=50%>
+</div>
+
+2. Advanced visualization 
+  * point, line, Histogram, box plot
+  * Error bar, sgnificant value & linear regression
+
+3. Fine tunning
+<div style="text-align:center">
+<img src="images/ggplot functions geoms (cheatsheet) scale.png" height=10% width=10%>
+</div>
+
+4. Saving plots
+
+5. Conclusion
+
+---
+# Learning objectives
+
+- Our aim is to teach the basics of visualization of data using R 
+- Keep in mind that representing your science visually might be unique and that no single function or package might solve your data vizualisation problems
+- Creativity is important for scientists! 
+- A basic understanding of design to communicate effectively with graphs 
+
+---
+# Visualization in science
+
+Why are we using data visualization? 
+
+What makes an effective visualization? 
+
+```{r , eval=TRUE, echo=FALSE, fig.width=10, fig.height=7}
+source(file="./scripts/uglyy.ggplot.graph.R")
+```
+
+
+---
+# Visualization in science
+
+1. Represent data analyses with statistical analysis 
+2. Research and discuss (preliminary data from the literature, summaries, formulate hypotheses)
+3. Explore your own data (exploratory data analysis, outlier detection)
+4. Communicate and report 
+  - Clearly (design principles)
+  - Precisely and accurately 
+  - Effectively and efficiently 
+
+Important questions: 
+- What do you want to communicate? 
+- To who? 
+- How to do it? (data type, data preparation)
+
+<div style="text-align:center">
+A rule of thumb: think simple — use less ink! 
+</div>
+
+
+---
+# WARNING! 
+<div style="text-align:center">
+<img src="images/warning sign.png" height=25% width=25%>
+</div>
+
+R is not made for drawings. Other drawing softwares are probably more interesting options such as GIMP or Inkscape. It is important to get the right tool for the right task! 
+
+<div style="text-align:center">
+<img src="images/inkscape_owler.png" height=35% width=35%>
+<img src="images/The_GIMP.png" height=25% width=25%>
+</div>
+
+---
+# Why use R for plotting?
 <div style="text-align:center">
 <img src="images/Divided_reproducible workflow.png" height=85% width=85%>
 </div>
+
 ---
-# Introduction : Why use R for plotting?
+# Why use R for plotting? Reproducibility
 <div style="text-align:center">
 <img src="images/Divided_reproducible workflow2.png" height=85% width=85%>
 </div>
 
----
-# Introduction : Why use R for plotting?
-Beautiful and flexible graphics!
+Be careful: reproducible science comes with effort: 
+- comment the script 
+- add relevnt information in the figures (titles, lables, captions)
 
-```{r, echo=FALSE, fig.width=10, fig.height=7}
+---
+# Why R for graphs? Beautiful and flexible
+
+Multiple packages and functions that help achieve great visualization ("base R", lattice, plotly, rgl, plot3d, maps, etc.). We will focus our workshop on `ggplot2` only. Here is an example: 
+
+<div style="text-align:center">
+<img src="images/graph.png" height=65% width=65%>
+</div>
+
+```{r, eval=FALSE, echo=FALSE, fig.width=10, fig.height=7}
 source(file="./scripts/multiExamplePlot.R")
 ```
 ---
-# Introduction
 
-- Have you created plots?
-      * What kind of plot?
-      * Which software?
+# ggplot2 is versatile
 
-- Have you plotted in R?
-      * `base` R, `lattice`?
-      * `ggplot2`?
-
----
-
-# ggplot2
-
-The `ggplot2` package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots.
+The `ggplot2` package lets you make beautiful and customizable plots of your data. It implements the grammar of graphics, an easy to use system for building plots. But it is usually slower to graph and has a different way of writing the functions: the grammar of graphics. 
 
 <div style="text-align:center">
 <img src="images/ggplot2_logo.png" height=40% width=40%>
@@ -159,7 +222,7 @@ The `ggplot2` package lets you make beautiful and customizable plots of your dat
 
 ---
 
-# Introduction
+# Grammar of Graphics (GG) basics
 
 Required packages
 ```{r, eval = FALSE}
@@ -167,21 +230,33 @@ install.packages("ggplot2")
 library(ggplot2)
 ```
 
----
-# Grammar of Graphics (GG)
-
 A graphic is made of different layers:
-  * aesthetics (`aes`)
-  * transformation
-  * geometries (`geoms`)
-  * axis (coordinate system)
-  * scales
 
-<img src="images/Layers_ggplot.png" height=100% width=100%>
+<div style="text-align:center">
+<img src="images/Layers_ggplot.png" height=90% width=90%>
+</div>
+
+We will learn how to build graphs iteratively to make it look like we want. 
+
+---
+# Grammar of Graphics (GG) basics
+These layers have specific names that you will see throughout the presentation: 
+
+  * aesthetics (`aes`): what you want to "see"
+  * geometries (`geoms`): how you want to "see" it
+  * coordinate system: the axis (cartesian, log, flipped)
+  * stats: transform the raw data (~similar to geoms)
+  * scales: fine tune how "aes" is represented
+  * labels, legends, themes, zoom, and facets
+
+<div style="text-align:center">
+<img src="images/ggplot functions geoms (cheatsheet).png" height=80% width=80%>
+</div>
 
 ---
 # A simple example with Iris database
 ```{r, eval = FALSE}
+theme_set(theme_bw())
 ggplot(data = iris,             # Data
        aes(x = Sepal.Length,    # Your X-value
            y = Sepal.Width,     # Your Y-value
@@ -189,9 +264,9 @@ ggplot(data = iris,             # Data
   geom_point() +                # Geometry
   geom_smooth(method = "lm") +  # Linear regression
   ggtitle("My fabulous graph")+ # Title
-  theme(plot.title= element_text(color="red",         #|
-                                 size=14,             #| Theme
-                                 face="bold.italic")) #| 
+  theme(plot.title= element_text(color="black", #|
+                                 size=14,       #| Theme
+                                 face="bold"))  #| 
 ```
 ```{r, echo = FALSE, fig.height=4, fig.width=5, fig.align='center'}
 ggplot(data = iris,             # Data
@@ -202,9 +277,9 @@ ggplot(data = iris,             # Data
   geom_smooth(method = "lm") +  # Linear regression
   ggtitle("My fabulous graph")+  # Title
   theme(plot.title=
-    element_text(color="red",
+    element_text(color="black",
                  size=14,
-                 face="bold.italic")) # Theme
+                 face="bold")) # Theme
 ```
 
 ---
@@ -224,20 +299,10 @@ ggplot(data = iris,             # Data
   geom_point() +                # Geometry
   ggtitle("My fabulous graph")+  # Title
   theme(plot.title=
-    element_text(color="red",
+    element_text(color="black",
                  size=14,
-                 face="bold.italic")) # Theme
+                 face="bold")) # Theme
 ```
-
----
-
-# Exploring your data
-```{r, eval=FALSE}
-betterPairs(iris)
-```
-<div style="text-align:center">
-<img src="images/betterPairs.png" height=60% width=60%>
-</div>
 
 ```{r, echo=FALSE, eval=FALSE}
 panel.hist <- function(x, ...)
@@ -379,6 +444,8 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
 <img src="images/save_image.png" height=80% width=80%>
 </div>
 
+Think about the margin of the document you are using. If you resize the image after saving it, the labels and text will change size as well which could be hard to read. 
+
 ---
 
 # Saving plots in code
@@ -389,14 +456,14 @@ ggsave() will write directly to your working directory all in one line of code a
 my1rstPlot <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) + geom_point()
 ggsave("my1rstPlot.pdf", my1rstPlot, height = 8.5, width = 11, units = "in")
 ```
-Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png, ...)
+Note that vector format (e.g., pdf, svg) are often preferable choice compared to raster format (jpeg, png, ...). Vectors format will be more flexible if the image needs modification after saving it. 
 
 Other methods to save image
 `?pdf`
 `?jpeg`
 ```{r, eval=FALSE}
 pdf("./graph_du_jour.pdf")
-print(my1rstPlot)
+print(my1rstPlot) # print function is necessary
 graphics.off()
 ```
 
@@ -1583,31 +1650,6 @@ ggplotly(p)
 ```
 
 ---
-# Miscellaneous
-  
-  * .alert[let the choice to the current speaker to show its own tricks and/or own data visu]
-
----
-
-# Miscellaneous : `qplot()` vs `ggplot()`
-
-```{r, eval = FALSE, message=FALSE, warning=FALSE}
-qplot(data = iris,
-      x = Sepal.Length,
-      xlab = "Sepal Length (mm)",
-      y = Sepal.Width,
-      ylab = "Sepal Width (mm)",
-      main = "Sepal dimensions")
-
-ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
-  geom_point() +
-  xlab("Sepal Length (mm)") +
-  ylab("Sepal Width (mm)") +
-  ggtitle("Sepal dimensions")
-```
-
----
-
 # Available elements
 
 [Data Visualization with ggplot2 Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
@@ -1616,8 +1658,9 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 <img src="images/available_geom.png" height=55% width=55%>
 </div>
 
----
+https://www.rstudio.com/resources/cheatsheets
 
+---
 # Additional resources
 
 `help(package = ggplot)`
@@ -1628,3 +1671,11 @@ http://ggplot2.tidyverse.org/reference/
   <img src="images/ggplot_book.jpg"/>
   <img src="images/grammar_of_graphics.jpg"/>
 </div>
+
+---
+# Conclusion
+
+Now that you understand the ggplot basics, you can learn more about about design and image manipulation with the "Introduction to graphic design and image manipulation with open source tools": https://qcbs.ca/wiki/graphics
+
+There might be other useful packages that can be used in conjunction with `ggplot2` that we haven't covered (e.g. ggbio, ggpmisc, geomnet, gganimate, ggnetwork, ggtree, and more!).
+https://www.ggplot2-exts.org/ggrepel.html 

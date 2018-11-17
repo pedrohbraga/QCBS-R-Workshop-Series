@@ -125,7 +125,7 @@ Code and .HTML available at http://qcbs.ca/wiki/r/workshop3
   * point, line, Histogram, box plot
   * Error bar, sgnificant value & linear regression
 
-3. Fine tunning
+3. Fine-tuning
 <div style="text-align:center">
 <img src="images/ggplot functions geoms (cheatsheet) scale.png" height=10% width=10%>
 </div>
@@ -266,7 +266,7 @@ aesthetics (`aes`) | what you want to "see", or the data mapped to aesthetics
 geometries (`geoms`) | how you want to "see" it
 coordinate system | the axis (cartesian, log, flipped)
 stats | transform the raw data (~similar to geoms)
-scales | fine tune how "aes" is represented
+scales | fine-tune how "aes" is represented
 labels, legends, themes, zoom, and facets (panels) | Other modifications
 
 <div style="text-align:center">
@@ -492,7 +492,7 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 
 ---
 
-## GGplot dynamics: Gemoetric Layer
+## GGplot dynamics: Geometric Layer
 ```{r, fig.height=4, fig.width=5}
 ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
   xlab("x = Sepal Lenght") + ylab("y = Sepal Width") + 
@@ -525,7 +525,7 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
 ---
 class: inverse, center, middle
 
-# Fine tuning your plots (aes, scales): colour, shape, sizes, etc.
+# Fine-tuning your plots (aes, scales): colour, shape, sizes, etc.
 
 ---
 ## Aesthetic
@@ -640,17 +640,17 @@ ggplot(d, aes(carat, price)) +
 ---
 class: inverse, center, middle
 
-# Fine tuning your plots (theme): make it look good!
+# Fine-tuning your plots (theme): make it look good!
 
 ---
-# Theme assist : RStudio Addin for GGplot2 design
+## Theme assist : RStudio Addin for GGplot2 design
 
 ![](./images/ggThemeAssist2.gif)
 
 ---
 class: inverse, center, middle
 
-# Fine tuning your plots (facets): arrangement of plots
+# Fine-tuning your plots (facets): arrangement of plots
 
 ---
 ## Facet : Iris
@@ -675,7 +675,7 @@ multiplot(CO2.plot.nofacet, CO2.plot.facet)
 
 ---
 
-## Fine Tunning : Colour
+## Fine-tune : Colour
   * Colour: Manual_colour
 .small[
 ```{r, eval=FALSE}
@@ -709,7 +709,7 @@ scale_colour_manual(values = c("setosa" = "red",
 
 ---
 
-## Fine tuning - Gradient colours for quantitative variable
+## Fine-tuning - Gradient colours for quantitative variable
 *quantitavie variable : Petal.Length*
 ```{r, echo=TRUE, eval=FALSE}
 iris.plot.petal <- ggplot(data=iris, aes(..., color = Petal.Length))
@@ -737,7 +737,7 @@ iris.plot.petal + scale_color_gradient(low="blue", high="red")
 
 ---
 
-## Fine tuning - colours
+## Fine-tuning - colours
   * Coulours theme
 ```{r, eval=FALSE}
 install.packages("RColorBrewer")
@@ -750,7 +750,7 @@ require(RColorBrewer)
 
 ---
 
-## Fine tuning - colours
+## Fine-tuning - colours
   * Coulours theme : RColorBrewer
 ```{r, eval=FALSE}
 iris.plot + scale_color_brewer(palette = "Dark2")
@@ -770,7 +770,7 @@ iris.plot + scale_color_brewer(palette = "Dark2")
 
 ---
 
-## Fine Tunning : Colour
+## Fine-tuning : Colour
 * Blind color friendly : presentation purpose
 ```{r}
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
@@ -784,7 +784,7 @@ show_col(cbbPalette)
 
 ---
 
-## Fine Tunning : Colour
+## Fine-tuning : Colour
   * Blind color friendly : presentation purpose
 ```{r, eval=FALSE}
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
@@ -809,7 +809,7 @@ iris.plot + scale_color_manual(values=cbbPalette)
 
 ---
 
-## Fine Tunning : Colour
+## Fine-tuning : Colour
   * black & white : grey scale for publication purpose
 ```{r, eval=FALSE}
 iris.plot + scale_color_grey()
@@ -829,7 +829,7 @@ iris.plot + scale_color_grey()
 
 ---
 
-## Fine Tunning : Theme
+## Fine-tuning : Theme
   * Theme: classic for publication purpose
 ```{r, eval=FALSE}
 iris.plot + scale_color_grey() + theme_classic()
@@ -849,7 +849,7 @@ iris.plot + scale_color_grey() + theme_classic()
 
 ---
 
-## Fine Tunning : Title & Axis size, color, face, relabeling ticks
+## Fine-tuning : Title & Axis size, color, face, relabeling ticks
 
 .pull-left[
 **Default**
@@ -877,7 +877,7 @@ iris.plot +
 
 ---
 
-## Fine Tunning : Title & Axis size, color, face
+## Fine-tuning : Title & Axis size, color, face
 <div style="text-align:center">
 <img src="images/theme_iris_annotated.png" height=80% width=80%>
 </div>

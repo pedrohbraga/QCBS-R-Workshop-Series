@@ -43,7 +43,7 @@ ob2= ob1 + theme(plot.subtitle = element_text(vjust = 1),
     legend.position = "bottom", legend.direction = "horizontal",
     text=element_text(size=16,  
                        family="Comic Sans MS"))
-ob3 = ob2 + labs(caption  =  "3 different trials of the same experiment. I used potatoes to try something new instead of the older technique. Clearly works better.")
+ob3 = ob2 + labs(caption  =  "3 different trials of the same experiment. Used potatoes to try something instead of old technique. Clearly works better.")
 print(ob3)
 #+
   # facet_wrap(~var)

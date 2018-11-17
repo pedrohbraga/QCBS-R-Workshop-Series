@@ -34,7 +34,7 @@ gblank <- gblank + theme(plot.subtitle = element_text(vjust = 1),
   labs(title = "Blank plot")
 plot(mpg~wt, data = mtcars, type = "n")
 
-summaris
+# summaris
 # Data exploration  -------------------------------------------------------
 
 # Data exploration
@@ -77,13 +77,15 @@ betterPairs(iris)
 
 
 # Histogram ---------------------------------------------------------------
-ghis <- ggplot(diamonds, aes(carat)) + geom_histogram(binwidth = .5) + labs(title = "Histogram")
+ghis <- ggplot(diamonds, aes(carat)) + 
+  geom_histogram(binwidth = .5) + labs(title = "Histogram")
 ghis
 hist(diamonds$carat)
 
 
 # Barplot  --------------------------------------------------------------------
-gbar = ggplot(mpg, aes(class)) + geom_bar()+ labs(title = "Barplot")
+gbar = ggplot(mpg, aes(class)) + 
+  geom_bar()+ labs(title = "Barplot")
 gbar = gbar + theme(plot.subtitle = element_text(vjust = 1), 
                     plot.caption = element_text(vjust = 1), 
                     axis.text.x = element_text(angle = 90))
@@ -103,11 +105,13 @@ dat <- data.frame(Group = c("S1", "S1", "S2", "S2"),
                   Sub   = c("A", "B", "A", "B"),
                   Value = c(3,5,7,8),
                   low = c(2.5,4.5,6,7.5),
-                  high = c(3.5,5.5,7,8.5))  
+                  high = c(3.5,5.5,7.2,8.5))  
 
 
 
-gbar2 = ggplot(data = dat, aes(x = Group, y = Value,fill = Sub)) +
+gbar2 = ggplot(data = dat, aes(x = Group, 
+                               y = Value,
+                               fill = Sub)) +
   geom_bar(#aes(fill = Sub), 
     stat="identity", 
     position="dodge", 
@@ -115,7 +119,8 @@ gbar2 = ggplot(data = dat, aes(x = Group, y = Value,fill = Sub)) +
   geom_errorbar(aes(ymin=low, 
                     ymax=high),
                 width = 0.1,
-                position =  position_dodge(.5), colour="black") +
+                position =  position_dodge(.5), 
+                colour="black") +
   labs(title = "Barplot") +
   scale_fill_manual(values = c("grey80", 
                                "grey20")) + 
@@ -129,7 +134,7 @@ gbar2 = ggplot(data = dat, aes(x = Group, y = Value,fill = Sub)) +
                   annotation=annotation)) +
   geom_signif(comparisons=list(c("S1", "S2")),
               annotations="***",
-              y_position = 9.3,
+              y_position = 10.5,
               tip_length = 0,
               vjust=0.4)
 
@@ -191,7 +196,7 @@ sign.bar(my.bp, select.pair = c(2,3),y =10,label = "***",mid = TRUE)
 
 
 # Linear model --------------------------------------------------------------------
-gsmooth <- ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_smooth(method = lm)+ labs(title = "Plot")
+gsmooth <- ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_smooth(method = lm,colour="black")+ labs(title = "Plot")
 gsmooth
 
 # predicts + interval
@@ -305,7 +310,9 @@ library(maps)
 states_map <- map_data("state")
 gmap <- ggplot(crimes, aes(map_id = state)) +
   geom_map(aes(fill = Murder), map = states_map) +
-  expand_limits(x = states_map$long, y = states_map$lat) + coord_map()+ labs(title = "Map")
+  expand_limits(x = states_map$long, y = states_map$lat) + 
+  coord_map()+ 
+  labs(title = "Map")
 
 library(rworldmap)
 newmap <- rworldmap::getMap(resolution = "high")
@@ -317,7 +324,9 @@ plot(newmap, xlim = c(-92, -89)
 
 
 # Density graph  ----------------------------------------------------------
-gdensity = ggplot(diamonds, aes(carat)) +geom_density()+ labs(title = "Density graph")
+gdensity = ggplot(diamonds, aes(carat)) +
+  geom_density(fill="lightblue")+ 
+  labs(title = "Density graph")
 
 plot(density(c(-20, rep(0,98), 20)), xlim = c(-4, 4),
      main = "Density graph")
@@ -341,8 +350,19 @@ plot(hc, hang = -1, main = "Dendrogram")
 # Multivariate stuff ------------------------------------------------------
 
 library(ggvegan)
-dune.pca <- rda(dune)
-gpca = autoplot(dune.pca)+ labs(title = "PCA") # your result object
+library(ggfortify)
+
+# dune.pca <- rda(dune)
+dune.s =dune[,1:15]
+dune.pca = prcomp(dune.s)
+gpca = autoplot(dune.pca,loadings = TRUE, 
+                loadings.colour = 'black', 
+                loadings.label = TRUE, 
+                loadings.label.size = 3, 
+                loading.label.color = '1',
+                loadings.label.repel = T,
+                variance_percentage = T)+ 
+  labs(title = "PCA") # your result object
 gpca
 
 
@@ -485,6 +505,91 @@ plot(dune.Manure, main = "PCA")
 
 library(grid)
 library(gridExtra)
+gblank = gblank + theme(axis.line = element_line(linetype = "solid"), 
+    axis.ticks = element_line(colour = "black", 
+        size = 1), axis.text = element_text(colour = "black"), 
+    panel.background = element_rect(fill = NA))
+ghis = ghis + theme(axis.line = element_line(linetype = "solid"), 
+                         axis.ticks = element_line(colour = "black", 
+                                                   size = 1), 
+                    axis.text = element_text(colour = "black"), 
+                         panel.background = element_rect(fill = NA))
+gbar2 = gbar2 + theme(axis.line = element_line(linetype = "solid"), 
+                    axis.ticks = element_line(colour = "black", 
+                                              size = 1), 
+                    axis.text = element_text(colour = "black"), 
+                    panel.background = element_rect(fill = NA)) 
+gsmooth = gsmooth+ theme(axis.line = element_line(linetype = "solid"), 
+                         axis.ticks = element_line(colour = "black", 
+                                                   size = 1), 
+                         axis.text = element_text(colour = "black"), 
+                         panel.background = element_rect(fill = NA)) 
+glinear.iris = glinear.iris + theme(axis.line = element_line(linetype = "solid"), 
+                       axis.ticks = element_line(colour = "black", 
+                                                 size = 1), 
+                       axis.text = element_text(colour = "black"), 
+                       panel.background = element_rect(fill = NA),
+                       legend.key = element_rect(fill = NA), 
+                       legend.background = element_rect(fill = NA)) + 
+  labs(x = "Sepal length (mm)", 
+       y = "Sepal width (mm)")
+gbox = gbox+ theme(axis.line = element_line(linetype = "solid"), 
+            axis.ticks = element_line(colour = "black", 
+                                      size = 1), 
+            axis.text = element_text(colour = "black"), 
+            panel.background = element_rect(fill = NA)) + 
+  labs(x = "Species", 
+       y = "Sepal length (mm)")
+gviolin = gviolin+ theme(axis.line = element_line(linetype = "solid"), 
+               axis.ticks = element_line(colour = "black", 
+                                         size = 1), 
+               axis.text = element_text(colour = "black"), 
+               panel.background = element_rect(fill = NA)) + 
+  labs(x = "Species", 
+       y = "Sepal length (mm)")
+gerror = gerror + theme(axis.line = element_line(linetype = "solid"), 
+              axis.ticks = element_line(colour = "black", 
+                                        size = 1), 
+              axis.text = element_text(colour = "black"), 
+              panel.background = element_rect(fill = NA),
+              legend.key = element_rect(fill = NA), 
+              legend.background = element_rect(fill = NA)) + 
+  labs(x = "Treatment", 
+       y = "Response")
+gmap = gmap+ theme(axis.line = element_line(linetype = "solid"), 
+            axis.ticks = element_line(colour = "black", 
+                                      size = 1), 
+            axis.text = element_text(colour = "black"), 
+            panel.background = element_rect(fill = "lightblue"),
+            legend.key = element_rect(fill = NA), 
+            legend.background = element_rect(fill = NA),
+            panel.grid.major = element_line(linetype = "blank"), 
+            panel.grid.minor = element_line(linetype = "blank"),
+            panel.border = element_rect(colour = "black", fill=NA, size=1)) + 
+  labs(x = "Longitude", 
+       y = "Latitude") + scale_fill_gradient(low = "yellow", high = "red")
+gdensity = gdensity+ theme(axis.line = element_line(linetype = "solid"), 
+                axis.ticks = element_line(colour = "black", 
+                                          size = 1), 
+                axis.text = element_text(colour = "black"), 
+                panel.background = element_rect(fill = NA),
+                legend.key = element_rect(fill = NA), 
+                legend.background = element_rect(fill = NA)) + 
+  labs(x = "Characteristics", 
+       y = "Density") 
+gdendro
+library("ggrepel")
+
+gpca = gpca + theme(axis.line = element_line(linetype = "solid"), 
+            axis.ticks = element_line(colour = "black", 
+                                      size = 1), 
+            axis.text = element_text(colour = "black"), 
+            panel.background = element_rect(fill = NA),
+            legend.key = element_rect(fill = NA), 
+            legend.background = element_rect(fill = NA)) + 
+  labs(x = "PC1", 
+       y = "PC2")
+
 grid.arrange(gblank, ghis, gbar2, gsmooth,
              glinear.iris, gbox, gviolin, gerror,
              gmap, gdensity, gdendro, gpca, nrow = 3)

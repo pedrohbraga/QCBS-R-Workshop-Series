@@ -524,6 +524,56 @@ gsmooth = gsmooth+ theme(axis.line = element_line(linetype = "solid"),
                                                    size = 1), 
                          axis.text = element_text(colour = "black"), 
                          panel.background = element_rect(fill = NA)) 
+
+lm_eqn <- function(df){
+  m <- lm(hwy ~ displ, df);
+  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
+                   list(a = format(coef(m)[1], digits = 2), 
+                        b = format(coef(m)[2], digits = 2), 
+                        r2 = format(summary(m)$r.squared, digits = 3)))
+  as.character(as.expression(eq));                 
+}
+gsmooth1 = gsmooth + geom_text(x = 5, y = 40, label = lm_eqn(mpg), parse = TRUE)
+library(ggpmisc)
+
+gsmooth1
+my.formula <- y ~ x
+pg <- ggplot_build(gsmooth)
+gsmooth = gsmooth + stat_poly_eq(formula = my.formula,
+             eq.with.lhs = "italic(hat(y))~`=`~",
+             aes(label = paste(stat(eq.label), 
+                               stat(adj.rr.label), 
+                               sep = "~~~")), 
+             label.x.npc = "right", label.y.npc = "top",
+             parse = TRUE) +
+  stat_fit_glance(method = 'lm', label.x.npc = "right",label.y = 32,
+                  geom = 'text', 
+                  aes(label = paste0('p = ', 
+                                     round(..p.value.., 10))))
+
+
+# 
+# lm_eqn <- function(df, y, x){
+#   formula = as.formula(sprintf('%s ~ %s', y, x))
+#   m <- lm(formula, data=df);
+#   # formating the values into a summary string to print out
+#   # ~ give some space, but equal size and comma need to be quoted
+#   eq <- substitute(italic(target) == a + b %.% italic(input)*","~~italic(r)^2~"="~r2*","~~p~"="~italic(pvalue), 
+#                    list(target = y,
+#                         input = x,
+#                         a = format(as.vector(coef(m)[1]), digits = 2), 
+#                         b = format(as.vector(coef(m)[2]), digits = 2), 
+#                         r2 = format(summary(m)$r.squared, digits = 3),
+#                         # getting the pvalue is painful
+#                         pvalue = format(summary(m)$coefficients[2,'Pr(>|t|)'], digits=1)
+#                    )
+#   )
+#   as.character(as.expression(eq));                 
+# }
+# gsmooth +   geom_text(x=3,y=40,
+#                       label=lm_eqn(mpg, 'hwy','displ'),color='red',
+#                       parse=T)
+
 glinear.iris = glinear.iris + theme(axis.line = element_line(linetype = "solid"), 
                        axis.ticks = element_line(colour = "black", 
                                                  size = 1), 

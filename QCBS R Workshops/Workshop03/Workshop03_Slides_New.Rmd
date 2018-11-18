@@ -500,7 +500,7 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 
 ---
 
-## Challenge #1 (5min)
+# Challenge #1 (5min)
 
 
   * Draw your 1rst (gg)plot:
@@ -724,7 +724,7 @@ iris.plot + scale_color_grey()
 
 
 ---
-## Challenge #2
+# Challenge #2
 
 Produce a colourful plot from built in data such as the , Iris, CO2 or the msleep dataset
 
@@ -798,6 +798,25 @@ class: inverse, center, middle
 # Fine-tuning your plots (theme): make it look good!
 
 ---
+## Fine-tuning: Theme
+  * Theme: classic for publication purpose
+```{r, eval=FALSE}
+iris.plot + scale_color_grey() + theme_classic()
+```
+.pull-left[
+**Defaut**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=6}
+iris.plot+ scale_color_grey()
+```  
+]
+.pull-right[
+**Classic**
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=6}
+iris.plot + scale_color_grey() + theme_classic()
+```  
+]
+
+---
 ## Theme assist: RStudio addin for ggGplot2
 
 ![](./images/ggThemeAssist2.gif)
@@ -828,26 +847,9 @@ CO2.plot.facet <- CO2.plot + facet_grid(~ Type) + ggtitle("Facet")
 multiplot(CO2.plot.nofacet, CO2.plot.facet)
 ```
 
----
-## Fine-tuning: Theme
-  * Theme: classic for publication purpose
-```{r, eval=FALSE}
-iris.plot + scale_color_grey() + theme_classic()
-```
-.pull-left[
-**Defaut**
-```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=6}
-iris.plot+ scale_color_grey()
-```  
-]
-.pull-right[
-**Classic**
-```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=6}
-iris.plot + scale_color_grey() + theme_classic()
-```  
-]
 
 <!-- relabeling ticks -->
+
 ---
 ## Fine-tuning: Title & Axis size, color, face
 <div style="text-align:center">
@@ -1050,8 +1052,8 @@ ggplot(iris, aes(Sepal.Length)) +
 ggplot(cars, aes(dist)) +
   geom_histogram() + ggtitle("Histogram of car distance taken to stop ") 
 ```
-
 ]
+
 ---
 
 #Histogram
@@ -1492,6 +1494,7 @@ ggplot(cars, aes(dist)) +
   geom_density() + ggtitle("Distribution of car distance taken to stop ")
 ```
 ]
+
 ---
 #Density Graph
 
@@ -1820,4 +1823,4 @@ class: inverse, center, bottom
 
 # Thank you for attending!
 
-![:scale 50%](images/qcbs_logo.png)
+![:scale 50%](images/QCBS_logo.png)

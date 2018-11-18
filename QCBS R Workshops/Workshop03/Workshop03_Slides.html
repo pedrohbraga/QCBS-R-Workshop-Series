@@ -103,7 +103,7 @@ library(ggplot2)
 
 ---
 ## Outline
-1. Your first R plot
+1. GGplot2 mechanics
     * Basic scatter plot
     * Challenge 1
 2. Grammar of graphics
@@ -164,7 +164,7 @@ qplot(data = iris,
         y = Sepal.Width)
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-7-1.png" width="384" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Basic scatter plot
@@ -176,7 +176,7 @@ qplot(data = iris,
         y = Sepal.Width)
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-8-1.png" width="384" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Less basic options
@@ -198,7 +198,7 @@ qplot(data = iris,
         main = "Sepal dimensions")
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Challenge #1
@@ -225,7 +225,7 @@ qplot(data = CO2,
         main = "CO2 uptake in grass plants")
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-11-1.png" width="384" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Tips for expressions
@@ -238,7 +238,7 @@ qplot(data = CO2, x = conc, y = uptake,
       main = expression(paste(CO[2]," uptake in grass plants")))
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-12-1.png" width="384" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Grammar of Graphics (GG)
@@ -288,7 +288,7 @@ A graphic is made of elements (layers)
 Edit any single element to produce a new graph
 e.g., by changing the coordinate system
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-13-1.png" width="816" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## How it works
@@ -336,7 +336,7 @@ basic.plot &lt;- ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width)) +
 basic.plot
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-15-1.png" width="364.8" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -350,7 +350,7 @@ basic.plot &lt;- basic.plot + aes(colour = Species, shape = Species)
 basic.plot
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Adding geometric objects
@@ -363,7 +363,7 @@ linear.smooth.plot &lt;- basic.plot + geom_smooth(method = "lm", se = F)
 linear.smooth.plot
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Challenge #2
@@ -400,7 +400,7 @@ CO2.plot
 
 Example using loess smoothing
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Adding multiple facets and groups
@@ -420,7 +420,7 @@ CO2.plot
 ---
 ## Adding multiple facets and groups
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Adding multiple facets and groups
@@ -434,7 +434,7 @@ CO2.plot &lt;- CO2.plot + facet_grid(. ~ Type)
 CO2.plot
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-23-1.png" width="528" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Adding multiple facets and groups
@@ -446,7 +446,7 @@ Now that we have 2 facets, let's observe how the CO2 uptake evolves as CO2 conce
 CO2.plot + geom_line()
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-24-1.png" width="528" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 Not good, because each treatment in each region has 3 replicates
 
 ---
@@ -460,7 +460,7 @@ CO2.plot &lt;- CO2.plot + geom_line(aes(group = Plant))
 CO2.plot
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-25-1.png" width="528" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Available elements
@@ -505,7 +505,7 @@ box.plot &lt;- ggplot(data = OrchardSprays, aes(x=treatment, y=decrease)) +
 box.plot
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-27-1.png" width="384" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Saving plots in RStudio
@@ -545,7 +545,7 @@ CO2.plot +
   scale_colour_manual(values = c("nonchilled" = "red", "chilled" = "blue"))
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Fine tuning - colours
@@ -561,7 +561,7 @@ require(RColorBrewer)
 display.brewer.all()
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Fine tuning - colours
@@ -570,7 +570,7 @@ display.brewer.all()
 CO2.plot + scale_color_brewer(palette = "Dark2")
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-32-1.png" width="480" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Fine tuning - colours
@@ -616,7 +616,7 @@ ggplot(data = iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
   scale_color_manual(values = wes_palette("GrandBudapest2"))
 ```
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-34-1.png" width="480" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Using `tidyr` to reshape data frames
@@ -1020,7 +1020,7 @@ combo.box &lt;- grid.arrange(ozone.box, solar.box, temp.box, wind.box,
 ---
 ## Exercices with `ggplot` and `tidyr`
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-51-1.png" width="480" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Exercices with `ggplot` and `tidyr`
@@ -1040,7 +1040,7 @@ weather &lt;- ggplot(air.long, aes(x = fMonth.long, y = value)) +
 ---
 ## Exercices with `ggplot` and `tidyr`
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-53-1.png" width="480" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-53-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Exercices with `ggplot` and `tidyr`
@@ -1057,7 +1057,7 @@ weather &lt;- weather +
 ---
 ## Exercices with `ggplot` and `tidyr`
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-55-1.png" width="480" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Exercices with `ggplot` and `tidyr`
@@ -1075,7 +1075,7 @@ w2 &lt;- ggplot(air.long, aes(x = Day, y = value, colour = variable)) +
 ---
 ## Exercices with `ggplot` and `tidyr`
 
-&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-57-1.png" width="480" style="display: block; margin: auto;" /&gt;
+&lt;img src="Workshop03_Slides_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Data manipulation with `dplyr`
@@ -1383,12 +1383,12 @@ head(weight_diff)
 # # A tibble: 6 x 2
 #   Chick weight_diff
 #   &lt;ord&gt;       &lt;dbl&gt;
-# 1 18             4.
-# 2 16            16.
-# 3 15            27.
-# 4 13            55.
-# 5 9             58.
-# 6 20            76.
+# 1 18              4
+# 2 16             16
+# 3 15             27
+# 4 13             55
+# 5 9              58
+# 6 20             76
 ```
 
 ---
@@ -1415,7 +1415,7 @@ diet_summ
 #   Diet  mean_gain
 #   &lt;fct&gt;     &lt;dbl&gt;
 # 1 1          115.
-# 2 2          174.
+# 2 2          174 
 # 3 3          230.
 # 4 4          188.
 ```
@@ -1463,7 +1463,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

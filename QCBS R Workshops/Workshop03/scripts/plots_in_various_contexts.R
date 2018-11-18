@@ -222,7 +222,7 @@ gbox = ggplot(data = iris, aes(Species, Sepal.Length)) +
   geom_boxplot()+ 
   labs(title = "Boxplot")+  
   geom_signif(comparisons = list(c("versicolor", "virginica")), 
-              map_signif_level=TRUE)
+              map_signif_level=TRUE) 
 gviolin = ggplot(data = iris, aes(Species, Sepal.Length)) + geom_violin()+ labs(title = "Violin plot")
 
 
@@ -338,6 +338,10 @@ plot(density(c(-20, rep(0,98), 20)), xlim = c(-4, 4),
 library("ggplot2")
 library("ggdendro")
 # Visualization using the default theme named theme_dendro()
+USArrests.short = USArrests[1:10,]
+hc <- hclust(dist(USArrests.short), "ave")
+plot(hc, hang = -1, main = "Dendrogram")
+
 gdendro = ggdendrogram(hc)+ labs(title = "Dendrogram")
 ggdendrogram(hc, rotate = TRUE, theme_dendro = FALSE)
 
@@ -477,9 +481,6 @@ plot(newmap, xlim = c(-92, -89)
 
 plot(density(c(-20, rep(0,98), 20)), xlim = c(-4, 4),main = "Density graph")
 
-USArrests.short = USArrests[1:10,]
-hc <- hclust(dist(USArrests.short), "ave")
-plot(hc, hang = -1, main = "Dendrogram")
 
 
 # require(graphics); require(grDevices)
@@ -546,7 +547,7 @@ gsmooth = gsmooth + stat_poly_eq(formula = my.formula,
                                sep = "~~~")), 
              label.x.npc = "right", label.y.npc = "top",
              parse = TRUE) +
-  stat_fit_glance(method = 'lm', label.x.npc = "right",label.y = 32,
+  stat_fit_glance(method = 'lm', label.x.npc = "right",label.y = 36,
                   geom = 'text', 
                   aes(label = paste0('p = ', 
                                      round(..p.value.., 10))))
@@ -640,6 +641,8 @@ gpca = gpca + theme(axis.line = element_line(linetype = "solid"),
   labs(x = "PC1", 
        y = "PC2")
 
-grid.arrange(gblank, ghis, gbar2, gsmooth,
+plot.out = grid.arrange(gblank, ghis, gbar2, gsmooth,
              glinear.iris, gbox, gviolin, gerror,
              gmap, gdensity, gdendro, gpca, nrow = 3)
+
+ggsave(file = "~/Desktop/graph3.png",width = 12,height = 9, plot.out)

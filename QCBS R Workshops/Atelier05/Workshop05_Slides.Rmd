@@ -232,12 +232,12 @@ animaux <- c(Minou, Pitou, Filou)
 ## Exercice 1 - Solution ![:cube]()
 
 ```{r}
-animaux <- c(Minou, Pitou, Filou, Brigitte)
+animaux <- c(Minou, Pitou, Filou)
 
-for(val in 1:4) {
-  if(animaux[val] == 'chat') {
+for(val in 1:3) {
+  if(animaux[val] == "chat") {
     print("meow")
-  }else if(animaux[val] == 'chien') {
+  }else if(animaux[val] == "chien") {
     print("woof")
   }else print("quoi?")
 }
@@ -893,6 +893,16 @@ Using what you learned previously on flow control, create a function `print_anim
 
 À l'aide de vos nouvelles connaissances sur les structures de contrôle, créez une fonction appelée `print_animal` qui prend un `animal` en argument et sort les résultats suivants:
 
+```{r, echo=F}
+print_animal <- function(animal) {
+  if (animal == "dog") {
+    print("woof")
+  } else if (animal == "cat") {
+    print("meow")
+  }
+}
+```
+
 ```{r}
 Scruffy <- "dog"
 Paws <- "cat"
@@ -916,18 +926,9 @@ print_animal <- function(animal) {
 }
 ```
 
-```{r, echo=F}
-print_animal <- function(animal) {
-  if (animal == "dog") {
-    print("woof")
-  } else if (animal == "cat") {
-    print("meow")
-  }
-}
-```
-<br>
-<br>
 
+<br>
+<br>
 ---
 ## Valeurs par défaut dans une fonction
 

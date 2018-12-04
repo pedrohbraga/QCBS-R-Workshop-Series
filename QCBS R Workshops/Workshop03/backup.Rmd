@@ -357,7 +357,7 @@ Type|Numeric|Numeric|Numeric|Numeric|Categoric
 
 ---
 
-## Exploring your data structure
+Exploring your data structure
 ```{r, echo=FALSE, eval=T}
 panel.hist <- function(x, ...)
 {

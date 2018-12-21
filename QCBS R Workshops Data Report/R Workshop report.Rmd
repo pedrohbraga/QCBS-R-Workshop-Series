@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = FALSE,
 ```
 
 ```{r Preparation,message=FALSE}
-load("~/École/École - En cours!/McGill University/McGill/QCBS — McGill/R workshops/QCBS_rworshops_data/stats.data.workshops.QCBS.RData", verbose = F)
+load("stats.data.workshops.QCBS.RData", verbose = F)
 
 library(dplyr,verbose = FALSE,warn.conflicts = FALSE)
 library(tidyr,verbose = FALSE,warn.conflicts = FALSE)

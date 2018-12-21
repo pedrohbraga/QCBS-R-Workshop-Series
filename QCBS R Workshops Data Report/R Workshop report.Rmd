@@ -1,0 +1,352 @@
+---
+title: "QCBS R wokshops statistics 2016-2018"
+author: "Marc-Olivier Beausoleil"
+date: '2018-07-10'
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE)
+```
+
+```{r Preparation,message=FALSE}
+load("~/École/École - En cours!/McGill University/McGill/QCBS — McGill/R workshops/QCBS_rworshops_data/stats.data.workshops.QCBS.RData", verbose = F)
+
+library(dplyr,verbose = FALSE,warn.conflicts = FALSE)
+library(tidyr,verbose = FALSE,warn.conflicts = FALSE)
+library(knitr,verbose = FALSE,warn.conflicts = FALSE)
+library(ggplot2,verbose = FALSE,warn.conflicts = FALSE)
+library(vegan,verbose = FALSE,warn.conflicts = FALSE)
+  Mode <- function(x) {
+    ux <- unique(x)
+    ux[which.max(tabulate(match(x, ux)))]
+  }
+  stderr <- function(x) sqrt(var(x,na.rm=TRUE)/length(na.omit(x)))
+  
+  # In column Status: 1=cancel, 2=no-show, and NULL means attended
+clean.data.cancel.noshow = clean.data[clean.data$status %in% c(1,2 ),]
+# dim(clean.data.cancel.noshow)
+# table(clean.data.cancel.noshow$status)
+clean.data = clean.data[clean.data$status %in% c("NULL"),]
+
+# Only if you want to select a particula combination of years 
+# clean.data$year = as.numeric(clean.data$year)
+# clean.data=clean.data[clean.data$year >=2016,]
+
+# dim(clean.data)
+```
+
+# Introduction 
+
+The Québec centre for biodiversity science (QCBS) R workshop series has an great success within the network. Students from a wide range of academic institutions have participated in creating the workshops, maintaining them, training presenters of the workhops for over 4 years. At the start of the fifth year, it's a great opportuinty to look at the data that was collected over this time and provide some objectives given the diagnostic statistics in this report. 
+
+```{r Number of unique trained person, echo=FALSE}
+  ### Number of unique trained person 
+  number.unique.people = clean.data$name.corr %>% 
+    unique() %>% 
+    sort() %>% 
+    length()
+  number.unique.people.can.no.s = clean.data.cancel.noshow$name.corr %>% 
+    unique() %>% 
+    sort() %>% 
+    length()
+
+  # tab.names.cancel= table(clean.data.cancel.noshow$name.corr)
+  # max(tab.names.cancel)
+  # sort(tab.names.cancel)
+# hist(tab.names.cancel,breaks = 100)
+    
+  # this is the database looking at the number of time each name is found (each time the person registered)
+  total.number.of.times.seen.in.db= clean.data %>% 
+    group_by(name.corr) %>% 
+    summarise(count = n())
+
+  # Here is the matrix of attendance for each workshop per person 
+    mt.wk = clean.data %>% 
+      group_by(name.corr,new.title) %>% 
+      summarise(count = n()) %>% 
+      spread(new.title, count, fill = NA) 
+    mt.wk[,2:11] = decostand(mt.wk[,2:11],method = "pa",na.rm = TRUE)
+    
+    mt.wk$total = apply(mt.wk[,2:11],1, function(x) sum(x,na.rm = TRUE))
+    # my.pca=rda(decostand(mt.wk[,2:11],method = "hellinger"))
+    # biplot(my.pca)
+
+    # apply(mt.wk[,2:12],2, function(x) sum(x,na.rm = TRUE))
+    # apply(mt.wk[,2:11],2, function(x) mean(x,na.rm = TRUE))
+    mean.attendance = mean(mt.wk$total,na.rm = TRUE)
+```
+
+At it's origin, there were eight workhops created and now there are ten. They include, in order of the schedule, *1. Introduction to R*, *2. Loading and exploring data*, *3. ggplot and plyr*, *4. Linear models*, *5. Programming in R*, *6. Linear mixed models (LMMs)*, *7. Generalized linear mixed models (GLMMs)*, *8. Generalized additive models (GAMs)*, *9. Ordination*, and *10. Advanced multivariate analyses*. There is a total of `r number.unique.people` unique client that participated in the workshops since 2014. 
+
+The graph below shows the number of times a person came to 1, 2, 3, etc. workshops. As expected, there are less people that are attending all 10 workshops. 
+
+```{r frq attendance R workshops unique person}
+    barplot(table(mt.wk[,12]),
+            main = "Number of people who attended \n a certain number of workshop")
+```
+
+There is a mean attendance of `r round(mean.attendance,2)` workshops per person. 
+
+
+# *A priori* knowledge
+Our clients taking the workshops have had various experiences with the R language. Fortunately, there is also a variety of workshops available to accomodate various levels of experience. 
+
+In the following graphs, I'm showing the clients R skills, on a scale from 1 (less experienced) to 5 (proficient in R), in function of the different workshops attended. 
+
+```{r Client knowledge in R}
+# Client's knowledge in R -------------------------------------------------
+  # Here I want to show what is the "distribution" of knowledge in R depending on the workshops 
+  rlevel.work = table(clean.data$r_knowledge,
+                     clean.data$new.title)  %>% as.matrix()
+  par(mfrow=c(2,3))
+  for (i in 1:10) {
+    barplot(height = rlevel.work[,i], 
+            main = dimnames(rlevel.work)[[2]][i],
+            ylim=c(0,max(rlevel.work)))
+  }
+  
+```
+
+From the barplot, it is clear that the first few workshops are helpful for less experienced people in R. The level start to raise with the other workshops being a signal of either, an improvement of the skills from the first few workshops, or an interest for more knowledgable clients in R. 
+
+# Workshop attendance
+```{r}
+  number.work.attended = clean.data %>% 
+    group_by(name.corr) %>% 
+    summarise(n.work = n())
+  # mean number of workshops attended per person 
+  mean.attend = round(mean(number.work.attended$n.work),2)
+  # Calculate the mode 
+  mode.attend = Mode(number.work.attended$n.work)
+  sd.attend = round(sd(number.work.attended$n.work),2)
+  se.attend = stderr(number.work.attended$n.work)
+
+```
+
+The average number of workshops attended by our clients is `r mean.attend` with a standard deviation of `r sd.attend`. 
+
+The following graphs show the distribution or frequency of workshops attended by our clients. 
+
+```{r Workshop by attendance}
+# Workshop by attendance --------------------------------------------------
+  ### Here I want to know how many times peoples are attending workshops
+  # Distribution of attendance 
+  par(mfrow=c(1,2))
+  plot(density(number.work.attended$n.work), 
+       main = "Density of the number of workshops \n taken by our clients")
+  hist(number.work.attended$n.work, 
+       breaks = 20, 
+       main = "Histogram of the number of workshops \n taken by our clients")
+  # %>% mean(n.work)
+```
+
+The following graphs are showing the attendance of each workshop each year. 
+
+```{r Barplot attendance per year}
+  work.attend = table(clean.data$year,
+                      clean.data$new.title) %>%  
+    as.matrix()
+  par(mfrow=c(1,1))
+  barplot(apply(work.attend, 2, sum))
+  par(mfrow=c(2,3))
+  for (i in 1:10) {
+    barplot(height = work.attend[,i], 
+            main = dimnames(work.attend)[[2]][i], 
+            ylim =c(0,max(work.attend)))
+  }
+
+```
+
+Obviously, the two workshops that weren't created in 2014 were the Generalized additive model and the advanced multivariate analyses. Some years, like 2016, seemed very profitable for certain workshops (see programming in R). Also, plotting in R and the workshops in relation to common data analyses (which include statistical analyses) are very popular. 
+
+# Where to learn R?
+Historically, the workshops started and were held at McGill University. But other geopoles jumped in and started to advertise the QCBS R workshops. This contributed to the widespread success of the series. 
+
+The following graphs show the number of people who went to the geopole where the workshops was taught. 
+
+```{r Workshops by locations}
+# Workshops by locations --------------------------------------------------
+  work.location = table(clean.data$new.location,
+                        clean.data$new.title) %>% 
+    as.matrix()
+  
+  # table(clean.data$new.location,
+  #       clean.data$new.title,
+  #       clean.data$year)
+  # 
+  par(mfrow=c(2,3))
+  for (i in 1:10) {
+    x = barplot(height = work.location[,i], 
+            main = dimnames(work.location)[[2]][i], 
+            ylim =c(0,max(work.location)), xaxt="n")
+labs <- row.names(work.location)
+labs[1] <-"McGill/Conc."
+text(cex=1, x=x, y=-1.25, labs, xpd=TRUE, srt=90,adj = 1)
+  }
+  
+  par(mfrow=c(1,1))
+
+# Proportion of workshops in every year 
+# plot(clean.data$new.title,
+#      as.factor(clean.data$year))
+```
+
+```{r per university}
+clean.data %>% 
+  group_by(year,new.location) %>% 
+  dplyr::summarise(total.part = n()) %>% 
+  ungroup() %>% 
+  ggplot(aes(x=year,y=total.part,
+             colour= new.location, 
+             shape= new.location))+
+  geom_point(size = 3)+
+  scale_shape_manual(values=c(16:20,6:10))+
+  geom_smooth(method='lm',
+              aes(group = new.location),
+              se= F) +
+  theme_classic()
+```
+
+
+
+# Language 
+
+```{r EN FRANCAIS S_IL VOUS PLAIT}
+
+#  EN FRANCAIS S'IL VOUS PLAIT! -------------------------------------------
+
+lang=table(clean.data$language)
+proportion.lang = lang/sum(lang)
+
+tab.geopole.lang = table(clean.data$language,
+                         clean.data$new.location)
+tab.lang.work = table(clean.data$language,
+                      clean.data$new.title)
+
+
+data.with.unique.names = clean.data %>% 
+  dplyr::distinct(name.corr, .keep_all = TRUE) 
+
+uni.lang = table(data.with.unique.names$language)
+proportion.uni.lang = uni.lang/sum(uni.lang)
+
+tab.geopole.lang.unique = table(data.with.unique.names$language,
+                                data.with.unique.names$new.location)
+
+nb.people.yr = table(clean.data$year)
+
+unique.name.per.year = clean.data %>% 
+  group_by(year) %>%  
+  distinct(name.corr, .keep_all = TRUE)
+table(unique.name.per.year$year)
+
+table(data.with.unique.names$year)
+
+```
+
+Une des missions du Centre de la science de la biodiversité du Québec (CSBQ) est de promouvoir nos activité dans deux langues bien utile en recherche au Québec. C'est pour cette raison que je trouvais approprié de regarder la quantité d'atelier enseigné en français et en anglais. Bien entendue, les ateliers de l'université McGill sont plus courrus, mais le nombre d'université francophone participantes à l'enseignement des ateliers est plus haut. Ainsi, `r lang["English"]` personnes (`r round(proportion.lang[1],3)*100`%) ont préféré choisir un ateliers en anglais comparé à `r lang["Français"]` personnes (`r round(proportion.lang[2],3)*100`%) en français. 
+```{r}
+kable(tab.geopole.lang,
+      caption = "Which geopole is in which language")
+
+kable(tab.lang.work,
+      caption = "Which workshop is in which language")
+```
+
+# QCBS members and non-members
+
+The series of tables below summarises the number of total participants for all the workshops in the different geopoles, years, R proficiency, and the workshops themselves. 
+
+```{r QCBS Member or not}
+# QCBS Member or not? -----------------------------------------------------
+mem.ship = table(clean.data$member,
+                 clean.data$new.location)
+rownames(mem.ship)<-c("Not member","member")
+kable(mem.ship,
+      caption = "Number of participants categorized by membership and geopole")
+
+barplot(mem.ship)
+legend("topright", 
+       legend = c("Member","Non-member"), 
+       fill = c(gray.colors(2)[2],gray.colors(2)[1]))
+
+
+mem.ship.y = table(clean.data$member,
+                   clean.data$year)
+rownames(mem.ship.y)<-c("Not member","member")
+kable(mem.ship.y,
+      caption = "Number of participants categorized by membership and year")
+barplot(mem.ship.y, ylim = c(0,500))
+legend("topright", 
+       legend = c("Member","Non-member"), 
+       fill = c(gray.colors(2)[2],gray.colors(2)[1]))
+
+
+
+mem.ship.know = table(clean.data$member,
+                      clean.data$r_knowledge)
+rownames(mem.ship.know)<-c("Not member","member")
+kable(mem.ship.know,
+      caption = "Number of participants categorized by membership and their R proficiency")
+barplot(mem.ship.know)
+legend("topright", 
+       legend = c("Member","Non-member"), 
+       fill = c(gray.colors(2)[2],gray.colors(2)[1]))
+
+
+# mem.ship.lang = table(clean.data$member,clean.data$language)
+# rownames(mem.ship.lang)<-c("Not member","member")
+# kable(mem.ship.lang,
+#       caption = "Number of participants categorized by membership and their language")
+
+mem.ship.work = table(clean.data$member,
+                      clean.data$new.title)
+rownames(mem.ship.work)<-c("Not member","member")
+kable(mem.ship.work,
+      caption = "Number of participants categorized by membership and workshops")
+
+bp.msw = barplot(mem.ship.work, xaxt="n")
+labs <- paste(colnames(mem.ship.work))
+text(cex=1, x=bp.msw-0, y=-25.00, labs, xpd=TRUE, srt=90)
+legend("topright", 
+       legend = c("Member","Non-member"), 
+       fill = c(gray.colors(2)[2],gray.colors(2)[1]))
+
+```
+
+# Future directions
+
+It has been noted that there seems to be a tendency toward a reduction in the attendance. We can test that using a regression of the number of people attending the different workshops (y) as a function of time (x in years). 
+
+```{r}
+clean.data %>% 
+  group_by(year,new.title) %>% 
+  dplyr::summarise(total.part = n()) %>% 
+  ungroup() %>% 
+  ggplot(aes(x=year,y=total.part,
+             colour= new.title, 
+             shape= new.title))+
+  geom_point(size = 3)+
+  scale_shape_manual(values=c(16:20,6:10))+
+  geom_smooth(method='lm',
+              aes(group = new.title),
+              se= F) +
+  theme_classic()
+```
+
+As we can see from this graphs, it is clear that different strategies have to be put in place to revigorate the attendance of the workshops. 
+
+# Conclusion 
+
+I propose some objectives in order to revigorate the R workshops: 
+
+1. Increase the *visibility* of the workshops by making posters 
+2. Increase the activity on social media, *from* the QCBS R workshop representatives
+3. Contacting *directly* the geopoles' representatives in order to get updates and fix realistic goals about the R workshops in less attendend geopoles (be proactive) 
+4. Get more *feedback* about the workshops that would be more interesting for our clients. 
+5. Other suggestion? 
+
